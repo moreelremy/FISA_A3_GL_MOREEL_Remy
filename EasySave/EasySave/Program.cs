@@ -1,2 +1,30 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        bool leave = false;
+        while (!leave)
+        {
+            string response = Menu.AffichageMenu();
+
+            switch (response)
+            {
+                case "1":
+                    break;
+
+                case "2":
+                    break;
+
+                case "3":
+                    break;
+
+                case "4":
+                    leave = true;
+                    break;
+
+            }
+        }
+    }
+}
