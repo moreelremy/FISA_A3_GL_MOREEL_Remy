@@ -1,4 +1,4 @@
-public class Sauvegarde
+public class Save
 {
     public required string name { get; set; }
     public required string sourceRepository { get; set; }

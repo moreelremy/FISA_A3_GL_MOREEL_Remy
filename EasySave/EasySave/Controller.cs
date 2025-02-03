@@ -7,11 +7,12 @@ class Program
         bool leave = false;
         while (!leave)
         {
-            string response = View.AffichageMenu();
+            string response = View.ShowMenu();
 
             switch (response)
             {
                 case "1":
+                    Console.WriteLine("fait");
                     break;
 
                 case "2":

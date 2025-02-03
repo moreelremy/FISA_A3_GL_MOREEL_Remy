@@ -1,4 +1,4 @@
-public class Sauvegarde
+public class SaveRepository
 {
 
     public void AjouterSave()
