@@ -7,7 +7,7 @@ class Program
         bool leave = false;
         while (!leave)
         {
-            string response = Menu.AffichageMenu();
+            string response = View.AffichageMenu();
 
             switch (response)
             {

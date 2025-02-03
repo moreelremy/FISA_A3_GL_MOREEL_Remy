@@ -1,16 +1,16 @@
 ﻿
 
 /// <summary>
-/// Gère la vue console du menu
+/// Gère la vue
 /// </summary>
-class Menu
+class View
 {
     /// <summary>
     /// Affiche le menu (choix pour l'utilisateur)
     /// </summary>
     /// <returns>Le numéro saisie par l'utilisateur</returns>
 
-    public static string AffichageMenu()
+    public static string ShowMenu()
     {
         Console.WriteLine("______________________________");
         Console.WriteLine("[1]: feature 1");
