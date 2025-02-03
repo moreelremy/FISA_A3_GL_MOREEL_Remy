@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {}
+    "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {
+    "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
+        "projectUniqueName": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
         "projectName": "EasySave",
-        "projectPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
-        "packagesPath": "C:\\Users\\leosc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
+        "projectPath": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
+        "packagesPath": "C:\\Users\\leosc_1c7hxom\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\leosc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leosc_1c7hxom\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

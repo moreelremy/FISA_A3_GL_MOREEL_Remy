@@ -1,25 +1,44 @@
 ﻿/// <summary>
-/// Gère la vue
+/// Manages View
 /// </summary>
 class View
 {
     /// <summary>
-    /// Affiche le menu (choix pour l'utilisateur)
+    /// Displays the menu (choice for the user)
     /// </summary>
-    /// <returns>Le numéro saisie par l'utilisateur</returns>
-
+    /// <returns>The number entered by the user</returns>
     public static string ShowMenu()
     {
-        Console.WriteLine("______________________________");
-        Console.WriteLine("[1]: Créer Sauvegarde");
-        Console.WriteLine("[2]: Lancer une sauvegarde");
-        Console.WriteLine("[3]: Consulter log");
-        Console.WriteLine("[4]: Changer de langue");
-        Console.WriteLine("[5]: Quitter l'application");
-        Console.WriteLine("______________________________");
+        Console.WriteLine("╔═════════════════════════════════════╗");
+        Console.WriteLine("║              Easy Save              ║");
+        Console.WriteLine("╠═════════════════════════════════════╣");
+        Console.WriteLine($"║ [1]: {Language.GetString("CreateBackup")}");
+        Console.WriteLine($"║ [2]: {Language.GetString("StartBackup")}");
+        Console.WriteLine($"║ [3]: {Language.GetString("ViewLogs")}");
+        Console.WriteLine($"║ [4]: {Language.GetString("ChangeLanguage")}");
+        Console.WriteLine($"║ [5]: {Language.GetString("ExitApp")}");
+        Console.WriteLine("╠═════════════════════════════════════╣");
+        Console.WriteLine("╚═════════════════════════════════════╝");
 
 
-        return InputHelper.ReadLineNotNull("Veuillez entrer un numéro !  ");
+        //Console.WriteLine("______________________________");
+        //Console.WriteLine($"[1]: {Language.GetString("CreateBackup")}");
+        //Console.WriteLine($"[2]: {Language.GetString("StartBackup")}");
+        //Console.WriteLine($"[3]: {Language.GetString("ViewLogs")}");
+        //Console.WriteLine($"[4]: {Language.GetString("ChangeLanguage")}");
+        //Console.WriteLine($"[5]: {Language.GetString("ExitApp")}");
+        //Console.WriteLine("______________________________");
 
+        return InputHelper.ReadLineNotNull(Language.GetString("EnterNumber"));
     }
+
+    /// <summary>
+    /// Ask the user to choose a language
+    /// </summary>
+    /// <returns>The selected language code (EN / FR / ..)</returns>
+    public static string GetLanguageChoice()
+    {
+        return InputHelper.ReadLineNotNull(Language.GetString("LanguageChoice"));
+    }
+
 }
