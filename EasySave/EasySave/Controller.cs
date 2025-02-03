@@ -22,6 +22,9 @@ class Program
                     break;
 
                 case "4":
+                    break;
+
+                case "5":
                     leave = true;
                     break;
 

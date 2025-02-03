@@ -1,6 +1,4 @@
-﻿
-
-/// <summary>
+﻿/// <summary>
 /// Gère la vue
 /// </summary>
 class View
@@ -13,10 +11,11 @@ class View
     public static string ShowMenu()
     {
         Console.WriteLine("______________________________");
-        Console.WriteLine("[1]: feature 1");
-        Console.WriteLine("[2]: feature 2");
-        Console.WriteLine("[3]: feature 3 ...");
-        Console.WriteLine("[4]: Quitter l'application");
+        Console.WriteLine("[1]: Créer Sauvegarde");
+        Console.WriteLine("[2]: Lancer une sauvegarde");
+        Console.WriteLine("[3]: Consulter log");
+        Console.WriteLine("[4]: Changer de langue");
+        Console.WriteLine("[5]: Quitter l'application");
         Console.WriteLine("______________________________");
 
 

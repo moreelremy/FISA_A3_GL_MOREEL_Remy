@@ -12,9 +12,8 @@ class InputHelper
     /// <returns>La chaîne saisie par l'utilisateur, qui ne peut pas être vide ou composée uniquement d'espaces.</returns>
     public static string ReadLineNotNull(string message)
     {
-        string input = "";
         Console.WriteLine(message);
-        input = Console.ReadLine();
+        string input = Console.ReadLine();
 
         while (string.IsNullOrWhiteSpace(input))
         {
