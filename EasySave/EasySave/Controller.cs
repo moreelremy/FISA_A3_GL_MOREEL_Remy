@@ -12,7 +12,9 @@ class Program
             switch (response)
             {
                 case "1":
-                    Console.WriteLine("fait");
+                    Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs"));
+                    Logger.Log("Backup1", @"C:\Source\File.txt", @"D:\Backup\File.txt", 1024, 500);
+                    Console.WriteLine($"Répertoire actuel : {Directory.GetCurrentDirectory()}");
                     break;
 
                 case "2":
