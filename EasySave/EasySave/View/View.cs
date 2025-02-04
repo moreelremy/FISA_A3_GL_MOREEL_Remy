@@ -11,14 +11,12 @@ class View
     {
         Console.WriteLine("╔═════════════════════════════════════╗");
         Console.WriteLine("║              Easy Save              ║");
-        Console.WriteLine("╠═════════════════════════════════════╣");
-        Console.WriteLine($"║ [1]: {Language.GetString("CreateBackup")}");
-        Console.WriteLine($"║ [2]: {Language.GetString("StartBackup")}");
-        Console.WriteLine($"║ [3]: {Language.GetString("ViewLogs")}");
-        Console.WriteLine($"║ [4]: {Language.GetString("ChangeLanguage")}");
-        Console.WriteLine($"║ [5]: {Language.GetString("ExitApp")}");
-        Console.WriteLine("╠═════════════════════════════════════╣");
         Console.WriteLine("╚═════════════════════════════════════╝");
+        Console.WriteLine($"    [1]: {Language.GetString("CreateBackup")}");
+        Console.WriteLine($"    [2]: {Language.GetString("StartBackup")}");
+        Console.WriteLine($"    [3]: {Language.GetString("ViewLogs")}");
+        Console.WriteLine($"    [4]: {Language.GetString("ChangeLanguage")}");
+        Console.WriteLine($"    [5]: {Language.GetString("ExitApp")}\n\n");
 
 
         //Console.WriteLine("______________________________");

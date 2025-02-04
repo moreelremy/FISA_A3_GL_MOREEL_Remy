@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeLanguage" xml:space="preserve">
-    <value>Change language                ║</value>
+    <value>Change language</value>
   </data>
   <data name="CreateBackup" xml:space="preserve">
-    <value>Create a backup                ║</value>
+    <value>Create a backup</value>
   </data>
   <data name="EnterNumber" xml:space="preserve">
     <value>Please enter a number :</value>
   </data>
   <data name="ExitApp" xml:space="preserve">
-    <value>Exit the application           ║</value>
+    <value>Exit the application</value>
   </data>
   <data name="InputError" xml:space="preserve">
     <value>The entry cannot be empty. Please enter a valid value.</value>
@@ -142,9 +142,9 @@
     <value>Choose a language (EN/FR/RU)</value>
   </data>
   <data name="StartBackup" xml:space="preserve">
-    <value>Start a save                   ║</value>
+    <value>Start a save</value>
   </data>
   <data name="ViewLogs" xml:space="preserve">
-    <value>View logs                      ║</value>
+    <value>View logs</value>
   </data>
 </root>

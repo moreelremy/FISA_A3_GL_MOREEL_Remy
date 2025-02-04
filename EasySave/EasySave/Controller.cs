@@ -1,6 +1,6 @@
 ﻿using System;
 
-class Program
+class Controler
 {
     static void Main(string[] args)
     {
@@ -25,7 +25,7 @@ class Program
                     break;
 
                 case "4":
-                    // Change la langue via le modèle
+                    // Change the language with the model
                     Language.SetLanguage(View.GetLanguageChoice());
                     break;
 

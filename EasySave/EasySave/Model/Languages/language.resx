@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeLanguage" xml:space="preserve">
-    <value>Изменить язык                  ║</value>
+    <value>Changer de langue</value>
   </data>
   <data name="CreateBackup" xml:space="preserve">
-    <value>Создать резервную копию        ║</value>
+    <value>Créer une sauvegarde</value>
   </data>
   <data name="EnterNumber" xml:space="preserve">
-    <value>Пожалуйста, введите номер:</value>
+    <value>Veuillez entrer un numéro :</value>
   </data>
   <data name="ExitApp" xml:space="preserve">
-    <value>Выйти из приложения            ║</value>
+    <value>Quitter l'application</value>
   </data>
   <data name="InputError" xml:space="preserve">
-    <value>Запись не может быть пустой. Пожалуйста, введите допустимое значение.</value>
+    <value>L'entrée ne peut pas être vide. Veuillez entrer une valeur valide.</value>
   </data>
   <data name="InvalidChoice" xml:space="preserve">
-    <value>Неверный выбор!</value>
+    <value>Choix invalide !</value>
   </data>
   <data name="LanguageChanged" xml:space="preserve">
-    <value>Язык изменен на</value>
+    <value>Langue changée en</value>
   </data>
   <data name="LanguageChoice" xml:space="preserve">
-    <value>Выберите язык (EN/FR/RU)</value>
+    <value>Choisissez une langue (EN/FR/RU)</value>
   </data>
   <data name="StartBackup" xml:space="preserve">
-    <value>Начать сохранение              ║</value>
+    <value>Lancer une sauvegarde</value>
   </data>
   <data name="ViewLogs" xml:space="preserve">
-    <value>Просмотр журналов              ║</value>
+    <value>Consulter les logs</value>
   </data>
 </root>

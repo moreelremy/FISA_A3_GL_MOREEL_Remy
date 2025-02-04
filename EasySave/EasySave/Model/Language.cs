@@ -8,7 +8,7 @@ using System.Threading;
 /// </summary>
 public class Language
 {
-    private static ResourceManager rm = new ResourceManager("EasySave.Modele.Languages.language", typeof(Language).Assembly);
+    private static ResourceManager rm = new ResourceManager("EasySave.Model.Languages.language", typeof(Language).Assembly);
     private static CultureInfo cultureInfo = new CultureInfo("fr");
 
     /// <summary>
@@ -17,18 +17,20 @@ public class Language
     /// <param name="languageCode">Code that defines the interface language</param>
     public static void SetLanguage(string languageCode)
     {
-        if (languageCode == "EN")
+        switch(languageCode)
         {
-            cultureInfo = new CultureInfo("en");
-        }
-        else if (languageCode == "RU")
-        {
-            cultureInfo = new CultureInfo("ru");
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-        }
-        else
-        {
-            cultureInfo = new CultureInfo("fr");
+            case "EN":
+                cultureInfo = new CultureInfo("en");
+                break;
+
+            case "RU":
+                cultureInfo = new CultureInfo("ru");
+                Console.OutputEncoding = System.Text.Encoding.UTF8;
+                break;
+
+            default:
+                cultureInfo = new CultureInfo("fr");
+                break;
         }
 
         Thread.CurrentThread.CurrentCulture = cultureInfo;

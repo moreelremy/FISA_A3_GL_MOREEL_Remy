@@ -13,6 +13,9 @@
         "resources": {
           "en/EasySave.resources.dll": {
             "locale": "en"
+          },
+          "ru/EasySave.resources.dll": {
+            "locale": "ru"
           }
         }
       }
