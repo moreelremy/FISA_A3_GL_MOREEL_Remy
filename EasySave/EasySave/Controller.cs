@@ -15,11 +15,11 @@ class Controler
             DifferentialSave differentialSave = new DifferentialSave();
             Save save = new Save
             {
-                Name = "Backup1",
-                SourceRepository = @"C:\Source\File.txt",
-                TargetRepository = @"D:\Backup\File.txt",
-                SaveType = fullSave,
-                DateSauvegarde = DateTime.Now
+                name = "Backup1",
+                sourceRepository = @"C:\Source\File.txt",
+                targetRepository = @"D:\Backup\File.txt",
+                saveType = fullSave,
+                dateSauvegarde = DateTime.Now
             };
 
             switch (response)
