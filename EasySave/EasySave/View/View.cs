@@ -18,15 +18,6 @@ class View
         Console.WriteLine($"    [4]: {Language.GetString("ChangeLanguage")}");
         Console.WriteLine($"    [5]: {Language.GetString("ExitApp")}\n\n");
 
-
-        //Console.WriteLine("______________________________");
-        //Console.WriteLine($"[1]: {Language.GetString("CreateBackup")}");
-        //Console.WriteLine($"[2]: {Language.GetString("StartBackup")}");
-        //Console.WriteLine($"[3]: {Language.GetString("ViewLogs")}");
-        //Console.WriteLine($"[4]: {Language.GetString("ChangeLanguage")}");
-        //Console.WriteLine($"[5]: {Language.GetString("ExitApp")}");
-        //Console.WriteLine("______________________________");
-
         return InputHelper.ReadLineNotNull(Language.GetString("EnterNumber"));
     }
 
