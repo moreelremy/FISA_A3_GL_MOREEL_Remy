@@ -1,28 +1,25 @@
-﻿
-/// <summary>
-/// Permet gérer les entrées utilisateur dans la console.
-/// Evite de faire un Console.WriteLine("......") + Console.ReadLine() + Evite les message vide
+﻿/// <summary>
+/// Allows you to manage user input in the console.
+/// Avoid doing a Console.WriteLine("......") + Console.ReadLine() + Avoid empty messages
 /// </summary>
 class InputHelper
 {
     /// <summary>
-    /// Lit une entrée utilisateur non vide à partir de la console.
+    /// Reads non-empty user input from the console.
     /// </summary>
-    /// <param name="message">Le message à afficher pour demander l'entrée à l'utilisateur.</param>
-    /// <returns>La chaîne saisie par l'utilisateur, qui ne peut pas être vide ou composée uniquement d'espaces.</returns>
+    /// <param name="message">The message to display to request input from the user.</param>
+    /// <returns>The string entered by the user, which cannot be empty or all spaces.</returns>
     public static string ReadLineNotNull(string message)
     {
-        string input = "";
         Console.WriteLine(message);
-        input = Console.ReadLine();
+        string input = Console.ReadLine();
 
         while (string.IsNullOrWhiteSpace(input))
         {
-            Console.WriteLine("L'entrée ne peut pas être vide. Veuillez entrer une valeur valide.");
+            Console.WriteLine(Language.GetString("InputError"));
             input = Console.ReadLine();
         }
         return input.Trim();
     }
 
 }
-
