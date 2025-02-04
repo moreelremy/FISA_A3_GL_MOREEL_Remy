@@ -34,9 +34,7 @@ class Controler
 
                 case "3":
                     Console.WriteLine(Language.GetString("ViewLogs"));
-                    Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs"));
-                    Logger.Log("Backup1", @"C:\Source\File.txt", @"D:\Backup\File.txt", 1024, 500);
-                    Console.WriteLine($"Répertoire actuel : {Directory.GetCurrentDirectory()}");
+                    Logger.Log(save, 1024, 500);
                     break;
 
                 case "4":
@@ -52,7 +50,6 @@ class Controler
                     Console.WriteLine(Language.GetString("InvalidChoice"));
                     break;
             }
-            Console.Clear();
         }
     }
 }
