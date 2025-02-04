@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Resources;
 using System.Threading;
+using System.Xml.Linq;
 
 /// <summary>
 /// Allows you to change the interface language
@@ -41,8 +42,13 @@ public class Language
     /// </summary>
     /// <param name="key">Key linked to a character string in resources</param>
     /// <returns>The character string linked to the key</returns>
-    public static string GetString(string key)
+    public static string GetString(string key, string variable = null)
     {
-        return rm.GetString(key, cultureInfo) ?? key;
+        string template = rm.GetString(key, cultureInfo) ?? key;
+        if (variable == null)
+        {
+            return string.Format(template, "");
+        }
+        return string.Format(template, variable);
     }
 }
