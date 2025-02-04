@@ -9,6 +9,18 @@ class Program
         {
             string response = View.ShowMenu();
 
+            //Exemple de création d'une save
+            FullSave fullSave = new FullSave();
+            DifferentialSave differentialSave = new DifferentialSave();
+            Save save = new Save
+            {
+                Name = "Backup1",
+                SourceRepository = @"C:\Source\File.txt",
+                TargetRepository = @"D:\Backup\File.txt",
+                SaveType = fullSave,
+                DateSauvegarde = DateTime.Now
+            };
+
             switch (response)
             {
                 case "1":
