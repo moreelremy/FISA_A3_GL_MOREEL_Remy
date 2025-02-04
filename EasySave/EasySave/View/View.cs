@@ -30,4 +30,8 @@ class View
         return InputHelper.ReadLineNotNull(Language.GetString("LanguageChoice"));
     }
 
+    public static string CreateBackupView()
+    {
+        return InputHelper.ReadLineNotNull(Language.GetString(""));
+    }
 }

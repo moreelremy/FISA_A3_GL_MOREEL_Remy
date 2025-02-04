@@ -1,9 +1,10 @@
 ﻿using System;
 
-class Controler
+class Controller
 {
     static void Main(string[] args)
     {
+        SaveRepository saveRepository = new SaveRepository();
 
         bool leave = false;
         while (!leave)
@@ -11,7 +12,7 @@ class Controler
             string response = View.ShowMenu();
 
             //Exemple de création d'une save
-            FullSave fullSave = new FullSave();
+            /*FullSave fullSave = new FullSave();
             DifferentialSave differentialSave = new DifferentialSave();
             Save save = new Save
             {
@@ -21,11 +22,15 @@ class Controler
                 SaveType = fullSave,
                 DateSauvegarde = DateTime.Now
             };
+            */
 
             switch (response)
             {
                 case "1":
-                    Console.WriteLine(Language.GetString("BackupCreated"));
+                    Console.WriteLine(Language.GetString("SaveAdded"));
+                    saveRepository.AjouterSave();
+
+
                     break;
 
                 case "2":
@@ -52,7 +57,6 @@ class Controler
                     Console.WriteLine(Language.GetString("InvalidChoice"));
                     break;
             }
-            Console.Clear();
         }
     }
 }
