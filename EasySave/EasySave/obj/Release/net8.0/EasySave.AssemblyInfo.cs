@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EasySave")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+321c5e13bbe9b070037a71dbd524d8e041e54a7e")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2b5802ae4c1299e46d8f218bf1abaac06404fe9")]
->>>>>>> feature-SaveRepository
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5cbd20c556a83ee1df8c51a83eb8121e6088dec")]
 [assembly: System.Reflection.AssemblyProductAttribute("EasySave")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EasySave")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
