@@ -150,6 +150,15 @@
   <data name="LanguageChoice" xml:space="preserve">
     <value>Choisissez une langue (EN/FR/RU)</value>
   </data>
+  <data name="ListOfBackups" xml:space="preserve">
+    <value>Liste des sauvegardes :</value>
+  </data>
+  <data name="NoBackups" xml:space="preserve">
+    <value>Aucune sauvegarde trouvée.</value>
+  </data>
+  <data name="PressAnyKey" xml:space="preserve">
+    <value>Appuyez sur une touche pour continuer...</value>
+  </data>
   <data name="SaveAdded" xml:space="preserve">
     <value>La sauvegarde {0} à bien été ajoutée.</value>
   </data>
@@ -158,6 +167,9 @@
   </data>
   <data name="StartBackup" xml:space="preserve">
     <value>Lancer une sauvegarde</value>
+  </data>
+  <data name="ViewAllSaves" xml:space="preserve">
+    <value>Voir Sauvgardes</value>
   </data>
   <data name="ViewLogs" xml:space="preserve">
     <value>Consulter les logs</value>

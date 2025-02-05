@@ -32,7 +32,11 @@ class Controller
                     Save newSave = View.CreateBackupView();
 
                     // Add save to the model
-                    saveRepository.AjouterSave(newSave);
+                    Save addedSave = saveRepository.AjouterSave(newSave);
+
+                    // View the added save
+                    View.SaveAddedMessageView(addedSave);
+                    
 
                     break;
 
@@ -56,8 +60,20 @@ class Controller
                     break;
 
                 case "5":
+                    // View all saves
+                    List<Save> saves = saveRepository.ObtenirToutesLesSaves();
+                    View.AfficherSavesView(saves);
+
+                    Console.WriteLine(Language.GetString("PressAnyKey"));
+                    Console.ReadLine();
+                    break;
+
+                case "6":
                     leave = true;
                     break;
+
+                
+
 
                 default:
                     Console.WriteLine(Language.GetString("InvalidChoice"));
