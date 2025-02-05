@@ -1,13 +1,55 @@
+using System;
+using System.IO;
+
 public interface ISaveStrategy
 {
     void Save(Save save);
+
+    void SaveDirectory(string sourceDirectory, string targetDirectory);
 }
 
 public class FullSave : ISaveStrategy
 {
     public void Save(Save save)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (!Directory.Exists(save.sourceDirectory))
+            {
+                throw new DirectoryNotFoundException();
+            }
+            string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
+            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target));
+        }
+        catch (DirectoryNotFoundException directoryNotFound)
+        {
+            Console.WriteLine("The source directory path of the save is valid but does not exist.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
+        }
+        
+    }
+
+    public void SaveDirectory(string sourceDirectory, string targetDirectory)
+    {
+        if (!Directory.Exists(targetDirectory))
+        {
+            Directory.CreateDirectory(targetDirectory);
+        }
+
+        foreach (string file in Directory.GetFiles(sourceDirectory))
+        {
+            string target = Path.Combine(targetDirectory, Path.GetFileName(file));
+            File.Copy(file, target, true);
+        }
+
+        foreach (string directory in Directory.GetDirectories(sourceDirectory))
+        {
+            string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
+            SaveDirectory(directory, target);
+        }
     }
 }
 /*
@@ -17,8 +59,7 @@ public class incrementalsave : isavestrategy
     {
         throw new notimplementedexception();
     }
-}*/
-
+}
 public class DifferentialSave : ISaveStrategy
 {
     public void Save(Save save)
@@ -26,13 +67,13 @@ public class DifferentialSave : ISaveStrategy
         throw new NotImplementedException();
     }
 }
+*/
 
 public class Save
 {
     public required string name { get; set; }
-    public required string sourceRepository { get; set; }
-    public required string targetRepository { get; set; }
-    public ISaveStrategy saveType { get; set; }
-    public DateTime dateSauvegarde { get; set; }
+    public required string sourceDirectory { get; set; }
+    public required string targetDirectory { get; set; }
+    public required ISaveStrategy saveStrategy { get; set; }
 }
 

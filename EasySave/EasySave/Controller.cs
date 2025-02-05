@@ -6,30 +6,42 @@ class Controler
     {
 
         bool leave = false;
+
+        //Exemple de création d'une save
+        FullSave fullSave = new FullSave();
+        //Save Backup1 = null;
+
         while (!leave)
         {
-            string response = View.ShowMenu();
-
-            //Exemple de création d'une save
-            FullSave fullSave = new FullSave();
-            DifferentialSave differentialSave = new DifferentialSave();
-            Save save = new Save
-            {
-                name = "Backup1",
-                sourceRepository = @"C:\Source\File.txt",
-                targetRepository = @"D:\Backup\File.txt",
-                saveType = fullSave,
-                dateSauvegarde = DateTime.Now
-            };
-
+            string response = View.ShowMenu();  
+            
             switch (response)
             {
                 case "1":
+                    /*
+                    Backup1 = new Save
+                    {
+                        name = "Backup1",
+                        sourceDirectory = @"C:\TestSourceDir",
+                        targetDirectory = @"C:\TestTargetDir",
+                        saveStrategy = fullSave
+                    };
+                    */
                     Console.WriteLine(Language.GetString("BackupCreated"));
                     break;
 
                 case "2":
                     Console.WriteLine(Language.GetString("BackupStarted"));
+                    /*
+                    if (Backup1 == null)
+                    {
+                        Console.WriteLine(Language.GetString("NoBackup"));
+                        break;
+                    } else
+                    {
+                        Backup1.saveStrategy.Save(Backup1);
+                    }
+                    */
                     break;
 
                 case "3":

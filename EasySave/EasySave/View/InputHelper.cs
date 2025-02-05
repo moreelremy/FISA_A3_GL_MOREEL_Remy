@@ -12,7 +12,7 @@ class InputHelper
     public static string ReadLineNotNull(string message)
     {
         Console.WriteLine(message);
-        string input = Console.ReadLine();
+        string? input = Console.ReadLine();
 
         while (string.IsNullOrWhiteSpace(input))
         {
