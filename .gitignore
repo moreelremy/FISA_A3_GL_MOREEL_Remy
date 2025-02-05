@@ -5,3 +5,7 @@
 /.vs
 /EasySave/.vs/EasySave
 /EasySave/Logs
+
+# Build results
+[Dd]ebug/
+[Rr]elease/

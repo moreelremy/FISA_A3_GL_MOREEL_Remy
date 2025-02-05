@@ -32,7 +32,6 @@ public class Save
     public required string name { get; set; }
     public required string sourceRepository { get; set; }
     public required string targetRepository { get; set; }
-    public ISaveStrategy saveType { get; set; }
-    public DateTime dateSauvegarde { get; set; }
+    public required ISaveStrategy saveType { get; set; }
 }
 

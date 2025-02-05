@@ -18,8 +18,7 @@ class Controler
                 name = "Backup1",
                 sourceRepository = @"C:\Source\File.txt",
                 targetRepository = @"D:\Backup\File.txt",
-                saveType = fullSave,
-                dateSauvegarde = DateTime.Now
+                saveType = fullSave
             };
 
             switch (response)
