@@ -49,9 +49,9 @@ public class SaveRepository
         foreach (Save save in saves)
         {
             Console.WriteLine(save.name);
-            Console.WriteLine(save.sourceRepository);
-            Console.WriteLine(save.targetRepository);
-            Console.WriteLine(save.saveType);
+            Console.WriteLine(save.sourceDirectory);
+            Console.WriteLine(save.targetDirectory);
+            Console.WriteLine(save.saveStrategy);
             
         }
 

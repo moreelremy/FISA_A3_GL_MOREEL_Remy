@@ -46,10 +46,10 @@ class View
         {
             Console.WriteLine("────────────────────────────────────────");
             Console.WriteLine($"Name           : {save.name}");
-            Console.WriteLine($"Source         : {save.sourceRepository}");
-            Console.WriteLine($"Target         : {save.targetRepository}");
-            Console.WriteLine($"Save Type      : {(save.saveType is FullSave ? "Full Save" : "Differential Save")}");
-            Console.WriteLine($"Date Created   : {save.dateSauvegarde}");
+            Console.WriteLine($"Source         : {save.sourceDirectory}");
+            Console.WriteLine($"Target         : {save.targetDirectory}");
+            Console.WriteLine($"Save Type      : {(save.saveStrategy is FullSave ? "Full Save" : "Differential Save")}");
+            
         }
 
         Console.WriteLine("────────────────────────────────────────");
@@ -77,14 +77,14 @@ class View
         Console.WriteLine("[2] Differential Save\n");
         string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("SelectBackupType"));
 
-        ISaveStrategy saveType = typeChoice == "2" ? new DifferentialSave() : new FullSave();
+        ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
 
         return new Save
         {
             name = name,
-            sourceRepository = source,
-            targetRepository = target,
-            saveType = saveType,
+            sourceDirectory = source,
+            targetDirectory = target,
+            saveStrategy = saveStrategy,
         };
 
     }
