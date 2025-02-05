@@ -30,8 +30,31 @@ class View
         return InputHelper.ReadLineNotNull(Language.GetString("LanguageChoice"));
     }
 
-    public static string CreateBackupView()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static Save CreateBackupView()
     {
-        return InputHelper.ReadLineNotNull(Language.GetString(""));
+        string name = InputHelper.ReadLineNotNull(Language.GetString("EnterBackupName"));
+
+        string source = InputHelper.ReadLineNotNull(Language.GetString("EnterSourcePath"));
+
+        string target = InputHelper.ReadLineNotNull(Language.GetString("EnterTargetPath"));
+
+        Console.WriteLine("[1] Full Save");
+        Console.WriteLine("[2] Differential Save");
+        string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("SelectBackupType"));
+
+        ISaveStrategy saveType = typeChoice == "2" ? new DifferentialSave() : new FullSave();
+
+        return new Save
+        {
+            name = name,
+            sourceRepository = source,
+            targetRepository = target,
+            saveType = saveType,
+        };
+
     }
 }

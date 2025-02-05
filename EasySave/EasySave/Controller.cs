@@ -23,15 +23,21 @@ class Controller
                 dateSauvegarde = DateTime.Now
             };
             */
+           
 
             switch (response)
             {
                 case "1":
-                    Console.WriteLine(Language.GetString("SaveAdded"));
-                    saveRepository.AjouterSave();
+                    // Use view to create a new save
+                    Save newSave = View.CreateBackupView();
 
+                    // Add save to the model
+                    saveRepository.AjouterSave(newSave);
 
                     break;
+
+
+       
 
                 case "2":
                     Console.WriteLine(Language.GetString("BackupStarted"));

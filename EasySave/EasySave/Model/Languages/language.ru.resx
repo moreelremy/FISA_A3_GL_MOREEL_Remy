@@ -142,7 +142,7 @@
     <value>Выберите язык (EN/FR/RU)</value>
   </data>
   <data name="SaveAdded" xml:space="preserve">
-    <value>Added</value>
+    <value>Added {0} </value>
   </data>
   <data name="StartBackup" xml:space="preserve">
     <value>Начать сохранение</value>

@@ -2,35 +2,30 @@ public class SaveRepository
 {
     private List<Save> saves = new List<Save>();
 
-    public void AjouterSave()
+    public Save AjouterSave(Save save)
     {
-        var newSave = new Save
-        {
-            name = "Save1",
-            sourceRepository = "C:/Users/Utilisateur/Desktop/Source",
-            targetRepository = "C:/Users/Utilisateur/Desktop/Target",
-            saveType = new FullSave(),
-            dateSauvegarde = DateTime.Now
-        };
-
-        saves.Add(newSave);
-        Console.WriteLine($"Save '{newSave.name}' added successfully.");
+        
+        saves.Add(save);
+        return save;
 
 
     }
 
     public void SupprimerSave()
     {
+        throw new NotImplementedException();
 
     }
 
     public void RechercherSave()
     {
+        throw new NotImplementedException();
 
     }
 
     public void AfficherSave()
     {
+        throw new NotImplementedException();
 
     }
 
