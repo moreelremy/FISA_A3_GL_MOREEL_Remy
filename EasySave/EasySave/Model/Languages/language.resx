@@ -159,6 +159,10 @@
   <data name="PressAnyKey" xml:space="preserve">
     <value>Appuyez sur une touche pour continuer...</value>
   </data>
+  <data name="ReturningToMenu" xml:space="preserve">
+    <value>Retour au menu principal...
+</value>
+  </data>
   <data name="SaveAdded" xml:space="preserve">
     <value>La sauvegarde {0} à bien été ajoutée.</value>
   </data>
@@ -169,7 +173,7 @@
     <value>Lancer une sauvegarde</value>
   </data>
   <data name="ViewAllSaves" xml:space="preserve">
-    <value>Voir Sauvgardes</value>
+    <value>Voir Sauvegardes</value>
   </data>
   <data name="ViewLogs" xml:space="preserve">
     <value>Consulter les logs</value>

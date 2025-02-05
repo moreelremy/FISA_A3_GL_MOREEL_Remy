@@ -32,7 +32,6 @@ public class SaveRepository
         return saves.Count == 0;
     }
 
-
     public void SupprimerSave()
     {
         throw new NotImplementedException();

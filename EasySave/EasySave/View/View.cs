@@ -19,7 +19,7 @@ class View
         Console.WriteLine($"    [5]: {Language.GetString("ViewAllSaves")}");
         Console.WriteLine($"    [6]: {Language.GetString("ExitApp")}\n\n");
 
-        return InputHelper.ReadLineNotNull(Language.GetString("EnterNumber"));
+        return InputHelper.ReadLineNotNull(Language.GetString("EnterNumber"), allowReturnToMenu: false);
     }
 
     /// <summary>
@@ -38,11 +38,7 @@ class View
 
     public static void AfficherSavesView(List<Save> saves)
     {
-        if (saves.Count == 0)
-        {
-            Console.WriteLine(Language.GetString("NoBackups"));
-            return;
-        }
+        
 
         Console.WriteLine(Language.GetString("ListOfBackups"));
 
@@ -59,10 +55,16 @@ class View
         Console.WriteLine("────────────────────────────────────────");
     }
 
+    public static void NoBackupView()
+    {
+        Console.WriteLine(Language.GetString("NoBackups"));
+    }
+
+
     /// <summary>
-    /// 
+    /// Collects information from the user to create a new backup, With a return to menu option
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The newly created Save object</returns>
     public static Save CreateBackupView()
     {
         string name = InputHelper.ReadLineNotNull(Language.GetString("EnterBackupName"));
