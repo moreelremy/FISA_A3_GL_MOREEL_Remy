@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {}
+    "C:\\Users\\moree\\Source\\Repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {}
   },
   "projects": {
-    "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {
+    "C:\\Users\\moree\\Source\\Repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
+        "projectUniqueName": "C:\\Users\\moree\\Source\\Repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
         "projectName": "EasySave",
-        "projectPath": "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
+        "projectPath": "C:\\Users\\moree\\Source\\Repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
         "packagesPath": "C:\\Users\\moree\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\moree\\Source\\Repos\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
         "projectStyle": "PackageReference",
