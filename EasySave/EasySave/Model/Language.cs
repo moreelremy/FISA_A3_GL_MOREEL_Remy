@@ -38,7 +38,7 @@ public class Language
     }
 
     /// <summary>
-    /// Allows you to retrieve the text based on the entered key and a variable if you specify it
+    /// Allows you to retrieve the text based on the entered key
     /// </summary>
     /// <param name="key">Key linked to a character string in resources</param>
     /// <returns>The character string linked to the key</returns>

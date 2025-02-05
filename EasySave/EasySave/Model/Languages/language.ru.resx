@@ -126,10 +126,6 @@
   <data name="EnterNumber" xml:space="preserve">
     <value>Пожалуйста, введите номер:</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="EnterTargetPath" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="ExitApp" xml:space="preserve">
     <value>Выйти из приложения</value>
   </data>
@@ -144,21 +140,6 @@
   </data>
   <data name="LanguageChoice" xml:space="preserve">
     <value>Выберите язык (EN/FR/RU)</value>
-  </data>
-  <data name="ListOfBackups" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="NoBackups" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="PressAnyKey" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="SaveAdded" xml:space="preserve">
-    <value>Added {0} </value>
-  </data>
-  <data name="SelectBackupType" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
   </data>
   <data name="StartBackup" xml:space="preserve">
     <value>Начать сохранение</value>
