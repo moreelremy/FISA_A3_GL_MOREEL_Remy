@@ -38,7 +38,7 @@ class View
 
     public static void AfficherSavesView(List<Save> saves)
     {
-
+        
 
         Console.WriteLine(Language.GetString("ListOfBackups"));
 
@@ -49,7 +49,7 @@ class View
             Console.WriteLine($"Source         : {save.sourceDirectory}");
             Console.WriteLine($"Target         : {save.targetDirectory}");
             Console.WriteLine($"Save Type      : {(save.saveStrategy is FullSave ? "Full Save" : "Differential Save")}");
-
+            
         }
 
         Console.WriteLine("────────────────────────────────────────");

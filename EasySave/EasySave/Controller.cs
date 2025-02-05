@@ -1,4 +1,6 @@
-﻿class Controller
+﻿using System;
+
+class Controller
 {
     static void Main(string[] args)
     {
@@ -6,7 +8,7 @@
 
         bool leave = false;
 
-
+        
         FullSave fullSave = new FullSave();
 
         while (!leave)

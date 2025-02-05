@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 public interface ISaveStrategy
 {
     void Save(Save save);
@@ -16,7 +19,7 @@ public class FullSave : ISaveStrategy
                 throw new DirectoryNotFoundException();
             }
             string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
-            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target));
+            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target));
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -26,7 +29,7 @@ public class FullSave : ISaveStrategy
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
-
+        
     }
 
     public void SaveDirectory(string sourceDirectory, string targetDirectory)
