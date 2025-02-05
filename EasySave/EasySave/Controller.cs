@@ -8,44 +8,11 @@ class Controller
 
         bool leave = false;
 
-        //Exemple de création d'une save
+        
         FullSave fullSave = new FullSave();
-        //Save Backup1 = null;
 
         while (!leave)
         {
-<<<<<<< HEAD
-            string response = View.ShowMenu();  
-            
-            switch (response)
-            {
-                case "1":
-                    /*
-                    Backup1 = new Save
-                    {
-                        name = "Backup1",
-                        sourceDirectory = @"C:\TestSourceDir",
-                        targetDirectory = @"C:\TestTargetDir",
-                        saveStrategy = fullSave
-                    };
-                    */
-                    Console.WriteLine(Language.GetString("BackupCreated"));
-                    break;
-
-                case "2":
-                    Console.WriteLine(Language.GetString("BackupStarted"));
-                    /*
-                    if (Backup1 == null)
-                    {
-                        Console.WriteLine(Language.GetString("NoBackup"));
-                        break;
-                    } else
-                    {
-                        Backup1.saveStrategy.Save(Backup1);
-                    }
-                    */
-                    break;
-=======
             string response = View.ShowMenu();
 
             try
@@ -68,7 +35,6 @@ class Controller
                         Console.WriteLine(Language.GetString("ViewLogs"));
                         Logger.Log("Backup1", @"C:\Source\File.txt", @"D:\Backup\File.txt", 1024, 500);
                         break;
->>>>>>> feature-SaveRepository
 
                     case "4":
                         Language.SetLanguage(View.GetLanguageChoice());
@@ -109,4 +75,3 @@ class Controller
         }
     }
 }
-
