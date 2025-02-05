@@ -60,14 +60,52 @@ public class incrementalsave : isavestrategy
         throw new notimplementedexception();
     }
 }
+*/
+
 public class DifferentialSave : ISaveStrategy
 {
     public void Save(Save save)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (!Directory.Exists(save.sourceDirectory))
+            {
+                throw new DirectoryNotFoundException();
+            }
+            string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
+            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target));
+        }
+        catch (DirectoryNotFoundException directoryNotFound)
+        {
+            Console.WriteLine("The source directory path of the save is valid but does not exist.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
+        }
+    }
+    public void SaveDirectory(string sourceDirectory, string targetDirectory)
+    {
+        if (!Directory.Exists(targetDirectory))
+        {
+            Directory.CreateDirectory(targetDirectory);
+        }
+        foreach (string file in Directory.GetFiles(sourceDirectory))
+        {
+            string target = Path.Combine(targetDirectory, Path.GetFileName(file));
+            // Check if the file exists and has the same modification date
+            if (!File.Exists(target) || File.GetLastWriteTime(file) != File.GetLastWriteTime(target))
+            {
+                File.Copy(file, target, true);
+            }
+        }
+        foreach (string directory in Directory.GetDirectories(sourceDirectory))
+        {
+            string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
+            SaveDirectory(directory, target);
+        }
     }
 }
-*/
 
 public class Save
 {
