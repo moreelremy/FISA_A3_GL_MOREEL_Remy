@@ -1,8 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Resources;
-using System.Threading;
-using System.Xml.Linq;
 
 /// <summary>
 /// Allows you to change the interface language
@@ -18,7 +15,7 @@ public class Language
     /// <param name="languageCode">Code that defines the interface language</param>
     public static void SetLanguage(string languageCode)
     {
-        switch(languageCode)
+        switch (languageCode)
         {
             case "EN":
                 cultureInfo = new CultureInfo("en");
