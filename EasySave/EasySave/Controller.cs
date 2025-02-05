@@ -13,6 +13,7 @@ class Controler
             //Exemple de création d'une save
             FullSave fullSave = new FullSave();
             DifferentialSave differentialSave = new DifferentialSave();
+
             Save save = new Save
             {
                 name = "Backup1",
