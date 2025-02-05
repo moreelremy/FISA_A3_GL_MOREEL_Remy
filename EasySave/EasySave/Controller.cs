@@ -19,6 +19,8 @@ class Controller
                         Save newSave = View.CreateBackupView();
                         Save addedSave = saveRepository.AjouterSave(newSave);
                         View.SaveAddedMessageView(addedSave);
+                        Console.WriteLine(Language.GetString("PressAnyKey"));
+                        Console.ReadLine();
                         break;
 
                     case "2":
