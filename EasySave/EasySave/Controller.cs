@@ -19,7 +19,16 @@ class Controler
                     case "1":
                         Save newSave = View.CreateBackupView();
                         Save addedSave = saveRepository.AddSave(newSave);
-                        View.SaveAddedMessageView(addedSave);
+                        // Check if the save was successfully added
+                        if (addedSave != null)
+                        {
+                            View.SaveAddedMessageView(addedSave);
+                        }
+                        else
+                        {
+                            // Display a message if the save limit is reached
+                            Console.WriteLine(Language.GetString("Controller_MaxSaveLimitReached"));
+                        }
                         Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
                         break;

@@ -196,4 +196,7 @@
   <data name="Controller_ActualRepo" xml:space="preserve">
     <value>Répertoire actuel</value>
   </data>
+  <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
+    <value>Limite maximale de sauvegardes atteinte (5).</value>
+  </data>
 </root>

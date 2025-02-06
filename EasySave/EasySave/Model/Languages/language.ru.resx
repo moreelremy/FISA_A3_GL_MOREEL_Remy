@@ -195,4 +195,7 @@
   <data name="Controller_ActualRepo" xml:space="preserve">
     <value>Текущий каталог</value>
   </data>
+  <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
+    <value>Достигнут максимальный предел сохранения (5).</value>
+  </data>
 </root>

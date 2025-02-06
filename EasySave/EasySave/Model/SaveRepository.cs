@@ -6,12 +6,19 @@ public class SaveRepository
     private List<Save> saves = new List<Save>();
 
     /// <summary>
-    /// Add save and return it
+    /// Adds a save to the list if the maximum limit is not reached.
     /// </summary>
-    /// <param name="save">the returned save</param>    
-    /// <returns>the new backup </returns>
+    /// <param name="save">The save to add.</param>
+    /// <returns>The save if added successfully, otherwise null.</returns>
     public Save AddSave(Save save)
     {
+        // Check if the maximum number of saves has been reached
+        if (saves.Count >= 5)
+        {
+            return null;  // Indicate that the save was not added
+        }
+
+        // Add the save and return it
         saves.Add(save);
         return save;
     }
