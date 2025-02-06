@@ -18,7 +18,7 @@ class Controler
                 {
                     case "1":
                         Save newSave = View.CreateBackupView();
-                        Save addedSave = saveRepository.AjouterSave(newSave);
+                        Save addedSave = saveRepository.AddSave(newSave);
                         View.SaveAddedMessageView(addedSave);
                         Console.WriteLine(Language.GetString("PressAnyKey"));
                         Console.ReadLine();
@@ -41,14 +41,14 @@ class Controler
                         break;
 
                     case "5":
-                        List<Save> saves = saveRepository.ObtenirToutesLesSaves();
-                        if (saveRepository.EstVide())
+                        List<Save> saves = saveRepository.GetAllSaves();
+                        if (saveRepository.IsEmpty())
                         {
                             View.NoBackupView();
                         }
                         else
                         {
-                            View.AfficherSavesView(saves);
+                            View.ShowSavesView(saves);
                         }
                         Console.WriteLine(Language.GetString("PressAnyKey"));
                         Console.ReadLine();

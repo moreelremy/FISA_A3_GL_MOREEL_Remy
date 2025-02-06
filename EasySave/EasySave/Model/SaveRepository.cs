@@ -1,6 +1,8 @@
+using System.Xml.Linq;
+
 public class SaveRepository
 {
-    // Liste interne des sauvegardes
+    // List of Saves
     private List<Save> saves = new List<Save>();
 
     /// <summary>
@@ -8,7 +10,7 @@ public class SaveRepository
     /// </summary>
     /// <param name="save">the returned save</param>    
     /// <returns>the new backup </returns>
-    public Save AjouterSave(Save save)
+    public Save AddSave(Save save)
     {
         saves.Add(save);
         return save;
@@ -18,7 +20,7 @@ public class SaveRepository
     /// Retrieves a list of all saved Backup.
     /// </summary>
     /// <returns>Backup List</returns>
-    public List<Save> ObtenirToutesLesSaves()
+    public List<Save> GetAllSaves()
     {
         return saves;
     }
@@ -27,22 +29,39 @@ public class SaveRepository
     /// Checks if the list of backups is empty.
     /// </summary>
     /// <returns>True if no backup, otherwise False</returns>
-    public bool EstVide()
+    public bool IsEmpty()
     {
         return saves.Count == 0;
     }
 
-    public void SupprimerSave()
+    /// <summary>
+    /// Deletes a save by its name.
+    /// </summary>
+    /// <param name="name">The name of the save to delete.</param>
+    /// <returns>True if the save was deleted successfully, otherwise false.</returns>
+    public bool RemoveSave(string name)
     {
-        throw new NotImplementedException();
+        Save saveToRemove = saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        if (saveToRemove != null)
+        {
+            saves.Remove(saveToRemove);
+            return true;  // Successfully removed
+        }
+
+        return false;  // Save not found
     }
 
-    public void RechercherSave()
+    /// <summary>
+    /// Searches for a save by its name.
+    /// </summary>
+    /// <param name="name">The name of the save to search for.</param>
+    /// <returns>The found save or null if no match is found.</returns>
+    public Save SearchSave(string name)
     {
-        throw new NotImplementedException();
+        return saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
-    public void AfficherSave()
+    public void ShowSave()
     {
         foreach (Save save in saves)
         {
