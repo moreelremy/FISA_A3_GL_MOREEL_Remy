@@ -1,6 +1,6 @@
 public class SaveRepository
 {
-    // Liste interne des sauvegardes
+    // List of Saves
     private List<Save> saves = new List<Save>();
 
     /// <summary>
@@ -8,7 +8,7 @@ public class SaveRepository
     /// </summary>
     /// <param name="save">the returned save</param>    
     /// <returns>the new backup </returns>
-    public Save AjouterSave(Save save)
+    public Save AddSave(Save save)
     {
         saves.Add(save);
         return save;
@@ -18,7 +18,7 @@ public class SaveRepository
     /// Retrieves a list of all saved Backup.
     /// </summary>
     /// <returns>Backup List</returns>
-    public List<Save> ObtenirToutesLesSaves()
+    public List<Save> GetAllSaves()
     {
         return saves;
     }
@@ -27,22 +27,22 @@ public class SaveRepository
     /// Checks if the list of backups is empty.
     /// </summary>
     /// <returns>True if no backup, otherwise False</returns>
-    public bool EstVide()
+    public bool IsEmpty()
     {
         return saves.Count == 0;
     }
 
-    public void SupprimerSave()
+    public void RemoveSave()
     {
         throw new NotImplementedException();
     }
 
-    public void RechercherSave()
+    public void SearchSave()
     {
         throw new NotImplementedException();
     }
 
-    public void AfficherSave()
+    public void ShowSave()
     {
         foreach (Save save in saves)
         {

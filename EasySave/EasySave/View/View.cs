@@ -35,7 +35,7 @@ class View
     {
         Console.WriteLine($"Backup '{save.name}' has been successfully added.");
     }
-    public static void AfficherSavesView(List<Save> saves)
+    public static void ShowSavesView(List<Save> saves)
     {
 
         Console.WriteLine(Language.GetString("ListOfBackups"));
