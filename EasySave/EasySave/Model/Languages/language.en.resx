@@ -117,62 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangeLanguage" xml:space="preserve">
+  <data name="View_ChangeLanguage" xml:space="preserve">
     <value>Change language</value>
   </data>
-  <data name="CreateBackup" xml:space="preserve">
+  <data name="View_CreateBackup" xml:space="preserve">
     <value>Create a backup</value>
   </data>
-  <data name="EnterBackupName" xml:space="preserve">
+  <data name="View_EnterBackupName" xml:space="preserve">
     <value>Enter the backup name: </value>
   </data>
-  <data name="EnterNumber" xml:space="preserve">
+  <data name="View_EnterNumber" xml:space="preserve">
     <value>Please enter a number :</value>
   </data>
-  <data name="EnterSourcePath" xml:space="preserve">
+  <data name="View_EnterSourcePath" xml:space="preserve">
     <value>Enter the source path: </value>
   </data>
-  <data name="EnterTargetPath" xml:space="preserve">
+  <data name="View_EnterTargetPath" xml:space="preserve">
     <value>Enter the target path: </value>
   </data>
-  <data name="ExitApp" xml:space="preserve">
+  <data name="View_ExitApp" xml:space="preserve">
     <value>Exit the application</value>
   </data>
-  <data name="InputError" xml:space="preserve">
+  <data name="InputHelper_InputError" xml:space="preserve">
     <value>The entry cannot be empty. Please enter a valid value.</value>
   </data>
-  <data name="InvalidChoice" xml:space="preserve">
+  <data name="Controler_InvalidChoice" xml:space="preserve">
     <value>Invalid choice!</value>
   </data>
-  <data name="LanguageChanged" xml:space="preserve">
-    <value>Language changed to</value>
-  </data>
-  <data name="LanguageChoice" xml:space="preserve">
+  <data name="View_LanguageChoice" xml:space="preserve">
     <value>Choose a language (EN/FR/RU)</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ListOfBackups" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_ListOfBackups" xml:space="preserve">
+    <value>See Backups</value>
   </data>
-  <data name="NoBackups" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_NoBackups" xml:space="preserve">
+    <value>No backups found.</value>
   </data>
-  <data name="PressAnyKey" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Controler_PressAnyKey" xml:space="preserve">
+    <value>Press any key to continue...</value>
   </data>
-  <data name="ReturningToMenu" xml:space="preserve">
+  <data name="InputHelper_ReturningToMenu" xml:space="preserve">
     <value>Returning to the main menu... </value>
   </data>
-  <data name="SaveAdded" xml:space="preserve">
+  <data name="View_SaveAddedMessage" xml:space="preserve">
     <value>Save {0} has been added</value>
   </data>
-  <data name="SelectBackupType" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_SelectBackupType" xml:space="preserve">
+    <value>Select backup type</value>
   </data>
-  <data name="StartBackup" xml:space="preserve">
+  <data name="View_StartBackup" xml:space="preserve">
     <value>Start a save</value>
   </data>
-  <data name="ViewLogs" xml:space="preserve">
+  <data name="View_ViewAllSaves" xml:space="preserve">
+    <value>See Backups</value>
+  </data>
+  <data name="ControlerView_ViewLogs" xml:space="preserve">
     <value>View logs</value>
+  </data>
+  <data name="View_SaveName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="View_SaveSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="View_SaveTarget" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="View_SaveType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View_FullSave" xml:space="preserve">
+    <value>Full backup</value>
+  </data>
+  <data name="View_DifferentialSave" xml:space="preserve">
+    <value>Differential backup</value>
+  </data>
+  <data name="Controler_ActualRepo" xml:space="preserve">
+    <value>Current directory</value>
   </data>
 </root>

@@ -20,19 +20,19 @@ class Controler
                         Save newSave = View.CreateBackupView();
                         Save addedSave = saveRepository.AddSave(newSave);
                         View.SaveAddedMessageView(addedSave);
-                        Console.WriteLine(Language.GetString("PressAnyKey"));
+                        Console.WriteLine(Language.GetString("Controler_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
                     case "2":
-                        Console.WriteLine(Language.GetString("BackupStarted"));
+                        Console.WriteLine(Language.GetString("Controler_BackupStarted"));
                         break;
 
                     case "3":
-                        Console.WriteLine(Language.GetString("ViewLogs"));
+                        Console.WriteLine(Language.GetString("ControlerView_ViewLogs"));
                         Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs"));
                         Logger.Log("Backup1", @"C:\Source\File.txt", @"D:\Backup\File.txt", 1024, 500);
-                        Console.WriteLine($"Répertoire actuel : {Directory.GetCurrentDirectory()}");
+                        Console.WriteLine(Language.GetString("Controler_ActualRepo") + $" : {Directory.GetCurrentDirectory()}");
                         break;
 
                     case "4":
@@ -50,7 +50,7 @@ class Controler
                         {
                             View.ShowSavesView(saves);
                         }
-                        Console.WriteLine(Language.GetString("PressAnyKey"));
+                        Console.WriteLine(Language.GetString("Controler_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
@@ -59,7 +59,7 @@ class Controler
                         break;
 
                     default:
-                        Console.WriteLine(Language.GetString("InvalidChoice"));
+                        Console.WriteLine(Language.GetString("Controler_InvalidChoice"));
                         break;
                 }
             }
