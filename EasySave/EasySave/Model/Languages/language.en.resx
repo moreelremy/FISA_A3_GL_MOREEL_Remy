@@ -141,7 +141,7 @@
   <data name="InputHelper_InputError" xml:space="preserve">
     <value>The entry cannot be empty. Please enter a valid value.</value>
   </data>
-  <data name="Controler_InvalidChoice" xml:space="preserve">
+  <data name="Controller_InvalidChoice" xml:space="preserve">
     <value>Invalid choice!</value>
   </data>
   <data name="View_LanguageChoice" xml:space="preserve">
@@ -153,7 +153,7 @@
   <data name="View_NoBackups" xml:space="preserve">
     <value>No backups found.</value>
   </data>
-  <data name="Controler_PressAnyKey" xml:space="preserve">
+  <data name="Controller_PressAnyKey" xml:space="preserve">
     <value>Press any key to continue...</value>
   </data>
   <data name="InputHelper_ReturningToMenu" xml:space="preserve">
@@ -171,7 +171,7 @@
   <data name="View_ViewAllSaves" xml:space="preserve">
     <value>See Backups</value>
   </data>
-  <data name="ControlerView_ViewLogs" xml:space="preserve">
+  <data name="ControllerView_ViewLogs" xml:space="preserve">
     <value>View logs</value>
   </data>
   <data name="View_SaveName" xml:space="preserve">
@@ -192,7 +192,7 @@
   <data name="View_DifferentialSave" xml:space="preserve">
     <value>Differential backup</value>
   </data>
-  <data name="Controler_ActualRepo" xml:space="preserve">
+  <data name="Controller_ActualRepo" xml:space="preserve">
     <value>Current directory</value>
   </data>
 </root>
