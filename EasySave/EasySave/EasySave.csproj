@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+
   <ItemGroup>
-    <ProjectReference Include="EasySaveLogger.csproj" />
+    <Reference Include="EasySaveLogger">
+      <HintPath>..\..\EasySaveLogger\bin\Debug\net8.0\EasySaveLogger.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <PropertyGroup>

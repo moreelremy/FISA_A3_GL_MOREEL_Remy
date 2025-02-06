@@ -7,9 +7,9 @@ public static class Log
     public static void GeneralLog(Save save, int fileSize, int transferTime)
     {
 
-        string logEntry = $"{{\"timestamp\":\"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceRepository}\",\"destination\":\"{save.targetRepository}\",\"size\":{fileSize},\"timeMs\":{transferTime}}}";
+        string logEntry = $"{{\"timestamp\":\"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"destination\":\"{save.targetDirectory}\",\"size\":{fileSize},\"timeMs\":{transferTime}}}";
 
-        //EasySaveLogger.Logger.Log(logEntry);
+        EasySaveLogger.Logger.Log(logEntry);
 
     }
 }

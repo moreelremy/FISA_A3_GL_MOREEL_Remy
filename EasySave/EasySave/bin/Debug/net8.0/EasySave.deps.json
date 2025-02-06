@@ -28,14 +28,6 @@
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
-        },
-        "resources": {
-          "en/EasySaveLogger.resources.dll": {
-            "locale": "en"
-          },
-          "ru/EasySaveLogger.resources.dll": {
-            "locale": "ru"
-          }
         }
       }
     }

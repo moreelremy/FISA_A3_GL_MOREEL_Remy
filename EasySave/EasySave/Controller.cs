@@ -29,6 +29,13 @@ class Controler
                         break;
 
                     case "3":
+                        Save save = new Save
+                        {
+                            name = "Backup1",
+                            sourceDirectory = @"C:\Source\File.txt",
+                            targetDirectory = @"D:\Backup\File.txt",
+                            saveStrategy = new FullSave()
+                        };
                         Console.WriteLine(Language.GetString("ViewLogs"));
                         Log.GeneralLog(save, 1024, 500);
                         break;
