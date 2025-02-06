@@ -117,34 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangeLanguage" xml:space="preserve">
+  <data name="View_ChangeLanguage" xml:space="preserve">
     <value>Изменить язык</value>
   </data>
-  <data name="CreateBackup" xml:space="preserve">
+  <data name="View_CreateBackup" xml:space="preserve">
     <value>Создать резервную копию</value>
   </data>
-  <data name="EnterNumber" xml:space="preserve">
+  <data name="View_EnterBackupName" xml:space="preserve">
+    <value>Введите имя резервной копии</value>
+  </data>
+  <data name="View_EnterNumber" xml:space="preserve">
     <value>Пожалуйста, введите номер:</value>
   </data>
-  <data name="ExitApp" xml:space="preserve">
+  <data name="View_EnterSourcePath" xml:space="preserve">
+    <value>Введите исходный путь</value>
+  </data>
+  <data name="View_EnterTargetPath" xml:space="preserve">
+    <value>Введите целевой путь</value>
+  </data>
+  <data name="View_ExitApp" xml:space="preserve">
     <value>Выйти из приложения</value>
   </data>
-  <data name="InputError" xml:space="preserve">
+  <data name="InputHelper_InputError" xml:space="preserve">
     <value>Запись не может быть пустой. Пожалуйста, введите допустимое значение.</value>
   </data>
-  <data name="InvalidChoice" xml:space="preserve">
+  <data name="Controller_InvalidChoice" xml:space="preserve">
     <value>Неверный выбор!</value>
   </data>
-  <data name="LanguageChanged" xml:space="preserve">
-    <value>Язык изменен на</value>
-  </data>
-  <data name="LanguageChoice" xml:space="preserve">
+  <data name="View_LanguageChoice" xml:space="preserve">
     <value>Выберите язык (EN/FR/RU)</value>
   </data>
-  <data name="StartBackup" xml:space="preserve">
+  <data name="View_ListOfBackups" xml:space="preserve">
+    <value>Список резервных копий:</value>
+  </data>
+  <data name="View_NoBackups" xml:space="preserve">
+    <value>Резервные копии не найдены.</value>
+  </data>
+  <data name="Controller_PressAnyKey" xml:space="preserve">
+    <value>Нажмите любую клавишу, чтобы продолжить...</value>
+  </data>
+  <data name="InputHelper_ReturningToMenu" xml:space="preserve">
+    <value>Вернёмся в главное меню...</value>
+  </data>
+  <data name="View_SaveAddedMessage" xml:space="preserve">
+    <value>Сохранение {0} добавлено.</value>
+  </data>
+  <data name="View_SelectBackupType" xml:space="preserve">
+    <value>Выберите тип резервной копии</value>
+  </data>
+  <data name="View_StartBackup" xml:space="preserve">
     <value>Начать сохранение</value>
   </data>
-  <data name="ViewLogs" xml:space="preserve">
+  <data name="View_ViewAllSaves" xml:space="preserve">
+    <value>См. резервные копии</value>
+  </data>
+  <data name="ControllerView_ViewLogs" xml:space="preserve">
     <value>Просмотр журналов</value>
+  </data>
+  <data name="View_SaveName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="View_SaveSource" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="View_SaveTarget" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="View_SaveType" xml:space="preserve">
+    <value>Добрый</value>
+  </data>
+  <data name="View_FullSave" xml:space="preserve">
+    <value>Полное резервное копирование</value>
+  </data>
+  <data name="View_DifferentialSave" xml:space="preserve">
+    <value>Дифференциальное резервное копирование</value>
+  </data>
+  <data name="Controller_ActualRepo" xml:space="preserve">
+    <value>Текущий каталог</value>
   </data>
 </root>

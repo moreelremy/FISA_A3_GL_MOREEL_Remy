@@ -1,49 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
-      "EasySaveLogger/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/EasySaveLogger.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EasySaveLogger.dll": {}
-        }
-      }
-    }
+    "net8.0": {}
   },
-  "libraries": {
-    "EasySaveLogger/1.0.0": {
-      "type": "project",
-      "path": "EasySaveLogger.csproj",
-      "msbuildProject": "EasySaveLogger.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net8.0": [
-      "EasySaveLogger >= 1.0.0"
-    ]
+    "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\axel0\\.nuget\\packages\\": {},
+    "C:\\Users\\leosc_1c7hxom\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
+      "projectUniqueName": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
       "projectName": "EasySave",
-      "projectPath": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
-      "packagesPath": "C:\\Users\\axel0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
+      "projectPath": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySave.csproj",
+      "packagesPath": "C:\\Users\\leosc_1c7hxom\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\axel0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\leosc_1c7hxom\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -58,11 +39,7 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {
-            "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySaveLogger.csproj": {
-              "projectPath": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySaveLogger.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

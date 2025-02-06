@@ -38,17 +38,12 @@ public class Language
     }
 
     /// <summary>
-    /// Allows you to retrieve the text based on the entered key
+    /// Allows you to retrieve the text based on the entered key and a variable if you specify it
     /// </summary>
     /// <param name="key">Key linked to a character string in resources</param>
     /// <returns>The character string linked to the key</returns>
-    public static string GetString(string key, string variable = null)
+    public static string GetString(string key)
     {
-        string template = rm.GetString(key, cultureInfo) ?? key;
-        if (variable == null)
-        {
-            return string.Format(template, "");
+            return rm.GetString(key, cultureInfo) ?? key;
         }
-        return string.Format(template, variable);
-    }
 }
