@@ -64,12 +64,40 @@ class Controler
                         break;
 
                     case "6":
+                        List<Save> SavesToDelete = saveRepository.GetAllSaves();
+                        // Check if there are any saves to delete
+                        if (saveRepository.IsEmpty())
+                        {
+                            View.NoBackupView();
+                        }
+                        else
+                        {
+                            // Display saves and get user input
+                            View.DisplaySavesForDeletion(SavesToDelete);
+                            int saveIndex = View.GetSaveIndexForDeletion(SavesToDelete.Count);
+
+                            if (saveIndex != -1)
+                            {
+                                bool isDeleted = saveRepository.RemoveSaveByIndex(saveIndex);
+                                View.DisplayDeleteResult(isDeleted);
+                            }
+                        }
+
+                        Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
+                        Console.ReadLine();
+                        break;
+
+
+
+                    case "7":
                         leave = true;
                         break;
 
                     default:
                         Console.WriteLine(Language.GetString("Controller_InvalidChoice"));
                         break;
+
+                    
                 }
             }
             catch (ReturnToMenuException ex)

@@ -24,6 +24,22 @@ public class SaveRepository
     }
 
     /// <summary>
+    /// Deletes a save by its index in the list.
+    /// </summary>
+    /// <param name="index">The index of the save to delete.</param>
+    /// <returns>True if the save was deleted successfully, otherwise false.</returns>
+    public bool RemoveSaveByIndex(int index)
+    {
+        if (index >= 0 && index < saves.Count)
+        {
+            saves.RemoveAt(index);
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// Retrieves a list of all saved Backup.
     /// </summary>
     /// <returns>Backup List</returns>
@@ -41,23 +57,7 @@ public class SaveRepository
         return saves.Count == 0;
     }
 
-    /// <summary>
-    /// Deletes a save by its name.
-    /// </summary>
-    /// <param name="name">The name of the save to delete.</param>
-    /// <returns>True if the save was deleted successfully, otherwise false.</returns>
-    public bool RemoveSave(string name)
-    {
-        Save saveToRemove = saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
-        if (saveToRemove != null)
-        {
-            saves.Remove(saveToRemove);
-            return true;  // Successfully removed
-        }
-
-        return false;  // Save not found
-    }
-
+   
     /// <summary>
     /// Searches for a save by its name.
     /// </summary>

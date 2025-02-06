@@ -198,4 +198,22 @@
   <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
     <value>Maximum save limit reached (5).</value>
   </data>
+  <data name="View_RemoveSaves" xml:space="preserve">
+    <value>Remove Saves</value>
+  </data>
+  <data name="View_EnterSaveNameToDelete" xml:space="preserve">
+    <value>Enter the name of the save to delete:</value>
+  </data>
+  <data name="View_SaveDeleted" xml:space="preserve">
+    <value>Save deleted successfully. </value>
+  </data>
+  <data name="View_SaveNotFound" xml:space="preserve">
+    <value>Save not found. </value>
+  </data>
+  <data name="View_ChooseSaveToDelete" xml:space="preserve">
+    <value>Choose a save to delete: </value>
+  </data>
+  <data name="View_EnterSaveNumber" xml:space="preserve">
+    <value>Enter the number of the save to delete: </value>
+  </data>
 </root>
