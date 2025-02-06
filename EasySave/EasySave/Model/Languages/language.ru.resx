@@ -160,7 +160,7 @@
     <value>Вернёмся в главное меню...</value>
   </data>
   <data name="View_SaveAddedMessage" xml:space="preserve">
-    <value>Added {0} </value>
+    <value>Сохранение {0} добавлено.</value>
   </data>
   <data name="View_SelectBackupType" xml:space="preserve">
     <value>Выберите тип резервной копии</value>
