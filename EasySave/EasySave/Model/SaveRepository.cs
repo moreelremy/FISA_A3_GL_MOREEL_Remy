@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 public class SaveRepository
 {
     // List of Saves
@@ -32,14 +34,31 @@ public class SaveRepository
         return saves.Count == 0;
     }
 
-    public void RemoveSave()
+    /// <summary>
+    /// Deletes a save by its name.
+    /// </summary>
+    /// <param name="name">The name of the save to delete.</param>
+    /// <returns>True if the save was deleted successfully, otherwise false.</returns>
+    public bool RemoveSave(string name)
     {
-        throw new NotImplementedException();
+        Save saveToRemove = saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        if (saveToRemove != null)
+        {
+            saves.Remove(saveToRemove);
+            return true;  // Successfully removed
+        }
+
+        return false;  // Save not found
     }
 
-    public void SearchSave()
+    /// <summary>
+    /// Searches for a save by its name.
+    /// </summary>
+    /// <param name="name">The name of the save to search for.</param>
+    /// <returns>The found save or null if no match is found.</returns>
+    public Save SearchSave(string name)
     {
-        throw new NotImplementedException();
+        return saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
     public void ShowSave()
