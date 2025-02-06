@@ -16,7 +16,7 @@ class InputHelper
 
         while (string.IsNullOrWhiteSpace(input))
         {
-            Console.WriteLine(Language.GetString("InputError"));
+            Console.WriteLine(Language.GetString("InputHelper_InputError"));
             input = Console.ReadLine();
         }
         // If the user enters "9", throw an exception to return to the menu
@@ -33,5 +33,5 @@ class InputHelper
 /// </summary>
 public class ReturnToMenuException : Exception
 {
-    public ReturnToMenuException() : base(Language.GetString("ReturningToMenu")) { }
+    public ReturnToMenuException() : base(Language.GetString("InputHelper_ReturningToMenu")) { }
 }

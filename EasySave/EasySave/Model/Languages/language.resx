@@ -117,65 +117,83 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangeLanguage" xml:space="preserve">
+  <data name="View_ChangeLanguage" xml:space="preserve">
     <value>Changer de langue</value>
   </data>
-  <data name="CreateBackup" xml:space="preserve">
+  <data name="View_CreateBackup" xml:space="preserve">
     <value>Créer une sauvegarde</value>
   </data>
-  <data name="EnterBackupName" xml:space="preserve">
+  <data name="View_EnterBackupName" xml:space="preserve">
     <value>Entrez le nom de la sauvegarde</value>
   </data>
-  <data name="EnterNumber" xml:space="preserve">
+  <data name="View_EnterNumber" xml:space="preserve">
     <value>Veuillez entrer un numéro :</value>
   </data>
-  <data name="EnterSourcePath" xml:space="preserve">
+  <data name="View_EnterSourcePath" xml:space="preserve">
     <value>Entrez le chemin source</value>
   </data>
-  <data name="EnterTargetPath" xml:space="preserve">
+  <data name="View_EnterTargetPath" xml:space="preserve">
     <value>Entrez le chemin ciblé</value>
   </data>
-  <data name="ExitApp" xml:space="preserve">
+  <data name="View_ExitApp" xml:space="preserve">
     <value>Quitter l'application</value>
   </data>
-  <data name="InputError" xml:space="preserve">
+  <data name="InputHelper_InputError" xml:space="preserve">
     <value>L'entrée ne peut pas être vide. Veuillez entrer une valeur valide.</value>
   </data>
-  <data name="InvalidChoice" xml:space="preserve">
+  <data name="Controller_InvalidChoice" xml:space="preserve">
     <value>Choix invalide !</value>
   </data>
-  <data name="LanguageChanged" xml:space="preserve">
-    <value>Langue changée en</value>
-  </data>
-  <data name="LanguageChoice" xml:space="preserve">
+  <data name="View_LanguageChoice" xml:space="preserve">
     <value>Choisissez une langue (EN/FR/RU)</value>
   </data>
-  <data name="ListOfBackups" xml:space="preserve">
-    <value>Liste des sauvegardes :</value>
+  <data name="View_ListOfBackups" xml:space="preserve">
+    <value>Liste des sauvegardes : </value>
   </data>
-  <data name="NoBackups" xml:space="preserve">
-    <value>Aucune sauvegarde trouvée.</value>
+  <data name="View_NoBackups" xml:space="preserve">
+    <value>Aucune sauvegarde trouvée. </value>
   </data>
-  <data name="PressAnyKey" xml:space="preserve">
-    <value>Appuyez sur une touche pour continuer...</value>
+  <data name="Controller_PressAnyKey" xml:space="preserve">
+    <value>Appuyez sur une touche pour continuer... </value>
   </data>
-  <data name="ReturningToMenu" xml:space="preserve">
-    <value>Retour au menu principal...
+  <data name="InputHelper_ReturningToMenu" xml:space="preserve">
+    <value>Retour au menu principal... 
 </value>
   </data>
-  <data name="SaveAdded" xml:space="preserve">
+  <data name="View_SaveAddedMessage" xml:space="preserve">
     <value>La sauvegarde {0} à bien été ajoutée.</value>
   </data>
-  <data name="SelectBackupType" xml:space="preserve">
-    <value>Sélectionnez le type de sauvegarde</value>
+  <data name="View_SelectBackupType" xml:space="preserve">
+    <value>Sélectionnez le type de sauvegarde </value>
   </data>
-  <data name="StartBackup" xml:space="preserve">
+  <data name="View_StartBackup" xml:space="preserve">
     <value>Lancer une sauvegarde</value>
   </data>
-  <data name="ViewAllSaves" xml:space="preserve">
+  <data name="View_ViewAllSaves" xml:space="preserve">
     <value>Voir Sauvegardes</value>
   </data>
-  <data name="ViewLogs" xml:space="preserve">
+  <data name="ControllerView_ViewLogs" xml:space="preserve">
     <value>Consulter les logs</value>
+  </data>
+  <data name="View_SaveName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="View_SaveSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="View_SaveTarget" xml:space="preserve">
+    <value>Cible</value>
+  </data>
+  <data name="View_SaveType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View_FullSave" xml:space="preserve">
+    <value>Sauvegarde complète</value>
+  </data>
+  <data name="View_DifferentialSave" xml:space="preserve">
+    <value>Sauvegarde différentielle</value>
+  </data>
+  <data name="Controller_ActualRepo" xml:space="preserve">
+    <value>Répertoire actuel</value>
   </data>
 </root>
