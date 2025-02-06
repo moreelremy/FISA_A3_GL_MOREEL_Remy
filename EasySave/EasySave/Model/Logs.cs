@@ -1,19 +1,17 @@
 using System;
 using System.IO;
+//using EasySaveLogger;
 
-
-public static class Logger
+public static class Log
 {
-    private static readonly string logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs");
-
-    public static void Log(Save save, int fileSize, int transferTime)
+    public static void GeneralLog(Save save, int fileSize, int transferTime)
     {
-        string logFile = Path.Combine(logDirectory, $"{DateTime.Now:yyyy-MM-dd}.json");
-        Directory.CreateDirectory(logDirectory);
 
         string logEntry = $"{{\"timestamp\":\"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceRepository}\",\"destination\":\"{save.targetRepository}\",\"size\":{fileSize},\"timeMs\":{transferTime}}}";
-        Console.WriteLine(logEntry);
-        File.AppendAllText(logFile, logEntry + Environment.NewLine);
+
+        //EasySaveLogger.Logger.Log(logEntry);
+
     }
 }
 
+//mettre en parametre le pathFile et le string json

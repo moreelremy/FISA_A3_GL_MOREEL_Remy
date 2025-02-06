@@ -34,7 +34,7 @@ class Controler
 
                 case "3":
                     Console.WriteLine(Language.GetString("ViewLogs"));
-                    Logger.Log(save, 1024, 500);
+                    Log.GeneralLog(save, 1024, 500);
                     break;
 
                 case "4":
