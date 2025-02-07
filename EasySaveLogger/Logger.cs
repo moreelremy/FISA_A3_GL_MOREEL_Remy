@@ -5,13 +5,9 @@ namespace EasySaveLogger
 {
     public static class Logger
     {
-        public static void Log(string jsonEntry, string? pathFile = null)
+        public static void Log(string jsonEntry)
         {
-            // add a default value if pathFile is null
-            pathFile ??= Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", $"{DateTime.Now:yyyy-MM-dd}.json");
-
-
-
+            string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", $"{DateTime.Now:dd-MM-yyyy}.json");
 
             Directory.CreateDirectory(Path.GetDirectoryName(pathFile));
 
