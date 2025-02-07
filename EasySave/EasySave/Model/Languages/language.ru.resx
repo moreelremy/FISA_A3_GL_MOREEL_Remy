@@ -195,4 +195,25 @@
   <data name="Controller_ActualRepo" xml:space="preserve">
     <value>Текущий каталог</value>
   </data>
+  <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
+    <value>Достигнут максимальный предел сохранения (5).</value>
+  </data>
+  <data name="View_RemoveSaves" xml:space="preserve">
+    <value>Удалить сохранения</value>
+  </data>
+  <data name="View_EnterSaveNameToDelete" xml:space="preserve">
+    <value>Введите имя удаляемого сохранения:</value>
+  </data>
+  <data name="View_SaveDeleted" xml:space="preserve">
+    <value>Сохранение успешно удалено.</value>
+  </data>
+  <data name="View_SaveNotFound" xml:space="preserve">
+    <value>Сохранение не найдено.</value>
+  </data>
+  <data name="View_ChooseSaveToDelete" xml:space="preserve">
+    <value>Выберите сохранение для удаления:</value>
+  </data>
+  <data name="View_EnterSaveNumber" xml:space="preserve">
+    <value>Введите номер сохранения для удаления: </value>
+  </data>
 </root>

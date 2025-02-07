@@ -196,4 +196,25 @@
   <data name="Controller_ActualRepo" xml:space="preserve">
     <value>Répertoire actuel</value>
   </data>
+  <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
+    <value>Limite maximale de sauvegardes atteinte (5).</value>
+  </data>
+  <data name="View_RemoveSaves" xml:space="preserve">
+    <value>Supprimer Sauvegardes</value>
+  </data>
+  <data name="View_EnterSaveNameToDelete" xml:space="preserve">
+    <value>Entrez le nom de la sauvegarde à supprimer : </value>
+  </data>
+  <data name="View_SaveDeleted" xml:space="preserve">
+    <value>Sauvegarde supprimée avec succès.</value>
+  </data>
+  <data name="View_SaveNotFound" xml:space="preserve">
+    <value>Sauvegarde non trouvée.</value>
+  </data>
+  <data name="View_ChooseSaveToDelete" xml:space="preserve">
+    <value>Choisissez une sauvegarde à supprimer : </value>
+  </data>
+  <data name="View_EnterSaveNumber" xml:space="preserve">
+    <value>Entrez le numéro de la sauvegarde à supprimer : </value>
+  </data>
 </root>
