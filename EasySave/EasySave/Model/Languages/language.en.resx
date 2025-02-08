@@ -216,4 +216,10 @@
   <data name="View_EnterSaveNumber" xml:space="preserve">
     <value>Enter the number of the save to delete: </value>
   </data>
+  <data name="View_DateChoice" xml:space="preserve">
+    <value>For what date do you want to view the logs (dd-MM-yyyy) ?</value>
+  </data>
+  <data name="View_FileNotFound" xml:space="preserve">
+    <value>File not found. Please enter a correct date.</value>
+  </data>
 </root>

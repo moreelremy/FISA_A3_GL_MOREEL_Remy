@@ -16,7 +16,7 @@ class View
         Console.WriteLine("╚═════════════════════════════════════╝");
         Console.WriteLine($"    [1]: {Language.GetString("View_CreateBackup")}");
         Console.WriteLine($"    [2]: {Language.GetString("View_StartBackup")}");
-        Console.WriteLine($"    [3]: {Language.GetString("ControlerView_ViewLogs")}");
+        Console.WriteLine($"    [3]: {Language.GetString("ControllerView_ViewLogs")}");
         Console.WriteLine($"    [4]: {Language.GetString("View_ChangeLanguage")}");
         Console.WriteLine($"    [5]: {Language.GetString("View_ViewAllSaves")}");
         Console.WriteLine($"    [6]: {Language.GetString("View_RemoveSaves")}");
@@ -127,6 +127,26 @@ class View
         {
             Console.WriteLine(Language.GetString("View_SaveNotFound"));
         }
+    }
+
+
+    /// <summary>
+    /// Ask the user to choose a date for listing logs
+    /// </summary>
+    /// <returns>The date dd-mm-yyyy</returns>
+    public static string GetWantedDate()
+    {
+        return InputHelper.ReadLineNotNull(Language.GetString("View_DateChoice"));
+    }
+
+    public static void Output(string output)
+    {
+        Console.WriteLine(output);
+    }
+
+    public static void FileNotFound() 
+    {
+        Console.WriteLine(Language.GetString("View_FileNotFound"));
     }
 
 }

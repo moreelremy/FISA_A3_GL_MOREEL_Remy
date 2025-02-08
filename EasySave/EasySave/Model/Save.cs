@@ -113,5 +113,21 @@ public class Save
     public required string sourceDirectory { get; set; }
     public required string targetDirectory { get; set; }
     public required ISaveStrategy saveStrategy { get; set; }
+
+    public static string ConvertToUnc(string localPath)
+    {
+        string fullPath = Path.GetFullPath(localPath);
+
+        if (!Path.IsPathRooted(fullPath))
+            throw new ArgumentException("Le chemin fourni n'est pas absolu.");
+
+        string driveLetter = Path.GetPathRoot(fullPath)?.TrimEnd('\\');
+        if (driveLetter == null || driveLetter.Length < 2)
+            throw new ArgumentException("Impossible d'extraire la lettre du disque.");
+
+        string uncPath = fullPath.Replace(driveLetter, $"\\\\localhost\\{driveLetter.TrimEnd(':')}$");
+
+        return uncPath;
+    }
 }
 

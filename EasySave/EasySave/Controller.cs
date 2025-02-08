@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 class Controler
 {
@@ -38,10 +39,60 @@ class Controler
                         break;
 
                     case "3":
+                        /*
+                         * permet de tester les logs 
+                        for (int i = 0; i < 1111; i++)
+                        {
+                            Save save = new Save
+                            {
+                                name = "Backup1",
+                                sourceDirectory = @"C:\Source\File.txt",
+                                targetDirectory = @"D:\Backup\File.txt",
+                                saveStrategy = new FullSave()
+                            };
+                            Logs.GeneralLog(save, 1024, 500);
+                        }*/
                         Console.WriteLine(Language.GetString("ControllerView_ViewLogs"));
-                        Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs"));
-                        Logger.Log("Backup1", @"C:\Source\File.txt", @"D:\Backup\File.txt", 1024, 500);
-                        Console.WriteLine(Language.GetString("Controller_ActualRepo") + $" : {Directory.GetCurrentDirectory()}");
+                        string wantedDate = View.GetWantedDate();
+                        string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", wantedDate + ".json"));
+
+                        if (!File.Exists(filePath))
+                        {
+                            View.FileNotFound();
+                            break;
+                        }
+                        
+
+                        List<string> logLines = Logs.ReadGeneralLog(filePath);
+                        if (logLines.Count >= 10)
+                        {
+
+                            for (int j = 0; j < 10; j++)
+                            {
+                                Console.WriteLine(logLines[j]);
+                            }
+
+                            for (int i = 10; i < logLines.Count; i++)
+                            {
+                                string? output = "";
+                                while (string.IsNullOrEmpty(output))
+                                {
+                                    Console.WriteLine(logLines[i]);
+                                    //Waits for a key to be pressed
+                                    output = Console.ReadKey(true).KeyChar.ToString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int j = 0; j < logLines.Count; j++)
+                            {
+                                Console.WriteLine(logLines[j]);
+                            }
+                            Console.ReadLine();
+                        }
+
+
                         break;
 
                     case "4":
@@ -106,7 +157,6 @@ class Controler
                 Console.WriteLine(ex.Message);
                 continue;
             }
-            Console.Clear();
         }
     }
 }

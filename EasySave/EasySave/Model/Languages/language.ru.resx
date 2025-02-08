@@ -216,4 +216,10 @@
   <data name="View_EnterSaveNumber" xml:space="preserve">
     <value>Введите номер сохранения для удаления: </value>
   </data>
+  <data name="View_DateChoice" xml:space="preserve">
+    <value>За какую дату вы хотите просмотреть журналы (dd-MM-yyyy)?</value>
+  </data>
+  <data name="View_FileNotFound" xml:space="preserve">
+    <value>Файл не найден. Введите правильную дату.</value>
+  </data>
 </root>
