@@ -28,14 +28,14 @@ class Controler
                         else
                         {
                             // Display a message if the save limit is reached
-                            Console.WriteLine(Language.GetString("Controller_MaxSaveLimitReached"));
+                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));
                         }
-                        Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
                     case "2":
-                        Console.WriteLine(Language.GetString("Controller_BackupStarted"));
+                        View.Output(Language.GetString("Controller_BackupStarted"));
                         break;
 
                     case "3":
@@ -52,7 +52,7 @@ class Controler
                             };
                             Logs.GeneralLog(save, 1024, 500);
                         }*/
-                        Console.WriteLine(Language.GetString("ControllerView_ViewLogs"));
+                        View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", wantedDate + ".json"));
 
@@ -69,7 +69,7 @@ class Controler
 
                             for (int j = 0; j < 10; j++)
                             {
-                                Console.WriteLine(logLines[j]);
+                                View.Output(logLines[j]);
                             }
 
                             for (int i = 10; i < logLines.Count; i++)
@@ -77,7 +77,7 @@ class Controler
                                 string? output = "";
                                 while (string.IsNullOrEmpty(output))
                                 {
-                                    Console.WriteLine(logLines[i]);
+                                    View.Output(logLines[i]);
                                     //Waits for a key to be pressed
                                     output = Console.ReadKey(true).KeyChar.ToString();
                                 }
@@ -87,7 +87,7 @@ class Controler
                         {
                             for (int j = 0; j < logLines.Count; j++)
                             {
-                                Console.WriteLine(logLines[j]);
+                                View.Output(logLines[j]);
                             }
                             Console.ReadLine();
                         }
@@ -110,7 +110,7 @@ class Controler
                         {
                             View.ShowSavesView(saves);
                         }
-                        Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
@@ -134,7 +134,7 @@ class Controler
                             }
                         }
 
-                        Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
@@ -145,7 +145,7 @@ class Controler
                         break;
 
                     default:
-                        Console.WriteLine(Language.GetString("Controller_InvalidChoice"));
+                        View.Output(Language.GetString("Controller_InvalidChoice"));
                         break;
 
                     
@@ -154,7 +154,7 @@ class Controler
             catch (ReturnToMenuException ex)
             {
                 // Handle the localized message from the exception
-                Console.WriteLine(ex.Message);
+                View.Output(ex.Message);
                 continue;
             }
         }
