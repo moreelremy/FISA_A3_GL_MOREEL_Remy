@@ -148,7 +148,7 @@
     <value>Choose a language (EN/FR/RU)</value>
   </data>
   <data name="View_ListOfBackups" xml:space="preserve">
-    <value>See Backups</value>
+    <value>║           List of saves           ║</value>
   </data>
   <data name="View_NoBackups" xml:space="preserve">
     <value>No backups found.</value>
@@ -198,9 +198,6 @@
   <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
     <value>Maximum save limit reached (5).</value>
   </data>
-  <data name="View_RemoveSaves" xml:space="preserve">
-    <value>Remove Saves</value>
-  </data>
   <data name="View_EnterSaveNameToDelete" xml:space="preserve">
     <value>Enter the name of the save to delete:</value>
   </data>
@@ -221,5 +218,20 @@
   </data>
   <data name="View_FileNotFound" xml:space="preserve">
     <value>File not found. Please enter a correct date.</value>
+  </data>
+  <data name="View_NumberSave" xml:space="preserve">
+    <value>Backup number</value>
+  </data>
+  <data name="Controller_ChoiceDeleteOrMenu" xml:space="preserve">
+    <value>Do you want to return to the menu or delete a backup?</value>
+  </data>
+  <data name="Controller_ChoiceMenu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Controller_ChoiceDelete" xml:space="preserve">
+    <value>Delete a save</value>
+  </data>
+  <data name="Controller_AskChoiceDelete" xml:space="preserve">
+    <value>Which backup do you want to delete?</value>
   </data>
 </root>

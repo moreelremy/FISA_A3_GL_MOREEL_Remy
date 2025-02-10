@@ -56,28 +56,4 @@ public class SaveRepository
     {
         return saves.Count == 0;
     }
-
-   
-    /// <summary>
-    /// Searches for a save by its name.
-    /// </summary>
-    /// <param name="name">The name of the save to search for.</param>
-    /// <returns>The found save or null if no match is found.</returns>
-    public Save SearchSave(string name)
-    {
-        return saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
-    }
-
-    public void ShowSave()
-    {
-        foreach (Save save in saves)
-        {
-            Console.WriteLine(save.name);
-            Console.WriteLine(save.sourceDirectory);
-            Console.WriteLine(save.targetDirectory);
-            Console.WriteLine(save.saveStrategy);
-
-        }
-    }
-
 }
