@@ -4,10 +4,8 @@
 
 /.vs
 /EasySave/.vs/EasySave
-/EasySave/Logs
+/EasySaveLogger/.vs/EasySaveLogger
 
-/EasySaveLogger/.vs
-
-# Build results
-[Dd]ebug/
-[Rr]elease/
+/EasySave/EasySave/obj
+/EasySave/EasySave/obj/Debug
+/EasySave/EasySave/obj/Release
