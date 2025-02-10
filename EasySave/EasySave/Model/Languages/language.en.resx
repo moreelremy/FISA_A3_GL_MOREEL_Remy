@@ -234,4 +234,20 @@
   <data name="Controller_AskChoiceDelete" xml:space="preserve">
     <value>Which backup do you want to delete?</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="View_ChooseSaveToExecute" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="View_EnterSaveIdsToExecute" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="View_ExecutionCompleted" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="View_InvalidSelection" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Controller_SaveExecutionError " type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

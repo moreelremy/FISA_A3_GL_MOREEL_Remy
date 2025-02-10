@@ -244,7 +244,7 @@
   <data name="View_ExecutionCompleted" xml:space="preserve">
     <value>L'exécution de la sauvegarde s'est terminée avec succès.</value>
   </data>
-  <data name="View_ExecutionFailed " xml:space="preserve">
+  <data name="View_ExecutionFailed" xml:space="preserve">
     <value>L'exécution de la sauvegarde a échoué.</value>
   </data>
   <data name="View_InvalidSelection" xml:space="preserve">
@@ -252,5 +252,8 @@
   </data>
   <data name="Controller_SaveExecutionError " xml:space="preserve">
     <value>Erreur lors de l'exécution de la sauvegarde '{0}'. Raison : {1}.</value>
+  </data>
+  <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
+    <value>Le répertoire source '{1}' de la sauvegarde '{0}' n'existe pas.</value>
   </data>
 </root>

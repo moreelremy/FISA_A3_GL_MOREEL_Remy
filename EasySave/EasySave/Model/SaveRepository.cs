@@ -67,10 +67,17 @@ public class SaveRepository
     {
         try
         {
+            // Validate the source directory before starting the save
+            if (!Directory.Exists(save.sourceDirectory))
+            {
+                Console.WriteLine(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
+                return false;  // Stop execution if the directory does not exist
+            }
+
             // Mark save as active
             UpdateStateFile(save, isActive: true);
 
-            // Execute the save using the appropriate strategy
+            // Execute the save using the strategy
             save.saveStrategy.Save(save);
 
             // Mark save as completed
@@ -88,18 +95,28 @@ public class SaveRepository
     /// <summary>
     /// Updates the state file to reflect the current save status.
     /// </summary>
-    private void UpdateStateFile(Save save, bool isActive)
+    private void UpdateStateFile(
+    Save save,
+    bool isActive,
+    int totalFileSize = 0,
+    int totalFileSizeToCopy = 0,
+    int nbFilesLeftToDo = 0,
+    int progression = 0
+)
     {
-        string stateFilePath = Path.Combine(Directory.GetCurrentDirectory(), "state.json");
-        var stateData = new
-        {
-            SaveName = save.name,
-            Timestamp = DateTime.Now.ToString("o"),
-            Status = isActive ? "Active" : "Completed"
-        };
+        // Determine the state: "ACTIVE" or "END"
+        string state = isActive ? "ACTIVE" : "END";
 
-        string json = JsonSerializer.Serialize(stateData, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(stateFilePath, json);
-
+        // Call the RealTimeLog method to handle logging
+        Logs.RealTimeLog(
+            save,
+            fileSize: 0,              
+            transferTime: 0,          
+            state: state,
+            totalFileSizetoCopy: totalFileSizeToCopy,
+            totalFileSize: totalFileSize,
+            nbFilesLeftToDo: nbFilesLeftToDo,
+            Progression: progression
+        );
     }
 }
