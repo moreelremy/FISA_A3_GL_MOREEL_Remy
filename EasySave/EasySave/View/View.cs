@@ -67,6 +67,66 @@ class View
         Console.WriteLine(Language.GetString("View_NoBackups"));
     }
 
+    public static void DisplaySavesForExecution(List<Save> saves)
+    {
+        Console.WriteLine(Language.GetString("View_ChooseSaveToExecute"));
+        for (int i = 0; i < saves.Count; i++)
+        {
+            Console.WriteLine($"[{i + 1}] {saves[i].name}");
+        }
+    }
+
+    private static List<int> ParseSaveSelection(string input, int maxCount)
+    {
+        List<int> selectedIndexes = new List<int>();
+
+        try
+        {
+            string[] ranges = input.Split(';');
+            foreach (string range in ranges)
+            {
+                if (range.Contains('-'))
+                {
+                    string[] bounds = range.Split('-');
+                    int start = int.Parse(bounds[0]) - 1;
+                    int end = int.Parse(bounds[1]) - 1;
+
+                    for (int i = start; i <= end && i < maxCount; i++)
+                    {
+                        if (!selectedIndexes.Contains(i))
+                            selectedIndexes.Add(i);
+                    }
+                }
+                else
+                {
+                    int index = int.Parse(range) - 1;
+                    if (index >= 0 && index < maxCount)
+                    {
+                        selectedIndexes.Add(index);
+                    }
+                }
+            }
+        }
+        catch
+        {
+            Console.WriteLine(Language.GetString("View_InvalidSelection"));
+        }
+
+        return selectedIndexes;
+    }
+
+    public static List<int> GetSaveSelection(int maxCount)
+    {
+        string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveIdsToExecute"));
+        return ParseSaveSelection(input, maxCount);
+    }
+
+    public static void DisplayExecutionResult(bool success)
+    {
+        Console.WriteLine(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
+    }
+
+
     /// <summary>
     /// Shows the choice between returning to the menu or deleting a save
     /// </summary>
