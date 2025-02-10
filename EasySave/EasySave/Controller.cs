@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Text.Json;
 
 class Controler
 {
@@ -39,18 +40,6 @@ class Controler
                         break;
 
                     case "3":
-                    /*
-                        for (int i = 0; i < 1111; i++)
-                        {
-                            Save save = new Save
-                            {
-                                name = "Backup1",
-                                sourceDirectory = @"C:\Source\File.txt",
-                                targetDirectory = @"D:\Backup\File.txt",
-                                saveStrategy = new FullSave()
-                            };
-                            Logs.RealTimeLog(save, 10,10,"END",20,10,3,50);
-                        }*/
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", wantedDate + ".json"));
@@ -135,17 +124,26 @@ class Controler
                         Console.ReadLine();
                         break;
 
-
-
                     case "7":
+                        var options = new JsonSerializerOptions { WriteIndented = true };
+                        string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
+                        if (File.Exists(pathFile))
+                        {
+                            File.Delete(pathFile);
+                        }
+                        Directory.CreateDirectory(Path.GetDirectoryName(pathFile));
+                        foreach (Save save in saveRepository.GetAllSaves()) {  
+                            string saveStrategy = save.saveStrategy.GetType().Name;
+                            string jsonEntry = JsonSerializer.Serialize(save, options);
+                            jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
+                            File.AppendAllText(pathFile, jsonEntry + Environment.NewLine);
+                        };
                         leave = true;
                         break;
 
                     default:
                         View.Output(Language.GetString("Controller_InvalidChoice"));
-                        break;
-
-                    
+                        break; 
                 }
             }
             catch (ReturnToMenuException ex)
