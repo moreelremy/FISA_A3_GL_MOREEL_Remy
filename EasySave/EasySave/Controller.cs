@@ -39,19 +39,6 @@ class Controler
                         break;
 
                     case "3":
-                        /*
-                         * permet de tester les logs 
-                        for (int i = 0; i < 1111; i++)
-                        {
-                            Save save = new Save
-                            {
-                                name = "Backup1",
-                                sourceDirectory = @"C:\Source\File.txt",
-                                targetDirectory = @"D:\Backup\File.txt",
-                                saveStrategy = new FullSave()
-                            };
-                            Logs.GeneralLog(save, 1024, 500);
-                        }*/
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", wantedDate + ".json"));
@@ -61,7 +48,6 @@ class Controler
                             View.FileNotFound();
                             break;
                         }
-                        
 
                         List<string> logLines = Logs.ReadGeneralLog(filePath);
                         if (logLines.Count >= 10)
@@ -91,7 +77,6 @@ class Controler
                             }
                             Console.ReadLine();
                         }
-
 
                         break;
 

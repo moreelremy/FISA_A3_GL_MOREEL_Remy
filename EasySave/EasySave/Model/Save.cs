@@ -4,8 +4,7 @@ using System.IO;
 public interface ISaveStrategy
 {
     void Save(Save save);
-
-    void SaveDirectory(string sourceDirectory, string targetDirectory);
+    long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize);
 }
 
 public class FullSave : ISaveStrategy
@@ -19,7 +18,11 @@ public class FullSave : ISaveStrategy
                 throw new DirectoryNotFoundException();
             }
             string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
-            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target));
+            DateTime startSave = DateTime.UtcNow;
+            long fileSize = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), 0);
+            DateTime endSave = DateTime.UtcNow;
+            int transferTime = (int)(endSave - startSave).TotalMilliseconds;
+            Logs.GeneralLog(save, fileSize, transferTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -29,10 +32,9 @@ public class FullSave : ISaveStrategy
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
-        
     }
 
-    public void SaveDirectory(string sourceDirectory, string targetDirectory)
+    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -43,13 +45,16 @@ public class FullSave : ISaveStrategy
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(file));
             File.Copy(file, target, true);
+            fileSize += new FileInfo(file).Length;
         }
 
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            SaveDirectory(directory, target);
+            fileSize = SaveDirectory(directory, target, fileSize);
         }
+
+        return fileSize;
     }
 }
 /*
@@ -73,7 +78,7 @@ public class DifferentialSave : ISaveStrategy
                 throw new DirectoryNotFoundException();
             }
             string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
-            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target));
+            long fileSize = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), 0);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -84,7 +89,7 @@ public class DifferentialSave : ISaveStrategy
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
     }
-    public void SaveDirectory(string sourceDirectory, string targetDirectory)
+    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -97,13 +102,16 @@ public class DifferentialSave : ISaveStrategy
             if (!File.Exists(target) || File.GetLastWriteTime(file) != File.GetLastWriteTime(target))
             {
                 File.Copy(file, target, true);
+                fileSize += new FileInfo(file).Length;
             }
         }
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            SaveDirectory(directory, target);
+            fileSize = SaveDirectory(directory, target, fileSize);
         }
+
+        return fileSize;
     }
 }
 
