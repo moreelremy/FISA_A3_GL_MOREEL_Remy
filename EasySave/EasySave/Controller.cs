@@ -72,8 +72,8 @@ class Controler
                         break;
                     
                     case "4":
-                        /*
-                         * permet de tester les logs 
+                        
+                         /*
                         for (int i = 0; i < 1111; i++)
                         {
                             Save save = new Save
@@ -83,11 +83,12 @@ class Controler
                                 targetDirectory = @"D:\Backup\File.txt",
                                 saveStrategy = new FullSave()
                             };
-                            Logs.RealTimeLog(save, 10,10,"END",20,10,3,50);
+                            Logs.GeneralLog(save, 10,10);
                         }*/
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
-                        string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs", wantedDate + ".json"));
+                        wantedDate = "10-02-2025";
+                        string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
 
                         if (!File.Exists(filePath))
                         {
@@ -106,12 +107,14 @@ class Controler
 
                             for (int i = 10; i < logLines.Count; i++)
                             {
-                                string? output = "";
-                                while (string.IsNullOrEmpty(output))
+                                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                                if (keyInfo.Key != ConsoleKey.Enter)
+                                {
+                                    break;
+                                }
+                                else
                                 {
                                     View.Output(logLines[i]);
-                                    //Waits for a key to be pressed
-                                    output = Console.ReadKey(true).KeyChar.ToString();
                                 }
                             }
                         }
