@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "EasySaveLogger/1.0.0": {
+        "runtime": {
+          "EasySaveLogger.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EasySaveLogger/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

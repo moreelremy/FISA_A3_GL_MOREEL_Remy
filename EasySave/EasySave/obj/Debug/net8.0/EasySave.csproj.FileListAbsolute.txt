@@ -109,7 +109,7 @@ C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\D
 C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.pdb
 C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.genruntimeconfig.cache
 C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\ref\EasySave.dll
-C:\Users\leosc\Desktop\Projects\Ecole\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.dll
-C:\Users\leosc\Desktop\Projects\Ecole\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.pdb
-C:\Users\leosc\Desktop\Projects\Ecole\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.AssemblyReference.cache
-C:\Users\leosc\Desktop\Projects\Ecole\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.Up2Date
+C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.dll
+C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.pdb
+C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.AssemblyReference.cache
+C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.Up2Date

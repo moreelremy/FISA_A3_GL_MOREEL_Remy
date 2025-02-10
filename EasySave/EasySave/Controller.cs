@@ -83,7 +83,7 @@ class Controler
                                 targetDirectory = @"D:\Backup\File.txt",
                                 saveStrategy = new FullSave()
                             };
-                            Logs.GeneralLog(save, 1024, 500);
+                            Logs.RealTimeLog(save, 10,10,"END",20,10,3,50);
                         }*/
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();

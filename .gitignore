@@ -4,9 +4,8 @@
 
 /.vs
 /EasySave/.vs/EasySave
+/EasySaveLogger/.vs/EasySaveLogger
 /EasySave/Logs
-
-/EasySaveLogger/.vs
 
 # Build results
 [Dd]ebug/
