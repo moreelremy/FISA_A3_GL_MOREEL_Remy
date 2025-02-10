@@ -35,7 +35,26 @@ class Controler
                         break;
 
                     case "2":
-                        View.Output(Language.GetString("Controller_BackupStarted"));
+                        List<Save> savesToExecute = saveRepository.GetAllSaves();
+
+                        if (savesToExecute.Count == 0)
+                        {
+                            View.NoBackupView();
+                        }
+                        else
+                        {
+                            View.DisplaySavesForExecution(savesToExecute);
+                            List<int> selectedIndexes = View.GetSaveSelection(savesToExecute.Count);
+
+                            foreach (int index in selectedIndexes)
+                            {
+                                Save save = savesToExecute[index];
+                                bool success = saveRepository.ExecuteSave(save);
+                                View.DisplayExecutionResult(success);
+                            }
+                        }
+
+                        Console.ReadLine();
                         break;
 
                     case "3":

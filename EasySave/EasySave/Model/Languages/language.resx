@@ -235,4 +235,22 @@
   <data name="Controller_AskChoiceDelete" xml:space="preserve">
     <value>Quelle sauvegarde voulez vous supprimer ?</value>
   </data>
+  <data name="View_ChooseSaveToExecute" xml:space="preserve">
+    <value>Choisissez une sauvegarde à exécuter :</value>
+  </data>
+  <data name="View_EnterSaveIdsToExecute" xml:space="preserve">
+    <value>Entrez les identifiants des sauvegardes à exécuter (ex: 1-5) :</value>
+  </data>
+  <data name="View_ExecutionCompleted" xml:space="preserve">
+    <value>L'exécution de la sauvegarde s'est terminée avec succès.</value>
+  </data>
+  <data name="View_ExecutionFailed " xml:space="preserve">
+    <value>L'exécution de la sauvegarde a échoué.</value>
+  </data>
+  <data name="View_InvalidSelection" xml:space="preserve">
+    <value>Sélection invalide. Veuillez réessayer.</value>
+  </data>
+  <data name="Controller_SaveExecutionError " xml:space="preserve">
+    <value>Erreur lors de l'exécution de la sauvegarde '{0}'. Raison : {1}.</value>
+  </data>
 </root>
