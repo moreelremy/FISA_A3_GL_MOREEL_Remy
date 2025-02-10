@@ -11,7 +11,7 @@ public static class Logs
     /// <param name="save">The save object.</param>
     /// <param name="fileSize">The size of the transferred file in bytes.</param>
     /// <param name="transferTime">The time taken for the file transfer in milliseconds.</param>
-    public static void GeneralLog(Save save, int fileSize, int transferTime)
+    public static void GeneralLog(Save save, long fileSize, int transferTime)
     {
 
         string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
