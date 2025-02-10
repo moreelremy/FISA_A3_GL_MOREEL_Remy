@@ -87,7 +87,6 @@ class Controler
                         }*/
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
-                        wantedDate = "10-02-2025";
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
 
                         if (!File.Exists(filePath))
