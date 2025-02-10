@@ -9,3 +9,8 @@
 /EasySave/EasySave/obj
 /EasySave/EasySave/obj/Debug
 /EasySave/EasySave/obj/Release
+/EasySaveLogger/obj/Release/net8.0
+/EasySaveLogger/obj/Debug/net8.0/EasySaveLogger.AssemblyInfo.cs
+/EasySaveLogger/obj/Debug/net8.0/EasySaveLogger.AssemblyInfoInputs.cache
+/EasySaveLogger/obj/Debug/net8.0/EasySaveLogger.assets.cache
+/EasySaveLogger/obj/Debug/net8.0/EasySaveLogger.GeneratedMSBuildEditorConfig.editorconfig
