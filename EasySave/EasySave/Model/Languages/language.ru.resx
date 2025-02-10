@@ -148,7 +148,7 @@
     <value>Выберите язык (EN/FR/RU)</value>
   </data>
   <data name="View_ListOfBackups" xml:space="preserve">
-    <value>Список резервных копий:</value>
+    <value>║       Список резервных копий      ║</value>
   </data>
   <data name="View_NoBackups" xml:space="preserve">
     <value>Резервные копии не найдены.</value>
@@ -198,9 +198,6 @@
   <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
     <value>Достигнут максимальный предел сохранения (5).</value>
   </data>
-  <data name="View_RemoveSaves" xml:space="preserve">
-    <value>Удалить сохранения</value>
-  </data>
   <data name="View_EnterSaveNameToDelete" xml:space="preserve">
     <value>Введите имя удаляемого сохранения:</value>
   </data>
@@ -221,5 +218,20 @@
   </data>
   <data name="View_FileNotFound" xml:space="preserve">
     <value>Файл не найден. Введите правильную дату.</value>
+  </data>
+  <data name="View_NumberSave" xml:space="preserve">
+    <value>Резервный номер</value>
+  </data>
+  <data name="Controller_ChoiceDeleteOrMenu" xml:space="preserve">
+    <value>Хотите вернуться в меню или удалить резервную копию?</value>
+  </data>
+  <data name="Controller_ChoiceMenu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="Controller_ChoiceDelete" xml:space="preserve">
+    <value>Удалить резервную копию</value>
+  </data>
+  <data name="Controller_AskChoiceDelete" xml:space="preserve">
+    <value>Какую резервную копию вы хотите удалить?</value>
   </data>
 </root>
