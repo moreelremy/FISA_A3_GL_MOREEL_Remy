@@ -4,7 +4,7 @@ using System.IO;
 public interface ISaveStrategy
 {
     void Save(Save save);
-    long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize, DateTime? lastChangeDateTime = null);
+    void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null);
 }
 
 public class FullSave : ISaveStrategy
@@ -18,11 +18,26 @@ public class FullSave : ISaveStrategy
                 throw new DirectoryNotFoundException();
             }
             string target = @"\" + save.name + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff");
+            int totalFilesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Count();
+            long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
             DateTime startSave = DateTime.UtcNow;
-            long fileSize = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), 0);
+            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize);
+            Logs.RealTimeLog(
+                saveName: save.name,
+                sourcePath: "",
+                targetPath: "",
+                fileSize: 0,
+                state: "END",
+                totalFilesToCopy: 0,
+                totalFileSize: 0,
+                nbFilesLeftToDo: 0,
+                filesSizeLeftToDo: 0,
+                Progression: 0
+            );
             DateTime endSave = DateTime.UtcNow;
             int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Logs.GeneralLog(save, fileSize, transferTime);
+            Logs.GeneralLog(save, totalFileSize, transferTime);
+            
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -34,7 +49,7 @@ public class FullSave : ISaveStrategy
         }
     }
 
-    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize, DateTime? lastChangeDateTime = null)
+    public void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -43,18 +58,34 @@ public class FullSave : ISaveStrategy
 
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
+            
             string target = Path.Combine(targetDirectory, Path.GetFileName(file));
             File.Copy(file, target, true);
-            fileSize += new FileInfo(file).Length;
+            long fileSize = new FileInfo(file).Length;
+            nbFilesLeftToDo -= 1;
+            filesSizeLeftToDo -= fileSize;
+            Logs.RealTimeLog(
+                saveName: saveName,
+                sourcePath: file,
+                targetPath: target,
+                fileSize: fileSize,
+                state: "ACTIVE",
+                totalFilesToCopy: totalFilesToCopy,
+                totalFileSize: totalFileSize,
+                nbFilesLeftToDo: nbFilesLeftToDo,
+                filesSizeLeftToDo : filesSizeLeftToDo,
+                Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100)
+            );
+            
         }
 
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            fileSize = SaveDirectory(directory, target, fileSize);
+            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo);
+            nbFilesLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Count();
+            filesSizeLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
         }
-
-        return fileSize;
     }
 }
 
@@ -62,6 +93,7 @@ public class DifferentialSave : ISaveStrategy
 {
     public void Save(Save save)
     {
+        /*
         try
         {
             if (!Directory.Exists(save.sourceDirectory))
@@ -79,7 +111,7 @@ public class DifferentialSave : ISaveStrategy
 
             string target = targetRepo + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff");
             DateTime startSave = DateTime.UtcNow;
-            long fileSize = SaveDirectory(save.sourceDirectory, target, 0, lastChangeDateTime);
+            long fileSize = SaveDirectory(save.sourceDirectory, target, 0, save, lastChangeDateTime);
             DateTime endSave = DateTime.UtcNow;
             int transferTime = (int)(endSave - startSave).TotalMilliseconds;
             Logs.GeneralLog(save, fileSize, transferTime);
@@ -93,9 +125,11 @@ public class DifferentialSave : ISaveStrategy
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
+        */
     }
-    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize, DateTime? lastChangeDateTime = null)
+    public void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFileSizetoCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null)
     {
+        /*
         if (!Directory.Exists(targetDirectory))
         {
             Directory.CreateDirectory(targetDirectory);
@@ -113,10 +147,11 @@ public class DifferentialSave : ISaveStrategy
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            fileSize = SaveDirectory(directory, target, fileSize, lastChangeDateTime);
+            SaveDirectory(directory, target, fileSize, save, lastChangeDateTime);
         }
 
         return fileSize;
+        */
     }
 }
 

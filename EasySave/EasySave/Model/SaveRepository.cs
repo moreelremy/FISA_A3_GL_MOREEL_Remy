@@ -77,14 +77,8 @@ public class SaveRepository
                 return false;  // Stop execution if the directory does not exist
             }
 
-            // Mark save as active
-            UpdateStateFile(save, isActive: true);
-
             // Execute the save using the strategy
             save.saveStrategy.Save(save);
-
-            // Mark save as completed
-            UpdateStateFile(save, isActive: false);
 
             return true;
         }
@@ -93,33 +87,5 @@ public class SaveRepository
             Console.WriteLine(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
             return false;
         }
-    }
-
-    /// <summary>
-    /// Updates the state file to reflect the current save status.
-    /// </summary>
-    private void UpdateStateFile(
-    Save save,
-    bool isActive,
-    int totalFileSize = 0,
-    int totalFileSizeToCopy = 0,
-    int nbFilesLeftToDo = 0,
-    int progression = 0
-)
-    {
-        // Determine the state: "ACTIVE" or "END"
-        string state = isActive ? "ACTIVE" : "END";
-
-        // Call the RealTimeLog method to handle logging
-        Logs.RealTimeLog(
-            save,
-            fileSize: 0,              
-            transferTime: 0,          
-            state: state,
-            totalFileSizetoCopy: totalFileSizeToCopy,
-            totalFileSize: totalFileSize,
-            nbFilesLeftToDo: nbFilesLeftToDo,
-            Progression: progression
-        );
     }
 }
