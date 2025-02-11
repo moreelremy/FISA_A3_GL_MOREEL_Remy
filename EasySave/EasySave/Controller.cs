@@ -159,7 +159,6 @@ class Controler
                         break;
 
                     case "6":
-                        var options = new JsonSerializerOptions{ WriteIndented = true };
                         string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
                         if (File.Exists(pathFile))
                         {
@@ -173,7 +172,7 @@ class Controler
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
                             savesSates.Add(JsonSerializer.Deserialize<dynamic>(jsonEntry));
                         };
-                        string repositoryState = JsonSerializer.Serialize(savesSates, options);
+                        string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
                         leave = true;
                         break;

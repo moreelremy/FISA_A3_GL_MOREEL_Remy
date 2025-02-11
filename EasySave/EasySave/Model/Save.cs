@@ -4,7 +4,7 @@ using System.IO;
 public interface ISaveStrategy
 {
     void Save(Save save);
-    long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize);
+    long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize, DateTime? lastChangeDateTime = null);
 }
 
 public class FullSave : ISaveStrategy
@@ -17,7 +17,7 @@ public class FullSave : ISaveStrategy
             {
                 throw new DirectoryNotFoundException();
             }
-            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_");
+            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff");
             DateTime startSave = DateTime.UtcNow;
             long fileSize = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), 0);
             DateTime endSave = DateTime.UtcNow;
@@ -34,7 +34,7 @@ public class FullSave : ISaveStrategy
         }
     }
 
-    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize)
+    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -57,15 +57,6 @@ public class FullSave : ISaveStrategy
         return fileSize;
     }
 }
-/*
-public class incrementalsave : isavestrategy
-{
-    public void save(save save)
-    {
-        throw new notimplementedexception();
-    }
-}
-*/
 
 public class DifferentialSave : ISaveStrategy
 {
@@ -77,8 +68,22 @@ public class DifferentialSave : ISaveStrategy
             {
                 throw new DirectoryNotFoundException();
             }
-            string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
-            long fileSize = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), 0);
+
+            DateTime? lastChangeDateTime = null;
+            string targetRepo = string.Concat(save.targetDirectory, @"\" + save.name);
+
+            if (Directory.Exists(targetRepo))
+            {
+                lastChangeDateTime = Directory.GetCreationTime(targetRepo);
+            }
+
+            string target = targetRepo + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff");
+            DateTime startSave = DateTime.UtcNow;
+            long fileSize = SaveDirectory(save.sourceDirectory, target, 0, lastChangeDateTime);
+            DateTime endSave = DateTime.UtcNow;
+            int transferTime = (int)(endSave - startSave).TotalMilliseconds;
+            Logs.GeneralLog(save, fileSize, transferTime);
+
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -89,7 +94,7 @@ public class DifferentialSave : ISaveStrategy
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
     }
-    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize)
+    public long SaveDirectory(string sourceDirectory, string targetDirectory, long fileSize, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -99,7 +104,7 @@ public class DifferentialSave : ISaveStrategy
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(file));
             // Check if the file exists and has the same modification date
-            if (!File.Exists(target) || File.GetLastWriteTime(file) != File.GetLastWriteTime(target))
+            if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
             {
                 File.Copy(file, target, true);
                 fileSize += new FileInfo(file).Length;
@@ -108,7 +113,7 @@ public class DifferentialSave : ISaveStrategy
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            fileSize = SaveDirectory(directory, target, fileSize);
+            fileSize = SaveDirectory(directory, target, fileSize, lastChangeDateTime);
         }
 
         return fileSize;
