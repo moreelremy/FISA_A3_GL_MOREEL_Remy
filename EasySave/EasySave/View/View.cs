@@ -199,7 +199,20 @@ class View
         string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
         Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
         Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
-        string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+
+        string typeChoice;
+        while (true)
+        {
+            typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+            if (typeChoice == "1" || typeChoice == "2")
+            {
+                break; 
+            }
+            else
+            {
+                Console.WriteLine(Language.GetString("View_InvalidBackupType")); // Display error message
+            }
+        }
         ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
         return new Save
         {
