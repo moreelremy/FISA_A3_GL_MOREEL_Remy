@@ -8,7 +8,6 @@ class Controler
     static void Main(string[] args)
     {
         SaveRepository saveRepository = new SaveRepository();
-        bool leave = false;
 
         FullSave fullSave = new FullSave();
         DifferentialSave differentialSave = new DifferentialSave();
@@ -31,7 +30,7 @@ class Controler
             }
         }
 
-        while (!leave)
+        while (true)
         {
             string response = View.ShowMenu();
             try {
@@ -73,7 +72,7 @@ class Controler
                                 View.DisplayExecutionResult(success);
                             }
                         }
-
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
@@ -111,18 +110,6 @@ class Controler
                         break;
                     
                     case "4":
-                       
-                       for (int i = 0; i < 1111; i++)
-                       {
-                           Save save = new Save
-                           {
-                               name = "Backup1",
-                               sourceDirectory = @"C:\Source\File.txt",
-                               targetDirectory = @"D:\Backup\File.txt",
-                               saveStrategy = new FullSave()
-                           };
-                           Logs.GeneralLog(save, 10,10);
-                       }
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
@@ -144,6 +131,7 @@ class Controler
 
                             for (int i = 10; i < logLines.Count; i++)
                             {
+
                                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                                 if (keyInfo.Key != ConsoleKey.Enter)
                                 {
@@ -186,13 +174,16 @@ class Controler
                         };
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
-                        leave = true;
+                        Environment.Exit(0);
                         break;
 
                     default:
                         View.Output(Language.GetString("Controller_InvalidChoice"));
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
+                        Console.ReadLine();
                         break;
                 }
+                Console.Clear();
             }
             catch (ReturnToMenuException ex)
             {
