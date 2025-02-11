@@ -38,21 +38,28 @@ class Controler
                 switch (response)
                 {
                     case "1":
-                        Save newSave = View.CreateBackupView();
-                        Save addedSave = saveRepository.AddSave(newSave);
-                        // Check if the save was successfully added
-                        if (addedSave != null)
+                        // Check if the maximum number of saves has been reached
+                        if (saveRepository.GetAllSaves().Count >= 5)
                         {
-                            View.SaveAddedMessageView(addedSave);
+                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
                         }
                         else
                         {
-                            // Display a message if the save limit is reached
-                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));
+                            Save newSave = View.CreateBackupView();
+                            saveRepository.AddSave(newSave);
+                            // Check if the save was successfully added
+                           
+                       
+                            View.SaveAddedMessageView(newSave);
+                       
+
                         }
                         View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
+
                         break;
+
+
 
                     case "2":
                         List<Save> savesToExecute = saveRepository.GetAllSaves();
