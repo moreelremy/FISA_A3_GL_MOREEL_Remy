@@ -86,7 +86,20 @@ class Controler
                         else
                         {
                             View.ShowSavesView(saves);
-                            string choice = View.ShowChoiceMenuOrDelete();
+                            string choice;
+                            while (true)
+                            {
+                                choice = View.ShowChoiceMenuOrDelete();
+                                if (choice == "1" || choice == "2")
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    View.Output(Language.GetString("Controller_InvalidChoice"));
+                                }
+                            }
+                            
 
                             switch (choice)
                             {
