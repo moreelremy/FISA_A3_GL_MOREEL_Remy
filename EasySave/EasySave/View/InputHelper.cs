@@ -12,22 +12,38 @@ class InputHelper
     public static string ReadLineNotNull(string message, bool allowReturnToMenu = true)
     {
         Console.WriteLine(message);
-        string? input = Console.ReadLine();
+        string input = "";
 
-        while (string.IsNullOrWhiteSpace(input))
+        while (true)
         {
-            Console.WriteLine(Language.GetString("InputHelper_InputError"));
-            input = Console.ReadLine();
+            ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+            // Check if Escape key is pressed
+            if (allowReturnToMenu && keyInfo.Key == ConsoleKey.Escape)
+            {
+                throw new ReturnToMenuException();
+            }
+
+            // If Enter is pressed and input is not empty, return the input
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (!string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine(); // Move to next line
+                    return input.Trim();
+                }
+                Console.WriteLine(Language.GetString("InputHelper_InputError"));
+                input = "";
+                continue;
+            }
+
+            // Append character to input and display it
+            input += keyInfo.KeyChar;
+            Console.Write(keyInfo.KeyChar);
         }
-        // If the user enters "9", throw an exception to return to the menu
-        if (allowReturnToMenu && input.Trim() == "9")
-        {
-            throw new ReturnToMenuException();
-        }
-        return input.Trim();
     }
-
 }
+
 /// <summary>
 /// Exception to handle returning to the main menu.
 /// </summary>
