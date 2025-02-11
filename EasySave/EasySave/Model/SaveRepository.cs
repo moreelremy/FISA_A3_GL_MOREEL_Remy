@@ -1,8 +1,10 @@
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 public class SaveRepository
 {
     // List of Saves
+    [JsonInclude]
     private List<Save> saves = new List<Save>();
 
     /// <summary>

@@ -17,7 +17,7 @@ public class FullSave : ISaveStrategy
             {
                 throw new DirectoryNotFoundException();
             }
-            string target = @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_") + save.name;
+            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff_");
             DateTime startSave = DateTime.UtcNow;
             long fileSize = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), 0);
             DateTime endSave = DateTime.UtcNow;

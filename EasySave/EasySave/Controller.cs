@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 
 class Controler
@@ -9,8 +10,26 @@ class Controler
         SaveRepository saveRepository = new SaveRepository();
         bool leave = false;
 
-        //Exemple de création d'une save
         FullSave fullSave = new FullSave();
+        DifferentialSave differentialSave = new DifferentialSave();
+        
+        string repositoryStatePath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
+        if (File.Exists(repositoryStatePath))
+        {
+            using JsonDocument repositoryState = JsonDocument.Parse(File.ReadAllText(repositoryStatePath));
+            foreach (JsonElement saveState in repositoryState.RootElement.EnumerateArray())
+            {
+                saveRepository.AddSave(
+                   new Save
+                   {
+                       name = saveState.GetProperty("name").GetString(),
+                       sourceDirectory = saveState.GetProperty("sourceDirectory").GetString(),
+                       targetDirectory = saveState.GetProperty("targetDirectory").GetString(),
+                       saveStrategy = saveState.GetProperty("saveStrategy").GetString() == "FullSave" ? fullSave : differentialSave
+                   }
+               );
+            }
+        }
 
         while (!leave)
         {
@@ -78,7 +97,6 @@ class Controler
                             }
                             Console.ReadLine();
                         }
-
                         break;
 
                     case "4":
@@ -125,19 +143,22 @@ class Controler
                         break;
 
                     case "7":
-                        var options = new JsonSerializerOptions { WriteIndented = true };
+                        var options = new JsonSerializerOptions{ WriteIndented = true };
                         string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
                         if (File.Exists(pathFile))
                         {
                             File.Delete(pathFile);
                         }
                         Directory.CreateDirectory(Path.GetDirectoryName(pathFile));
+                        List<dynamic> savesSates = new List<dynamic>();
                         foreach (Save save in saveRepository.GetAllSaves()) {  
                             string saveStrategy = save.saveStrategy.GetType().Name;
-                            string jsonEntry = JsonSerializer.Serialize(save, options);
+                            string jsonEntry = JsonSerializer.Serialize(save);
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
-                            File.AppendAllText(pathFile, jsonEntry + Environment.NewLine);
+                            savesSates.Add(JsonSerializer.Deserialize<dynamic>(jsonEntry));
                         };
+                        string repositoryState = JsonSerializer.Serialize(savesSates, options);
+                        File.WriteAllText(pathFile, repositoryState);
                         leave = true;
                         break;
 
