@@ -16,7 +16,7 @@ public static class Logs
 
         string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
 
-        Logger.Log(logEntry);
+        Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
 
     }
 
@@ -90,7 +90,7 @@ public static class Logs
             $"\"Progression\":{Progression}" +
             "}";
  
-        Logger.RealTime(logEntry);
+        Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
 
     }
 
