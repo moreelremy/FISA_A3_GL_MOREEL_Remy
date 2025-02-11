@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+
 public class SaveRepository
 {
     // List of Saves
+    [JsonInclude]
     private List<Save> saves = new List<Save>();
 
     /// <summary>
