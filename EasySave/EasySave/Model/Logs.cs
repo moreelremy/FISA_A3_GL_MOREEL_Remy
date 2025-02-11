@@ -15,7 +15,6 @@ public static class Logs
     {
 
         string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
-
         Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
 
     }
@@ -69,28 +68,33 @@ public static class Logs
     /// <param name="nbFilesLeftToDo">The number of remaining files to be transferred.</param>
     /// <param name="Progression">The percentage of completion of the file transfer.</param>
     public static void RealTimeLog(
-        Save save,
-        int fileSize,
-        int transferTime,
+        string saveName,
+        string sourcePath,
+        string targetPath,
+        long fileSize,
         string state,
-        int totalFileSizetoCopy,
-        int totalFileSize,
+        int totalFilesToCopy,
+        long totalFileSize,
         int nbFilesLeftToDo,
+        long filesSizeLeftToDo,
         int Progression
         )
     {
         string logEntry = $"{{" +
-            $"\"Name\":{save.name}," +
-            $"\"SourceFilePath\":{save.sourceDirectory}," +
-            $"\"TargetFilePath\":{save.targetDirectory}," +
-            $"\"State\":{state}," +
-            $"\"TotalFilesToCopy\":{totalFileSizetoCopy}," +
+            $"\"Name\":\"{saveName}\"," +
+            $"\"SourceFilePath\":\"{sourcePath}\"," +
+            $"\"TargetFilePath\":\"{targetPath}\"," +
+            $"\"FileSize\":{fileSize}," +
+            $"\"State\":\"{state}\"," +
+            $"\"TotalFilesToCopy\":{totalFilesToCopy}," +
             $"\"TotalFilesSize\":{totalFileSize}," +
             $"\"NbFilesLeftToDo\":{nbFilesLeftToDo}," +
+            $"\"FilesSizeLeftToDo\":{filesSizeLeftToDo}," +
+            $"\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\"," +
             $"\"Progression\":{Progression}" +
             "}";
  
-        Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
+        Logger.Log(logEntry, $"RealTime/state.json");
 
     }
 
