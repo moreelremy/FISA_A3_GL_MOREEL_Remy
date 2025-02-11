@@ -16,11 +16,10 @@ class View
         Console.WriteLine("╚═════════════════════════════════════╝");
         Console.WriteLine($"    [1]: {Language.GetString("View_CreateBackup")}");
         Console.WriteLine($"    [2]: {Language.GetString("View_StartBackup")}");
-        Console.WriteLine($"    [3]: {Language.GetString("ControllerView_ViewLogs")}");
-        Console.WriteLine($"    [4]: {Language.GetString("View_ChangeLanguage")}");
-        Console.WriteLine($"    [5]: {Language.GetString("View_ViewAllSaves")}");
-        Console.WriteLine($"    [6]: {Language.GetString("View_RemoveSaves")}");
-        Console.WriteLine($"    [7]: {Language.GetString("View_ExitApp")}\n\n");
+        Console.WriteLine($"    [3]: {Language.GetString("View_ViewAllSaves")}");
+        Console.WriteLine($"    [4]: {Language.GetString("ControllerView_ViewLogs")}");
+        Console.WriteLine($"    [5]: {Language.GetString("View_ChangeLanguage")}");
+        Console.WriteLine($"    [6]: {Language.GetString("View_ExitApp")}\n\n");
 
         return InputHelper.ReadLineNotNull(Language.GetString("View_EnterNumber"), allowReturnToMenu: false);
     }
@@ -34,51 +33,111 @@ class View
         return InputHelper.ReadLineNotNull(Language.GetString("View_LanguageChoice"));
     }
 
+    /// <summary>
+    /// Displays that the backup has been created and takes the list as a parameter
+    /// </summary>
+    /// <param name="save">Set up a backup list</param>
     public static void SaveAddedMessageView(Save save)
     {
         Console.WriteLine(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
     }
 
+    /// <summary>
+    /// Displays the list of backups with their number in the list
+    /// </summary>
+    /// <param name="saves">Set up a backup list</param>
     public static void ShowSavesView(List<Save> saves)
     {
-        Console.WriteLine("╔════════════════════════════════════");
-        Console.WriteLine("║ " + Language.GetString("View_ListOfBackups"));
-        foreach (var save in saves)
+        Console.WriteLine("╔═══════════════════════════════════╗");
+        Console.WriteLine(Language.GetString("View_ListOfBackups"));
+        Console.WriteLine("╚═══════════════════════════════════╝");
+        for(int i = 0; i < saves.Count; i++)
         {
-            Console.WriteLine("╠════════════════════════════════════");
-            Console.WriteLine($"║ " + Language.GetString("View_SaveName") + $" : {save.name}");
-            Console.WriteLine($"║ " + Language.GetString("View_SaveSource") + $" : {save.sourceDirectory}");
-            Console.WriteLine($"║ " + Language.GetString("View_SaveTarget") + $" : {save.targetDirectory}");
-            Console.WriteLine($"║ " + Language.GetString("View_SaveType") + $" : {(save.saveStrategy is FullSave ? Language.GetString("View_FullSave") : Language.GetString("View_DifferentialSave"))}");
+            Console.WriteLine($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
+            Console.WriteLine($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
+            Console.WriteLine($"   " + Language.GetString("View_SaveSource") + $" : {saves[i].sourceDirectory}");
+            Console.WriteLine($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
+            Console.WriteLine($"   " + Language.GetString("View_SaveType") + $" : {(saves[i].saveStrategy is FullSave ? Language.GetString("View_FullSave") : Language.GetString("View_DifferentialSave"))}");
+            Console.WriteLine("═════════════════════════════════════");
         }
-        Console.WriteLine("╚════════════════════════════════════");
+        
     }
     public static void NoBackupView()
     {
         Console.WriteLine(Language.GetString("View_NoBackups"));
     }
 
+    public static void DisplaySavesForExecution(List<Save> saves)
+    {
+        Console.WriteLine(Language.GetString("View_ChooseSaveToExecute"));
+        for (int i = 0; i < saves.Count; i++)
+        {
+            Console.WriteLine($"[{i + 1}] {saves[i].name}");
+        }
+    }
+
+    private static List<int> ParseSaveSelection(string input, int maxCount)
+    {
+        List<int> selectedIndexes = new List<int>();
+
+        try
+        {
+            string[] ranges = input.Split(';');
+            foreach (string range in ranges)
+            {
+                if (range.Contains('-'))
+                {
+                    string[] bounds = range.Split('-');
+                    int start = int.Parse(bounds[0]) - 1;
+                    int end = int.Parse(bounds[1]) - 1;
+
+                    for (int i = start; i <= end && i < maxCount; i++)
+                    {
+                        if (!selectedIndexes.Contains(i))
+                            selectedIndexes.Add(i);
+                    }
+                }
+                else
+                {
+                    int index = int.Parse(range) - 1;
+                    if (index >= 0 && index < maxCount)
+                    {
+                        selectedIndexes.Add(index);
+                    }
+                }
+            }
+        }
+        catch
+        {
+            Console.WriteLine(Language.GetString("View_InvalidSelection"));
+        }
+
+        return selectedIndexes;
+    }
+
+    public static List<int> GetSaveSelection(int maxCount)
+    {
+        string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveIdsToExecute"));
+        return ParseSaveSelection(input, maxCount);
+    }
+
+    public static void DisplayExecutionResult(bool success)
+    {
+        Console.WriteLine(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
+    }
+
 
     /// <summary>
-    /// Collects information from the user to create a new backup, With a return to menu option
+    /// Shows the choice between returning to the menu or deleting a save
     /// </summary>
-    /// <returns>The newly created Save object</returns>
-    public static Save CreateBackupView()
+    /// <returns>returns the user's choice to use it in the switch case</returns>
+    public static string ShowChoiceMenuOrDelete()
     {
-        string name = InputHelper.ReadLineNotNull(Language.GetString("View_EnterBackupName"));
-        string source = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSourcePath"));
-        string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
-        Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
-        Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
-        string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
-        ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
-        return new Save
-        {
-            name = name,
-            sourceDirectory = source,
-            targetDirectory = target,
-            saveStrategy = saveStrategy,
-        };
+        string choice = InputHelper.ReadLineNotNull(
+                        Language.GetString("Controller_ChoiceDeleteOrMenu") + "\n\n" +
+                        "[1] : " + Language.GetString("Controller_ChoiceMenu") + "\n" +
+                        "[2] : " + Language.GetString("Controller_ChoiceDelete"));
+        return choice;
     }
 
     /// <summary>
@@ -129,6 +188,27 @@ class View
         }
     }
 
+    /// <summary>
+    /// Collects information from the user to create a new backup, With a return to menu option
+    /// </summary>
+    /// <returns>The newly created Save object</returns>
+    public static Save CreateBackupView()
+    {
+        string name = InputHelper.ReadLineNotNull(Language.GetString("View_EnterBackupName"));
+        string source = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSourcePath"));
+        string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
+        Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
+        Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
+        string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+        ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
+        return new Save
+        {
+            name = name,
+            sourceDirectory = source,
+            targetDirectory = target,
+            saveStrategy = saveStrategy,
+        };
+    }
 
     /// <summary>
     /// Ask the user to choose a date for listing logs
@@ -139,14 +219,12 @@ class View
         return InputHelper.ReadLineNotNull(Language.GetString("View_DateChoice"));
     }
 
+    /// <summary>
+    /// Just print a message in the console
+    /// </summary>
+    /// <param name="output">Take the sentence to display as a parameter</param>
     public static void Output(string output)
     {
         Console.WriteLine(output);
     }
-
-    public static void FileNotFound() 
-    {
-        Console.WriteLine(Language.GetString("View_FileNotFound"));
-    }
-
 }

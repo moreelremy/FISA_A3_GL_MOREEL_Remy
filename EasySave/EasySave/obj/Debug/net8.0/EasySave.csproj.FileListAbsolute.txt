@@ -113,3 +113,15 @@ C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\n
 C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.pdb
 C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.AssemblyReference.cache
 C:\Users\moree\Source\Repos\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.Up2Date
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\en\EasySave.resources.dll
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\ru\EasySave.resources.dll
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.dll
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\bin\Debug\net8.0\EasySaveLogger.pdb
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.AssemblyReference.cache
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.Model.Languages.language.resources
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.Model.Languages.language.en.resources
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.Model.Languages.language.ru.resources
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.GenerateResource.cache
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\en\EasySave.resources.dll
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\ru\EasySave.resources.dll
+C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySave\EasySave\obj\Debug\net8.0\EasySave.csproj.Up2Date

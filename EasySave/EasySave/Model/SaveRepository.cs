@@ -1,5 +1,8 @@
-using System.Text.Json.Serialization;
-using System.Xml.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
 
 public class SaveRepository
 {
@@ -59,27 +62,63 @@ public class SaveRepository
         return saves.Count == 0;
     }
 
-   
     /// <summary>
-    /// Searches for a save by its name.
+    /// Executes a save operation by delegating to the save strategy.
     /// </summary>
-    /// <param name="name">The name of the save to search for.</param>
-    /// <returns>The found save or null if no match is found.</returns>
-    public Save SearchSave(string name)
+    public bool ExecuteSave(Save save)
     {
-        return saves.FirstOrDefault(s => s.name.Equals(name, StringComparison.OrdinalIgnoreCase));
-    }
-
-    public void ShowSave()
-    {
-        foreach (Save save in saves)
+        try
         {
-            Console.WriteLine(save.name);
-            Console.WriteLine(save.sourceDirectory);
-            Console.WriteLine(save.targetDirectory);
-            Console.WriteLine(save.saveStrategy);
+            // Validate the source directory before starting the save
+            if (!Directory.Exists(save.sourceDirectory))
+            {
+                Console.WriteLine(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
+                return false;  // Stop execution if the directory does not exist
+            }
 
+            // Mark save as active
+            UpdateStateFile(save, isActive: true);
+
+            // Execute the save using the strategy
+            save.saveStrategy.Save(save);
+
+            // Mark save as completed
+            UpdateStateFile(save, isActive: false);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
+            return false;
         }
     }
 
+    /// <summary>
+    /// Updates the state file to reflect the current save status.
+    /// </summary>
+    private void UpdateStateFile(
+    Save save,
+    bool isActive,
+    int totalFileSize = 0,
+    int totalFileSizeToCopy = 0,
+    int nbFilesLeftToDo = 0,
+    int progression = 0
+)
+    {
+        // Determine the state: "ACTIVE" or "END"
+        string state = isActive ? "ACTIVE" : "END";
+
+        // Call the RealTimeLog method to handle logging
+        Logs.RealTimeLog(
+            save,
+            fileSize: 0,              
+            transferTime: 0,          
+            state: state,
+            totalFileSizetoCopy: totalFileSizeToCopy,
+            totalFileSize: totalFileSize,
+            nbFilesLeftToDo: nbFilesLeftToDo,
+            Progression: progression
+        );
+    }
 }

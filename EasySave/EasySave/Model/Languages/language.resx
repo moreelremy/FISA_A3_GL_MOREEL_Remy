@@ -148,7 +148,7 @@
     <value>Choisissez une langue (EN/FR/RU)</value>
   </data>
   <data name="View_ListOfBackups" xml:space="preserve">
-    <value>Liste des sauvegardes : </value>
+    <value>║       Liste des sauvegardes       ║</value>
   </data>
   <data name="View_NoBackups" xml:space="preserve">
     <value>Aucune sauvegarde trouvée. </value>
@@ -199,9 +199,6 @@
   <data name="Controller_MaxSaveLimitReached" xml:space="preserve">
     <value>Limite maximale de sauvegardes atteinte (5).</value>
   </data>
-  <data name="View_RemoveSaves" xml:space="preserve">
-    <value>Supprimer Sauvegardes</value>
-  </data>
   <data name="View_EnterSaveNameToDelete" xml:space="preserve">
     <value>Entrez le nom de la sauvegarde à supprimer : </value>
   </data>
@@ -222,5 +219,41 @@
   </data>
   <data name="View_FileNotFound" xml:space="preserve">
     <value>Fichier introuvable. Veuillez entrer une date correcte.</value>
+  </data>
+  <data name="View_NumberSave" xml:space="preserve">
+    <value>Numéro de sauvegarde</value>
+  </data>
+  <data name="Controller_ChoiceDeleteOrMenu" xml:space="preserve">
+    <value>Voulez vous revenir au menu ou supprimer une sauvegarde ?</value>
+  </data>
+  <data name="Controller_ChoiceMenu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Controller_ChoiceDelete" xml:space="preserve">
+    <value>Supprimer une sauvegarde</value>
+  </data>
+  <data name="Controller_AskChoiceDelete" xml:space="preserve">
+    <value>Quelle sauvegarde voulez vous supprimer ?</value>
+  </data>
+  <data name="View_ChooseSaveToExecute" xml:space="preserve">
+    <value>Choisissez une sauvegarde à exécuter :</value>
+  </data>
+  <data name="View_EnterSaveIdsToExecute" xml:space="preserve">
+    <value>Entrez les identifiants des sauvegardes à exécuter (ex: 1-5) :</value>
+  </data>
+  <data name="View_ExecutionCompleted" xml:space="preserve">
+    <value>L'exécution de la sauvegarde s'est terminée avec succès.</value>
+  </data>
+  <data name="View_ExecutionFailed" xml:space="preserve">
+    <value>L'exécution de la sauvegarde a échoué.</value>
+  </data>
+  <data name="View_InvalidSelection" xml:space="preserve">
+    <value>Sélection invalide. Veuillez réessayer.</value>
+  </data>
+  <data name="Controller_SaveExecutionError " xml:space="preserve">
+    <value>Erreur lors de l'exécution de la sauvegarde '{0}'. Raison : {1}.</value>
+  </data>
+  <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
+    <value>Le répertoire source '{1}' de la sauvegarde '{0}' n'existe pas.</value>
   </data>
 </root>
