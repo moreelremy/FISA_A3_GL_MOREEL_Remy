@@ -64,7 +64,6 @@ class InputHelper
         return input;
     }
 }
-
 /// <summary>
 /// Exception to handle returning to the main menu.
 /// </summary>

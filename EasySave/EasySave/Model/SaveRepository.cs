@@ -16,12 +16,17 @@ public class SaveRepository
     /// </summary>
     /// <param name="save">The save to add.</param>
     /// <returns>The save if added successfully, otherwise null.</returns>
-    public void AddSave(Save save)
+    public Save AddSave(Save save)
     {
-       
+        // Check if the maximum number of saves has been reached
+        if (saves.Count >= 5)
+        {
+            return null;  // Indicate that the save was not added
+        }
+
         // Add the save and return it
         saves.Add(save);
-        
+        return save;
     }
 
     /// <summary>
@@ -72,16 +77,9 @@ public class SaveRepository
                 return false;  // Stop execution if the directory does not exist
             }
 
-            // Mark save as active
-            UpdateStateFile(save, isActive: true);
-
             // Execute the save using the strategy
             save.saveStrategy.Save(save);
 
-            // Mark save as completed
-            UpdateStateFile(save, isActive: false);
-
-            errorMessage = null;
             return true;
         }
         catch (Exception ex)
@@ -89,34 +87,5 @@ public class SaveRepository
             errorMessage = string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
             return false;
         }
-    }
-
-
-    /// <summary>
-    /// Updates the state file to reflect the current save status.
-    /// </summary>
-    private void UpdateStateFile(
-    Save save,
-    bool isActive,
-    int totalFileSize = 0,
-    int totalFileSizeToCopy = 0,
-    int nbFilesLeftToDo = 0,
-    int progression = 0
-)
-    {
-        // Determine the state: "ACTIVE" or "END"
-        string state = isActive ? "ACTIVE" : "END";
-
-        // Call the RealTimeLog method to handle logging
-        Logs.RealTimeLog(
-            save,
-            fileSize: 0,              
-            transferTime: 0,          
-            state: state,
-            totalFileSizetoCopy: totalFileSizeToCopy,
-            totalFileSize: totalFileSize,
-            nbFilesLeftToDo: nbFilesLeftToDo,
-            Progression: progression
-        );
     }
 }

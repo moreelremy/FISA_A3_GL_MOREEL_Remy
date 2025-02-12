@@ -2,9 +2,26 @@ using System;
 using System.IO;
 using System.Text;
 using EasySaveLogger;
+<<<<<<< Updated upstream
+=======
+using System.Text.Json;
+using System.Net.Http.Json;
+>>>>>>> Stashed changes
 
 public static class Logs
 {
+    /// <summary>
+    /// Represents a log entry for a backup operation.
+    /// </summary>
+    public class LogEntry
+    {
+        public string? timestamp { get; set; }
+        public string? saveName { get; set; }
+        public string? source { get; set; }
+        public string? target { get; set; }
+        public string? size { get; set; }
+        public string? transferTimeMs { get; set; }
+    }
     /// <summary>
     /// use to enter daily logs
     /// </summary>
@@ -15,7 +32,6 @@ public static class Logs
     {
 
         string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
-
         Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
 
     }
@@ -27,26 +43,25 @@ public static class Logs
     /// A list of log entries in reverse order (most recent first).
     /// If an error occurs, the list contains an error message.
     /// </returns>
-    public static List<string> ReadGeneralLog(string filePath)
+    public static List<LogEntry> ReadGeneralLog(string filePath)
     {
 
         StreamReader? reader = null;
-        List<string> logLines = new List<string>();
 
         try
         {
             reader = new StreamReader(filePath);
-            string line;
+            string jsonContent = reader.ReadToEnd(); // Lis tout le contenu du fichier
 
-            while ((line = reader.ReadLine()) != null)
-            {
-                logLines.Add(line);
-            }
-            return logLines.AsEnumerable().Reverse().ToList();
+            // Désérialiser le JSON en une liste d'objets BackupLog
+            var logs = JsonSerializer.Deserialize<List<LogEntry>>(jsonContent);
+
+            return logs.AsEnumerable().Reverse().ToList();
         }
+
         catch (Exception ex)
         {
-            return new List<string> { "Erreur lors de la lecture du fichier : " + ex.Message };
+            return new List<LogEntry> { new LogEntry { timestamp = "Erreur", saveName = ex.Message } };
         }
         finally
         {
@@ -69,28 +84,33 @@ public static class Logs
     /// <param name="nbFilesLeftToDo">The number of remaining files to be transferred.</param>
     /// <param name="Progression">The percentage of completion of the file transfer.</param>
     public static void RealTimeLog(
-        Save save,
-        int fileSize,
-        int transferTime,
+        string saveName,
+        string sourcePath,
+        string targetPath,
+        long fileSize,
         string state,
-        int totalFileSizetoCopy,
-        int totalFileSize,
+        int totalFilesToCopy,
+        long totalFileSize,
         int nbFilesLeftToDo,
+        long filesSizeLeftToDo,
         int Progression
         )
     {
         string logEntry = $"{{" +
-            $"\"Name\":{save.name}," +
-            $"\"SourceFilePath\":{save.sourceDirectory}," +
-            $"\"TargetFilePath\":{save.targetDirectory}," +
-            $"\"State\":{state}," +
-            $"\"TotalFilesToCopy\":{totalFileSizetoCopy}," +
+            $"\"Name\":\"{saveName}\"," +
+            $"\"SourceFilePath\":\"{sourcePath}\"," +
+            $"\"TargetFilePath\":\"{targetPath}\"," +
+            $"\"FileSize\":{fileSize}," +
+            $"\"State\":\"{state}\"," +
+            $"\"TotalFilesToCopy\":{totalFilesToCopy}," +
             $"\"TotalFilesSize\":{totalFileSize}," +
             $"\"NbFilesLeftToDo\":{nbFilesLeftToDo}," +
+            $"\"FilesSizeLeftToDo\":{filesSizeLeftToDo}," +
+            $"\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\"," +
             $"\"Progression\":{Progression}" +
             "}";
  
-        Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
+        Logger.Log(logEntry, $"RealTime/state.json");
 
     }
 
