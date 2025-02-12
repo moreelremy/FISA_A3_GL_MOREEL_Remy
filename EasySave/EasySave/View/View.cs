@@ -217,7 +217,10 @@ class View
     /// <returns>The date dd-mm-yyyy</returns>
     public static string GetWantedDate()
     {
-        return InputHelper.ReadLineNotNull(Language.GetString("View_DateChoice"));
+        Console.WriteLine(Language.GetString("View_DateChoice"));
+        string? result = Console.ReadLine();
+
+        return result == "" ? $"{DateTime.Now:dd-MM-yyyy}" : result;
     }
 
     /// <summary>
