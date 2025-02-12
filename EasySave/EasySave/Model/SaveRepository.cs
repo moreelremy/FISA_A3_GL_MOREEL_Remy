@@ -61,14 +61,14 @@ public class SaveRepository
     /// <summary>
     /// Executes a save operation by delegating to the save strategy.
     /// </summary>
-    public bool ExecuteSave(Save save)
+    public bool ExecuteSave(Save save, out string errorMessage)
     {
         try
         {
             // Validate the source directory before starting the save
             if (!Directory.Exists(save.sourceDirectory))
             {
-                Console.WriteLine(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
+                errorMessage = string.Format(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
                 return false;  // Stop execution if the directory does not exist
             }
 
@@ -81,14 +81,16 @@ public class SaveRepository
             // Mark save as completed
             UpdateStateFile(save, isActive: false);
 
+            errorMessage = null;
             return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
+            errorMessage = string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
             return false;
         }
     }
+
 
     /// <summary>
     /// Updates the state file to reflect the current save status.

@@ -54,8 +54,7 @@ class Controler
                        
 
                         }
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
 
                         break;
 
@@ -64,25 +63,34 @@ class Controler
                     case "2":
                         List<Save> savesToExecute = saveRepository.GetAllSaves();
 
-                        if (savesToExecute.Count == 0)
+                        if (saveRepository.IsEmpty())
                         {
                             View.NoBackupView();
                         }
                         else
                         {
                             View.DisplaySavesForExecution(savesToExecute);
-                            List<int> selectedIndexes = View.GetSaveSelection(savesToExecute.Count);
 
-                            foreach (int index in selectedIndexes)
+                            int saveIndex = View.GetSaveIndexForExecution(savesToExecute.Count);
+                            if (saveIndex != -1)
                             {
-                                Save save = savesToExecute[index];
-                                bool success = saveRepository.ExecuteSave(save);
-                                View.DisplayExecutionResult(success);
+                                string errorMessage;
+                                bool success = saveRepository.ExecuteSave(savesToExecute[saveIndex], out errorMessage);
+
+                                if (success)
+                                {
+                                    View.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
+                                }
+                                else
+                                {
+                                    View.DisplayError(errorMessage);
+                                }
                             }
                         }
 
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+
+
+                        View.PromptToContinue();
                         break;
 
                     case "3":
@@ -127,8 +135,7 @@ class Controler
                                     break;
                             }
                         }
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
                     
                     case "4":
@@ -151,8 +158,7 @@ class Controler
                         if (!File.Exists(filePath))
                         {
                             View.Output(Language.GetString("View_FileNotFound"));
-                            View.Output(Language.GetString("Controller_PressAnyKey"));
-                            Console.ReadLine();
+                            View.PromptToContinue();
                             break;
                         }
 
@@ -187,8 +193,7 @@ class Controler
                             Console.ReadLine();
                         }
 
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
 
                     case "5":
@@ -213,14 +218,12 @@ class Controler
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
                         leave = true;
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
 
                     default:
                         View.Output(Language.GetString("Controller_InvalidChoice"));
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
                 }
             }

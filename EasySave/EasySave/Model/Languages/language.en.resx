@@ -247,7 +247,4 @@
   <data name="View_InvalidSelection" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Controller_SaveExecutionError " type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
 </root>
