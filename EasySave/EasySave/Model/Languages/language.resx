@@ -215,7 +215,7 @@
     <value>Entrez le numéro de la sauvegarde à supprimer : </value>
   </data>
   <data name="View_DateChoice" xml:space="preserve">
-    <value>Pour quelle date souhaitez-vous consulter les logs (jj-MM-aaaa)? [Aujourd'hui]</value>
+    <value>Pour quelle date souhaitez-vous consulter les logs (jj-MM-aaaa)?</value>
   </data>
   <data name="View_FileNotFound" xml:space="preserve">
     <value>Fichier introuvable. Veuillez entrer une date correcte.</value>

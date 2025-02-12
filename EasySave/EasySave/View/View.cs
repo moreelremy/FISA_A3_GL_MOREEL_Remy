@@ -188,17 +188,6 @@ class View
         Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
         Console.ReadLine();
     }
-    /// <summary>
-    /// Ask the user to choose a date for listing logs
-    /// </summary>
-    /// <returns>The date dd-mm-yyyy</returns>
-    public static string GetWantedDate()
-    {
-        Console.WriteLine(Language.GetString("View_DateChoice"));
-        string? result = Console.ReadLine();
-
-        return result == "" ? $"{DateTime.Now:dd-MM-yyyy}" : result;
-    }
 
     /// <summary>
     /// Outputs a message to the console.
