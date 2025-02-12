@@ -37,28 +37,21 @@ class Controler
                 switch (response)
                 {
                     case "1":
-                        // Check if the maximum number of saves has been reached
-                        if (saveRepository.GetAllSaves().Count >= 5)
+                        Save newSave = View.CreateBackupView();
+                        Save addedSave = saveRepository.AddSave(newSave);
+                        // Check if the save was successfully added
+                        if (addedSave != null)
                         {
-                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
+                            View.SaveAddedMessageView(addedSave);
                         }
                         else
                         {
-                            Save newSave = View.CreateBackupView();
-                            saveRepository.AddSave(newSave);
-                            // Check if the save was successfully added
-                           
-                       
-                            View.SaveAddedMessageView(newSave);
-                       
-
+                            // Display a message if the save limit is reached
+                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));
                         }
                         View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
-
                         break;
-
-
 
                     case "2":
                         List<Save> savesToExecute = saveRepository.GetAllSaves();
@@ -92,20 +85,7 @@ class Controler
                         else
                         {
                             View.ShowSavesView(saves);
-                            string choice;
-                            while (true)
-                            {
-                                choice = View.ShowChoiceMenuOrDelete();
-                                if (choice == "1" || choice == "2")
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    View.Output(Language.GetString("Controller_InvalidChoice"));
-                                }
-                            }
-                            
+                            string choice = View.ShowChoiceMenuOrDelete();
 
                             switch (choice)
                             {

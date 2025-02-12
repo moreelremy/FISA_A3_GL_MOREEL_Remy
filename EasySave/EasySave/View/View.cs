@@ -76,16 +76,6 @@ class View
         }
     }
 
-
-    /// <summary>
-    /// Parses a user input string representing selected indices or index ranges and converts them into a list of zero-based indices.
-    /// </summary>
-    /// <param name="input">A string containing individual indices or ranges separated by semicolons (e.g., "1;3-5;7").</param>
-    /// <param name="maxCount">The maximum allowed index (1-based), ensuring selections stay within valid bounds.</param>
-    /// <returns>
-    /// A list of integers representing the zero-based indices of the selected items.
-    /// If the input is invalid, an empty list is returned.
-    /// </returns>
     private static List<int> ParseSaveSelection(string input, int maxCount)
     {
         List<int> selectedIndexes = new List<int>();
@@ -125,21 +115,12 @@ class View
         return selectedIndexes;
     }
 
-    /// <summary>
-    /// Prompts the user to enter save IDs to execute and parses them into a list of zero-based indices.
-    /// </summary>
-    /// <param name="maxCount">The maximum number of selectable save entries.</param>
-    /// <returns>A list of integers representing the selected zero-based indices.</returns>
     public static List<int> GetSaveSelection(int maxCount)
     {
         string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveIdsToExecute"));
         return ParseSaveSelection(input, maxCount);
     }
 
-    /// <summary>
-    /// Displays the execution result message based on success or failure.
-    /// </summary>
-    /// <param name="success">A boolean indicating whether the execution was successful.</param>
     public static void DisplayExecutionResult(bool success)
     {
         Console.WriteLine(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
@@ -218,20 +199,7 @@ class View
         string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
         Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
         Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
-
-        string typeChoice;
-        while (true)
-        {
-            typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
-            if (typeChoice == "1" || typeChoice == "2")
-            {
-                break; 
-            }
-            else
-            {
-                Console.WriteLine(Language.GetString("View_InvalidBackupType")); // Display error message
-            }
-        }
+        string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
         ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
         return new Save
         {
