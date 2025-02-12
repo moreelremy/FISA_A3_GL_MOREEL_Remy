@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
+using static Logs;
 
 class Controler
 {
@@ -120,13 +121,18 @@ class Controler
                             break;
                         }
 
+<<<<<<< Updated upstream
                         List<string> logLines = Logs.ReadGeneralLog(filePath);
+=======
+                        List<LogEntry> logLines = Logs.ReadGeneralLog(filePath);
+                    
+>>>>>>> Stashed changes
                         if (logLines.Count >= 10)
                         {
 
                             for (int j = 0; j < 10; j++)
                             {
-                                View.Output(logLines[j]);
+                                View.DisplayLog(logLines[j]);
                             }
 
                             for (int i = 10; i < logLines.Count; i++)
@@ -139,7 +145,11 @@ class Controler
                                 }
                                 else
                                 {
+<<<<<<< Updated upstream
                                     View.Output(logLines[i]);
+=======
+                                        View.DisplayLog(logLines[i]);
+>>>>>>> Stashed changes
                                 }
                             }
                         }
@@ -147,12 +157,12 @@ class Controler
                         {
                             for (int j = 0; j < logLines.Count; j++)
                             {
-                                View.Output(logLines[j]);
+                                    View.DisplayLog(logLines[j]);
                             }
                             Console.ReadLine();
                         }
                         break;
-
+                    
                     case "5":
                         // Change the language with the model
                         Language.SetLanguage(View.GetLanguageChoice());
@@ -174,7 +184,25 @@ class Controler
                         };
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
+<<<<<<< Updated upstream
                         Environment.Exit(0);
+=======
+                        leave = true;
+                        break;
+                    case "66":
+                        for (int i = 1; i <= 20; i++)
+                        {
+                            Save save = new Save
+                            {
+                                name = $"Backup{i}",
+                                sourceDirectory = @"C:\\Source\\File.txt",
+                                targetDirectory = @"D:\\Backup\\File.txt",
+                                saveStrategy = new FullSave()
+                            };
+                            //Logs.RealTimeLog(save, 10, 10,"END",13,13,51,50);
+                            Logs.GeneralLog(save, 10, 10);
+                        }
+>>>>>>> Stashed changes
                         break;
 
                     default:

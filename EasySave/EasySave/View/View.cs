@@ -1,4 +1,5 @@
 ﻿using System.Resources;
+using static Logs;
 
 /// <summary>
 /// Manages View
@@ -227,4 +228,27 @@ class View
     {
         Console.WriteLine(output);
     }
+
+
+    /// <summary>
+    /// Affiche les informations d'un log dans la console.
+    /// </summary>
+    /// <param name="log">L'entrée de log à afficher.</param>
+    public static void DisplayLog(LogEntry log)
+    {
+        if (log == null)
+        {
+            Console.WriteLine("LogEntry is null.");
+            return;
+        }
+
+        Console.WriteLine($"Timestamp: {log.timestamp}");
+        Console.WriteLine($"SaveName: {log.saveName}");
+        Console.WriteLine($"Source: {log.source}");
+        Console.WriteLine($"Target: {log.target}");
+        Console.WriteLine($"Size: {log.size}");
+        Console.WriteLine($"TransferTimeMs: {log.transferTimeMs}");
+        Console.WriteLine("══════════════════════════════");
+    }
+
 }
