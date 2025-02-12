@@ -1,0 +1,31 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "EasySaveLogger/1.0.0": {
+        "runtime": {
+          "EasySaveLogger.dll": {}
+        },
+        "resources": {
+          "en/EasySaveLogger.resources.dll": {
+            "locale": "en"
+          },
+          "ru/EasySaveLogger.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EasySaveLogger/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
