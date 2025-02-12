@@ -256,4 +256,7 @@
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
     <value>Le répertoire source '{1}' de la sauvegarde '{0}' n'existe pas.</value>
   </data>
+  <data name="View_InvalidBackupType" xml:space="preserve">
+    <value>Valeur invalide ! Veuillez choisir entre 1 ou 2.</value>
+  </data>
 </root>

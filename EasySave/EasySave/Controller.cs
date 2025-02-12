@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
-using static Logs;
 
 class Controler
 {
     static void Main(string[] args)
     {
         SaveRepository saveRepository = new SaveRepository();
+        bool leave = false;
 
         FullSave fullSave = new FullSave();
         DifferentialSave differentialSave = new DifferentialSave();
@@ -31,28 +31,34 @@ class Controler
             }
         }
 
-        while (true)
+        while (!leave)
         {
             string response = View.ShowMenu();
             try {
                 switch (response)
                 {
                     case "1":
-                        Save newSave = View.CreateBackupView();
-                        Save addedSave = saveRepository.AddSave(newSave);
-                        // Check if the save was successfully added
-                        if (addedSave != null)
+                        // Check if the maximum number of saves has been reached
+                        if (saveRepository.GetAllSaves().Count >= 5)
                         {
-                            View.SaveAddedMessageView(addedSave);
+                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
                         }
                         else
                         {
-                            // Display a message if the save limit is reached
-                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));
+                            Save newSave = View.CreateBackupView();
+                            saveRepository.AddSave(newSave);
+                            // Check if the save was successfully added
+                           
+                       
+                            View.SaveAddedMessageView(newSave);
+                       
+
                         }
                         View.PromptToContinue();
 
                         break;
+
+
 
                     case "2":
                         List<Save> savesToExecute = saveRepository.GetAllSaves();
@@ -96,7 +102,20 @@ class Controler
                         else
                         {
                             View.ShowSavesView(saves);
-                            string choice = View.ShowChoiceMenuOrDelete();
+                            string choice;
+                            while (true)
+                            {
+                                choice = View.ShowChoiceMenuOrDelete();
+                                if (choice == "1" || choice == "2")
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    View.Output(Language.GetString("Controller_InvalidChoice"));
+                                }
+                            }
+                            
 
                             switch (choice)
                             {
@@ -120,6 +139,18 @@ class Controler
                         break;
                     
                     case "4":
+                       
+                       for (int i = 0; i < 1111; i++)
+                       {
+                           Save save = new Save
+                           {
+                               name = "Backup1",
+                               sourceDirectory = @"C:\Source\File.txt",
+                               targetDirectory = @"D:\Backup\File.txt",
+                               saveStrategy = new FullSave()
+                           };
+                           Logs.GeneralLog(save, 10,10);
+                       }
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
@@ -131,23 +162,17 @@ class Controler
                             break;
                         }
 
-<<<<<<< Updated upstream
                         List<string> logLines = Logs.ReadGeneralLog(filePath);
-=======
-                        List<LogEntry> logLines = Logs.ReadGeneralLog(filePath);
-                    
->>>>>>> Stashed changes
                         if (logLines.Count >= 10)
                         {
 
                             for (int j = 0; j < 10; j++)
                             {
-                                View.DisplayLog(logLines[j]);
+                                View.Output(logLines[j]);
                             }
 
                             for (int i = 10; i < logLines.Count; i++)
                             {
-
                                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                                 if (keyInfo.Key != ConsoleKey.Enter)
                                 {
@@ -155,11 +180,7 @@ class Controler
                                 }
                                 else
                                 {
-<<<<<<< Updated upstream
                                     View.Output(logLines[i]);
-=======
-                                        View.DisplayLog(logLines[i]);
->>>>>>> Stashed changes
                                 }
                             }
                         }
@@ -167,14 +188,14 @@ class Controler
                         {
                             for (int j = 0; j < logLines.Count; j++)
                             {
-                                    View.DisplayLog(logLines[j]);
+                                View.Output(logLines[j]);
                             }
                             Console.ReadLine();
                         }
 
                         View.PromptToContinue();
                         break;
-                    
+
                     case "5":
                         // Change the language with the model
                         Language.SetLanguage(View.GetLanguageChoice());
@@ -196,26 +217,8 @@ class Controler
                         };
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
-<<<<<<< Updated upstream
-                        Environment.Exit(0);
-=======
                         leave = true;
                         View.PromptToContinue();
-                        break;
-                    case "66":
-                        for (int i = 1; i <= 20; i++)
-                        {
-                            Save save = new Save
-                            {
-                                name = $"Backup{i}",
-                                sourceDirectory = @"C:\\Source\\File.txt",
-                                targetDirectory = @"D:\\Backup\\File.txt",
-                                saveStrategy = new FullSave()
-                            };
-                            //Logs.RealTimeLog(save, 10, 10,"END",13,13,51,50);
-                            Logs.GeneralLog(save, 10, 10);
-                        }
->>>>>>> Stashed changes
                         break;
 
                     default:
@@ -223,7 +226,6 @@ class Controler
                         View.PromptToContinue();
                         break;
                 }
-                Console.Clear();
             }
             catch (ReturnToMenuException ex)
             {
