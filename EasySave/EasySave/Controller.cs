@@ -131,12 +131,7 @@ class Controler
                             break;
                         }
 
-<<<<<<< Updated upstream
-                        List<string> logLines = Logs.ReadGeneralLog(filePath);
-=======
                         List<LogEntry> logLines = Logs.ReadGeneralLog(filePath);
-                    
->>>>>>> Stashed changes
                         if (logLines.Count >= 10)
                         {
 
@@ -155,11 +150,7 @@ class Controler
                                 }
                                 else
                                 {
-<<<<<<< Updated upstream
-                                    View.Output(logLines[i]);
-=======
-                                        View.DisplayLog(logLines[i]);
->>>>>>> Stashed changes
+                                    View.DisplayLog(logLines[i]);
                                 }
                             }
                         }
@@ -196,14 +187,12 @@ class Controler
                         };
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
-<<<<<<< Updated upstream
                         Environment.Exit(0);
-=======
-                        leave = true;
+            
                         View.PromptToContinue();
                         break;
                     case "66":
-                        for (int i = 1; i <= 20; i++)
+                        for (int i = 0; i < 20; i++)
                         {
                             Save save = new Save
                             {
@@ -212,10 +201,8 @@ class Controler
                                 targetDirectory = @"D:\\Backup\\File.txt",
                                 saveStrategy = new FullSave()
                             };
-                            //Logs.RealTimeLog(save, 10, 10,"END",13,13,51,50);
                             Logs.GeneralLog(save, 10, 10);
                         }
->>>>>>> Stashed changes
                         break;
 
                     default:
@@ -223,7 +210,6 @@ class Controler
                         View.PromptToContinue();
                         break;
                 }
-                Console.Clear();
             }
             catch (ReturnToMenuException ex)
             {

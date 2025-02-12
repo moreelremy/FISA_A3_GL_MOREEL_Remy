@@ -2,11 +2,8 @@ using System;
 using System.IO;
 using System.Text;
 using EasySaveLogger;
-<<<<<<< Updated upstream
-=======
 using System.Text.Json;
 using System.Net.Http.Json;
->>>>>>> Stashed changes
 
 public static class Logs
 {
@@ -31,7 +28,17 @@ public static class Logs
     public static void GeneralLog(Save save, long fileSize, int transferTime)
     {
 
-        string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
+        //string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
+
+        string logEntry = $@"{{
+    ""timestamp"":""{DateTime.Now:dd-MM-yyyy HH:mm:ss}"",
+    ""saveName"":""{save.name}"",
+    ""source"":""{save.sourceDirectory}"",
+    ""target"":""{save.targetDirectory}"",
+    ""size"":""{fileSize}"",
+    ""transferTimeMs"":""{transferTime}""
+}}";
+
         Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
 
     }
