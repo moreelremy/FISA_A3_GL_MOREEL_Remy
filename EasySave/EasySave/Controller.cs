@@ -4,7 +4,7 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 using static Logs;
 
-class Controler
+class Controller
 {
     static void Main(string[] args)
     {
@@ -38,55 +38,71 @@ class Controler
                 switch (response)
                 {
                     case "1":
-                        Save newSave = View.CreateBackupView();
-                        Save addedSave = saveRepository.AddSave(newSave);
-                        // Check if the save was successfully added
-                        if (addedSave != null)
+                        if (saveRepository.GetAllSaves().Count >= 5)
                         {
-                            View.SaveAddedMessageView(addedSave);
+                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
                         }
                         else
                         {
-                            // Display a message if the save limit is reached
-                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));
+                            Save newSave = View.CreateBackupView();
+                            saveRepository.AddSave(newSave);
+                            // Check if the save was successfully added
+                            View.SaveAddedMessageView(newSave);
                         }
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
 
                     case "2":
-                        List<Save> savesToExecute = saveRepository.GetAllSaves();
-
-                        if (savesToExecute.Count == 0)
+                        if (saveRepository.IsEmpty())
                         {
                             View.NoBackupView();
                         }
                         else
                         {
+                            List<Save> savesToExecute = saveRepository.GetAllSaves();
                             View.DisplaySavesForExecution(savesToExecute);
-                            List<int> selectedIndexes = View.GetSaveSelection(savesToExecute.Count);
 
-                            foreach (int index in selectedIndexes)
+                            int saveIndex = View.GetSaveIndexForExecution(savesToExecute.Count);
+                            if (saveIndex != -1)
                             {
-                                Save save = savesToExecute[index];
-                                bool success = saveRepository.ExecuteSave(save);
-                                View.DisplayExecutionResult(success);
+                                string errorMessage;
+                                bool success = saveRepository.ExecuteSave(savesToExecute[saveIndex], out errorMessage);
+
+                                if (success)
+                                {
+                                    View.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
+                                }
+                                else
+                                {
+                                    View.DisplayError(errorMessage);
+                                }
                             }
                         }
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
 
                     case "3":
-                        List<Save> saves = saveRepository.GetAllSaves();
                         if (saveRepository.IsEmpty())
                         {
                             View.Output(Language.GetString("View_NoBackups"));
                         }
                         else
                         {
+                            List<Save> saves = saveRepository.GetAllSaves();
                             View.ShowSavesView(saves);
-                            string choice = View.ShowChoiceMenuOrDelete();
+                            string choice;
+                            while (true)
+                            {
+                                choice = View.ShowChoiceMenuOrDelete();
+                                if (choice == "1" || choice == "2")
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    View.Output(Language.GetString("Controller_InvalidChoice"));
+                                }
+                            }
 
                             switch (choice)
                             {
@@ -106,8 +122,7 @@ class Controler
                                     break;
                             }
                         }
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
                     
                     case "4":
@@ -118,6 +133,7 @@ class Controler
                         if (!File.Exists(filePath))
                         {
                             View.Output(Language.GetString("View_FileNotFound"));
+                            View.PromptToContinue();
                             break;
                         }
 
@@ -143,6 +159,7 @@ class Controler
                                     View.DisplayLog(logLines[i]);
                                 }
                             }
+                            View.PromptToContinue();
                         }
                         else
                         {
@@ -150,7 +167,7 @@ class Controler
                             {
                                     View.DisplayLog(logLines[j]);
                             }
-                            Console.ReadLine();
+                            View.PromptToContinue();
                         }
                         break;
                     
@@ -175,26 +192,13 @@ class Controler
                         };
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
-                        
-                        break;
-                    case "66":
-                        for (int i = 0; i < 20; i++)
-                        {
-                            Save save = new Save
-                            {
-                                name = $"Backup{i}",
-                                sourceDirectory = @"C:\\Source\\File.txt",
-                                targetDirectory = @"D:\\Backup\\File.txt",
-                                saveStrategy = new FullSave()
-                            };
-                            Logs.GeneralLog(save, 10, 10);
-                        }
+                        View.PromptToContinue();
+                        Environment.Exit(0);
                         break;
 
                     default:
                         View.Output(Language.GetString("Controller_InvalidChoice"));
-                        View.Output(Language.GetString("Controller_PressAnyKey"));
-                        Console.ReadLine();
+                        View.PromptToContinue();
                         break;
                 }
             }
@@ -202,8 +206,9 @@ class Controler
             {
                 // Handle the localized message from the exception
                 View.Output(ex.Message);
-                continue;
+                View.PromptToContinue();
             }
+            Console.Clear();
         }
     }
 }

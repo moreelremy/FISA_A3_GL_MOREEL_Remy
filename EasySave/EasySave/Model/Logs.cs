@@ -16,9 +16,10 @@ public static class Logs
         public string? saveName { get; set; }
         public string? source { get; set; }
         public string? target { get; set; }
-        public string? size { get; set; }
-        public string? transferTimeMs { get; set; }
+        public long? size { get; set; }
+        public int? transferTimeMs { get; set; }
     }
+
     /// <summary>
     /// use to enter daily logs
     /// </summary>
@@ -27,20 +28,18 @@ public static class Logs
     /// <param name="transferTime">The time taken for the file transfer in milliseconds.</param>
     public static void GeneralLog(Save save, long fileSize, int transferTime)
     {
+        var log = new
+        {
+            timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
+            saveName = save.name,
+            source = Logs.ConvertToUnc(save.sourceDirectory),
+            target = Logs.ConvertToUnc(save.targetDirectory),
+            size = fileSize,
+            transferTimeMs = transferTime
+        };
 
-        //string logEntry = $"{{\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\",\"saveName\":\"{save.name}\",\"source\":\"{save.sourceDirectory}\",\"target\":\"{save.targetDirectory}\",\"size\":{fileSize},\"transferTimeMs\":{transferTime}}}";
-
-        string logEntry = $@"{{
-    ""timestamp"":""{DateTime.Now:dd-MM-yyyy HH:mm:ss}"",
-    ""saveName"":""{save.name}"",
-    ""source"":""{save.sourceDirectory}"",
-    ""target"":""{save.targetDirectory}"",
-    ""size"":""{fileSize}"",
-    ""transferTimeMs"":""{transferTime}""
-}}";
-
+        string logEntry = JsonSerializer.Serialize(log);
         Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
-
     }
 
     /// <summary>
@@ -52,17 +51,24 @@ public static class Logs
     /// </returns>
     public static List<LogEntry> ReadGeneralLog(string filePath)
     {
-
-        StreamReader? reader = null;
-
         try
         {
-            reader = new StreamReader(filePath);
-            string jsonContent = reader.ReadToEnd(); // Lis tout le contenu du fichier
-
-            // Désérialiser le JSON en une liste d'objets BackupLog
-            var logs = JsonSerializer.Deserialize<List<LogEntry>>(jsonContent);
-
+            List<LogEntry> logs = new List<LogEntry>();
+            using JsonDocument jsonContent = JsonDocument.Parse(File.ReadAllText(filePath));
+            foreach (JsonElement jsonElement in jsonContent.RootElement.EnumerateArray())
+            {
+                logs.Add(
+                   new LogEntry
+                   {
+                       timestamp = jsonElement.GetProperty("timestamp").GetString(),
+                       saveName = jsonElement.GetProperty("saveName").GetString(),
+                       source = jsonElement.GetProperty("source").GetString(),
+                       target = jsonElement.GetProperty("target").GetString(),
+                       size = jsonElement.GetProperty("size").GetInt64(),
+                       transferTimeMs = jsonElement.GetProperty("transferTimeMs").GetInt32()
+                   }
+               );
+            }
             return logs.AsEnumerable().Reverse().ToList();
         }
 
@@ -70,13 +76,25 @@ public static class Logs
         {
             return new List<LogEntry> { new LogEntry { timestamp = "Erreur", saveName = ex.Message } };
         }
-        finally
-        {
-            if (reader != null)
-            {
-                reader.Close(); // Close the file to free resources
-            }
-        }
+    }
+
+    public static string ConvertToUnc(string localPath)
+    {
+        if (localPath == "")
+            return "";
+
+        string fullPath = Path.GetFullPath(localPath);
+       
+        if (!Path.IsPathRooted(fullPath))
+            throw new ArgumentException("Le chemin fourni n'est pas absolu.");
+
+        string driveLetter = Path.GetPathRoot(fullPath)?.TrimEnd('\\');
+        if (driveLetter == null || driveLetter.Length < 2)
+            throw new ArgumentException("Impossible d'extraire la lettre du disque.");
+
+        string uncPath = fullPath.Replace(driveLetter, $"\\\\localhost\\{driveLetter.TrimEnd(':')}$");
+
+        return uncPath;
     }
 
     /// <summary>
@@ -103,22 +121,22 @@ public static class Logs
         int Progression
         )
     {
-        string logEntry = $"{{" +
-            $"\"Name\":\"{saveName}\"," +
-            $"\"SourceFilePath\":\"{sourcePath}\"," +
-            $"\"TargetFilePath\":\"{targetPath}\"," +
-            $"\"FileSize\":{fileSize}," +
-            $"\"State\":\"{state}\"," +
-            $"\"TotalFilesToCopy\":{totalFilesToCopy}," +
-            $"\"TotalFilesSize\":{totalFileSize}," +
-            $"\"NbFilesLeftToDo\":{nbFilesLeftToDo}," +
-            $"\"FilesSizeLeftToDo\":{filesSizeLeftToDo}," +
-            $"\"timestamp\":\"{DateTime.Now:dd-MM-yyyy HH:mm:ss}\"," +
-            $"\"Progression\":{Progression}" +
-            "}";
- 
+        var log = new
+        {
+            Name = saveName,
+            SourceFilePath = Logs.ConvertToUnc(sourcePath),
+            TargetFilePath = Logs.ConvertToUnc(targetPath),
+            FileSize = fileSize,
+            State = state,
+            TotalFilesToCopy = totalFilesToCopy,
+            TotalFilesSize = totalFileSize,
+            NbFilesLeftToDo = nbFilesLeftToDo,
+            FilesSizeLeftToDo = filesSizeLeftToDo,
+            timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
+            Progression = Progression
+        };
+
+        string logEntry = JsonSerializer.Serialize(log);
         Logger.Log(logEntry, $"RealTime/state.json");
-
     }
-
 }

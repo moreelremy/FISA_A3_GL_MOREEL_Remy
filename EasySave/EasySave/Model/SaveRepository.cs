@@ -16,17 +16,10 @@ public class SaveRepository
     /// </summary>
     /// <param name="save">The save to add.</param>
     /// <returns>The save if added successfully, otherwise null.</returns>
-    public Save AddSave(Save save)
+    public void AddSave(Save save)
     {
-        // Check if the maximum number of saves has been reached
-        if (saves.Count >= 5)
-        {
-            return null;  // Indicate that the save was not added
-        }
-
         // Add the save and return it
         saves.Add(save);
-        return save;
     }
 
     /// <summary>
@@ -66,25 +59,26 @@ public class SaveRepository
     /// <summary>
     /// Executes a save operation by delegating to the save strategy.
     /// </summary>
-    public bool ExecuteSave(Save save)
+    public bool ExecuteSave(Save save, out string errorMessage)
     {
         try
         {
             // Validate the source directory before starting the save
             if (!Directory.Exists(save.sourceDirectory))
             {
-                Console.WriteLine(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
+                errorMessage = string.Format(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
                 return false;  // Stop execution if the directory does not exist
             }
 
             // Execute the save using the strategy
             save.saveStrategy.Save(save);
 
+            errorMessage = null;
             return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
+            errorMessage = string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
             return false;
         }
     }

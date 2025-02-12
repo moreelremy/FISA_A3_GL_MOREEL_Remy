@@ -45,6 +45,6 @@ public class Language
     /// <returns>The character string linked to the key</returns>
     public static string GetString(string key)
     {
-            return rm.GetString(key, cultureInfo) ?? key;
-        }
+        return rm.GetString(key, cultureInfo) ?? key;
+    }
 }

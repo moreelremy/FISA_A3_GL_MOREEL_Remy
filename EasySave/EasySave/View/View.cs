@@ -77,6 +77,15 @@ class View
         }
     }
 
+    /// <summary>
+    /// Parses a user input string representing selected indices or index ranges and converts them into a list of zero-based indices.
+    /// </summary>
+    /// <param name="input">A string containing individual indices or ranges separated by semicolons (e.g., "1;3-5;7").</param>
+    /// <param name="maxCount">The maximum allowed index (1-based), ensuring selections stay within valid bounds.</param>
+    /// <returns>
+    /// A list of integers representing the zero-based indices of the selected items.
+    /// If the input is invalid, an empty list is returned.
+    /// </returns>
     private static List<int> ParseSaveSelection(string input, int maxCount)
     {
         List<int> selectedIndexes = new List<int>();
@@ -116,17 +125,25 @@ class View
         return selectedIndexes;
     }
 
+    /// <summary>
+    /// Prompts the user to enter save IDs to execute and parses them into a list of zero-based indices.
+    /// </summary>
+    /// <param name="maxCount">The maximum number of selectable save entries.</param>
+    /// <returns>A list of integers representing the selected zero-based indices.</returns>
     public static List<int> GetSaveSelection(int maxCount)
     {
         string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveIdsToExecute"));
         return ParseSaveSelection(input, maxCount);
     }
 
+    /// <summary>
+    /// Displays the execution result message based on success or failure.
+    /// </summary>
+    /// <param name="success">A boolean indicating whether the execution was successful.</param>
     public static void DisplayExecutionResult(bool success)
     {
         Console.WriteLine(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
     }
-
 
     /// <summary>
     /// Shows the choice between returning to the menu or deleting a save
@@ -174,6 +191,23 @@ class View
     }
 
     /// <summary>
+    /// Prompts the user to enter a save index for execution and validates the input.
+    /// </summary>
+    /// <param name="maxIndex">The maximum valid index (1-based).</param>
+    /// <returns>The selected index as a zero-based integer, or -1 if the input is invalid.</returns>
+    public static int GetSaveIndexForExecution(int maxIndex)
+    {
+        string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveNumber"));
+        if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
+        {
+            return index - 1;  // Convert to 0-based index
+        }
+
+        DisplayError(Language.GetString("View_InvalidSelection"));
+        return -1;  // Invalid choice
+    }
+
+    /// <summary>
     /// Displays the result of the deletion.
     /// </summary>
     /// <param name="isDeleted">True if the save was deleted, otherwise false.</param>
@@ -190,6 +224,28 @@ class View
     }
 
     /// <summary>
+    /// Displays a success message in green.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    public static void DisplaySuccess(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(message);
+        Console.ResetColor();
+    }
+
+    /// <summary>
+    /// Displays an error message in red.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    public static void DisplayError(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+        Console.ResetColor();
+    }
+
+    /// <summary>
     /// Collects information from the user to create a new backup, With a return to menu option
     /// </summary>
     /// <returns>The newly created Save object</returns>
@@ -200,7 +256,20 @@ class View
         string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
         Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
         Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
-        string typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+
+        string typeChoice;
+        while (true)
+        {
+            typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+            if (typeChoice == "1" || typeChoice == "2")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine(Language.GetString("View_InvalidBackupType")); // Display error message
+            }
+        }
         ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
         return new Save
         {
@@ -224,6 +293,15 @@ class View
     }
 
     /// <summary>
+    /// Prompts the user to press any key to continue.
+    /// </summary>
+    public static void PromptToContinue()
+    {
+        Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
+        Console.ReadLine();
+    }
+
+    /// <summary>
     /// Just print a message in the console
     /// </summary>
     /// <param name="output">Take the sentence to display as a parameter</param>
@@ -231,7 +309,6 @@ class View
     {
         Console.WriteLine(output);
     }
-
 
     /// <summary>
     /// Affiche les informations d'un log dans la console.

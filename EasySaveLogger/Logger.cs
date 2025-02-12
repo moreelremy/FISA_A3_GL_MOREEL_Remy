@@ -1,6 +1,4 @@
-﻿
-using System.Text.Json;
-
+﻿using System.Text.Json;
 
 namespace EasySaveLogger
 {
@@ -39,8 +37,6 @@ namespace EasySaveLogger
 
             // Serialize 'logs' to JSON and write it to a file with a new line at the end
             File.WriteAllText(pathFile, JsonSerializer.Serialize(logs, options) + Environment.NewLine);
-
-
         }
     }
 }
