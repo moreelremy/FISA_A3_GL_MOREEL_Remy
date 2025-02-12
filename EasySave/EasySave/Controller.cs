@@ -81,6 +81,7 @@ class Controler
                             }
                         }
 
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
                         Console.ReadLine();
                         break;
 
@@ -150,6 +151,8 @@ class Controler
                         if (!File.Exists(filePath))
                         {
                             View.Output(Language.GetString("View_FileNotFound"));
+                            View.Output(Language.GetString("Controller_PressAnyKey"));
+                            Console.ReadLine();
                             break;
                         }
 
@@ -183,6 +186,9 @@ class Controler
                             }
                             Console.ReadLine();
                         }
+
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
+                        Console.ReadLine();
                         break;
 
                     case "5":
@@ -207,10 +213,14 @@ class Controler
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
                         leave = true;
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
+                        Console.ReadLine();
                         break;
 
                     default:
                         View.Output(Language.GetString("Controller_InvalidChoice"));
+                        View.Output(Language.GetString("Controller_PressAnyKey"));
+                        Console.ReadLine();
                         break;
                 }
             }
