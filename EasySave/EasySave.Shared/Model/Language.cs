@@ -9,7 +9,7 @@ using System.Xml.Linq;
 /// </summary>
 public class Language
 {
-    private static ResourceManager rm = new ResourceManager("EasySave.Model.Languages.language", typeof(Language).Assembly);
+    private static ResourceManager rm = new ResourceManager("EasySave.Shared.Model.Languages.language", typeof(Language).Assembly);
     private static CultureInfo cultureInfo = new CultureInfo("fr");
 
     /// <summary>

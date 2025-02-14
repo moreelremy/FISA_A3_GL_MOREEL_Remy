@@ -1,0 +1,56 @@
+﻿<Window x:Class="EasySaveGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EasySave Menu" 
+        ResizeMode="NoResize" 
+        MinWidth="973" MinHeight="661" 
+        Width="973" Height="661"
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Définition des couleurs -->
+        <SolidColorBrush x:Key="MaCouleurPrincipale" Color="#280068"/>
+    </Window.Resources>
+
+    <Grid>
+        <!-- HEADER -->
+        <Rectangle HorizontalAlignment="Center"
+                   Height="90" 
+                   Margin="0,10,0,0"  
+                   VerticalAlignment="Top"
+                   Width="953"
+                   Fill="{StaticResource MaCouleurPrincipale}"
+                   RadiusX="17" RadiusY="17"/>
+
+        <!-- Titre Application -->
+        <Label Content="EasySave" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="42" FontFamily="Impact" Foreground="White" Margin="0,10,0,0" Height="90" Width="382" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button x:Name="Button_Leave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="Button_Leave_Click"/>
+
+        <!--- CONTENU DE LA PAGE-->
+
+        <!-- Titre de la page -->
+        <Label x:Name="Label_Title_Page" Content="MENU" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <!-- MENU BUTTONS -->
+        <Button x:Name="Button_CreateSave" BorderBrush="Black" BorderThickness="2" Content="CREER UNE SAUVEGARDE" HorizontalAlignment="Left" Height="102" Margin="84,244,0,0" VerticalAlignment="Top" Width="356" FontWeight="Bold" FontSize="22" Click="Button_CreateSave_Click"/>
+        <Button x:Name="Button_LaunchSave" BorderBrush="Black" BorderThickness="2" Content="LANCER UNE SAUVEGARDE" HorizontalAlignment="Left" Height="102" Margin="540,244,0,0" VerticalAlignment="Top" Width="356" FontWeight="Bold" FontSize="22" Click="Button_LaunchSaves_Click"/>
+        <Button x:Name="Button_ShowSave" BorderBrush="Black" BorderThickness="2" Content="VOIR LES SAUVEGARDES" HorizontalAlignment="Left" Height="104" Margin="84,408,0,0" VerticalAlignment="Top" Width="356" FontWeight="Bold" FontSize="22" Click="Button_ShowSaves_Click"/>
+        <Button x:Name="Button_ShowLogs" BorderBrush="Black" BorderThickness="2" Content="CONSULTER LES LOGS" HorizontalAlignment="Left" Height="104" Margin="540,408,0,0" VerticalAlignment="Top" Width="356" FontWeight="Bold" FontSize="22" Click="Button_ShowLogs_Click"/>
+
+        <!-- Choix de la langue-->
+        <ComboBox HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="2" Margin="867,120,0,0" VerticalAlignment="Top" Width="96" Height="40"/>
+
+
+        <!-- FOOTER -->
+        <Rectangle HorizontalAlignment="Center"
+                   Height="32" 
+                   Margin="0,629,0,0"  
+                   VerticalAlignment="Top"
+                   Width="973"
+                   Fill="{StaticResource MaCouleurPrincipale}"/>
+        <Label x:Name="Label_Property" Content="@Propriété du groupe 1 - Mentions légales" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
+    </Grid>
+</Window>
