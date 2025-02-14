@@ -1,0 +1,62 @@
+﻿<Window x:Class="EasySaveGUI.ShowLogs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EasySave ShowLogs" 
+        ResizeMode="NoResize" 
+        MinWidth="973" MinHeight="661" 
+        Width="973" Height="661"
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Définition des couleurs -->
+        <SolidColorBrush x:Key="MaCouleurPrincipale" Color="#280068"/>
+    </Window.Resources>
+
+    <Grid>
+
+
+        <!--- CONTENU DE LA PAGE-->
+
+        <!-- HEADER -->
+        <Rectangle HorizontalAlignment="Center"
+            Height="90" 
+            Margin="0,10,0,0"  
+            VerticalAlignment="Top"
+            Width="953"
+            Fill="{StaticResource MaCouleurPrincipale}"
+            RadiusX="17" RadiusY="17"/>
+
+        <!-- Title App -->
+        <Label Content="EasySave" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="42" FontFamily="Impact" Foreground="White" Margin="0,10,0,0" Height="90" Width="382" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button x:Name="Label_Button_Leave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold"/>
+
+
+        <!-- Title Page -->
+        <Label x:Name="Label_Title_Page" Content="CONSULTER LES LOGS" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <!-- Choice Language -->
+        <ComboBox HorizontalAlignment="Left" Margin="867,120,0,0" VerticalAlignment="Top" Width="96" Height="40"/>
+
+        <!-- Menu Button -->
+        <Button x:Name="Labbel_Button_Menu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
+
+        <!-- Page Content -->
+        <TextBox x:Name="Label_Input_Recherche" Width="246" Height="40" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="2" Margin="296,210,0,0"/>
+        <Button x:Name="Labbel_Button_Search" Content="RECHERCHER" HorizontalAlignment="Left" Height="40" Margin="560,210,0,0" VerticalAlignment="Top" Width="122" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
+        <TextBox x:Name="Input_Result" Width="700" Height="314" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="2" Margin="0,274,0,0"/>
+
+        <!-- FOOTER -->
+        <Rectangle HorizontalAlignment="Center"
+            Height="32" 
+            Margin="0,629,0,0"  
+            VerticalAlignment="Top"
+            Width="973"
+            Fill="{StaticResource MaCouleurPrincipale}"/>
+
+        <Label x:Name="Label_Property" Content="@Propriété du groupe 1 - Mentions légales" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
+
+    </Grid>
+</Window>

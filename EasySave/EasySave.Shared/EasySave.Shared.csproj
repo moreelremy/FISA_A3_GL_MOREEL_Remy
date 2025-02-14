@@ -1,6 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="EasySaveLogger">
+      <HintPath>..\..\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Model\Languages\language.en.resx">
       <SubType>Designer</SubType>
@@ -12,4 +23,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+
 </Project>
