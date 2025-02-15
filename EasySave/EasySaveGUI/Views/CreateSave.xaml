@@ -31,47 +31,47 @@
 
         <!-- Title App -->
         <Label Content="EasySave" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="42" FontFamily="Impact" Foreground="White" Margin="0,10,0,0" Height="90" Width="382" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="Label_Button_Leave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="Button_Leave_Click"/>
+        <Button x:Name="ButtonCreateSaveLeave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveLeaveClick"/>
 
         <!-- Title Page -->
-        <Label x:Name="Label_Title_Page" Content="CREER UNE SAUVEGARDE" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveTitle" Content="CREER UNE SAUVEGARDE" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
         <!-- Choice Language -->
         <ComboBox HorizontalAlignment="Left" Margin="867,120,0,0" VerticalAlignment="Top" Width="96" Height="40"/>
 
         <!-- Menu Button -->
-        <Button x:Name="Labbel_Button_Menu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
+        <Button x:Name="ButtonCreateSaveMenu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveMenuClick"/>
 
         <!-- Page Content -->
-        <Label x:Name="Label_Save_Name" Content="Nom de la sauvegarde" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="296,218,0,0" VerticalAlignment="Top" Width="191" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Save_Name_Input" Content="NOM DU FICHIER" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="280,245,0,0" VerticalAlignment="Top" Width="378" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveSaveName" Content="Nom de la sauvegarde" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="296,218,0,0" VerticalAlignment="Top" Width="191" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="InputCreateSaveSaveName" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="280,245,0,0" VerticalAlignment="Top" Width="378" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <Label x:Name="Label_Origin_Path" Content="Chemin source" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="297,304,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Origin_Path_Input" Content="CHEMIN DU FICHIER" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,330,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Button_Origin_Path" Content="Fichier" BorderBrush="Black" BorderThickness="1"  Margin="576,330,315,301" Background="#FFB5B5B5"/>
+        <Label x:Name="LabelCreateSaveOriginPath" Content="Chemin source" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="297,304,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="InputCreateSaveOriginPath" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,330,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="ButtonCreateSaveOriginPath" Content="Fichier" BorderBrush="Black" BorderThickness="1"  Margin="576,330,315,301" Background="#FFB5B5B5"/>
 
-        <Label x:Name="Label_Target_Path" Content="Chemin cible" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="293,394,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Target_Path_Input" Content="CHEMIN DU FICHIER" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,421,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Button_Target_Path" Content="Fichier" BorderBrush="Black" BorderThickness="1"  Margin="576,421,315,210" Background="#FFB5B5B5"/>
+        <Label x:Name="LabelCreateSaveTargetPath" Content="Chemin cible" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="293,394,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="InputCreateSaveTargetPath" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,421,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="ButtonCreateSaveTargetPath" Content="Fichier" BorderBrush="Black" BorderThickness="1"  Margin="576,421,315,210" Background="#FFB5B5B5"/>
 
 
-        <CheckBox x:Name="Label_Checkbox_1" Content="Sauvegarde complète" 
-            HorizontalAlignment="Center" 
-            Height="15" 
-            Margin="0,479,0,0" 
-            VerticalAlignment="Top" 
-            Width="208" 
-            IsChecked="True"/>
+        <RadioButton x:Name="CheckboxCreateSaveComplete" Content="Sauvegarde complète" 
+              HorizontalAlignment="Center" 
+              Height="15" 
+              Margin="0,479,0,0" 
+              VerticalAlignment="Top" 
+              Width="208" 
+              IsChecked="True"/>
 
-        <CheckBox x:Name="Label_Checkbox_2" Content="Sauvegarde différentielle" 
-          HorizontalAlignment="Center" 
-          Height="16" 
-          Margin="0,499,0,0" 
-          VerticalAlignment="Top" 
-          Width="208" 
-          />
+        <RadioButton x:Name="CheckboxCreateSaveDifferential" Content="Sauvegarde différentielle" 
+              HorizontalAlignment="Center" 
+              Height="16" 
+              Margin="0,499,0,0" 
+              VerticalAlignment="Top" 
+              Width="208" 
+              />
 
-        <Button x:Name="Labbel_Button_Create" Content="CREER" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="ButtonCreateSaveCreate" Content="CREER" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold"/>
 
         <!-- FOOTER -->
         <Rectangle HorizontalAlignment="Center"
@@ -81,7 +81,7 @@
                    Width="973"
                    Fill="{StaticResource MaCouleurPrincipale}"/>
 
-        <Label x:Name="Label_Property" Content="@Propriété du groupe 1 - Mentions légales" 
+        <Label x:Name="LabelCreateSaveProperty" Content="@Propriété du groupe 1" 
                HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" 
                Height="32" Width="674" Background="Transparent" Foreground="White" 
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
