@@ -250,4 +250,7 @@
   <data name="Controller_SaveExecutionError " type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="WPF_Leave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
 </root>

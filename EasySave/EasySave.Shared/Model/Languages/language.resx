@@ -256,4 +256,7 @@
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
     <value>Le répertoire source '{1}' de la sauvegarde '{0}' n'existe pas.</value>
   </data>
+  <data name="WPF_Leave" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
 </root>

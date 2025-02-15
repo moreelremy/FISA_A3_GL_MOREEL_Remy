@@ -1,5 +1,7 @@
 ﻿
+using EasySaveGUI.Helpers;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace EasySaveGUI
 {
@@ -11,6 +13,15 @@ namespace EasySaveGUI
         public CreateSave()
         {
             InitializeComponent();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string selectedLanguage = selectedItem.Tag.ToString();
+                LanguageHelper.ChangeLanguage(selectedLanguage);
+            }
         }
 
         private void ButtonCreateSaveMenuClick(object sender, RoutedEventArgs e)
