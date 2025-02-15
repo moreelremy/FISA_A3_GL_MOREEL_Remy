@@ -31,49 +31,49 @@
 
         <!-- Title App -->
         <Label Content="EasySave" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="42" FontFamily="Impact" Foreground="White" Margin="0,10,0,0" Height="90" Width="382" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="Label_Button_Leave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="Button_Leave_Click"/>
+        <Button x:Name="ButtonShowSavesLeave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonShowSavesLeaveClick"/>
 
 
         <!-- Title Page -->
-        <Label x:Name="Label_Title_Page" Content="VOIR LES SAUVEGARDES" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelShowSavesTitle" Content="VOIR LES SAUVEGARDES" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
         <!-- Choice Language -->
         <ComboBox HorizontalAlignment="Left" Margin="867,120,0,0" VerticalAlignment="Top" Width="96" Height="40"/>
 
         <!-- Menu Button -->
-        <Button x:Name="Labbel_Button_Menu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
+        <Button x:Name="ButtonShowSavesMenu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonShowSavesMenuClick"/>
 
         <!-- Page Content -->
-        <Label x:Name="Label_Save_Name1" Content="Sauvegarde 1" BorderBrush="Black" BorderThickness="1" Height="30" Margin="113,263,656,0" VerticalAlignment="Top" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Labbel_Button_Delete1" Content="SUPR" HorizontalAlignment="Left" Height="30" Margin="336,263,0,0" VerticalAlignment="Top" Width="35" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
+        <DataGrid Margin="42,196,42,129"
+          BorderBrush="Black"
+          BorderThickness="2">
+            <DataGrid.Columns>
+                <!-- Définir un nom pour pouvoir accéder à cette colonne dans le code-behind -->
+                <DataGridTextColumn x:Name="ColumnShowSaves1" Header="Numéro" Width="0.3*" />
+                <DataGridTextColumn x:Name="ColumnShowSaves2" Header="Nom" Width="0.8*" />
+                <DataGridTextColumn x:Name="ColumnShowSaves3" Header="Source" Width="*" />
+                <DataGridTextColumn x:Name="ColumnShowSaves4" Header="Cible" Width="*" />
+                <DataGridTextColumn x:Name="ColumnShowSaves5" Header="Type de Sauvegarde" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid HorizontalAlignment="Center" Margin="0,561,0,0" VerticalAlignment="Top" Width="399">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="122*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ButtonShowSavesDeleteSave" Content="Supprimer" HorizontalAlignment="Left" Height="40" Margin="235,0,0,0" VerticalAlignment="Center" Width="131" FontSize="16" FontWeight="Bold" Grid.Column="1"/>
+            <TextBox x:Name="InputShowSavesDeleteSave" 
+                Width="246" 
+                Height="40" 
+                FontSize="16" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                BorderBrush="Black" 
+                BorderThickness="2" Grid.ColumnSpan="2"/>
+        </Grid>
 
-        <Label x:Name="Label_Save_Name2" Content="Sauvegarde 2" BorderBrush="Black" BorderThickness="1" Height="30" Margin="113,311,656,0" VerticalAlignment="Top" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Labbel_Button_Delete2" Content="SUPR" HorizontalAlignment="Left" Height="30" Margin="336,311,0,0" VerticalAlignment="Top" Width="35" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
 
-        <Label x:Name="Label_Save_Name3" Content="Sauvegarde 3" BorderBrush="Black" BorderThickness="1" Height="30" Margin="113,359,656,0" VerticalAlignment="Top" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Labbel_Button_Delete3" Content="SUPR" HorizontalAlignment="Left" Height="30" Margin="336,359,0,0" VerticalAlignment="Top" Width="35" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
-
-        <Label x:Name="Label_Save_Name4" Content="Sauvegarde 4" BorderBrush="Black" BorderThickness="1" Height="30" Margin="113,410,656,0" VerticalAlignment="Top" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Labbel_Button_Delete4" Content="SUPR" HorizontalAlignment="Left" Height="30" Margin="336,410,0,0" VerticalAlignment="Top" Width="35" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
-
-        <Label x:Name="Label_Save_Name5" Content="Sauvegarde 5" BorderBrush="Black" BorderThickness="1" Height="30" Margin="113,459,656,0" VerticalAlignment="Top" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="Labbel_Button_Delete5" Content="SUPR" HorizontalAlignment="Left" Height="30" Margin="336,459,0,0" VerticalAlignment="Top" Width="35" FontSize="16" FontWeight="Bold" Click="Button_Menu_Click"/>
-
-        <Label x:Name="Label_Save_Name" Content="Nom de la sauvegarde" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="498,222,0,0" VerticalAlignment="Top" Width="192" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Save_Name_Input" Content="NOM DU FICHIER" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="482,249,0,0" VerticalAlignment="Top" Width="378" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
-        <Label x:Name="Label_Origin_Path" Content="Chemin source" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="500,308,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Origin_Path_Input" Content="CHEMIN DU FICHIER" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="484,334,0,0" VerticalAlignment="Top" Width="376" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
-        <Label x:Name="Label_Target_Path" Content="Chemin cible" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="496,398,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Target_Path_Input" Content="CHEMIN DU FICHIER" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="484,425,0,0" VerticalAlignment="Top" Width="376" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
-        <Label x:Name="Label_Save_Type" Content="Type de la sauvegarde" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="500,483,0,0" VerticalAlignment="Top" Width="192" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="Label_Save_Type_Input" Content="Type" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="484,510,0,0" VerticalAlignment="Top" Width="378" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
-
-
-        <!-- FOOTER -->
+            <!-- FOOTER -->
         <Rectangle HorizontalAlignment="Center"
             Height="32" 
             Margin="0,629,0,0"  
@@ -81,7 +81,7 @@
             Width="973"
             Fill="{StaticResource MaCouleurPrincipale}"/>
 
-        <Label x:Name="Label_Property" Content="@Propriété du groupe 1 - Mentions légales" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
+        <Label x:Name="LabelShowSavesProperty" Content="@Propriété du groupe 1" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
 
     </Grid>
 </Window>

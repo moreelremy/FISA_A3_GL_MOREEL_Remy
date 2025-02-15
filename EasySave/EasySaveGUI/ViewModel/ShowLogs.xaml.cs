@@ -13,14 +13,14 @@ namespace EasySaveGUI
             InitializeComponent();
         }
 
-        private void Button_Menu_Click(object sender, RoutedEventArgs e)
+        private void ButtonLogsMenuClick(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close(); // Close CreateSave window
         }
 
-        private void Button_Leave_Click(object sender, RoutedEventArgs e)
+        private void ButtonLogsLeaveClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
