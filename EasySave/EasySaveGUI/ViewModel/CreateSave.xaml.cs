@@ -13,6 +13,7 @@ namespace EasySaveGUI
         public CreateSave()
         {
             InitializeComponent();
+            DataContext = LanguageHelper.Instance;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

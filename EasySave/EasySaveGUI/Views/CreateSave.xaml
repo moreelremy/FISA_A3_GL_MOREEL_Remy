@@ -18,7 +18,7 @@
 
 
 
-    <Grid>
+    <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
         <!--- CONTENU DE LA PAGE-->
 
         <!-- HEADER -->
@@ -35,7 +35,7 @@
         <Button x:Name="ButtonCreateSaveLeave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveLeaveClick"/>
 
         <!-- Title Page -->
-        <Label x:Name="LabelCreateSaveTitle" Content="CREER UNE SAUVEGARDE" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveTitle" Content="{Binding [View_CreateBackup]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
         <!-- Choice Language -->
         <ComboBox HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="2"

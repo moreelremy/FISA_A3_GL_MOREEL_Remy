@@ -1,8 +1,10 @@
-﻿using System;
+﻿using EasySaveGUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 
 namespace EasySaveGUI.Helpers
 {
