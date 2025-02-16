@@ -194,22 +194,6 @@ class Controller
                         View.PromptToContinue();
                         Environment.Exit(0);
                         break;
-                    case "66":
-                        for (int i = 1; i <= 20; i++)
-                        {
-                            Save save = new Save
-                            {
-                                name = $"TODATYYY{i}",
-                                sourceDirectory = @"C:\\Source\\File.txt",
-                                targetDirectory = @"D:\\Backup\\File.txt",
-                                saveStrategy = new FullSave()
-                            };
-                            //Logs.RealTimeLog(save, 10, 10,"END",13,13,51,50);
-                            Logs.GeneralLog(save, 10, 10);
-                        }
-                        Console.WriteLine("done");
-                        View.PromptToContinue();
-                        break;
 
                     default:
                         View.Output(Language.GetString("Controller_InvalidChoice"));
