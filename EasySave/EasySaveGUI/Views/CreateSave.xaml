@@ -38,13 +38,20 @@
         <Label x:Name="LabelCreateSaveTitle" Content="{Binding [View_CreateBackup]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
         <!-- Choice Language -->
-        <ComboBox HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="2"
-              Margin="867,120,0,0" VerticalAlignment="Top" Width="96" Height="40"
-              SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem Content="Français" Tag="fr" IsSelected="True"/>
+        <ComboBox x:Name="LanguageComboBox"
+          HorizontalAlignment="Left"
+          BorderBrush="Black"
+          BorderThickness="2"
+          Margin="867,120,0,0"
+          VerticalAlignment="Top"
+          Width="96"
+          Height="40"
+          SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="Français" Tag="fr"/>
             <ComboBoxItem Content="English" Tag="en"/>
             <ComboBoxItem Content="Русский" Tag="ru"/>
         </ComboBox>
+
         <!-- Menu Button -->
         <Button x:Name="ButtonCreateSaveMenu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveMenuClick"/>
 

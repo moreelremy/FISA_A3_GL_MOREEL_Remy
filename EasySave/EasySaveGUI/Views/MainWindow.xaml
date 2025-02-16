@@ -17,6 +17,10 @@
     </Window.Resources>
 
     <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="216*"/>
+            <RowDefinition Height="445*"/>
+        </Grid.RowDefinitions>
         <!-- HEADER -->
         <Rectangle HorizontalAlignment="Center"
                    Height="90" 
@@ -53,40 +57,47 @@
         <!-- MENU BUTTONS -->
         <Button x:Name="ButtonMenuCreateSave" BorderBrush="Black" BorderThickness="2" 
             Content="{Binding [View_CreateBackup]}" HorizontalAlignment="Left" 
-            Height="102" Margin="84,244,0,0" VerticalAlignment="Top" 
-            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuCreateSaveClick"/>
+            Height="102" Margin="84,28,0,0" VerticalAlignment="Top" 
+            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuCreateSaveClick" Grid.Row="1"/>
 
         <Button x:Name="ButtonMenuLaunchSave" BorderBrush="Black" BorderThickness="2" 
             Content="{Binding [View_StartBackup]}" HorizontalAlignment="Left" 
-            Height="102" Margin="540,244,0,0" VerticalAlignment="Top" 
-            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuLaunchSavesClick"/>
+            Height="102" Margin="540,28,0,0" VerticalAlignment="Top" 
+            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuLaunchSavesClick" Grid.Row="1"/>
 
         <Button x:Name="ButtonMenuShowSave" BorderBrush="Black" BorderThickness="2" 
             Content="{Binding [View_ViewAllSaves]}" HorizontalAlignment="Left" 
-            Height="104" Margin="84,408,0,0" VerticalAlignment="Top" 
-            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuShowSavesClick"/>
+            Height="104" Margin="84,192,0,0" VerticalAlignment="Top" 
+            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuShowSavesClick" Grid.Row="1"/>
 
         <Button x:Name="ButtonMenuShowLogs" BorderBrush="Black" BorderThickness="2" 
             Content="{Binding [ControllerView_ViewLogs]}" HorizontalAlignment="Left" 
-            Height="104" Margin="540,408,0,0" VerticalAlignment="Top" 
-            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuShowLogsClick"/>
+            Height="104" Margin="540,192,0,0" VerticalAlignment="Top" 
+            Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuShowLogsClick" Grid.Row="1"/>
         <!-- Choix de la langue-->
-        <ComboBox HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="2"
-          Margin="867,120,0,0" VerticalAlignment="Top" Width="96" Height="40"
+        <ComboBox x:Name="LanguageComboBox"
+          HorizontalAlignment="Left"
+          BorderBrush="Black"
+          BorderThickness="2"
+          Margin="867,120,0,0"
+          VerticalAlignment="Top"
+          Width="96"
+          Height="40"
           SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem Content="Français" Tag="fr" IsSelected="True"/>
+            <ComboBoxItem Content="Français" Tag="fr"/>
             <ComboBoxItem Content="English" Tag="en"/>
             <ComboBoxItem Content="Русский" Tag="ru"/>
         </ComboBox>
 
 
+
         <!-- FOOTER -->
         <Rectangle HorizontalAlignment="Center"
                    Height="32" 
-                   Margin="0,629,0,0"  
+                   Margin="0,413,0,0"  
                    VerticalAlignment="Top"
                    Width="973"
-                   Fill="{StaticResource MaCouleurPrincipale}"/>
-        <Label x:Name="LabelMenuProperty" Content="@Propriété du groupe 1" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
+                   Fill="{StaticResource MaCouleurPrincipale}" Grid.Row="1"/>
+        <Label x:Name="LabelMenuProperty" Content="@Propriété du groupe 1" HorizontalAlignment="Center" Margin="0,413,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249" Grid.Row="1"/>
     </Grid>
 </Window>
