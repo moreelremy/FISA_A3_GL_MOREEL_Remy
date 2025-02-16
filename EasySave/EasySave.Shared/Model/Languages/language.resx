@@ -236,27 +236,60 @@
     <value>Quelle sauvegarde voulez vous supprimer ?</value>
   </data>
   <data name="View_ChooseSaveToExecute" xml:space="preserve">
-    <value>Choisissez une sauvegarde à exécuter :</value>
+    <value>Choisissez une sauvegarde à exécuter : </value>
   </data>
   <data name="View_EnterSaveIdsToExecute" xml:space="preserve">
-    <value>Entrez les identifiants des sauvegardes à exécuter (ex: 1-5) :</value>
+    <value>Entrez les identifiants des sauvegardes à exécuter (ex: 1-5) : </value>
   </data>
   <data name="View_ExecutionCompleted" xml:space="preserve">
-    <value>L'exécution de la sauvegarde s'est terminée avec succès.</value>
+    <value>L'exécution de la sauvegarde s'est terminée avec succès. </value>
   </data>
   <data name="View_ExecutionFailed" xml:space="preserve">
-    <value>L'exécution de la sauvegarde a échoué.</value>
+    <value>L'exécution de la sauvegarde a échoué. </value>
   </data>
   <data name="View_InvalidSelection" xml:space="preserve">
     <value>Sélection invalide. Veuillez réessayer.</value>
   </data>
   <data name="Controller_SaveExecutionError " xml:space="preserve">
-    <value>Erreur lors de l'exécution de la sauvegarde '{0}'. Raison : {1}.</value>
+    <value>Erreur lors de l'exécution de la sauvegarde '{0}'. Raison : {1}. </value>
   </data>
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
     <value>Le répertoire source '{1}' de la sauvegarde '{0}' n'existe pas.</value>
   </data>
   <data name="WPF_Leave" xml:space="preserve">
     <value>Quitter</value>
+  </data>
+  <data name="WPF_Property" xml:space="preserve">
+    <value>Propriété du groupe 1</value>
+  </data>
+  <data name="WPF_SaveName" xml:space="preserve">
+    <value>Nom de la sauvegarde</value>
+  </data>
+  <data name="WPF_SaveSource" xml:space="preserve">
+    <value>Chemin source</value>
+  </data>
+  <data name="WPF_SaveTarget" xml:space="preserve">
+    <value>Chemin cible</value>
+  </data>
+  <data name="WPF_Folder" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+  <data name="WPF_Create" xml:space="preserve">
+    <value>CREER</value>
+  </data>
+  <data name="WPF_Number" xml:space="preserve">
+    <value>Numéro</value>
+  </data>
+  <data name="WPF_SavePartial" xml:space="preserve">
+    <value>Sauvegarde partielle</value>
+  </data>
+  <data name="WPF_SaveGlobal" xml:space="preserve">
+    <value>Sauvegarde globale</value>
+  </data>
+  <data name="WPF_Search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="WPF_Delete" xml:space="preserve">
+    <value>Supprimer</value>
   </data>
 </root>

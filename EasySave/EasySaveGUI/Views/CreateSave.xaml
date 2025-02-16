@@ -32,7 +32,7 @@
 
         <!-- Title App -->
         <Label Content="EasySave" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="42" FontFamily="Impact" Foreground="White" Margin="0,10,0,0" Height="90" Width="382" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="ButtonCreateSaveLeave" Content="Quitter" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveLeaveClick"/>
+        <Button x:Name="ButtonCreateSaveLeave" Content="{Binding [WPF_Leave]}" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveLeaveClick"/>
 
         <!-- Title Page -->
         <Label x:Name="LabelCreateSaveTitle" Content="{Binding [View_CreateBackup]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -53,22 +53,22 @@
         </ComboBox>
 
         <!-- Menu Button -->
-        <Button x:Name="ButtonCreateSaveMenu" Content="MENU" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveMenuClick"/>
+        <Button x:Name="ButtonCreateSaveMenu" Content="{Binding [Controller_ChoiceMenu]}" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveMenuClick"/>
 
         <!-- Page Content -->
-        <Label x:Name="LabelCreateSaveSaveName" Content="Nom de la sauvegarde" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="296,218,0,0" VerticalAlignment="Top" Width="191" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveSaveName" Content="{Binding [WPF_SaveName]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="296,218,0,0" VerticalAlignment="Top" Width="191" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="InputCreateSaveSaveName" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="280,245,0,0" VerticalAlignment="Top" Width="378" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <Label x:Name="LabelCreateSaveOriginPath" Content="Chemin source" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="297,304,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveOriginPath" Content="{Binding [WPF_SaveSource]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="297,304,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="InputCreateSaveOriginPath" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,330,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="ButtonCreateSaveOriginPath" Content="Fichier" BorderBrush="Black" BorderThickness="1"  Margin="576,330,315,301" Background="#FFB5B5B5"/>
+        <Button x:Name="ButtonCreateSaveOriginPath" Content="{Binding [WPF_Folder]}" BorderBrush="Black" BorderThickness="1"  Margin="576,330,315,301" Background="#FFB5B5B5"/>
 
-        <Label x:Name="LabelCreateSaveTargetPath" Content="Chemin cible" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="293,394,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveTargetPath" Content="{Binding [WPF_SaveTarget]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="293,394,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="InputCreateSaveTargetPath" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,421,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="ButtonCreateSaveTargetPath" Content="Fichier" BorderBrush="Black" BorderThickness="1"  Margin="576,421,315,210" Background="#FFB5B5B5"/>
+        <Button x:Name="ButtonCreateSaveTargetPath" Content="{Binding [WPF_Folder]}" BorderBrush="Black" BorderThickness="1"  Margin="576,421,315,210" Background="#FFB5B5B5"/>
 
 
-        <RadioButton x:Name="CheckboxCreateSaveComplete" Content="Sauvegarde complète" 
+        <RadioButton x:Name="CheckboxCreateSaveComplete" Content="{Binding [View_FullSave]}" 
               HorizontalAlignment="Center" 
               Height="15" 
               Margin="0,479,0,0" 
@@ -76,7 +76,7 @@
               Width="208" 
               IsChecked="True"/>
 
-        <RadioButton x:Name="CheckboxCreateSaveDifferential" Content="Sauvegarde différentielle" 
+        <RadioButton x:Name="CheckboxCreateSaveDifferential" Content="{Binding [View_DifferentialSave]}" 
               HorizontalAlignment="Center" 
               Height="16" 
               Margin="0,499,0,0" 
@@ -84,7 +84,7 @@
               Width="208" 
               />
 
-        <Button x:Name="ButtonCreateSaveCreate" Content="CREER" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="ButtonCreateSaveCreate" Content="{Binding [WPF_Create]}" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold"/>
 
         <!-- FOOTER -->
         <Rectangle HorizontalAlignment="Center"
@@ -94,10 +94,7 @@
                    Width="973"
                    Fill="{StaticResource MaCouleurPrincipale}"/>
 
-        <Label x:Name="LabelCreateSaveProperty" Content="@Propriété du groupe 1" 
-               HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" 
-               Height="32" Width="674" Background="Transparent" Foreground="White" 
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-               FontFamily="Arial" FontSize="14"/>
+        <Label x:Name="LabelCreateSaveProperty" Content="{Binding [WPF_Property]}" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
+
     </Grid>
 </Window>

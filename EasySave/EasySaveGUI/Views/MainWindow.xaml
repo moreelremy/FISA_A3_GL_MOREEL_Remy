@@ -98,6 +98,6 @@
                    VerticalAlignment="Top"
                    Width="973"
                    Fill="{StaticResource MaCouleurPrincipale}" Grid.Row="1"/>
-        <Label x:Name="LabelMenuProperty" Content="@Propriété du groupe 1" HorizontalAlignment="Center" Margin="0,413,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249" Grid.Row="1"/>
+        <Label x:Name="LabelMenuProperty" Content="{Binding [WPF_Property]}" HorizontalAlignment="Center" Margin="0,413,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249" Grid.Row="1"/>
     </Grid>
 </Window>

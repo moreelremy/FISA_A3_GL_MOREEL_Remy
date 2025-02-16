@@ -234,23 +234,61 @@
   <data name="Controller_AskChoiceDelete" xml:space="preserve">
     <value>Какую резервную копию вы хотите удалить?</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="View_ChooseSaveToExecute" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_ChooseSaveToExecute" xml:space="preserve">
+    <value>Выберите резервную копию для запуска:</value>
   </data>
-  <data name="View_EnterSaveIdsToExecute" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_EnterSaveIdsToExecute" xml:space="preserve">
+    <value>Введите идентификаторы резервных копий, которые необходимо выполнить (например: 1-5):</value>
   </data>
-  <data name="View_ExecutionCompleted" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_ExecutionCompleted" xml:space="preserve">
+    <value>Резервное копирование завершено успешно.</value>
   </data>
-  <data name="View_InvalidSelection" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_ExecutionFailed" xml:space="preserve">
+    <value>Не удалось выполнить резервное копирование.</value>
   </data>
-  <data name="Controller_SaveExecutionError " type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="View_InvalidSelection" xml:space="preserve">
+    <value>Неверный выбор. Пожалуйста, попробуйте еще раз.</value>
+  </data>
+  <data name="Controller_SaveExecutionError " xml:space="preserve">
+    <value>Исходный каталог «{1}» резервной копии «{0}» не существует.</value>
+  </data>
+  <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
+    <value>Исходный каталог «{1}» резервной копии «{0}» не существует.</value>
   </data>
   <data name="WPF_Leave" xml:space="preserve">
     <value>уйти</value>
+  </data>
+  <data name="WPF_Property" xml:space="preserve">
+    <value>Объект группы 1</value>
+  </data>
+  <data name="WPF_SaveName" xml:space="preserve">
+    <value>Имя резервной копии</value>
+  </data>
+  <data name="WPF_SaveSource" xml:space="preserve">
+    <value>Исходный путь</value>
+  </data>
+  <data name="WPF_SaveTarget" xml:space="preserve">
+    <value>Целевой путь</value>
+  </data>
+  <data name="WPF_Folder" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="WPF_Create" xml:space="preserve">
+    <value>СОЗДАВАТЬ</value>
+  </data>
+  <data name="WPF_Number" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="WPF_SavePartial" xml:space="preserve">
+    <value>Частичное резервное копирование</value>
+  </data>
+  <data name="WPF_SaveGlobal" xml:space="preserve">
+    <value>Глобальное резервное копирование</value>
+  </data>
+  <data name="WPF_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="WPF_Delete" xml:space="preserve">
+    <value>Удалить</value>
   </data>
 </root>
