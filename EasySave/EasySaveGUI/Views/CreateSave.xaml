@@ -56,16 +56,68 @@
         <Button x:Name="ButtonCreateSaveMenu" Content="{Binding [Controller_ChoiceMenu]}" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveMenuClick"/>
 
         <!-- Page Content -->
-        <Label x:Name="LabelCreateSaveSaveName" Content="{Binding [WPF_SaveName]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="296,218,0,0" VerticalAlignment="Top" Width="191" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="InputCreateSaveSaveName" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="280,245,0,0" VerticalAlignment="Top" Width="378" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="LabelCreateSaveSaveName" Content="{Binding [WPF_SaveName]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="281,212,0,0" VerticalAlignment="Top" Width="191" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="InputCreateSaveSaveName"
+         BorderBrush="Black"
+         BorderThickness="1"
+         HorizontalAlignment="Left"
+         Height="30"
+         Margin="280,245,0,0"
+         VerticalAlignment="Top"
+         Width="378"
+         Background="#FFB5B5B5"
+         Foreground="Gray"
+         Text="Entrez un nom de sauvegarde"
+         GotFocus="TextBox_GotFocus"
+         LostFocus="TextBox_LostFocus" TextWrapping="Wrap"/>
 
-        <Label x:Name="LabelCreateSaveOriginPath" Content="{Binding [WPF_SaveSource]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="297,304,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="InputCreateSaveOriginPath" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,330,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="ButtonCreateSaveOriginPath" Content="{Binding [WPF_Folder]}" BorderBrush="Black" BorderThickness="1"  Margin="576,330,315,301" Background="#FFB5B5B5"/>
+        <Label x:Name="LabelCreateSaveOriginPath" Content="{Binding [WPF_SaveSource]}"  BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="282,297,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="InputCreateSaveOriginPath"
+         BorderBrush="Black"
+         BorderThickness="1"
+         HorizontalAlignment="Left"
+         Height="30"
+         Margin="281,330,0,0"
+         VerticalAlignment="Top"
+         Width="296"
+         Background="#FFB5B5B5"
+         Foreground="Gray"
+         IsReadOnly="True"
+         MouseDoubleClick="TextBox_DoubleClick"
+         Text="Sélectionnez un fichier source"
+         GotFocus="TextBox_GotFocus"
+         LostFocus="TextBox_LostFocus"/>
+        <Button x:Name="ButtonCreateSaveOriginPath"
+        Content="{Binding [WPF_Folder]}"
+        BorderBrush="Black"
+        BorderThickness="1"
+        Margin="576,330,315,301"
+        Background="#FFB5B5B5"
+        Click="ButtonCreateSaveOriginPath_Click"/>
 
-        <Label x:Name="LabelCreateSaveTargetPath" Content="{Binding [WPF_SaveTarget]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="293,394,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="InputCreateSaveTargetPath" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="281,421,0,0" VerticalAlignment="Top" Width="296" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="ButtonCreateSaveTargetPath" Content="{Binding [WPF_Folder]}" BorderBrush="Black" BorderThickness="1"  Margin="576,421,315,210" Background="#FFB5B5B5"/>
+        <Label x:Name="LabelCreateSaveTargetPath" Content="{Binding [WPF_SaveTarget]}" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="282,388,0,0" VerticalAlignment="Top" Width="190" Background="#FFB5B5B5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="InputCreateSaveTargetPath"
+         BorderBrush="Black"
+         BorderThickness="1"
+         HorizontalAlignment="Left"
+         Height="30"
+         Margin="281,421,0,0"
+         VerticalAlignment="Top"
+         Width="296"
+         Background="#FFB5B5B5"
+         Foreground="Gray"
+         IsReadOnly="True"
+         MouseDoubleClick="TextBox_DoubleClick"
+         Text="Sélectionnez un dossier de destination"
+         GotFocus="TextBox_GotFocus"
+         LostFocus="TextBox_LostFocus"/>
+        <Button x:Name="ButtonCreateSaveTargetPath"
+        Content="{Binding [WPF_Folder]}"
+        BorderBrush="Black"
+        BorderThickness="1"
+        Margin="576,421,315,210"
+        Background="#FFB5B5B5"
+        Click="ButtonCreateSaveTargetPath_Click"/>
 
 
         <RadioButton x:Name="CheckboxCreateSaveComplete" Content="{Binding [View_FullSave]}" 
@@ -84,7 +136,7 @@
               Width="208" 
               />
 
-        <Button x:Name="ButtonCreateSaveCreate" Content="{Binding [WPF_Create]}" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold"/>
+            <Button x:Name="ButtonCreateSaveCreate" Content="{Binding [WPF_Create]}" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveCreate_Click"/>
 
         <!-- FOOTER -->
         <Rectangle HorizontalAlignment="Center"
