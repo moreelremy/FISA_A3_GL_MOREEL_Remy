@@ -10,9 +10,27 @@
     <Compile Update="ViewModel\ShowSaves.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\BoxLanguage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Footer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Header.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\BoxLanguage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\CreateSave.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Footer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Header.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LaunchSaves.xaml">
