@@ -3,6 +3,8 @@ using System.Globalization;
 using System.Resources;
 using System.Threading;
 using System.Xml.Linq;
+using System.Windows;
+
 
 /// <summary>
 /// Allows you to change the interface language
@@ -27,7 +29,10 @@ public class Language
 
             case "RU":
                 cultureInfo = new CultureInfo("ru");
-                Console.OutputEncoding = System.Text.Encoding.UTF8;
+                if (IsConsoleApplication())
+                {
+                    Console.OutputEncoding = System.Text.Encoding.UTF8;
+                }
                 break;
 
             default:
@@ -47,4 +52,10 @@ public class Language
     {
         return rm.GetString(key, cultureInfo) ?? key;
     }
+    private static bool IsConsoleApplication()
+    {
+        return Environment.UserInteractive && !Console.IsOutputRedirected && !Console.IsErrorRedirected;
+    }
+
+
 }
