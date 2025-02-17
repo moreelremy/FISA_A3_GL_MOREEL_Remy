@@ -42,7 +42,7 @@ namespace EasySaveLogger
                 ).ToList()
             ).ToList();
 
-            var serializer = new XmlSerializer(typeof(List<List<EasySaveLogger.XmlItem>>));
+            var serializer = new XmlSerializer(typeof(List<List<XmlItem>>));
             using (StringWriter writer = new StringWriter())
             {
                 serializer.Serialize(writer, serializableList);
@@ -53,9 +53,10 @@ namespace EasySaveLogger
         // XML Deserialization method
         internal static List<Dictionary<string, object>> xmlDeserializer(string obj)
         {
-            XmlSerializer serializer = new XmlSerializer(obj.GetType());
+            XmlSerializer serializer = new XmlSerializer(typeof(List<List<XmlItem>>));
             using (StringReader reader = new StringReader(obj))
             {
+                var test = serializer.Deserialize(reader);
                 return (List<Dictionary<string, object>>)serializer.Deserialize(reader);
             }
         }
