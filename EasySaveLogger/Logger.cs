@@ -3,6 +3,13 @@ using System.Xml.Serialization;
 
 namespace EasySaveLogger
 {
+    // Class to serialize the dictionary into a list of key-value pairs
+    public class XmlItem
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
+    }
+
     public static class Logger
     {
         // Define a delegate for serialization
@@ -26,23 +33,16 @@ namespace EasySaveLogger
             return JsonSerializer.Deserialize<List<Dictionary<string, object>>>(obj);
         }
 
-        // Class to serialize the dictionary into a list of key-value pairs
-        internal class XmlItem
-        {
-            public string key { get; set; }
-            public string value { get; set; }
-        }
-
         // XML Serialization method
         internal static string xmlSerializer(List<Dictionary<string, object>> obj)
         {
             var serializableList = obj.Select(d =>
                 d.Select(
-                    kv => new XmlItem { key = kv.Key, value = kv.Value?.ToString() }
+                    kv => new XmlItem { Key = kv.Key, Value = kv.Value?.ToString() }
                 ).ToList()
             ).ToList();
 
-            var serializer = new XmlSerializer(typeof(List<List<XmlItem>>));
+            var serializer = new XmlSerializer(typeof(List<List<EasySaveLogger.XmlItem>>));
             using (StringWriter writer = new StringWriter())
             {
                 serializer.Serialize(writer, serializableList);
