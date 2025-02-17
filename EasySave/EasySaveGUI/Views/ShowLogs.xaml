@@ -67,6 +67,7 @@
 
         <Button x:Name="ButtonLogsSearch" 
             Content="{Binding [WPF_Search]}" 
+            Click="ButtonLogsSearchClick"
             HorizontalAlignment="Left" 
             Height="40" 
             Margin="560,194,0,0" 
@@ -75,18 +76,21 @@
             FontSize="16" 
             FontWeight="Bold"/>
         
-        <DataGrid Margin="18,251,18,54" 
+        <DataGrid 
+          x:Name="DataGridLogs"
+          Margin="18,251,18,54" 
           Background="White" 
           BorderBrush="Black"
           BorderThickness="2"
-          Foreground="#FF280068">
+          Foreground="#FF280068"
+          AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ColumnLogs1" Header="Date" Width="*" />
-                <DataGridTextColumn x:Name="ColumnLogs2" Header="Nom Save" Width="*" />
-                <DataGridTextColumn x:Name="ColumnLogs3" Header="Source" Width="*" />
-                <DataGridTextColumn x:Name="ColumnLogs4" Header="Cible" Width="*" />
-                <DataGridTextColumn x:Name="ColumnLogs5" Header="Size" Width="*" />
-                <DataGridTextColumn x:Name="ColumnLogs6" Header="Transfer Time" Width="*" />
+                <DataGridTextColumn x:Name="ColumnLogs1" Binding="{Binding timestamp}" Header="Date" Width="*" />
+                <DataGridTextColumn x:Name="ColumnLogs2" Binding="{Binding saveName}" Header="Nom Save" Width="*" />
+                <DataGridTextColumn x:Name="ColumnLogs3" Binding="{Binding source}" Header="Source" Width="*" />
+                <DataGridTextColumn x:Name="ColumnLogs4" Binding="{Binding target}" Header="Cible" Width="*" />
+                <DataGridTextColumn x:Name="ColumnLogs5" Binding="{Binding size}" Header="Size" Width="*" />
+                <DataGridTextColumn x:Name="ColumnLogs6" Binding="{Binding transferTimeMs}" Header="Transfer Time" Width="*" />
 
             </DataGrid.Columns>
         </DataGrid>

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {}
+    "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
+    "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
         "projectName": "EasySave.Shared",
-        "projectPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
-        "packagesPath": "C:\\Users\\leosc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\obj\\",
+        "projectPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
+        "packagesPath": "C:\\Users\\axel0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\leosc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\axel0\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
