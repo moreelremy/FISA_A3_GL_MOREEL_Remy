@@ -292,4 +292,7 @@
   <data name="WPF_Delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
+  <data name="View_FormatDontMatch" xml:space="preserve">
+    <value>Le format de la date est invalide (exemple : 15-02-2024, format : jj-MM-aaaa).</value>
+  </data>
 </root>
