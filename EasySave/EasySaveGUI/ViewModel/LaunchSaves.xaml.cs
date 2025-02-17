@@ -15,7 +15,11 @@ namespace EasySaveGUI
             InitializeComponent();
             DataContext = LanguageHelper.Instance;
 
-            // Charger la langue depuis les paramètres
+            LoadSavedLanguage();
+        }
+
+        private void LoadSavedLanguage()
+        {
             string savedLanguage = Properties.Settings.Default.Language;
 
             if (!string.IsNullOrEmpty(savedLanguage))

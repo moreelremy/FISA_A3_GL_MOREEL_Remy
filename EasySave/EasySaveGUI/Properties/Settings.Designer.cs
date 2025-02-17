@@ -25,7 +25,7 @@ namespace EasySaveGUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ru")]
+        [global::System.Configuration.DefaultSettingValueAttribute("fr")]
         public string Language {
             get {
                 return ((string)(this["Language"]));
