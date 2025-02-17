@@ -1,0 +1,142 @@
+﻿<Window x:Class="CryptoSoftWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EasySave Menu" 
+        ResizeMode="NoResize"
+        MinWidth="653" MinHeight="478" 
+        Width="653" Height="478"
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="MaCouleurPrincipale" Color="#680000"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Rectangle
+            Grid.Row="0"
+            Height="90"
+            VerticalAlignment="Center"
+            Fill="{StaticResource MaCouleurPrincipale}"
+            RadiusX="17" RadiusY="17" Margin="10,0,10,0"/>
+
+        <Label Grid.Row="0"
+               Content="CryptoSoft"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="42"
+               FontFamily="Impact"
+               Foreground="White"
+               Height="90"
+               Width="382"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center"/>
+
+        <Button x:Name="ButtonMenuLeave"
+                Content="Quitter"
+                HorizontalAlignment="Left"
+                Height="26"
+                Margin="563,0,0,0"
+                VerticalAlignment="Center"
+                Width="63"
+                FontSize="16"
+                FontWeight="Bold"
+                Click="ButtonMenuLeaveClick"/>
+
+        <!-- CONTENU DE LA PAGE -->
+        <Canvas Grid.Row="1">
+            <!-- Nom de la sauvegarde -->
+            <Label x:Name="LabelCreateSaveSaveName"
+                   Content="Encryption key"
+                   BorderBrush="Black"
+                   BorderThickness="1"
+                   Background="#FFB5B5B5"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Padding="5"
+                   Canvas.Left="159" Canvas.Top="146" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="InputCreateSaveSaveName"
+                     Text="TEST"
+                     BorderBrush="Black"
+                     BorderThickness="1"
+                     Background="#FFB5B5B5"
+                     Foreground="Gray"
+                     GotFocus="TextBox_GotFocus"
+                     LostFocus="TextBox_LostFocus"
+                     TextWrapping="Wrap"
+                     Padding="5"
+                     Canvas.Left="159" Canvas.Top="180" Width="336" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+            <!-- Chemin d'origine -->
+            <Label x:Name="LabelCreateSaveOriginPath"
+                   Content="Path Folder"
+                   BorderBrush="Black"
+                   BorderThickness="1"
+                   Background="#FFB5B5B5"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Padding="5"
+                   Canvas.Left="159" Canvas.Top="55" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+
+            <TextBox x:Name="InputCreateSaveOriginPath"
+                         Text="TEST"
+                         BorderBrush="Black"
+                         BorderThickness="1"
+                         Background="#FFB5B5B5"
+                         Foreground="Gray"
+                         IsReadOnly="True"
+                         MouseDoubleClick="TextBox_DoubleClick"
+                         GotFocus="TextBox_GotFocus"
+                         LostFocus="TextBox_LostFocus"
+                         Padding="5"
+                         Width="250" Canvas.Left="159" Canvas.Top="89"/>
+            <Button x:Name="ButtonCreateSaveOriginPath"
+                        Content="Folder"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        Background="#FFB5B5B5"
+                        Click="ButtonCreateSaveOriginPath_Click"
+                        Width="87" Canvas.Left="408" Canvas.Top="89" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28"/>
+            <Button x:Name="ButtonCreateSaveOriginPath"
+                Content="CRYPT"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Background="#FFB5B5B5"
+                Click="ButtonCreateSaveOriginPath_Click"
+                Width="137" Canvas.Left="258" Canvas.Top="242" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        </Canvas>
+
+        <!-- FOOTER -->
+        <Rectangle Grid.Row="2"
+                   HorizontalAlignment="Stretch"
+                   Height="32"
+                   Margin="0"
+                   VerticalAlignment="Bottom"
+                   Fill="{StaticResource MaCouleurPrincipale}"/>
+
+        <Label x:Name="LabelMenuProperty"
+               Grid.Row="2"
+               Content="Group 1 property"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Height="32"
+               Background="Transparent"
+               Foreground="White"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center"
+               FontFamily="Arial"
+               FontSize="14"/>
+    </Grid>
+</Window>

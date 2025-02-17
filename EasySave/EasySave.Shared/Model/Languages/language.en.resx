@@ -291,7 +291,49 @@
   <data name="WPF_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="View_FormatDontMatch" xml:space="preserve">
-    <value>The date format is invalid (example: 15-02-2024, format: dd-MM-yyyy).</value>
+  <data name="WPF_FileNotFound" xml:space="preserve">
+    <value>There are no Logs for this date:</value>
+  </data>
+  <data name="WPF_EnterNameSave" xml:space="preserve">
+    <value>Enter a backup name</value>
+  </data>
+  <data name="WPF_SelectSource" xml:space="preserve">
+    <value>Select a source folder</value>
+  </data>
+  <data name="WPF_SelectTarget" xml:space="preserve">
+    <value>Select a destination folder</value>
+  </data>
+  <data name="WPF_SelectedFile" xml:space="preserve">
+    <value>Selected Folder</value>
+  </data>
+  <data name="WPF_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="WPF_NameProblem" xml:space="preserve">
+    <value>The backup name already exists.</value>
+  </data>
+  <data name="WPF_SourceProblem" xml:space="preserve">
+    <value>The source folder does not exist.</value>
+  </data>
+  <data name="WPF_TargetProblem" xml:space="preserve">
+    <value>The destination folder does not exist.</value>
+  </data>
+  <data name="WPF_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="WPF_CreateSuccess" xml:space="preserve">
+    <value>The backup was created successfully.</value>
+  </data>
+  <data name="WPF_Details" xml:space="preserve">
+    <value>Backup Details</value>
+  </data>
+  <data name="WPF_FieldProblem" xml:space="preserve">
+    <value>Please complete all fields.</value>
+  </data>
+  <data name="WPF_FormatLog" xml:space="preserve">
+    <value>The date format is invalid (example</value>
+  </data>
+  <data name="WPF_Format" xml:space="preserve">
+    <value>format</value>
   </data>
 </root>
