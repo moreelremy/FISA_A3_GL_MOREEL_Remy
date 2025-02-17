@@ -122,7 +122,7 @@
               Width="208" 
               />
 
-        <Button x:Name="ButtonCreateSaveCreate" Content="CREER" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="ButtonCreateSaveCreate" Content="CREER" HorizontalAlignment="Left" Height="40" Margin="421,550,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonCreateSaveCreate_Click"/>
 
         <!-- FOOTER -->
         <Rectangle HorizontalAlignment="Center"
