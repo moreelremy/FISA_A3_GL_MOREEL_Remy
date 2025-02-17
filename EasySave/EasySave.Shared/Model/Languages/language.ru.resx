@@ -329,5 +329,7 @@
   </data>
   <data name="WPF_FieldProblem" xml:space="preserve">
     <value>Пожалуйста, заполните все поля.</value>
+  <data name="View_FormatDontMatch" xml:space="preserve">
+    <value>Неверный формат даты (пример: 15-02-2024, формат: дд-MM-гггг).</value>
   </data>
 </root>

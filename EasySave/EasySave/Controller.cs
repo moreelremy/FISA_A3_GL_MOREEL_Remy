@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using static Logs;
 
 class Controller
@@ -130,6 +131,11 @@ class Controller
                         string wantedDate = View.GetWantedDate();
                         string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
 
+                        if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$")){
+                            View.Output(Language.GetString("View_FormatDontMatch"));
+                            View.PromptToContinue();
+                            break;
+                        }
                         if (!File.Exists(filePath))
                         {
                             View.Output(Language.GetString("View_FileNotFound"));
