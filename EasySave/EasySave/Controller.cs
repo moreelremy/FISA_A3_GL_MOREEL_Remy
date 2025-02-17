@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json;
+﻿using System.Text.Json;
 using static Logs;
 
 class Controller
@@ -12,7 +9,7 @@ class Controller
 
         FullSave fullSave = new FullSave();
         DifferentialSave differentialSave = new DifferentialSave();
-        
+
         string repositoryStatePath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
         if (File.Exists(repositoryStatePath))
         {
@@ -34,7 +31,8 @@ class Controller
         while (true)
         {
             string response = View.ShowMenu();
-            try {
+            try
+            {
                 switch (response)
                 {
                     case "1":
@@ -124,7 +122,7 @@ class Controller
                         }
                         View.PromptToContinue();
                         break;
-                    
+
                     case "4":
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
@@ -165,12 +163,12 @@ class Controller
                         {
                             for (int j = 0; j < logLines.Count; j++)
                             {
-                                    View.DisplayLog(logLines[j]);
+                                View.DisplayLog(logLines[j]);
                             }
                             View.PromptToContinue();
                         }
                         break;
-                    
+
                     case "5":
                         // Change the language with the model
                         Language.SetLanguage(View.GetLanguageChoice());
@@ -184,7 +182,8 @@ class Controller
                         }
                         Directory.CreateDirectory(Path.GetDirectoryName(pathFile));
                         List<dynamic> savesSates = new List<dynamic>();
-                        foreach (Save save in saveRepository.GetAllSaves()) {  
+                        foreach (Save save in saveRepository.GetAllSaves())
+                        {
                             string saveStrategy = save.saveStrategy.GetType().Name;
                             string jsonEntry = JsonSerializer.Serialize(save);
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");

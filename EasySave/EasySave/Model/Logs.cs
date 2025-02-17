@@ -1,9 +1,5 @@
-using System;
-using System.IO;
-using System.Text;
-using EasySaveLogger;
 using System.Text.Json;
-using System.Net.Http.Json;
+using EasySaveLogger;
 
 public static class Logs
 {
@@ -28,18 +24,17 @@ public static class Logs
     /// <param name="transferTime">The time taken for the file transfer in milliseconds.</param>
     public static void GeneralLog(Save save, long fileSize, int transferTime)
     {
-        var log = new
-        {
-            timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
-            saveName = save.name,
-            source = Logs.ConvertToUnc(save.sourceDirectory),
-            target = Logs.ConvertToUnc(save.targetDirectory),
-            size = fileSize,
-            transferTimeMs = transferTime
-        };
-
-        string logEntry = JsonSerializer.Serialize(log);
-        Logger.Log(logEntry, $"Logs/{DateTime.Now:dd-MM-yyyy}.json");
+        Logger.Log(
+            new Dictionary<string, object>
+            {
+                { "timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "saveName", save.name },
+                { "source", Logs.ConvertToUnc(save.sourceDirectory) },
+                { "target", Logs.ConvertToUnc(save.targetDirectory) },
+                { "size", fileSize },
+                { "transferTimeMs", transferTime }
+            },
+            $"Logs/{DateTime.Now:yyyy-MM-dd}.xml");
     }
 
     /// <summary>
@@ -84,7 +79,7 @@ public static class Logs
             return "";
 
         string fullPath = Path.GetFullPath(localPath);
-       
+
         if (!Path.IsPathRooted(fullPath))
             throw new ArgumentException("Le chemin fourni n'est pas absolu.");
 
@@ -121,22 +116,21 @@ public static class Logs
         int Progression
         )
     {
-        var log = new
-        {
-            Name = saveName,
-            SourceFilePath = Logs.ConvertToUnc(sourcePath),
-            TargetFilePath = Logs.ConvertToUnc(targetPath),
-            FileSize = fileSize,
-            State = state,
-            TotalFilesToCopy = totalFilesToCopy,
-            TotalFilesSize = totalFileSize,
-            NbFilesLeftToDo = nbFilesLeftToDo,
-            FilesSizeLeftToDo = filesSizeLeftToDo,
-            timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
-            Progression = Progression
-        };
-
-        string logEntry = JsonSerializer.Serialize(log);
-        Logger.Log(logEntry, $"RealTime/state.json");
+        Logger.Log(
+            new Dictionary<string, object>
+            {
+                { "saveName", saveName },
+                { "sourceFilePath", Logs.ConvertToUnc(sourcePath) },
+                { "targetFilePath", Logs.ConvertToUnc(targetPath) },
+                { "fileSize", fileSize },
+                { "state", state },
+                { "totalFilesToCopy", totalFilesToCopy },
+                { "totalFilesSize", totalFileSize },
+                { "nbFilesLeftToDo", nbFilesLeftToDo },
+                { "filesSizeLeftToDo", filesSizeLeftToDo },
+                { "timestamp", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") },
+                { "Progression", Progression }
+            },
+            $"RealTime/state.json");
     }
 }

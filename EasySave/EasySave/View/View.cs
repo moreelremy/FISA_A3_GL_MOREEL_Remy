@@ -299,6 +299,7 @@ class View
     {
         Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
         Console.ReadLine();
+        Console.Clear();
     }
 
     /// <summary>
