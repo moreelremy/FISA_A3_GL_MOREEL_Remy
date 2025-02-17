@@ -17,6 +17,7 @@ namespace EasySaveGUI
     public partial class CreateSave : Window
     {
         private SaveRepository saveRepository;
+       
 
         public CreateSave()
         {
@@ -64,11 +65,13 @@ namespace EasySaveGUI
 
                 // Change la langue immédiatement
                 LanguageHelper.ChangeLanguage(selectedLanguage);
-          
-            
 
 
+
+
+            }
         }
+
 
         private void ButtonCreateSaveMenuClick(object sender, RoutedEventArgs e)
         {
@@ -216,6 +219,7 @@ namespace EasySaveGUI
                 $"Cible: {save.targetDirectory}\n" +
                 $"Type: {save.saveStrategy.GetType().Name}",
                 "Détails de la Sauvegarde",
+                
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
             );

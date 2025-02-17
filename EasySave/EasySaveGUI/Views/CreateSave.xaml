@@ -88,7 +88,7 @@
          GotFocus="TextBox_GotFocus"
          LostFocus="TextBox_LostFocus"/>
         <Button x:Name="ButtonCreateSaveOriginPath"
-        Content="Fichier"
+        Content="{Binding [WPF_Folder]}"
         BorderBrush="Black"
         BorderThickness="1"
         Margin="576,330,315,301"
