@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="EasySaveGUI.Views.Header"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EasySaveGUI.Helpers"
+             MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+
+    <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
+        <!-- HEADER -->
+        <Rectangle HorizontalAlignment="Center"
+                   Height="90" 
+                   Margin="0,10,0,0"  
+                   VerticalAlignment="Top"
+                   Width="953"
+                   Fill="{StaticResource MaCouleurPrincipale}"
+                   RadiusX="17" RadiusY="17"/>
+
+        <!-- Titre Application -->
+        <Label Content="EasySave" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top" 
+               FontSize="42" 
+               FontFamily="Impact" 
+               Foreground="White" 
+               Height="90" 
+               Width="382" 
+               HorizontalContentAlignment="Center" 
+               VerticalContentAlignment="Center" Margin="0,10,0,0"/>
+
+        <!-- Bouton Quitter -->
+        <Button x:Name="ButtonLeave" 
+        Width="50" 
+        Height="50" 
+        Background="White" 
+        Foreground="{StaticResource MaCouleurPrincipale}" 
+        BorderThickness="2" 
+        FontSize="33" 
+        Content="⏻" 
+        Click="ButtonLeaveClick" 
+        FlowDirection="RightToLeft" 
+        Margin="897,27,0,0" 
+        HorizontalContentAlignment="Center" 
+        VerticalContentAlignment="Center" 
+        FontWeight="Bold" 
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Top">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{StaticResource MaCouleurPrincipale}"
+                    BorderThickness="2"
+                    CornerRadius="16">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+
+
+        <!-- Bouton Menu -->
+        <Button x:Name="ButtonMenu" 
+        Width="50" 
+        Height="50" 
+        Background="White" 
+        Foreground="{StaticResource MaCouleurPrincipale}" 
+        BorderThickness="2" 
+        FontSize="25" 
+        Content="🏠"
+            Click="ButtonMenuClick" 
+        FlowDirection="RightToLeft" 
+        Margin="25,27,0,0" 
+        HorizontalContentAlignment="Center" 
+        VerticalContentAlignment="Center" 
+        FontWeight="Bold" 
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Top">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{StaticResource MaCouleurPrincipale}"
+                    BorderThickness="2"
+                    CornerRadius="16">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+
+
+
+
+
+
+
+
+
+
+    </Grid>
+</UserControl>
