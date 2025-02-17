@@ -54,11 +54,22 @@ namespace EasySaveLogger
         internal static List<Dictionary<string, object>> xmlDeserializer(string obj)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<List<XmlItem>>));
+            List<List<XmlItem>> xmlArrayofArrayofXmlItems;
             using (StringReader reader = new StringReader(obj))
             {
-                var test = serializer.Deserialize(reader);
-                return (List<Dictionary<string, object>>)serializer.Deserialize(reader);
+                xmlArrayofArrayofXmlItems = (List<List<XmlItem>>)serializer.Deserialize(reader);
             }
+            List<Dictionary<string, object>> deserializedListofDict = new List<Dictionary<string, object>>();
+            foreach (var xmlArrayofXmlItems in xmlArrayofArrayofXmlItems)
+            {
+                Dictionary<string, object> deserializedDict = new Dictionary<string, object>();
+                foreach (var xmlItem in xmlArrayofXmlItems)
+                {
+                    deserializedDict.Add(xmlItem.Key, xmlItem.Value);
+                }
+                deserializedListofDict.Add(deserializedDict);
+            }
+            return deserializedListofDict;
         }
 
         // Function to use the delegate and serialize
