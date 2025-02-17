@@ -26,6 +26,14 @@ namespace EasySaveGUI
             DataContext = LanguageHelper.Instance;
 
             LoadSavedLanguage();
+            InitializeText();
+        }
+
+        private void InitializeText()
+        {
+            InputCreateSaveSaveName.Text = LanguageHelper.Translate("WPF_EnterNameSave");
+            InputCreateSaveOriginPath.Text = LanguageHelper.Translate("WPF_SelectSource");
+            InputCreateSaveTargetPath.Text = LanguageHelper.Translate("WPF_SelectTarget");
         }
 
         private void LoadSavedLanguage()
@@ -88,9 +96,9 @@ namespace EasySaveGUI
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (textBox != null && (textBox.Text == "Entrez un nom de sauvegarde" ||
-                                    textBox.Text == "Sélectionnez un fichier source" ||
-                                    textBox.Text == "Sélectionnez un dossier de destination"))
+            if (textBox != null && (textBox.Text == LanguageHelper.Translate("WPF_EnterNameSave") ||
+                                    textBox.Text == LanguageHelper.Translate("WPF_SelectSource") ||
+                                    textBox.Text == LanguageHelper.Translate("WPF_SelectTarget")))
             {
                 textBox.Text = "";
                 textBox.Foreground = Brushes.Black; // Change text color to black when typing
@@ -103,11 +111,11 @@ namespace EasySaveGUI
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 if (textBox.Name == "InputCreateSaveSaveName")
-                    textBox.Text = "Entrez un nom de sauvegarde";
+                    textBox.Text = LanguageHelper.Translate("WPF_EnterNameSave");
                 else if (textBox.Name == "InputCreateSaveOriginPath")
-                    textBox.Text = "Sélectionnez un fichier source";
+                    textBox.Text = LanguageHelper.Translate("WPF_SelectSource");
                 else if (textBox.Name == "InputCreateSaveTargetPath")
-                    textBox.Text = "Sélectionnez un dossier de destination";
+                    textBox.Text = LanguageHelper.Translate("WPF_SelectTarget");
 
                 textBox.Foreground = Brushes.Gray; // Reset text color to gray when placeholder is active
             }
@@ -118,10 +126,10 @@ namespace EasySaveGUI
         {
             var dialog = new OpenFileDialog
             {
-                Title = "Sélectionnez un dossier source",
+                Title = LanguageHelper.Translate("WPF_SelectSource"),
                 CheckFileExists = false, // Allows selecting a folder
                 CheckPathExists = true,
-                FileName = "Dossier Selectionné" // To make it open folders
+                FileName = LanguageHelper.Translate("WPF_SelectedFile") // To make it open folders
             };
 
             if (dialog.ShowDialog() == true)
@@ -138,10 +146,10 @@ namespace EasySaveGUI
         {
             var dialog = new OpenFileDialog
             {
-                Title = "Sélectionnez un dossier de destination",
+                Title = LanguageHelper.Translate("WPF_SelectTarget"),
                 CheckFileExists = false,
                 CheckPathExists = true,
-                FileName = "Dossier Selectionné" // Trick to make it open folders
+                FileName = LanguageHelper.Translate("WPF_SelectedFile") // Trick to make it open folders
             };
 
             if (dialog.ShowDialog() == true)
@@ -170,7 +178,7 @@ namespace EasySaveGUI
                 string.IsNullOrWhiteSpace(InputCreateSaveOriginPath.Text) ||
                 string.IsNullOrWhiteSpace(InputCreateSaveTargetPath.Text))
             {
-                MessageBox.Show("Veuillez remplir tous les champs.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Translate("WPF_FieldProblem"), LanguageHelper.Translate("WPF_Error") , MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -183,19 +191,19 @@ namespace EasySaveGUI
             // Check if the Save Name is unique
             if (saveRepository.GetAllSaves().Any(s => s.name == InputCreateSaveSaveName.Text))
             {
-                MessageBox.Show("Le nom de sauvegarde existe déjà.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Translate("WPF_NameProblem"), LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             // Check if the Origin Path exists
             if (!Directory.Exists(InputCreateSaveOriginPath.Text))
             {
-                MessageBox.Show("Le dossier source n'existe pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Translate("WPF_SourceProblem"), LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             // Check if the Target Path exists
             if (!Directory.Exists(InputCreateSaveTargetPath.Text))
             {
-                MessageBox.Show("Le dossier de destination n'existe pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Translate("WPF_TargetProblem"), LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -214,11 +222,11 @@ namespace EasySaveGUI
             };
             // Display Save Object in MessageBox
             MessageBox.Show(
-                $"Nom: {save.name}\n" +
-                $"Source: {save.sourceDirectory}\n" +
-                $"Cible: {save.targetDirectory}\n" +
-                $"Type: {save.saveStrategy.GetType().Name}",
-                "Détails de la Sauvegarde",
+                LanguageHelper.Translate("View_SaveName")+ $" : {save.name}\n" +
+                LanguageHelper.Translate("View_SaveSource")+ $" : {save.sourceDirectory}\n" +
+                LanguageHelper.Translate("View_SaveTarget")+ $" : {save.targetDirectory}\n" +
+                LanguageHelper.Translate("View_SaveType")+ $" : {save.saveStrategy.GetType().Name}",
+                LanguageHelper.Translate("WPF_Details"),
                 
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
@@ -227,7 +235,7 @@ namespace EasySaveGUI
             // Add the Save to the list
             saveRepository.AddSave(save);
             // Show a success message
-            MessageBox.Show("La sauvegarde a été créée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(LanguageHelper.Translate("WPF_CreateSuccess"), LanguageHelper.Translate("WPF_Success"), MessageBoxButton.OK, MessageBoxImage.Information);
             // Close the window
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

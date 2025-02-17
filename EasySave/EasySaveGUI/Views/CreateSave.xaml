@@ -67,7 +67,6 @@
          Width="378"
          Background="#FFB5B5B5"
          Foreground="Gray"
-         Text="Entrez un nom de sauvegarde"
          GotFocus="TextBox_GotFocus"
          LostFocus="TextBox_LostFocus" TextWrapping="Wrap"/>
 
@@ -84,7 +83,6 @@
          Foreground="Gray"
          IsReadOnly="True"
          MouseDoubleClick="TextBox_DoubleClick"
-         Text="Sélectionnez un fichier source"
          GotFocus="TextBox_GotFocus"
          LostFocus="TextBox_LostFocus"/>
         <Button x:Name="ButtonCreateSaveOriginPath"
@@ -108,7 +106,6 @@
          Foreground="Gray"
          IsReadOnly="True"
          MouseDoubleClick="TextBox_DoubleClick"
-         Text="Sélectionnez un dossier de destination"
          GotFocus="TextBox_GotFocus"
          LostFocus="TextBox_LostFocus"/>
         <Button x:Name="ButtonCreateSaveTargetPath"
