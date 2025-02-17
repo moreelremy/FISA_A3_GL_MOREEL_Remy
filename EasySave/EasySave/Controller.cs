@@ -159,7 +159,6 @@ class Controller
                                     View.DisplayLog(logLines[i]);
                                 }
                             }
-                            View.PromptToContinue();
                         }
                         else
                         {
