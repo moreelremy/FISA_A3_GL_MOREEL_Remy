@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj": {}
+    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
+    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
         "projectName": "EasySave.Shared",
-        "projectPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
-        "packagesPath": "C:\\Users\\axel0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\obj\\",
+        "projectPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj",
+        "packagesPath": "C:\\Users\\leosc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\axel0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leosc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -70,20 +70,20 @@
         }
       }
     },
-    "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj": {
+    "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj",
+        "projectUniqueName": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj",
         "projectName": "EasySaveGUI",
-        "projectPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj",
-        "packagesPath": "C:\\Users\\axel0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\obj\\",
+        "projectPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\EasySaveGUI.csproj",
+        "packagesPath": "C:\\Users\\leosc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySaveGUI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\axel0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leosc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -99,8 +99,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
-                "projectPath": "C:\\Users\\axel0\\OneDrive\\Bureau\\GL\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj"
+              "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
+                "projectPath": "C:\\Users\\leosc\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj"
               }
             }
           }

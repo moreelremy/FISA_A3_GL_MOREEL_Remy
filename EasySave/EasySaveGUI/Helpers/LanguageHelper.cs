@@ -1,12 +1,7 @@
-﻿using EasySaveGUI.Helpers;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
+
 
 namespace EasySaveGUI.Helpers
 {
@@ -36,5 +31,11 @@ namespace EasySaveGUI.Helpers
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
 
         }
+
+        public static string Translate(string key)
+        {
+            return Instance[key]; // Utilise l'indexeur existant
+        }
+
     }
 }

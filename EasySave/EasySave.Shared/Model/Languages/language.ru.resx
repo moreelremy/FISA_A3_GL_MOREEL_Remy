@@ -291,4 +291,43 @@
   <data name="WPF_Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="WPF_FileNotFound" xml:space="preserve">
+    <value>На эту дату нет журналов:</value>
+  </data>
+  <data name="WPF_EnterNameSave" xml:space="preserve">
+    <value>Введите резервное имя</value>
+  </data>
+  <data name="WPF_SelectSource" xml:space="preserve">
+    <value>Выберите исходную папку</value>
+  </data>
+  <data name="WPF_SelectTarget" xml:space="preserve">
+    <value>Выберите папку назначения</value>
+  </data>
+  <data name="WPF_SelectedFile" xml:space="preserve">
+    <value>Выбранная папка</value>
+  </data>
+  <data name="WPF_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="WPF_NameProblem" xml:space="preserve">
+    <value>Резервное имя уже существует.</value>
+  </data>
+  <data name="WPF_SourceProblem" xml:space="preserve">
+    <value>Исходная папка не существует.</value>
+  </data>
+  <data name="WPF_TargetProblem" xml:space="preserve">
+    <value>Папка назначения не существует.</value>
+  </data>
+  <data name="WPF_Success" xml:space="preserve">
+    <value>Успех</value>
+  </data>
+  <data name="WPF_CreateSuccess" xml:space="preserve">
+    <value>Резервная копия успешно создана.</value>
+  </data>
+  <data name="WPF_Details" xml:space="preserve">
+    <value>Подробности резервного копирования</value>
+  </data>
+  <data name="WPF_FieldProblem" xml:space="preserve">
+    <value>Пожалуйста, заполните все поля.</value>
+  </data>
 </root>

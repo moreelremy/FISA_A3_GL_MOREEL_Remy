@@ -53,7 +53,7 @@ namespace EasySaveGUI
 
             if (!File.Exists(filePath))
             {
-                MessageBox.Show($"Il n'existe aucun Logs pour cette date: '{wantedDate}'");
+                MessageBox.Show(LanguageHelper.Translate("WPF_FileNotFound") + $"{wantedDate}");
                 return;
             }
             LoadLogs(filePath);
