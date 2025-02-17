@@ -291,4 +291,7 @@
   <data name="WPF_Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="View_FormatDontMatch" xml:space="preserve">
+    <value>Неверный формат даты (пример: 15-02-2024, формат: дд-MM-гггг).</value>
+  </data>
 </root>
