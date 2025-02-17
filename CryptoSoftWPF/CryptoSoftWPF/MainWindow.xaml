@@ -41,7 +41,7 @@
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"/>
 
-        <Button x:Name="ButtonMenuLeave"
+        <Button x:Name="ButtonLeave"
                 Content="Quitter"
                 HorizontalAlignment="Left"
                 Height="26"
@@ -50,12 +50,12 @@
                 Width="63"
                 FontSize="16"
                 FontWeight="Bold"
-                Click="ButtonMenuLeaveClick"/>
+                Click="ButtonLeaveClick"/>
 
         <!-- CONTENU DE LA PAGE -->
         <Canvas Grid.Row="1">
             <!-- Nom de la sauvegarde -->
-            <Label x:Name="LabelCreateSaveSaveName"
+            <Label x:Name="LabelEncryptionKey"
                    Content="Encryption key"
                    BorderBrush="Black"
                    BorderThickness="1"
@@ -65,21 +65,19 @@
                    Padding="5"
                    Canvas.Left="159" Canvas.Top="146" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="InputCreateSaveSaveName"
-                     Text="TEST"
+            <TextBox x:Name="InputEncryptionKey"
+                     Text=""
                      BorderBrush="Black"
                      BorderThickness="1"
                      Background="#FFB5B5B5"
                      Foreground="Gray"
-                     GotFocus="TextBox_GotFocus"
-                     LostFocus="TextBox_LostFocus"
                      TextWrapping="Wrap"
                      Padding="5"
                      Canvas.Left="159" Canvas.Top="180" Width="336" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
             <!-- Chemin d'origine -->
-            <Label x:Name="LabelCreateSaveOriginPath"
-                   Content="Path Folder"
+            <Label x:Name="LabelPathFile"
+                   Content="Path File"
                    BorderBrush="Black"
                    BorderThickness="1"
                    Background="#FFB5B5B5"
@@ -89,31 +87,29 @@
                    Canvas.Left="159" Canvas.Top="55" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
 
-            <TextBox x:Name="InputCreateSaveOriginPath"
-                         Text="TEST"
+            <TextBox x:Name="InputPathFile"
+                         Text=""
                          BorderBrush="Black"
                          BorderThickness="1"
                          Background="#FFB5B5B5"
                          Foreground="Gray"
                          IsReadOnly="True"
                          MouseDoubleClick="TextBox_DoubleClick"
-                         GotFocus="TextBox_GotFocus"
-                         LostFocus="TextBox_LostFocus"
                          Padding="5"
                          Width="250" Canvas.Left="159" Canvas.Top="89"/>
-            <Button x:Name="ButtonCreateSaveOriginPath"
-                        Content="Folder"
+            <Button x:Name="ButtonFile"
+                        Content="File"
                         BorderBrush="Black"
                         BorderThickness="1"
                         Background="#FFB5B5B5"
-                        Click="ButtonCreateSaveOriginPath_Click"
+                        Click="ButtonFileClick"
                         Width="87" Canvas.Left="408" Canvas.Top="89" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28"/>
-            <Button x:Name="ButtonCreateSaveOriginPath"
+            <Button x:Name="ButtonCrypt"
                 Content="CRYPT"
                 BorderBrush="Black"
                 BorderThickness="1"
                 Background="#FFB5B5B5"
-                Click="ButtonCreateSaveOriginPath_Click"
+                Click="ButtonCryptClick"
                 Width="137" Canvas.Left="258" Canvas.Top="242" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         </Canvas>
