@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 
 namespace EasySaveLogger
 {
@@ -7,6 +8,7 @@ namespace EasySaveLogger
         public static void Log(string jsonEntry, string filePath)
         {
             string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/", filePath);
+
 
             Directory.CreateDirectory(Path.GetDirectoryName(pathFile));
 
