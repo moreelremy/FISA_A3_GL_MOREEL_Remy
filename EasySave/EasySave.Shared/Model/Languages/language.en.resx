@@ -329,7 +329,11 @@
   </data>
   <data name="WPF_FieldProblem" xml:space="preserve">
     <value>Please complete all fields.</value>
-  <data name="View_FormatDontMatch" xml:space="preserve">
-    <value>The date format is invalid (example: 15-02-2024, format: dd-MM-yyyy).</value>
+  </data>
+  <data name="WPF_FormatLog" xml:space="preserve">
+    <value>The date format is invalid (example</value>
+  </data>
+  <data name="WPF_Format" xml:space="preserve">
+    <value>format</value>
   </data>
 </root>

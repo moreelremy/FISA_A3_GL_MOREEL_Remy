@@ -54,7 +54,7 @@ namespace EasySaveGUI
 
             if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$"))
             {
-                MessageBox.Show("Le format de la date est invalide (exemple : 15-02-2024, format : jj-MM-aaaa).");
+                MessageBox.Show(LanguageHelper.Translate("WPF_FormatLog") + " : 15-02-2024, " +LanguageHelper.Translate("WPF_Format")+ " : jj-MM-aaaa).");
                 return;
             }
 
