@@ -14,7 +14,6 @@ public interface IView
     string ShowChoiceMenuOrDelete();
     void DisplaySavesForDeletion(List<Save> saves);
     int GetSaveIndexForDeletion(int maxIndex);
-    int GetSaveIndexForExecution(int maxIndex);
     void DisplayDeleteResult(bool isDeleted);
     void DisplaySuccess(string message);
     void DisplayError(string message);
@@ -211,22 +210,7 @@ class ViewBasic : IView
         return -1;  // Invalid choice
     }
 
-    /// <summary>
-    /// Prompts the user to enter a save index for execution and validates the input.
-    /// </summary>
-    /// <param name="maxIndex">The maximum valid index (1-based).</param>
-    /// <returns>The selected index as a zero-based integer, or -1 if the input is invalid.</returns>
-    public int GetSaveIndexForExecution(int maxIndex)
-    {
-        string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveNumber"));
-        if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
-        {
-            return index - 1;  // Convert to 0-based index
-        }
 
-        DisplayError(Language.GetString("View_InvalidSelection"));
-        return -1;  // Invalid choice
-    }
 
     /// <summary>
     /// Displays the result of the deletion.

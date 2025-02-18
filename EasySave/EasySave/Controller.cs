@@ -71,19 +71,22 @@ class Controller
                             List<Save> savesToExecute = saveRepository.GetAllSaves();
                             objView.DisplaySavesForExecution(savesToExecute);
 
-                            int saveIndex = objView.GetSaveIndexForExecution(savesToExecute.Count);
-                            if (saveIndex != -1)
+                            List<int> saveIndexes = objView.GetSaveSelection(savesToExecute.Count);
+                            if (saveIndexes.Count > 0)
                             {
-                                string errorMessage;
-                                bool success = saveRepository.ExecuteSave(savesToExecute[saveIndex], out errorMessage);
+                                foreach (int index in saveIndexes)
+                                {
+                                    string errorMessage;
+                                    bool success = saveRepository.ExecuteSave(savesToExecute[index], out errorMessage);
 
-                                if (success)
-                                {
-                                    objView.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
-                                }
-                                else
-                                {
-                                    objView.DisplayError(errorMessage);
+                                    if (success)
+                                    {
+                                        objView.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
+                                    }
+                                    else
+                                    {
+                                        objView.DisplayError(errorMessage);
+                                    }
                                 }
                             }
                         }
