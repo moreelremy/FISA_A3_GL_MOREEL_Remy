@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="EasySaveGUI.Views.BoxLanguage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:EasySaveGUI.Views"
+    xmlns:helpers="clr-namespace:EasySaveGUI.Helpers"
+    Height="40" Width="100">
+
+    <ComboBox x:Name="LanguageComboBox"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              SelectionChanged="ComboBox_SelectionChanged"
+              Width="100" Height="40"
+              Background="White"
+              BorderBrush="Black"
+              BorderThickness="2"
+              Foreground="{StaticResource MaCouleurPrincipale}"
+              Padding="10,0"
+              HorizontalContentAlignment="Center"
+              VerticalContentAlignment="Center">
+
+        <ComboBoxItem Content="Français" Tag="fr"/>
+        <ComboBoxItem Content="English" Tag="en"/>
+        <ComboBoxItem Content="Русский" Tag="ru"/>
+    </ComboBox>
+
+</UserControl>

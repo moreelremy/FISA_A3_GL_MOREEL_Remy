@@ -11,3 +11,7 @@
 [Dd]ebug/
 [Rr]elease/
 /EasySave/RepositoryState.json
+
+
+/CryptoSoftDLL/.vs
+/CryptoSoftWPF/.vs
