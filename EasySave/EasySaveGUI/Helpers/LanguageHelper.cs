@@ -37,5 +37,7 @@ namespace EasySaveGUI.Helpers
             return Instance[key]; // Utilise l'indexeur existant
         }
 
+
+
     }
 }
