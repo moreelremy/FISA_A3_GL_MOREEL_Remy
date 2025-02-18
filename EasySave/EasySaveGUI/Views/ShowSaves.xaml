@@ -2,6 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:EasySaveGUI.Helpers"
+        xmlns:vm="clr-namespace:EasySaveGUI.ViewModel"
+        xmlns:local1="clr-namespace:EasySaveGUI"
         Title="EasySave ShowSaves" 
         ResizeMode="NoResize" 
         MinWidth="973" MinHeight="661" 
@@ -14,9 +16,16 @@
     <Window.Resources>
         <!-- Définition des couleurs -->
         <SolidColorBrush x:Key="MaCouleurPrincipale" Color="#280068"/>
+        <local:LanguageHelper x:Key="LangHelper" />
+        <local1:SaveStrategyConverter x:Key="SaveStrategyConverter"/>
+        
     </Window.Resources>
 
-    <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
+    <Window.DataContext>
+        <vm:ShowSavesViewModel />
+    </Window.DataContext>
+    
+    <Grid>
 
 
         <!--- CONTENU DE LA PAGE-->
@@ -32,11 +41,11 @@
 
         <!-- Title App -->
         <Label Content="EasySave" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="42" FontFamily="Impact" Foreground="White" Margin="0,10,0,0" Height="90" Width="382" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="ButtonShowSavesLeave" Content="{Binding [WPF_Leave]}" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonShowSavesLeaveClick"/>
+        <Button x:Name="ButtonShowSavesLeave" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Leave]}" HorizontalAlignment="Left" Height="34" Margin="883,38,0,0" VerticalAlignment="Top" Width="64" FontSize="16" FontWeight="Bold" Click="ButtonShowSavesLeaveClick"/>
 
 
         <!-- Title Page -->
-        <Label x:Name="LabelShowSavesTitle" Content="{Binding [View_ViewAllSaves]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelShowSavesTitle" Content="{Binding Source={StaticResource LangHelper}, Path=[View_ViewAllSaves]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Margin="0,120,0,0" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
         <!-- Choice Language -->
         <ComboBox x:Name="LanguageComboBox"
@@ -54,19 +63,19 @@
         </ComboBox>
         
         <!-- Menu Button -->
-        <Button x:Name="ButtonShowSavesMenu" Content="{Binding [Controller_ChoiceMenu]}" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonShowSavesMenuClick"/>
+        <Button x:Name="ButtonShowSavesMenu" Content="{Binding Source={StaticResource LangHelper}, Path=[Controller_ChoiceMenu]}" HorizontalAlignment="Left" Height="40" Margin="10,120,0,0" VerticalAlignment="Top" Width="96" FontSize="16" FontWeight="Bold" Click="ButtonShowSavesMenuClick"/>
 
         <!-- Page Content -->
-        <DataGrid Margin="42,196,42,129"
+        <DataGrid ItemsSource="{Binding Saves}" Margin="42,196,42,129"
           BorderBrush="Black"
-          BorderThickness="2">
+          BorderThickness="2"
+          AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <!-- Définir un nom pour pouvoir accéder à cette colonne dans le code-behind -->
-                <DataGridTextColumn x:Name="ColumnShowSaves1" Header="Numéro" Width="0.3*" />
-                <DataGridTextColumn x:Name="ColumnShowSaves2" Header="Nom" Width="0.8*" />
-                <DataGridTextColumn x:Name="ColumnShowSaves3" Header="Source" Width="*" />
-                <DataGridTextColumn x:Name="ColumnShowSaves4" Header="Cible" Width="*" />
-                <DataGridTextColumn x:Name="ColumnShowSaves5" Header="Type de Sauvegarde" Width="*" />
+                <DataGridTextColumn Header="Nom" Binding="{Binding name}" Width="0.8*" />
+                <DataGridTextColumn Header="Source" Binding="{Binding sourceDirectory}" Width="*" />
+                <DataGridTextColumn Header="Cible" Binding="{Binding targetDirectory}" Width="*" />
+                <DataGridTextColumn Header="Type de Sauvegarde" Binding="{Binding saveStrategy, Converter={StaticResource SaveStrategyConverter}}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
         <Grid HorizontalAlignment="Center" Margin="0,561,0,0" VerticalAlignment="Top" Width="399">
@@ -74,7 +83,7 @@
                 <ColumnDefinition Width="11*"/>
                 <ColumnDefinition Width="122*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonShowSavesDeleteSave" Content="{Binding [WPF_Delete]}" HorizontalAlignment="Left" Height="40" Margin="235,0,0,0" VerticalAlignment="Center" Width="131" FontSize="16" FontWeight="Bold" Grid.Column="1"/>
+            <Button x:Name="ButtonShowSavesDeleteSave" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Delete]}" HorizontalAlignment="Left" Height="40" Margin="235,0,0,0" VerticalAlignment="Center" Width="131" FontSize="16" FontWeight="Bold" Grid.Column="1" Command="{Binding DeleteSaveCommand}"/>
             <TextBox x:Name="InputShowSavesDeleteSave" 
                 Width="246" 
                 Height="40" 
@@ -94,7 +103,7 @@
             Width="973"
             Fill="{StaticResource MaCouleurPrincipale}"/>
 
-        <Label x:Name="LabelShowSavesProperty" Content="{Binding [WPF_Property]}" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
+        <Label x:Name="LabelShowSavesProperty" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Property]}" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Height="32" Width="674" Background="Transparent" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" RenderTransformOrigin="0.511,-3.249"/>
 
     </Grid>
 </Window>
