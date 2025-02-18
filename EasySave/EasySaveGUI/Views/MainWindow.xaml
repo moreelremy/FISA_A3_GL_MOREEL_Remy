@@ -9,54 +9,86 @@
 
     <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="115"/>
             <!-- Header -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="115"/>
             <!-- Content -->
-            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
             <!-- Footer -->
+            <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
         <controls:Header Grid.Row="0"/>
 
         <Grid Grid.Row="1">
-            <!-- Titre de la page -->
+            <!-- Title Page -->
             <Label x:Name="LabelMenuTitlePage" 
-                   Content="{Binding [Controller_ChoiceMenu]}" 
-                   HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Height="60" Width="197" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                Content="{Binding [Controller_ChoiceMenu]}" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="40"
+                FontFamily="Impact"
+                Foreground="Black"
+                Height="60"
+                Width="197"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
 
             <!-- Choice Language -->
             <controls:BoxLanguage HorizontalAlignment="Left" VerticalAlignment="Top" Margin="863,0,0,0" Width="166"/>
             
-            <!-- MENU BUTTONS -->
+            <!-- Page Content -->
             <Button x:Name="ButtonMenuCreateSave" BorderThickness="2" 
-                    Content="{Binding [View_CreateBackup]}" HorizontalAlignment="Left" 
-                    Height="102" Margin="84,146,0,0" VerticalAlignment="Top" 
-                    Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuCreateSaveClick"
-                    Style="{StaticResource CustomButtonStyle}"/>
+                Content="{Binding [View_CreateBackup]}"
+                HorizontalAlignment="Left" 
+                Height="102"
+                Margin="84,146,0,0"
+                VerticalAlignment="Top" 
+                Width="356"
+                FontWeight="Bold"
+                FontSize="22"
+                Click="ButtonMenuCreateSaveClick"
+                Style="{StaticResource CustomButtonStyle}"/>
+            
+            <Button x:Name="ButtonMenuLaunchSave"
+                BorderThickness="2" 
+                Content="{Binding [View_StartBackup]}"
+                HorizontalAlignment="Left" 
+                Height="102"
+                Margin="540,146,0,0"
+                VerticalAlignment="Top" 
+                Width="356"
+                FontWeight="Bold"
+                FontSize="22"
+                Click="ButtonMenuLaunchSavesClick"
+                Style="{StaticResource CustomButtonStyle}"/>
 
-            <Button x:Name="ButtonMenuLaunchSave" BorderThickness="2" 
-                    Content="{Binding [View_StartBackup]}" HorizontalAlignment="Left" 
-                    Height="102" Margin="540,146,0,0" VerticalAlignment="Top" 
-                    Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuLaunchSavesClick"
-                    Style="{StaticResource CustomButtonStyle}"/>
+            <Button x:Name="ButtonMenuShowSave"
+                BorderThickness="2" 
+                Content="{Binding [View_ViewAllSaves]}"
+                HorizontalAlignment="Left" 
+                Height="104"
+                Margin="84,322,0,0"
+                VerticalAlignment="Top" 
+                Width="356"
+                FontWeight="Bold"
+                FontSize="22"
+                Click="ButtonMenuShowSavesClick"
+                Style="{StaticResource CustomButtonStyle}"/>
 
-            <Button x:Name="ButtonMenuShowSave" BorderThickness="2" 
-                    Content="{Binding [View_ViewAllSaves]}" HorizontalAlignment="Left" 
-                    Height="104" Margin="84,322,0,0" VerticalAlignment="Top" 
-                    Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuShowSavesClick"
-                    Style="{StaticResource CustomButtonStyle}"/>
-
-            <Button x:Name="ButtonMenuShowLogs" BorderThickness="2" 
-                    Content="{Binding [ControllerView_ViewLogs]}" HorizontalAlignment="Left" 
-                    Height="104" Margin="540,322,0,0" VerticalAlignment="Top" 
-                    Width="356" FontWeight="Bold" FontSize="22" Click="ButtonMenuShowLogsClick"
-                    Style="{StaticResource CustomButtonStyle}"/>
-
+            <Button x:Name="ButtonMenuShowLogs"
+                BorderThickness="2" 
+                Content="{Binding [ControllerView_ViewLogs]}"
+                HorizontalAlignment="Left" 
+                Height="104"
+                Margin="540,322,0,0"
+                VerticalAlignment="Top" 
+                Width="356"
+                FontWeight="Bold"
+                FontSize="22"
+                Click="ButtonMenuShowLogsClick"
+                Style="{StaticResource CustomButtonStyle}"/>
         </Grid>
-
-
 
         <!-- FOOTER -->
         <controls:Footer Grid.Row="2"/>

@@ -9,50 +9,58 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <!-- Définition des couleurs -->
-        <SolidColorBrush x:Key="MaCouleurPrincipale" Color="#280068"/>
         <local:LanguageHelper x:Key="LangHelper" />
     </Window.Resources>
 
     <Window.DataContext>
         <vm:CreateSaveViewModel />
-        
+
     </Window.DataContext>
 
-    
-        
-        <Grid>
-
-        <!--- CONTENU DE LA PAGE-->
+    <Grid>
         <Grid.RowDefinitions>
-
-            <RowDefinition Height="115"/>
             <!-- Header -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="115"/>
             <!-- Content -->
-            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
             <!-- Footer -->
+            <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-
 
         <!-- HEADER -->
         <controls:Header Grid.Row="0"/>
 
         <Grid Grid.Row ="1">
             <!-- Title Page -->
-                <Label x:Name="LabelCreateSaveTitle" Content="{Binding Source={StaticResource LangHelper}, Path=[View_CreateBackup]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="LabelCreateSaveTitle"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[View_CreateBackup]}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="40" FontFamily="Impact"
+                Foreground="Black"
+                Height="60" Width="612"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
 
             <!-- Choice Language -->
             <controls:BoxLanguage HorizontalAlignment="Left" VerticalAlignment="Top" Margin="863,0,0,0"/>
 
             <!-- Page Content -->
-            <Grid HorizontalAlignment="Center" Height="313" VerticalAlignment="Top" Width="378" Margin="0,91,0,0">
+            <Grid HorizontalAlignment="Center" Height="413" VerticalAlignment="Top" Width="378" Margin="0,91,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="23*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                    <Label x:Name="LabelCreateSaveSaveName" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveName]}"  HorizontalAlignment="Left" Height="28" Margin="1,0,0,0" VerticalAlignment="Top" Width="191" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                       Style="{StaticResource CustomLabelStyle}"/>
+                <Label x:Name="LabelCreateSaveSaveName"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveName]}"
+                    HorizontalAlignment="Left"
+                    Height="28" Width="191" 
+                    Margin="1,0,0,0"
+                    VerticalAlignment="Top"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Style="{StaticResource CustomLabelStyle}"/>
+
                 <TextBox x:Name="InputCreateSaveSaveName"
                     Text="{Binding SaveName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
                     HorizontalAlignment="Left"
@@ -62,10 +70,18 @@
                     Width="378"
                     Foreground="Gray"
                     GotFocus="TextBox_GotFocus"
-                    LostFocus="TextBox_LostFocus" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+                    LostFocus="TextBox_LostFocus"
+                    TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
-                    <Label x:Name="LabelCreateSaveOriginPath" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveSource]}" HorizontalAlignment="Left" Height="28" Margin="2,85,0,0" VerticalAlignment="Top" Width="190" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                       Style="{StaticResource CustomLabelStyle}"/>
+                <Label x:Name="LabelCreateSaveOriginPath"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveSource]}"
+                    HorizontalAlignment="Left"
+                    Height="28" Margin="2,85,0,0"
+                    VerticalAlignment="Top" Width="190"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Style="{StaticResource CustomLabelStyle}"/>
+
                 <TextBox x:Name="InputCreateSaveOriginPath"
                     HorizontalAlignment="Left"
                     Height="41"
@@ -77,14 +93,22 @@
                     MouseDoubleClick="TextBox_DoubleClick"
                     GotFocus="TextBox_GotFocus"
                     LostFocus="TextBox_LostFocus"/>
+
                 <Button x:Name="ButtonCreateSaveOriginPath"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Folder]}"
                     Style="{StaticResource CustomButtonStyle}"
-                    Margin="296,118,0,154"
+                    Margin="296,118,0,254"
                     Command="{Binding SelectSourceCommand}" Grid.ColumnSpan="2"/>
 
-                    <Label x:Name="LabelCreateSaveTargetPath" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveTarget]}" HorizontalAlignment="Left" Height="28" Margin="2,176,0,0" VerticalAlignment="Top" Width="190" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                       Style="{StaticResource CustomLabelStyle}"/>
+                <Label x:Name="LabelCreateSaveTargetPath"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveTarget]}"
+                    HorizontalAlignment="Left"
+                    Height="28" Margin="2,176,0,0"
+                    VerticalAlignment="Top" Width="190"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Style="{StaticResource CustomLabelStyle}"/>
+
                 <TextBox x:Name="InputCreateSaveTargetPath"
                     HorizontalAlignment="Left"
                     Height="41"
@@ -96,14 +120,16 @@
                     MouseDoubleClick="TextBox_DoubleClick"
                     GotFocus="TextBox_GotFocus"
                     LostFocus="TextBox_LostFocus"/>
+
                 <Button x:Name="ButtonCreateSaveTargetPath"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Folder]}"
-                    Margin="296,209,0,63"
+                    Margin="296,209,0,163"
                     Command="{Binding SelectTargetCommand}"
-                        Style="{StaticResource CustomButtonStyle}" Grid.ColumnSpan="2"/>
+                    Style="{StaticResource CustomButtonStyle}"
+                    Grid.ColumnSpan="2"/>
 
-
-                    <RadioButton x:Name="CheckboxCreateSaveComplete" Content="{Binding Source={StaticResource LangHelper}, Path=[View_FullSave]}" 
+                <RadioButton x:Name="CheckboxCreateSaveComplete"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[View_FullSave]}" 
                     HorizontalAlignment="Left" 
                     Height="15" 
                     Margin="102,267,0,0" 
@@ -111,21 +137,28 @@
                     Width="208" 
                     IsChecked="{Binding IsFullSave, Mode=TwoWay}"/>
 
-                    <RadioButton x:Name="CheckboxCreateSaveDifferential" Content="{Binding Source={StaticResource LangHelper}, Path=[View_DifferentialSave]}" 
+                <RadioButton x:Name="CheckboxCreateSaveDifferential"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[View_DifferentialSave]}" 
                     HorizontalAlignment="Left" 
                     Height="16" 
                     Margin="102,287,0,0" 
                     VerticalAlignment="Top" 
                     Width="208" 
-                    IsChecked="{Binding IsDifferentialSave, Mode=TwoWay}"
-                  />
+                    IsChecked="{Binding IsDifferentialSave, Mode=TwoWay}"/>
 
-            </Grid>
-
-                <Button x:Name="ButtonCreateSaveCreate" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Create]}" Height="40" Margin="0,433,0,0" VerticalAlignment="Top" Width="178" FontSize="16" FontWeight="Bold" Command="{Binding CreateSaveCommand}"
+                <Button x:Name="ButtonCreateSaveCreate"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Create]}"
+                    Height="40" Margin="100,329,44,0"
+                    VerticalAlignment="Top"
+                    Width="178" FontSize="16"
+                    FontWeight="Bold"
+                    Command="{Binding CreateSaveCommand}"
                     Style="{StaticResource CustomButtonStyle}"/>
+            </Grid>
         </Grid>
+        
         <!-- FOOTER -->
         <controls:Footer Grid.Row="2"/>
+        
     </Grid>
 </Window>
