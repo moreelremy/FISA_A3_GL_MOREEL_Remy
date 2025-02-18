@@ -42,7 +42,7 @@
         VerticalContentAlignment="Center" 
         FontWeight="Bold" 
         HorizontalAlignment="Left" 
-        VerticalAlignment="Top">
+        VerticalAlignment="Top" FontFamily="Arial">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
