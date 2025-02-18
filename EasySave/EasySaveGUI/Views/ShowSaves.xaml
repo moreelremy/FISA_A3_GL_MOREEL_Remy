@@ -8,13 +8,10 @@
         Title="EasySave ShowSaves" 
         Style="{StaticResource WindowStyleWithRoundedCorners}"
         WindowStartupLocation="CenterScreen">
-    
-    <Window.Resources>
-        <!-- Définition des couleurs -->
 
+    <Window.Resources>
         <local:LanguageHelper x:Key="LangHelper" />
         <local1:SaveStrategyConverter x:Key="SaveStrategyConverter"/>
-        
     </Window.Resources>
 
     <Window.DataContext>
@@ -23,52 +20,65 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="115"/>
             <!-- Header -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="115"/>
             <!-- Content -->
+            <RowDefinition Height="*"/>
+            <!-- Footer -->
             <RowDefinition Height="32"/>
-            <!-- Footer  -->
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
         <controls:Header Grid.Row="0"/>
 
-
         <Grid Grid.Row ="1">
             <!-- Title Page -->
-            <Label x:Name="LabelShowSavesTitle" Content="{Binding Source={StaticResource LangHelper}, Path=[View_ViewAllSaves]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="LabelShowSavesTitle"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[View_ViewAllSaves]}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="40"
+                FontFamily="Impact"
+                Foreground="Black"
+                Height="60"
+                Width="612"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
 
             <!-- Choice Language -->
             <controls:BoxLanguage HorizontalAlignment="Left" VerticalAlignment="Top" Margin="863,0,0,0"/>
 
             <!-- Page Content -->
             <DataGrid ItemsSource="{Binding Saves}" Margin="42,79,42,87"
-              Style="{StaticResource CustomDataGridStyle}">
+                Style="{StaticResource CustomDataGridStyle}">
                 <DataGrid.Columns>
-                    <!-- Définir un nom pour pouvoir accéder à cette colonne dans le code-behind -->
                     <DataGridTextColumn Header="Nom" Binding="{Binding name}" Width="0.8*" />
                     <DataGridTextColumn Header="Source" Binding="{Binding sourceDirectory}" Width="*" />
                     <DataGridTextColumn Header="Cible" Binding="{Binding targetDirectory}" Width="*" />
                     <DataGridTextColumn Header="Type de Sauvegarde" Binding="{Binding saveStrategy, Converter={StaticResource SaveStrategyConverter}}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Grid HorizontalAlignment="Center" Margin="0,452,0,0" VerticalAlignment="Top" Width="404">
 
-                <Button x:Name="ButtonShowSavesDeleteSave" Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Delete]}" HorizontalAlignment="Left" Height="40" Margin="272,0,0,0" VerticalAlignment="Top" Width="132" FontSize="16" FontWeight="Bold"
-                        Style="{StaticResource CustomButtonStyle}"/>
+            <Grid HorizontalAlignment="Center" Margin="0,452,0,0" VerticalAlignment="Top" Width="404">
+                <Button x:Name="ButtonShowSavesDeleteSave"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Delete]}"
+                    HorizontalAlignment="Left"
+                    Height="40"
+                    Margin="272,0,0,0"
+                    VerticalAlignment="Top"
+                    Width="132"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Style="{StaticResource CustomButtonStyle}"/>
+
                 <TextBox x:Name="InputShowSavesDeleteSave" 
                     Width="246" 
                     Height="40" 
                     FontSize="16" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" />
-
             </Grid>
-
         </Grid>
-
-
 
         <!-- FOOTER -->
         <controls:Footer Grid.Row="2"/>

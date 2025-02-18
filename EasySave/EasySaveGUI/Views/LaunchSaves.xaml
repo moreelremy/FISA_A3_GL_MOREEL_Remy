@@ -9,12 +9,12 @@
 
     <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="115"/>
             <!-- Header -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="115"/>
             <!-- Content -->
-            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
             <!-- Footer -->
+            <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
@@ -22,23 +22,58 @@
 
         <Grid Grid.Row ="1">
             <!-- Title Page -->
-            <Label x:Name="LabelLaunchSavesTitle" Content="{Binding [View_StartBackup]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="LabelLaunchSavesTitle"
+                Content="{Binding [View_StartBackup]}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="40"
+                FontFamily="Impact"
+                Foreground="Black"
+                Height="60"
+                Width="612"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
 
             <!-- Choice Language -->
             <controls:BoxLanguage HorizontalAlignment="Left" VerticalAlignment="Top" Margin="863,0,0,0"/>
 
             <!-- Page Content -->
             <DataGrid Margin="90,105,507,69"
-              Style="{StaticResource CustomDataGridStyle}">
+                Style="{StaticResource CustomDataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="ColumnLaunchSaves1" Header="Number" Width="*" />
                     <DataGridTextColumn x:Name="ColumnLaunchSaves2" Header="Name" Width="3*" />
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBox x:Name="InputLaunchSavesNumberSave" Width="240" Height="33" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Margin="577,184,0,0"/>
-            <Button x:Name="ButtonLaunchSavesSavePartial" Content="{Binding [WPF_SavePartial]}" HorizontalAlignment="Left" Height="40" Margin="561,222,0,0" VerticalAlignment="Top" Width="272" FontSize="16" FontWeight="Bold" Style="{StaticResource CustomButtonStyle}"/>
-            <Button x:Name="ButtonLaunchSavesSaveOverall" Content="{Binding [WPF_SaveGlobal]}" HorizontalAlignment="Left" Height="40" Margin="561,313,0,0" VerticalAlignment="Top" Width="272" FontSize="16" FontWeight="Bold" Style="{StaticResource CustomButtonStyle}"/>
+            <TextBox x:Name="InputLaunchSavesNumberSave"
+                Width="240"
+                Height="33"
+                FontSize="16"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="577,184,0,0"/>
+            
+            <Button x:Name="ButtonLaunchSavesSavePartial"
+                Content="{Binding [WPF_SavePartial]}"
+                HorizontalAlignment="Left"
+                Height="40"
+                Margin="561,222,0,0"
+                VerticalAlignment="Top"
+                Width="272" FontSize="16"
+                FontWeight="Bold"
+                Style="{StaticResource CustomButtonStyle}"/>
+            
+            <Button x:Name="ButtonLaunchSavesSaveOverall"
+                Content="{Binding [WPF_SaveGlobal]}"
+                HorizontalAlignment="Left"
+                Height="40"
+                Margin="561,313,0,0"
+                VerticalAlignment="Top"
+                Width="272"
+                FontSize="16"
+                FontWeight="Bold"
+                Style="{StaticResource CustomButtonStyle}"/>
         </Grid>
 
         <!-- FOOTER -->

@@ -9,12 +9,12 @@
 
     <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="115"/>
             <!-- Header -->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="115"/>
             <!-- Content -->
-            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
             <!-- Footer -->
+            <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
@@ -22,7 +22,17 @@
 
         <Grid Grid.Row ="1">
             <!-- Title Page -->
-            <Label x:Name="LabelLogsTitlePage" Content="{Binding [ControllerView_ViewLogs]}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40" FontFamily="Impact" Foreground="Black" Height="60" Width="612" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="LabelLogsTitlePage"
+                Content="{Binding [ControllerView_ViewLogs]}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="40"
+                FontFamily="Impact"
+                Foreground="Black"
+                Height="60"
+                Width="612"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
 
             <!-- Choice Language -->
             <controls:BoxLanguage HorizontalAlignment="Left" VerticalAlignment="Top" Margin="863,0,0,0"/>
@@ -46,7 +56,7 @@
                 Width="122" 
                 FontSize="16" 
                 FontWeight="Bold"
-                    Style="{StaticResource CustomButtonStyle}"/>
+                Style="{StaticResource CustomButtonStyle}"/>
 
             <DataGrid 
               x:Name="DataGridLogs"
@@ -60,7 +70,6 @@
                     <DataGridTextColumn x:Name="ColumnLogs4" Binding="{Binding target}" Header="Cible" Width="*" />
                     <DataGridTextColumn x:Name="ColumnLogs5" Binding="{Binding size}" Header="Size" Width="*" />
                     <DataGridTextColumn x:Name="ColumnLogs6" Binding="{Binding transferTimeMs}" Header="Transfer Time" Width="*" />
-
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
