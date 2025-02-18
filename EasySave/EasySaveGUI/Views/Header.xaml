@@ -34,7 +34,7 @@
         Foreground="{StaticResource MaCouleurPrincipale}" 
         BorderThickness="2" 
         FontSize="33" 
-        Content="⏻" 
+        Content="X" 
         Click="ButtonLeaveClick" 
         FlowDirection="RightToLeft" 
         Margin="897,27,0,0" 
