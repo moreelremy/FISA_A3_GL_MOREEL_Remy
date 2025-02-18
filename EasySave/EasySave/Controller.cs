@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.RegularExpressions;
 
 class Controller
 {
@@ -26,40 +27,47 @@ class Controller
                );
             }
         }
-
+        IView objView = new ViewBasic();
         while (true)
         {
-            string response = View.ShowMenu();
-            try
-            {
+            string response = objView.ShowMenu();
+            try {
                 switch (response)
                 {
                     case "1":
                         if (saveRepository.GetAllSaves().Count >= 5)
                         {
-                            View.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
+                            objView.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
                         }
                         else
                         {
-                            Save newSave = View.CreateBackupView();
+                            Dictionary<string,string> dictSave = objView.CreateBackupView();
+                            ISaveStrategy saveStrategy = dictSave["saveStrategy"] == "2" ? new DifferentialSave() : new FullSave();
+                            Save newSave = new Save
+                            {
+                                name = dictSave["name"],
+                                sourceDirectory = dictSave["sourceDirectory"],
+                                targetDirectory = dictSave["targetDirectory"],
+                                saveStrategy = saveStrategy
+                            };
                             saveRepository.AddSave(newSave);
                             // Check if the save was successfully added
-                            View.SaveAddedMessageView(newSave);
+                            objView.SaveAddedMessageView(newSave);
                         }
-                        View.PromptToContinue();
+                        objView.PromptToContinue();
                         break;
 
                     case "2":
                         if (saveRepository.IsEmpty())
                         {
-                            View.NoBackupView();
+                            objView.Output(Language.GetString("View_NoBackups"));
                         }
                         else
                         {
                             List<Save> savesToExecute = saveRepository.GetAllSaves();
-                            View.DisplaySavesForExecution(savesToExecute);
+                            objView.DisplaySavesForExecution(savesToExecute);
 
-                            int saveIndex = View.GetSaveIndexForExecution(savesToExecute.Count);
+                            int saveIndex = objView.GetSaveIndexForExecution(savesToExecute.Count);
                             if (saveIndex != -1)
                             {
                                 string errorMessage;
@@ -67,37 +75,37 @@ class Controller
 
                                 if (success)
                                 {
-                                    View.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
+                                    objView.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
                                 }
                                 else
                                 {
-                                    View.DisplayError(errorMessage);
+                                    objView.DisplayError(errorMessage);
                                 }
                             }
                         }
-                        View.PromptToContinue();
+                        objView.PromptToContinue();
                         break;
 
                     case "3":
                         if (saveRepository.IsEmpty())
                         {
-                            View.Output(Language.GetString("View_NoBackups"));
+                            objView.Output(Language.GetString("View_NoBackups"));
                         }
                         else
                         {
                             List<Save> saves = saveRepository.GetAllSaves();
-                            View.ShowSavesView(saves);
+                            objView.ShowSavesView(saves);
                             string choice;
                             while (true)
                             {
-                                choice = View.ShowChoiceMenuOrDelete();
+                                choice = objView.ShowChoiceMenuOrDelete();
                                 if (choice == "1" || choice == "2")
                                 {
                                     break;
                                 }
                                 else
                                 {
-                                    View.Output(Language.GetString("Controller_InvalidChoice"));
+                                    objView.Output(Language.GetString("Controller_InvalidChoice"));
                                 }
                             }
 
@@ -108,24 +116,30 @@ class Controller
                                 case "2":
                                     //string ChoiceDelete = InputHelper.ReadLineNotNull(Language.GetString("Controller_AskChoiceDelete");
                                     // Display saves and get user input
-                                    View.DisplaySavesForDeletion(saves);
-                                    int saveIndex = View.GetSaveIndexForDeletion(saves.Count);
+                                    objView.DisplaySavesForDeletion(saves);
+                                    int saveIndex = objView.GetSaveIndexForDeletion(saves.Count);
 
                                     if (saveIndex != -1)
                                     {
                                         bool isDeleted = saveRepository.RemoveSaveByIndex(saveIndex);
-                                        View.DisplayDeleteResult(isDeleted);
+                                        objView.DisplayDeleteResult(isDeleted);
                                     }
                                     break;
                             }
                         }
-                        View.PromptToContinue();
+                        objView.PromptToContinue();
                         break;
 
                     case "4":
 
-                        View.Output(Language.GetString("ControllerView_ViewLogs"));
-                        string wantedDate = View.GetWantedDate();
+                        objView.Output(Language.GetString("ControllerView_ViewLogs"));
+                        string wantedDate = objView.GetWantedDate();
+                        if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$"))
+                        {
+                            objView.Output(Language.GetString("View_FormatDontMatch"));
+                            objView.PromptToContinue();
+                            break;
+                        }
                         IEnumerable<string> files;
                         try
                         {
@@ -134,13 +148,14 @@ class Controller
                         catch
                         {
                             files = Enumerable.Empty<string>();
-
                         }
+
+                        
 
                         if (!files.Any())
                         {
-                            View.Output(Language.GetString("View_FileNotFound"));
-                            View.PromptToContinue();
+                            objView.Output(Language.GetString("View_FileNotFound"));
+                            objView.PromptToContinue();
                             break;
                         }
 
@@ -150,7 +165,7 @@ class Controller
 
                             for (int j = 0; j < 10; j++)
                             {
-                                View.DisplayLog(logLines[j]);
+                                objView.DisplayLog(logLines[j]);
                             }
 
                             for (int i = 10; i < logLines.Count; i++)
@@ -163,24 +178,24 @@ class Controller
                                 }
                                 else
                                 {
-                                    View.DisplayLog(logLines[i]);
+                                    objView.DisplayLog(logLines[i]);
                                 }
                             }
-                            View.PromptToContinue();
+                            objView.PromptToContinue();
                         }
                         else
                         {
                             for (int j = 0; j < logLines.Count; j++)
                             {
-                                View.DisplayLog(logLines[j]);
+                                    objView.DisplayLog(logLines[j]);
                             }
-                            View.PromptToContinue();
+                            objView.PromptToContinue();
                         }
                         break;
 
                     case "5":
                         // Change the language with the model
-                        Language.SetLanguage(View.GetLanguageChoice());
+                        Language.SetLanguage(objView.GetLanguageChoice());
                         break;
 
                     case "6":
@@ -197,25 +212,24 @@ class Controller
                             string jsonEntry = JsonSerializer.Serialize(save);
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
                             savesSates.Add(JsonSerializer.Deserialize<dynamic>(jsonEntry));
-                        }
-                        ;
+                        };
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
-                        View.PromptToContinue();
+                        objView.PromptToContinue();
                         Environment.Exit(0);
                         break;
 
                     default:
-                        View.Output(Language.GetString("Controller_InvalidChoice"));
-                        View.PromptToContinue();
+                        objView.Output(Language.GetString("Controller_InvalidChoice"));
+                        objView.PromptToContinue();
                         break;
                 }
             }
             catch (ReturnToMenuException ex)
             {
                 // Handle the localized message from the exception
-                View.Output(ex.Message);
-                View.PromptToContinue();
+                objView.Output(ex.Message);
+                objView.PromptToContinue();
             }
             Console.Clear();
         }

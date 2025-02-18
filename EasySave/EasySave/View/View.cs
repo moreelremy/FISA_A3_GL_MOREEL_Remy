@@ -1,13 +1,36 @@
-﻿/// <summary>
+﻿public interface IView
+{
+    string ShowMenu();
+    string GetLanguageChoice();
+    void SaveAddedMessageView(Save save);
+    void ShowSavesView(List<Save> saves);
+    void DisplaySavesForExecution(List<Save> saves);
+    List<int> GetSaveSelection(int maxCount);
+    void DisplayExecutionResult(bool success);
+    string ShowChoiceMenuOrDelete();
+    void DisplaySavesForDeletion(List<Save> saves);
+    int GetSaveIndexForDeletion(int maxIndex);
+    int GetSaveIndexForExecution(int maxIndex);
+    void DisplayDeleteResult(bool isDeleted);
+    void DisplaySuccess(string message);
+    void DisplayError(string message);
+    Dictionary<string, string> CreateBackupView();
+    string GetWantedDate();
+    void PromptToContinue();
+    void Output(string output);
+    void DisplayLog(Dictionary<string, object> log);
+}
+
+/// <summary>
 /// Manages View
 /// </summary>
-class View
+class ViewBasic : IView
 {
     /// <summary>
     /// Displays the menu (choice for the user)
     /// </summary>
     /// <returns>The number entered by the user</returns>
-    public static string ShowMenu()
+    public string ShowMenu()
     {
         Console.WriteLine("╔═════════════════════════════════════╗");
         Console.WriteLine("║              Easy Save              ║");
@@ -26,7 +49,7 @@ class View
     /// Ask the user to choose a language
     /// </summary>
     /// <returns>The selected language code (EN / FR / ..)</returns>
-    public static string GetLanguageChoice()
+    public string GetLanguageChoice()
     {
         return InputHelper.ReadLineNotNull(Language.GetString("View_LanguageChoice"));
     }
@@ -35,7 +58,7 @@ class View
     /// Displays that the backup has been created and takes the list as a parameter
     /// </summary>
     /// <param name="save">Set up a backup list</param>
-    public static void SaveAddedMessageView(Save save)
+    public void SaveAddedMessageView(Save save)
     {
         Console.WriteLine(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
     }
@@ -44,7 +67,7 @@ class View
     /// Displays the list of backups with their number in the list
     /// </summary>
     /// <param name="saves">Set up a backup list</param>
-    public static void ShowSavesView(List<Save> saves)
+    public void ShowSavesView(List<Save> saves)
     {
         Console.WriteLine("╔═══════════════════════════════════╗");
         Console.WriteLine(Language.GetString("View_ListOfBackups"));
@@ -60,12 +83,8 @@ class View
         }
 
     }
-    public static void NoBackupView()
-    {
-        Console.WriteLine(Language.GetString("View_NoBackups"));
-    }
 
-    public static void DisplaySavesForExecution(List<Save> saves)
+    public void DisplaySavesForExecution(List<Save> saves)
     {
         Console.WriteLine(Language.GetString("View_ChooseSaveToExecute"));
         for (int i = 0; i < saves.Count; i++)
@@ -83,7 +102,7 @@ class View
     /// A list of integers representing the zero-based indices of the selected items.
     /// If the input is invalid, an empty list is returned.
     /// </returns>
-    private static List<int> ParseSaveSelection(string input, int maxCount)
+    private List<int> ParseSaveSelection(string input, int maxCount)
     {
         List<int> selectedIndexes = new List<int>();
 
@@ -127,7 +146,7 @@ class View
     /// </summary>
     /// <param name="maxCount">The maximum number of selectable save entries.</param>
     /// <returns>A list of integers representing the selected zero-based indices.</returns>
-    public static List<int> GetSaveSelection(int maxCount)
+    public List<int> GetSaveSelection(int maxCount)
     {
         string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveIdsToExecute"));
         return ParseSaveSelection(input, maxCount);
@@ -137,7 +156,7 @@ class View
     /// Displays the execution result message based on success or failure.
     /// </summary>
     /// <param name="success">A boolean indicating whether the execution was successful.</param>
-    public static void DisplayExecutionResult(bool success)
+    public void DisplayExecutionResult(bool success)
     {
         Console.WriteLine(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
     }
@@ -146,7 +165,7 @@ class View
     /// Shows the choice between returning to the menu or deleting a save
     /// </summary>
     /// <returns>returns the user's choice to use it in the switch case</returns>
-    public static string ShowChoiceMenuOrDelete()
+    public string ShowChoiceMenuOrDelete()
     {
         string choice = InputHelper.ReadLineNotNull(
                         Language.GetString("Controller_ChoiceDeleteOrMenu") + "\n\n" +
@@ -159,7 +178,7 @@ class View
     /// Displays a list of saves with corresponding numbers.
     /// </summary>
     /// <param name="saves">List of saves to display.</param>
-    public static void DisplaySavesForDeletion(List<Save> saves)
+    public void DisplaySavesForDeletion(List<Save> saves)
     {
         Console.WriteLine(Language.GetString("View_ChooseSaveToDelete"));
 
@@ -175,7 +194,7 @@ class View
     /// Reads the user's choice of save to delete.
     /// </summary>
     /// <returns>The chosen save index (0-based).</returns>
-    public static int GetSaveIndexForDeletion(int maxIndex)
+    public int GetSaveIndexForDeletion(int maxIndex)
     {
         string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveNumber"));
         if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
@@ -192,7 +211,7 @@ class View
     /// </summary>
     /// <param name="maxIndex">The maximum valid index (1-based).</param>
     /// <returns>The selected index as a zero-based integer, or -1 if the input is invalid.</returns>
-    public static int GetSaveIndexForExecution(int maxIndex)
+    public int GetSaveIndexForExecution(int maxIndex)
     {
         string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveNumber"));
         if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
@@ -208,7 +227,7 @@ class View
     /// Displays the result of the deletion.
     /// </summary>
     /// <param name="isDeleted">True if the save was deleted, otherwise false.</param>
-    public static void DisplayDeleteResult(bool isDeleted)
+    public void DisplayDeleteResult(bool isDeleted)
     {
         if (isDeleted)
         {
@@ -224,7 +243,7 @@ class View
     /// Displays a success message in green.
     /// </summary>
     /// <param name="message">The message to display.</param>
-    public static void DisplaySuccess(string message)
+    public void DisplaySuccess(string message)
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine(message);
@@ -235,7 +254,7 @@ class View
     /// Displays an error message in red.
     /// </summary>
     /// <param name="message">The message to display.</param>
-    public static void DisplayError(string message)
+    public void DisplayError(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(message);
@@ -246,7 +265,7 @@ class View
     /// Collects information from the user to create a new backup, With a return to menu option
     /// </summary>
     /// <returns>The newly created Save object</returns>
-    public static Save CreateBackupView()
+    public Dictionary<string, string> CreateBackupView()
     {
         string name = InputHelper.ReadLineNotNull(Language.GetString("View_EnterBackupName"));
         string source = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSourcePath"));
@@ -267,21 +286,19 @@ class View
                 Console.WriteLine(Language.GetString("View_InvalidBackupType")); // Display error message
             }
         }
-        ISaveStrategy saveStrategy = typeChoice == "2" ? new DifferentialSave() : new FullSave();
-        return new Save
-        {
-            name = name,
-            sourceDirectory = source,
-            targetDirectory = target,
-            saveStrategy = saveStrategy,
-        };
+        Dictionary<string, string> result = new Dictionary<string, string>();
+        result.Add("name", name);
+        result.Add("sourceDirectory", source);
+        result.Add("targetDirectory", target);
+        result.Add("saveStrategy", typeChoice);
+        return result;
     }
 
     /// <summary>
     /// Ask the user to choose a date for listing logs
     /// </summary>
     /// <returns>The date dd-mm-yyyy</returns>
-    public static string GetWantedDate()
+    public string GetWantedDate()
     {
         Console.WriteLine(Language.GetString("View_DateChoice"));
         string? result = Console.ReadLine();
@@ -292,7 +309,7 @@ class View
     /// <summary>
     /// Prompts the user to press any key to continue.
     /// </summary>
-    public static void PromptToContinue()
+    public void PromptToContinue()
     {
         Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
         Console.ReadLine();
@@ -303,7 +320,7 @@ class View
     /// Just print a message in the console
     /// </summary>
     /// <param name="output">Take the sentence to display as a parameter</param>
-    public static void Output(string output)
+    public void Output(string output)
     {
         Console.WriteLine(output);
     }
@@ -312,7 +329,7 @@ class View
     /// Affiche les informations d'un log dans la console.
     /// </summary>
     /// <param name="log">L'entrée de log à afficher.</param>
-    public static void DisplayLog(Dictionary<string, object> log)
+    public void DisplayLog(Dictionary<string, object> log)
     {
         if (log == null)
         {
