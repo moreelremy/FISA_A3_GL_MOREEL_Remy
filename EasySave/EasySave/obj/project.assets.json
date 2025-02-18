@@ -27,23 +27,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\axel0\\.nuget\\packages\\": {},
+    "C:\\Users\\orfal\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySaveConsole.csproj",
+      "projectUniqueName": "C:\\Users\\orfal\\OneDrive\\Documents\\GitHub\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySaveConsole.csproj",
       "projectName": "EasySaveConsole",
-      "projectPath": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySaveConsole.csproj",
-      "packagesPath": "C:\\Users\\axel0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
+      "projectPath": "C:\\Users\\orfal\\OneDrive\\Documents\\GitHub\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\EasySaveConsole.csproj",
+      "packagesPath": "C:\\Users\\orfal\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\orfal\\OneDrive\\Documents\\GitHub\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\axel0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\orfal\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -59,8 +59,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
-              "projectPath": "C:\\Users\\axel0\\Desktop\\GL\\projet\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj"
+            "C:\\Users\\orfal\\OneDrive\\Documents\\GitHub\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj": {
+              "projectPath": "C:\\Users\\orfal\\OneDrive\\Documents\\GitHub\\FISA_A3_GL_MOREEL_Remy\\EasySave\\EasySave.Shared\\EasySave.Shared.csproj"
             }
           }
         }

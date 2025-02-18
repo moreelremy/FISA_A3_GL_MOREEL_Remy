@@ -7,9 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ViewModel\ShowSaves.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\BoxLanguage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
