@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:EasySaveGUI.Helpers"
         xmlns:vm="clr-namespace:EasySaveGUI.ViewModel"
-        xmlns:controls="clr-namespace:EasySaveGUI.Views"
+        xmlns:controls="clr-namespace:EasySaveGUI.Views" xmlns:controls1="clr-namespace:EasySaveGUI"
         Title="EasySave CreateSave" 
         Style="{StaticResource WindowStyleWithRoundedCorners}"
         WindowStartupLocation="CenterScreen">
@@ -16,20 +16,24 @@
 
     <Window.DataContext>
         <vm:CreateSaveViewModel />
+        
     </Window.DataContext>
 
-    <!--- CONTENU DE LA PAGE-->
-    <<Grid.RowDefinitions>
-        <RowDefinition Height="115"/>
-        <!-- Header -->
-        <RowDefinition Height="*"/>
-        <!-- Content -->
-        <RowDefinition Height="32"/>
-        <!-- Footer -->
-        </Grid.RowDefinitions>
+    
         
         <Grid>
-   
+
+        <!--- CONTENU DE LA PAGE-->
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="115"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+            <RowDefinition Height="32"/>
+            <!-- Footer -->
+        </Grid.RowDefinitions>
+
 
         <!-- HEADER -->
         <controls:Header Grid.Row="0"/>

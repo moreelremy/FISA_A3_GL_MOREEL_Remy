@@ -8,6 +8,13 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+    <Page Remove="Images\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\EasySave.Shared\EasySave.Shared.csproj" />
 	</ItemGroup>
@@ -25,10 +32,6 @@
 	    <Generator>SettingsSingleFileGenerator</Generator>
 	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
 	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Images\" />
 	</ItemGroup>
 
 
