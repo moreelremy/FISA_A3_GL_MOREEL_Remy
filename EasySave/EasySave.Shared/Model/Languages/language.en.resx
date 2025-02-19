@@ -338,7 +338,7 @@
   </data>
   <data name="WPF_CryptExtension" xml:space="preserve">
     <value>Extension to Encrypt</value>
-	  </data>
+  </data>
   <data name="View_jsonFileExtension" xml:space="preserve">
     <value>Logs in json format</value>
   </data>
@@ -359,5 +359,11 @@
   </data>
   <data name="WPF_TransferTime" xml:space="preserve">
     <value>Copy time</value>
+  </data>
+  <data name="WPF_TypeProblem" xml:space="preserve">
+    <value> Please select a backup type.</value>
+  </data>
+  <data name="WPF_ExtensionProblem" xml:space="preserve">
+    <value>Please select a format.</value>
   </data>
 </root>

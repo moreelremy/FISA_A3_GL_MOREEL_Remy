@@ -18,6 +18,7 @@ namespace EasySaveGUI.ViewModel
         private string _sourcePath;
         private string _targetPath;
         private string _selectedSaveType;
+        private string _selectedLogFileExtension;
 
 
         public string SaveName
@@ -48,6 +49,17 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
+        public string SelectedLogFileExtension {
+
+            get => _selectedLogFileExtension;
+            set
+            {
+                _selectedLogFileExtension = value;
+                OnPropertyChanged(nameof(SelectedLogFileExtension));
+            }
+
+        }
+
         // Boolean properties for binding
         public bool IsFullSave
         {
@@ -68,6 +80,28 @@ namespace EasySaveGUI.ViewModel
                 if (value) SelectedSaveType = "DifferentialSave";
                 OnPropertyChanged(nameof(IsDifferentialSave));
                 OnPropertyChanged(nameof(IsFullSave)); // Update both
+            }
+        }
+
+        public bool IsJson
+        {
+            get => SelectedLogFileExtension == "json";
+            set
+            {
+                if (value) SelectedLogFileExtension = "json";
+                OnPropertyChanged(nameof(IsJson));
+                OnPropertyChanged(nameof(IsXml)); // Update both
+            }
+        }
+
+        public bool IsXml
+        {
+            get => SelectedLogFileExtension == "xml";
+            set
+            {
+                if (value) SelectedLogFileExtension = "xml";
+                OnPropertyChanged(nameof(IsXml));
+                OnPropertyChanged(nameof(IsJson)); // Update both
             }
         }
 
@@ -126,6 +160,20 @@ namespace EasySaveGUI.ViewModel
                 return;
             }
 
+            if (SelectedSaveType == null)
+            {
+                MessageBox.Show(LanguageHelper.Translate("WPF_TypeProblem"),
+                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(SelectedLogFileExtension == null)
+            {
+                MessageBox.Show(LanguageHelper.Translate("WPF_ExtensionProblem"),
+                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             SaveStrategy selectedStrategy = IsFullSave ? new FullSave() : new DifferentialSave();
 
             Save save = new Save
@@ -134,7 +182,7 @@ namespace EasySaveGUI.ViewModel
                 sourceDirectory = SourcePath,
                 targetDirectory = TargetPath,
                 saveStrategy = selectedStrategy,
-                logFileExtension = "json"
+                logFileExtension = SelectedLogFileExtension
             };
 
             _saveRepository.AddSave(save);

@@ -155,7 +155,7 @@
                     Margin="10,267,0,0" 
                     VerticalAlignment="Top" 
                     Width="203" 
-                    IsChecked="True" Grid.RowSpan="2"/>
+                    IsChecked="{Binding IsJson, Mode=TwoWay}" Grid.RowSpan="2"/>
 
                 <RadioButton x:Name="CheckboxXml"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[View_xmlFileExtension]}" 
@@ -164,7 +164,7 @@
                     Margin="10,13,0,0" 
                     VerticalAlignment="Top" 
                     Width="203" 
-                    IsChecked="True" Grid.Row="1"/>
+                    IsChecked="{Binding IsXml, Mode=TwoWay}" Grid.Row="1"/>
 
                 <Button x:Name="ButtonCreateSaveCreate"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Create]}"

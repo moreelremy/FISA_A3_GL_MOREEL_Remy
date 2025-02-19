@@ -338,7 +338,7 @@
   </data>
   <data name="WPF_CryptExtension" xml:space="preserve">
     <value>Расширение для шифрования</value>
- </data>
+  </data>
   <data name="View_jsonFileExtension" xml:space="preserve">
     <value>Логи в формате json</value>
   </data>
@@ -359,5 +359,11 @@
   </data>
   <data name="WPF_TransferTime" xml:space="preserve">
     <value>Время копирования</value>
+  </data>
+  <data name="WPF_TypeProblem" xml:space="preserve">
+    <value> Пожалуйста, выберите тип резервного копирования.</value>
+  </data>
+  <data name="WPF_ExtensionProblem" xml:space="preserve">
+    <value>Пожалуйста, выберите формат.</value>
   </data>
 </root>
