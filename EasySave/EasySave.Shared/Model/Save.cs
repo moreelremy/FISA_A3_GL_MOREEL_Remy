@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 /// <summary>
 /// Represents a backup save operation, containing details about the source, target, and strategy used.
 /// </summary>
@@ -96,35 +98,43 @@ public class FullSave : SaveStrategy
             Directory.CreateDirectory(targetDirectory);
         }
 
+        // TO MODIFY : avoid creating a directory if the calculator is launched from the start
+        // ADD : reading the settings json file for the name of the business software
+        string calculatorProcessName = "CalculatorApp";
+        var processes = Process.GetProcesses();
         // Copy all files in the source directory to the target directory
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
-            string target = Path.Combine(targetDirectory, Path.GetFileName(file));
-            File.Copy(file, target, true);
-            if (true)// to replace 
+            bool isCalculatorRunning = processes.Any(p => p.ProcessName.ToLower() == calculatorProcessName.ToLower());
+            if (!isCalculatorRunning)
             {
-                DateTime startFilencryption = DateTime.UtcNow;
-                //use cryptosoft lib
-                DateTime stopFilencryption = DateTime.UtcNow;
-                encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
+                string target = Path.Combine(targetDirectory, Path.GetFileName(file));
+                File.Copy(file, target, true);
+                if (true)// to replace 
+                {
+                    DateTime startFilencryption = DateTime.UtcNow;
+                    //use cryptosoft lib
+                    DateTime stopFilencryption = DateTime.UtcNow;
+                    encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
+                }
+                long fileSize = new FileInfo(file).Length;
+                nbFilesLeftToDo -= 1;
+                filesSizeLeftToDo -= fileSize;
+                // Log the file copy in the real-time log
+                Logs.RealTimeLog(
+                    saveName: saveName,
+                    sourcePath: file,
+                    targetPath: target,
+                    fileSize: fileSize,
+                    state: "ACTIVE",
+                    totalFilesToCopy: totalFilesToCopy,
+                    totalFileSize: totalFileSize,
+                    nbFilesLeftToDo: nbFilesLeftToDo,
+                    filesSizeLeftToDo: filesSizeLeftToDo,
+                    Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100),
+                    logFileExtension: logFileExtension
+                );
             }
-            long fileSize = new FileInfo(file).Length;
-            nbFilesLeftToDo -= 1;
-            filesSizeLeftToDo -= fileSize;
-            // Log the file copy in the real-time log
-            Logs.RealTimeLog(
-                saveName: saveName,
-                sourcePath: file,
-                targetPath: target,
-                fileSize: fileSize,
-                state: "ACTIVE",
-                totalFilesToCopy: totalFilesToCopy,
-                totalFileSize: totalFileSize,
-                nbFilesLeftToDo: nbFilesLeftToDo,
-                filesSizeLeftToDo: filesSizeLeftToDo,
-                Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100),
-                logFileExtension: logFileExtension
-            );
         }
 
         // Copy all subdirectories in the source directory to the target directory
