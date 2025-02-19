@@ -1,4 +1,6 @@
-﻿public interface IView
+﻿using System.Text.Json.Nodes;
+
+public interface IView
 {
     string ShowMenu();
     string GetLanguageChoice();
@@ -78,7 +80,8 @@ class ViewBasic : IView
             Console.WriteLine($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
             Console.WriteLine($"   " + Language.GetString("View_SaveSource") + $" : {saves[i].sourceDirectory}");
             Console.WriteLine($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
-            Console.WriteLine($"   " + Language.GetString("View_SaveType") + $" : {(saves[i].saveStrategy is FullSave ? Language.GetString("View_FullSave") : Language.GetString("View_DifferentialSave"))}");
+            Console.WriteLine($"   " + Language.GetString("View_SaveType") + $" : {Language.GetString($"View_{saves[i].saveStrategy.GetType().Name}")}");
+            Console.WriteLine($"   " + Language.GetString("View_logFileExtension") + $" : {saves[i].logFileExtension}");
             Console.WriteLine("═════════════════════════════════════");
         }
 
@@ -270,9 +273,9 @@ class ViewBasic : IView
         string name = InputHelper.ReadLineNotNull(Language.GetString("View_EnterBackupName"));
         string source = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSourcePath"));
         string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
+
         Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
         Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
-
         string saveStrategy;
         while (true)
         {
@@ -283,14 +286,47 @@ class ViewBasic : IView
             }
             else
             {
-                Console.WriteLine(Language.GetString("View_InvalidBackupType")); // Display error message
+                Console.WriteLine(Language.GetString("View_InvalidSelection")); // Display error message
             }
         }
+
+        Console.WriteLine("[1] " + Language.GetString("View_jsonFileExtension"));
+        Console.WriteLine("[2] " + Language.GetString("View_xmlFileExtension"));
+        string logFileExtension;
+        while (true)
+        {
+            logFileExtension = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+            if (logFileExtension == "1" || logFileExtension == "2")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine(Language.GetString("View_InvalidSelection")); // Display error message
+            }
+        }
+
+        switch (logFileExtension)
+        {
+            case "1":
+                logFileExtension = "json";
+                break;
+
+            case "2":
+                logFileExtension = "xml";
+                break;
+
+            default:
+                logFileExtension = "json";
+                break;
+        }
+
         Dictionary<string, string> result = new Dictionary<string, string>();
         result.Add("name", name);
         result.Add("sourceDirectory", source);
         result.Add("targetDirectory", target);
         result.Add("saveStrategy", saveStrategy);
+        result.Add("logFileExtension", logFileExtension);
         return result;
     }
 

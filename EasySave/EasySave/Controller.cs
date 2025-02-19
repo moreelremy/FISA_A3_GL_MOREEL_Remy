@@ -14,15 +14,19 @@ class Controller
             using JsonDocument repositoryState = JsonDocument.Parse(File.ReadAllText(repositoryStatePath));
             foreach (JsonElement saveState in repositoryState.RootElement.EnumerateArray())
             {
-                saveRepository.AddSave(
-                   new Save
-                   {
-                       name = saveState.GetProperty("name").GetString(),
-                       sourceDirectory = saveState.GetProperty("sourceDirectory").GetString(),
-                       targetDirectory = saveState.GetProperty("targetDirectory").GetString(),
-                       saveStrategy = saveStrategyFactory.CreateSaveStrategy(saveState.GetProperty("saveStrategy").GetString())
-                   }
-               );
+                string name = saveState.TryGetProperty("name", out JsonElement nameElement) ? nameElement.GetString() : "DefaultName";
+                string sourceDirectory = saveState.TryGetProperty("sourceDirectory", out JsonElement sourceElement) ? sourceElement.GetString() : "DefaultSource";
+                string targetDirectory = saveState.TryGetProperty("targetDirectory", out JsonElement targetElement) ? targetElement.GetString() : "DefaultTarget";
+                string saveStrategy = saveState.TryGetProperty("saveStrategy", out JsonElement strategyElement) ? strategyElement.GetString() : "FullStrategy";
+                string logFileExtension = saveState.TryGetProperty("logFileExtension", out JsonElement logElement) ? logElement.GetString() : "json";
+                saveRepository.AddSave(new Save
+                {
+                    name = name,
+                    sourceDirectory = sourceDirectory,
+                    targetDirectory = targetDirectory,
+                    saveStrategy = saveStrategyFactory.CreateSaveStrategy(saveStrategy),
+                    logFileExtension = logFileExtension
+                });
             }
         }
         IView objView = new ViewBasic();
@@ -46,7 +50,8 @@ class Controller
                                 name = dictSave["name"],
                                 sourceDirectory = dictSave["sourceDirectory"],
                                 targetDirectory = dictSave["targetDirectory"],
-                                saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"])
+                                saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"]),
+                                logFileExtension = dictSave["logFileExtension"]
                             };
                             saveRepository.AddSave(newSave);
                             // Check if the save was successfully added

@@ -20,7 +20,7 @@ public static class Logs
                 { "size", fileSize },
                 { "transferTimeMs", transferTime }
             },
-            $"Logs/{DateTime.Now:dd-MM-yyyy}.xml");
+            $"Logs/{DateTime.Now:dd-MM-yyyy}.{save.logFileExtension}");
     }
 
     /// <summary>
@@ -81,7 +81,8 @@ public static class Logs
         long totalFileSize,
         int nbFilesLeftToDo,
         long filesSizeLeftToDo,
-        int Progression
+        int Progression,
+        string logFileExtension
         )
     {
         Logger.Log(
@@ -99,6 +100,6 @@ public static class Logs
                 { "timestamp", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") },
                 { "Progression", Progression }
             },
-            $"RealTime/state.json");
+            $"RealTime/state.{logFileExtension}");
     }
 }
