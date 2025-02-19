@@ -22,15 +22,3 @@ C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug
 C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\refint\EasySaveLogger.dll
 C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.pdb
 C:\Users\axel0\Desktop\GL\projet\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\ref\EasySaveLogger.dll
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\bin\Debug\net8.0\EasySaveLogger.deps.json
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\bin\Debug\net8.0\EasySaveLogger.dll
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\bin\Debug\net8.0\EasySaveLogger.pdb
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.AssemblyInfoInputs.cache
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.AssemblyInfo.cs
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.csproj.CoreCompileInputs.cache
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.sourcelink.json
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.dll
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\refint\EasySaveLogger.dll
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.pdb
-C:\Users\axel0\OneDrive\Bureau\GL\FISA_A3_GL_MOREEL_Remy\EasySaveLogger\obj\Debug\net8.0\ref\EasySaveLogger.dll
