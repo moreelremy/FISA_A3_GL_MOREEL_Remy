@@ -7,7 +7,16 @@
         Style="{StaticResource WindowStyleWithRoundedCorners}"
         WindowStartupLocation="CenterScreen">
 
-    <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
+    <Window.Resources>
+        <local:LanguageHelper x:Key="LangHelper" />
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:ShowLogsViewModel />
+
+    </Window.DataContext>
+    
+    <Grid>
         <Grid.RowDefinitions>
             <!-- Header -->
             <RowDefinition Height="115"/>
@@ -23,7 +32,7 @@
         <Grid Grid.Row ="1">
             <!-- Title Page -->
             <Label x:Name="LabelLogsTitlePage"
-                Content="{Binding [ControllerView_ViewLogs]}"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[ControllerView_ViewLogs]}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 FontSize="40"
@@ -36,6 +45,7 @@
 
             <!-- Page Content -->
             <TextBox x:Name="InputLogsSearch" 
+                 Text="{Binding InputWantedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                  Width="246" 
                  Height="40" 
                  FontSize="16" 
@@ -44,8 +54,8 @@
                  Margin="297,82,0,0"/>
 
             <Button x:Name="ButtonLogsSearch" 
-                Content="{Binding [WPF_Search]}" 
-                Click="ButtonLogsSearchClick"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Search]}" 
+              
                 HorizontalAlignment="Left" 
                 Height="40" 
                 Margin="559,82,0,0" 
@@ -53,10 +63,12 @@
                 Width="122" 
                 FontSize="16" 
                 FontWeight="Bold"
-                Style="{StaticResource CustomButtonStyle}"/>
+                Style="{StaticResource CustomButtonStyle}" 
+                Command="{Binding ShowLogsCommand}"/>
 
             <DataGrid 
-              x:Name="DataGridLogs"
+              ItemsSource="{Binding Logs}"
+              x:Name="DataGridLogs" 
               Margin="18,140,18,10" 
               Style="{StaticResource CustomDataGridStyle}"
               AutoGenerateColumns="False">
