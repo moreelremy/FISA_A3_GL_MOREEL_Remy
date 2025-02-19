@@ -273,11 +273,11 @@ class ViewBasic : IView
         Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
         Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
 
-        string typeChoice;
+        string saveStrategy;
         while (true)
         {
-            typeChoice = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
-            if (typeChoice == "1" || typeChoice == "2")
+            saveStrategy = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+            if (saveStrategy == "1" || saveStrategy == "2")
             {
                 break;
             }
@@ -290,7 +290,7 @@ class ViewBasic : IView
         result.Add("name", name);
         result.Add("sourceDirectory", source);
         result.Add("targetDirectory", target);
-        result.Add("saveStrategy", typeChoice);
+        result.Add("saveStrategy", saveStrategy);
         return result;
     }
 

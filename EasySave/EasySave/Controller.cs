@@ -6,9 +6,7 @@ class Controller
     static void Main(string[] args)
     {
         SaveRepository saveRepository = new SaveRepository();
-
-        FullSave fullSave = new FullSave();
-        DifferentialSave differentialSave = new DifferentialSave();
+        SaveStrategyFactory saveStrategyFactory = new SaveStrategyFactory();
 
         string repositoryStatePath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
         if (File.Exists(repositoryStatePath))
@@ -22,7 +20,7 @@ class Controller
                        name = saveState.GetProperty("name").GetString(),
                        sourceDirectory = saveState.GetProperty("sourceDirectory").GetString(),
                        targetDirectory = saveState.GetProperty("targetDirectory").GetString(),
-                       saveStrategy = saveState.GetProperty("saveStrategy").GetString() == "FullSave" ? fullSave : differentialSave
+                       saveStrategy = saveStrategyFactory.CreateSaveStrategy(saveState.GetProperty("saveStrategy").GetString())
                    }
                );
             }
@@ -43,13 +41,12 @@ class Controller
                         else
                         {
                             Dictionary<string, string> dictSave = objView.CreateBackupView();
-                            ISaveStrategy saveStrategy = dictSave["saveStrategy"] == "2" ? new DifferentialSave() : new FullSave();
                             Save newSave = new Save
                             {
                                 name = dictSave["name"],
                                 sourceDirectory = dictSave["sourceDirectory"],
                                 targetDirectory = dictSave["targetDirectory"],
-                                saveStrategy = saveStrategy
+                                saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"])
                             };
                             saveRepository.AddSave(newSave);
                             // Check if the save was successfully added
