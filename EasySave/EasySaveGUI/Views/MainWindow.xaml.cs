@@ -45,5 +45,11 @@ namespace EasySaveGUI
             launchSavesWindow.Show();
             this.Close(); // Close MainWindow
         }
+
+        private void ButtonMenuSettingsClick(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+        }
     }
 }
