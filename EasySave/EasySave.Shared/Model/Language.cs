@@ -48,6 +48,11 @@ public class Language
     {
         return rm.GetString(key, cultureInfo) ?? key;
     }
+
+    /// <summary>
+    /// Method which allows you to know whether to activate UTF 8 or not
+    /// </summary>
+    /// <returns> Returns true if this is the console application that is launched </returns>
     private static bool IsConsoleApplication()
     {
         return Environment.UserInteractive && !Console.IsOutputRedirected && !Console.IsErrorRedirected;
