@@ -51,7 +51,9 @@
                  FontSize="16" 
                  HorizontalAlignment="Left" 
                  VerticalAlignment="Top" 
-                 Margin="297,82,0,0"/>
+                 Margin="297,82,0,0"
+                 GotFocus="TextBox_GotFocus"
+                 LostFocus="TextBox_LostFocus"/>
 
             <Button x:Name="ButtonLogsSearch" 
                 Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Search]}" 
