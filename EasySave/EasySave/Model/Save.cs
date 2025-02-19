@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 /// <summary>
 /// Represents a backup save operation, containing details about the source, target, and strategy used.
 /// </summary>
@@ -9,33 +6,49 @@ public class Save
     public required string name { get; set; }
     public required string sourceDirectory { get; set; }
     public required string targetDirectory { get; set; }
-    public required ISaveStrategy saveStrategy { get; set; }
+    public required SaveStrategy saveStrategy { get; set; }
+    public required string logFileExtension { get; set; }
 }
 
-/// <summary>
-/// Interface defining the contract for different save strategies.
-/// </summary>
-public interface ISaveStrategy
+public class SaveStrategyFactory
+{
+    public SaveStrategy CreateSaveStrategy(string saveStrategy)
+    {
+        switch (saveStrategy)
+        {
+            case "1" or "FullSave":
+                return new FullSave();
+
+            case "2" or "DifferentialSave":
+                return new DifferentialSave();
+
+            default:
+                return new FullSave();
+        }
+    }
+}
+
+public abstract class SaveStrategy
 {
     /// <summary>
     /// Executes the save process using the provided save configuration.
     /// </summary>
     /// <param name="save">The save instance containing backup details.</param>
-    void Save(Save save);
+    public abstract void Save(Save save);
 
     /// <summary>
     /// Saves a directory by copying files and subdirectories.
     /// </summary>
-    void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null);
+    public abstract void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, DateTime? lastChangeDateTime = null);
 }
 
 /// <summary>
 /// Implements a full save strategy that copies all files and directories.
 /// </summary>
-public class FullSave : ISaveStrategy
+public class FullSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public void Save(Save save)
+    public override void Save(Save save)
     {
         try
         {
@@ -45,7 +58,7 @@ public class FullSave : ISaveStrategy
             // Sum the size of all files in the source directory
             long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
             DateTime startSave = DateTime.UtcNow;
-            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize);
+            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension);
             // Log the end of the save in the real-time log
             Logs.RealTimeLog(
                 saveName: save.name,
@@ -57,7 +70,8 @@ public class FullSave : ISaveStrategy
                 totalFileSize: 0,
                 nbFilesLeftToDo: 0,
                 filesSizeLeftToDo: 0,
-                Progression: 0
+                Progression: 0,
+                logFileExtension: save.logFileExtension
             );
             DateTime endSave = DateTime.UtcNow;
             // Calculate the time taken to save
@@ -66,16 +80,16 @@ public class FullSave : ISaveStrategy
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist.");
+            Console.WriteLine("The source directory path of the save is valid but does not exist." + directoryNotFound.Message);
         }
-        catch (Exception e)
+        catch
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
     }
 
     /// <inheritdoc/>
-    public void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null)
+    public override void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -100,8 +114,9 @@ public class FullSave : ISaveStrategy
                 totalFilesToCopy: totalFilesToCopy,
                 totalFileSize: totalFileSize,
                 nbFilesLeftToDo: nbFilesLeftToDo,
-                filesSizeLeftToDo : filesSizeLeftToDo,
-                Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100)
+                filesSizeLeftToDo: filesSizeLeftToDo,
+                Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100),
+                logFileExtension: logFileExtension
             );
         }
 
@@ -109,7 +124,7 @@ public class FullSave : ISaveStrategy
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo);
+            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension);
             nbFilesLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Count();
             filesSizeLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
         }
@@ -119,10 +134,10 @@ public class FullSave : ISaveStrategy
 /// <summary>
 /// Implements a differential save strategy that only copies changed files since the last save.
 /// </summary>
-public class DifferentialSave : ISaveStrategy
+public class DifferentialSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public void Save(Save save)
+    public override void Save(Save save)
     {
         try
         {
@@ -141,7 +156,7 @@ public class DifferentialSave : ISaveStrategy
             int totalFilesToCopy = filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Count();
             long totalFileSize = filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Sum(file => new FileInfo(file).Length);
             DateTime startSave = DateTime.UtcNow;
-            SaveDirectory(save.sourceDirectory, target, save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, lastChangeDateTime);
+            SaveDirectory(save.sourceDirectory, target, save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, lastChangeDateTime);
             // Log the end of the save in the real-time log
             Logs.RealTimeLog(
                 saveName: save.name,
@@ -153,7 +168,8 @@ public class DifferentialSave : ISaveStrategy
                 totalFileSize: 0,
                 nbFilesLeftToDo: 0,
                 filesSizeLeftToDo: 0,
-                Progression: 0
+                Progression: 0,
+                logFileExtension: save.logFileExtension
             );
             DateTime endSave = DateTime.UtcNow;
             // Calculate the time taken to save
@@ -162,16 +178,16 @@ public class DifferentialSave : ISaveStrategy
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist.");
+            Console.WriteLine("The source directory path of the save is valid but does not exist." + directoryNotFound.Message);
         }
-        catch (Exception e)
+        catch
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
     }
 
     /// <inheritdoc/>
-    public void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null)
+    public override void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -201,7 +217,8 @@ public class DifferentialSave : ISaveStrategy
                     totalFileSize: totalFileSize,
                     nbFilesLeftToDo: nbFilesLeftToDo,
                     filesSizeLeftToDo: filesSizeLeftToDo,
-                    Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100)
+                    Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100),
+                    logFileExtension: logFileExtension
                 );
             }
         }
@@ -210,7 +227,7 @@ public class DifferentialSave : ISaveStrategy
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, lastChangeDateTime);
+            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension, lastChangeDateTime);
             // Count the number of files to copy and the total size of the files
             string[] filesToCopy = Directory.GetFiles(target, "*.*", SearchOption.AllDirectories);
             nbFilesLeftToDo -= filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Count();

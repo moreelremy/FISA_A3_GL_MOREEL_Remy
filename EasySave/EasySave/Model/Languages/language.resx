@@ -256,4 +256,13 @@
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
     <value>Le répertoire source '{1}' de la sauvegarde '{0}' n'existe pas.</value>
   </data>
+  <data name="View_jsonFileExtension" xml:space="preserve">
+    <value>Logs au format json</value>
+  </data>
+  <data name="View_xmlFileExtension" xml:space="preserve">
+    <value>Logs au format XML</value>
+  </data>
+  <data name="View_logFileExtension" xml:space="preserve">
+    <value>Format des logs </value>
+  </data>
 </root>

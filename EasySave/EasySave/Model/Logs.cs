@@ -1,21 +1,7 @@
-using System.Text.Json;
 using EasySaveLogger;
 
 public static class Logs
 {
-    /// <summary>
-    /// Represents a log entry for a backup operation.
-    /// </summary>
-    public class LogEntry
-    {
-        public string? timestamp { get; set; }
-        public string? saveName { get; set; }
-        public string? source { get; set; }
-        public string? target { get; set; }
-        public long? size { get; set; }
-        public int? transferTimeMs { get; set; }
-    }
-
     /// <summary>
     /// use to enter daily logs
     /// </summary>
@@ -27,14 +13,14 @@ public static class Logs
         Logger.Log(
             new Dictionary<string, object>
             {
-                { "timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") },
+                { "timestamp", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") },
                 { "saveName", save.name },
-                { "source", Logs.ConvertToUnc(save.sourceDirectory) },
-                { "target", Logs.ConvertToUnc(save.targetDirectory) },
+                { "source", ConvertToUnc(save.sourceDirectory) },
+                { "target", ConvertToUnc(save.targetDirectory) },
                 { "size", fileSize },
                 { "transferTimeMs", transferTime }
             },
-            $"Logs/{DateTime.Now:yyyy-MM-dd}.xml");
+            $"Logs/{DateTime.Now:dd-MM-yyyy}.{save.logFileExtension}");
     }
 
     /// <summary>
@@ -44,33 +30,15 @@ public static class Logs
     /// A list of log entries in reverse order (most recent first).
     /// If an error occurs, the list contains an error message.
     /// </returns>
-    public static List<LogEntry> ReadGeneralLog(string filePath)
+    public static List<Dictionary<string, object>> ReadGeneralLog(IEnumerable<string> files)
     {
-        try
+        List<Dictionary<string, object>> logs = new List<Dictionary<string, object>>();
+        foreach (var file in files)
         {
-            List<LogEntry> logs = new List<LogEntry>();
-            using JsonDocument jsonContent = JsonDocument.Parse(File.ReadAllText(filePath));
-            foreach (JsonElement jsonElement in jsonContent.RootElement.EnumerateArray())
-            {
-                logs.Add(
-                   new LogEntry
-                   {
-                       timestamp = jsonElement.GetProperty("timestamp").GetString(),
-                       saveName = jsonElement.GetProperty("saveName").GetString(),
-                       source = jsonElement.GetProperty("source").GetString(),
-                       target = jsonElement.GetProperty("target").GetString(),
-                       size = jsonElement.GetProperty("size").GetInt64(),
-                       transferTimeMs = jsonElement.GetProperty("transferTimeMs").GetInt32()
-                   }
-               );
-            }
-            return logs.AsEnumerable().Reverse().ToList();
+            logs.AddRange(Logger.ReadLog(file));
         }
 
-        catch (Exception ex)
-        {
-            return new List<LogEntry> { new LogEntry { timestamp = "Erreur", saveName = ex.Message } };
-        }
+        return logs.OrderByDescending(log => log.ContainsKey("timestamp") ? DateTime.Parse(log["timestamp"].ToString()) : DateTime.MinValue).ToList();
     }
 
     public static string ConvertToUnc(string localPath)
@@ -113,15 +81,16 @@ public static class Logs
         long totalFileSize,
         int nbFilesLeftToDo,
         long filesSizeLeftToDo,
-        int Progression
+        int Progression,
+        string logFileExtension
         )
     {
         Logger.Log(
             new Dictionary<string, object>
             {
                 { "saveName", saveName },
-                { "sourceFilePath", Logs.ConvertToUnc(sourcePath) },
-                { "targetFilePath", Logs.ConvertToUnc(targetPath) },
+                { "sourceFilePath", ConvertToUnc(sourcePath) },
+                { "targetFilePath", ConvertToUnc(targetPath) },
                 { "fileSize", fileSize },
                 { "state", state },
                 { "totalFilesToCopy", totalFilesToCopy },
@@ -131,6 +100,6 @@ public static class Logs
                 { "timestamp", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") },
                 { "Progression", Progression }
             },
-            $"RealTime/state.json");
+            $"RealTime/state.{logFileExtension}");
     }
 }

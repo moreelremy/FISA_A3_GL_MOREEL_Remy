@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EasySaveLogger")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb9736334b162808862724f7d47929c64704eff6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a5c5d3abfe06c2bf4ace3b9c53b35ecfb31a5be")]
 [assembly: System.Reflection.AssemblyProductAttribute("EasySaveLogger")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EasySaveLogger")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
