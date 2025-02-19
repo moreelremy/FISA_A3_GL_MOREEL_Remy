@@ -133,37 +133,37 @@
                     Content="{Binding Source={StaticResource LangHelper}, Path=[View_FullSave]}" 
                     HorizontalAlignment="Left" 
                     Height="15" 
-                    Margin="102,267,0,0" 
+                    Margin="218,267,0,0" 
                     VerticalAlignment="Top" 
                     Width="208" 
-                    IsChecked="{Binding IsFullSave, Mode=TwoWay}" Grid.RowSpan="2"/>
+                    IsChecked="{Binding IsFullSave, Mode=TwoWay}" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
                 <RadioButton x:Name="CheckboxCreateSaveDifferential"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[View_DifferentialSave]}" 
                     HorizontalAlignment="Left" 
                     Height="16" 
-                    Margin="102,13,0,0" 
+                    Margin="218,13,0,0" 
                     VerticalAlignment="Top" 
                     Width="208" 
-                    IsChecked="{Binding IsDifferentialSave, Mode=TwoWay}" Grid.Row="1"/>
+                    IsChecked="{Binding IsDifferentialSave, Mode=TwoWay}" Grid.Row="1" Grid.ColumnSpan="2"/>
 
 
                 <RadioButton x:Name="CheckboxJson"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[View_jsonFileExtension]}" 
                     HorizontalAlignment="Left" 
                     Height="15" 
-                    Margin="-47,267,0,0" 
+                    Margin="10,267,0,0" 
                     VerticalAlignment="Top" 
-                    Width="208" 
+                    Width="203" 
                     IsChecked="True" Grid.RowSpan="2"/>
 
                 <RadioButton x:Name="CheckboxXml"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[View_xmlFileExtension]}" 
                     HorizontalAlignment="Left" 
                     Height="16" 
-                    Margin="-47,13,0,0" 
+                    Margin="10,13,0,0" 
                     VerticalAlignment="Top" 
-                    Width="208" 
+                    Width="203" 
                     IsChecked="True" Grid.Row="1"/>
 
                 <Button x:Name="ButtonCreateSaveCreate"

@@ -21,7 +21,7 @@ namespace EasySaveGUI.ViewModel
             {
                 _selectedSave = value;
                 OnPropertyChanged();
-                SelectedSaveName = _selectedSave?.name; // Update the TextBox
+                SelectedSaveName = _selectedSave?.name; 
             }
         }
         public string SelectedSaveName

@@ -45,7 +45,7 @@
 
             <!-- Page Content -->
             <DataGrid ItemsSource="{Binding Saves}" Margin="90,105,507,69"
-          Style="{StaticResource CustomDataGridStyle}" AutoGenerateColumns="False">
+          Style="{StaticResource CustomDataGridStyle}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSave}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="3*" />
                 </DataGrid.Columns>
@@ -57,7 +57,8 @@
                 FontSize="16"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="577,173,0,0"/>
+                Margin="577,173,0,0"
+                Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button x:Name="ButtonLaunchSavesSavePartial"
                 Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SavePartial]}"
@@ -67,7 +68,8 @@
                 VerticalAlignment="Top"
                 Width="272" FontSize="16"
                 FontWeight="Bold"
-                Style="{StaticResource CustomButtonStyle}"/>
+                Style="{StaticResource CustomButtonStyle}"
+                Command="{Binding ExecutePartialSaveCommand}"/>
 
             <Button x:Name="ButtonLaunchSavesSaveOverall"
                 Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveGlobal]}"
@@ -78,7 +80,9 @@
                 Width="272"
                 FontSize="16"
                 FontWeight="Bold"
-                Style="{StaticResource CustomButtonStyle}"/>
+                Style="{StaticResource CustomButtonStyle}"
+                Command="{Binding ExecuteGlobalSaveCommand}"/>
+
         </Grid>
 
         <!-- FOOTER -->
