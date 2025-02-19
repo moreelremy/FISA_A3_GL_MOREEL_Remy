@@ -7,7 +7,16 @@
         Style="{StaticResource WindowStyleWithRoundedCorners}"
         WindowStartupLocation="CenterScreen">
 
-    <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
+    <Window.Resources>
+        <local:LanguageHelper x:Key="LangHelper" />
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:ExecuteSavesViewModel />
+
+    </Window.DataContext>
+    
+    <Grid>
         <Grid.RowDefinitions>
             <!-- Header -->
             <RowDefinition Height="115"/>
@@ -23,7 +32,7 @@
         <Grid Grid.Row ="1">
             <!-- Title Page -->
             <Label x:Name="LabelLaunchSavesTitle"
-                Content="{Binding [View_StartBackup]}"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[View_StartBackup]}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 FontSize="40"
@@ -35,11 +44,10 @@
                 VerticalContentAlignment="Center"/>
 
             <!-- Page Content -->
-            <DataGrid Margin="90,105,507,69"
-                Style="{StaticResource CustomDataGridStyle}">
+            <DataGrid ItemsSource="{Binding Saves}" Margin="90,105,507,69"
+          Style="{StaticResource CustomDataGridStyle}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnLaunchSaves1" Header="Number" Width="*" />
-                    <DataGridTextColumn x:Name="ColumnLaunchSaves2" Header="Name" Width="3*" />
+                    <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="3*" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -52,7 +60,7 @@
                 Margin="577,184,0,0"/>
             
             <Button x:Name="ButtonLaunchSavesSavePartial"
-                Content="{Binding [WPF_SavePartial]}"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SavePartial]}"
                 HorizontalAlignment="Left"
                 Height="40"
                 Margin="561,222,0,0"
@@ -62,7 +70,7 @@
                 Style="{StaticResource CustomButtonStyle}"/>
             
             <Button x:Name="ButtonLaunchSavesSaveOverall"
-                Content="{Binding [WPF_SaveGlobal]}"
+                Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveGlobal]}"
                 HorizontalAlignment="Left"
                 Height="40"
                 Margin="561,313,0,0"
