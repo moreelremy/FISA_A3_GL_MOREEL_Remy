@@ -73,12 +73,12 @@
               Style="{StaticResource CustomDataGridStyle}"
               AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="ColumnLogs1" Binding="{Binding timestamp}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_Date]}" Width="*" />
-                    <DataGridTextColumn x:Name="ColumnLogs2" Binding="{Binding saveName}" Header="{Binding Source={StaticResource LangHelper}, Path=[View_SaveName]}" Width="*" />
-                    <DataGridTextColumn x:Name="ColumnLogs3" Binding="{Binding source}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveSource]}" Width="*" />
-                    <DataGridTextColumn x:Name="ColumnLogs4" Binding="{Binding target}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveTarget]}" Width="*" />
-                    <DataGridTextColumn x:Name="ColumnLogs5" Binding="{Binding size}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_Size]}" Width="*" />
-                    <DataGridTextColumn x:Name="ColumnLogs6" Binding="{Binding transferTimeMs}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_TransferTime]}" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs1" Binding="{Binding [timestamp]}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_Date]}" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs2" Binding="{Binding [saveName]}" Header="{Binding Source={StaticResource LangHelper}, Path=[View_SaveName]}" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs3" Binding="{Binding [source]}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveSource]}" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs4" Binding="{Binding [target]}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveTarget]}" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs5" Binding="{Binding [size]}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_Size]}" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs6" Binding="{Binding [transferTimeMs]}" Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_TransferTime]}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
