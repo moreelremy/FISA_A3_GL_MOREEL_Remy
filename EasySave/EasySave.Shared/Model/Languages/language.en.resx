@@ -201,9 +201,6 @@
   <data name="View_EnterSaveNameToDelete" xml:space="preserve">
     <value>Enter the name of the save to delete:</value>
   </data>
-  <data name="View_SaveDeleted" xml:space="preserve">
-    <value>Save deleted successfully. </value>
-  </data>
   <data name="View_SaveNotFound" xml:space="preserve">
     <value>Save not found. </value>
   </data>
@@ -338,7 +335,7 @@
   </data>
   <data name="WPF_CryptExtension" xml:space="preserve">
     <value>Extension to Encrypt</value>
-	  </data>
+  </data>
   <data name="View_jsonFileExtension" xml:space="preserve">
     <value>Logs in json format</value>
   </data>
@@ -359,5 +356,17 @@
   </data>
   <data name="WPF_TransferTime" xml:space="preserve">
     <value>Copy time</value>
+  </data>
+  <data name="WPF_SaveDelete" xml:space="preserve">
+    <value>Enter a job to delete</value>
+  </data>
+  <data name="WPF_EnterDate" xml:space="preserve">
+    <value>Enter a date: DD-MM-YYYY</value>
+  </data>
+  <data name="WPF_CodeSave" xml:space="preserve">
+    <value>Name / Num / 1-2 / 1;2</value>
+  </data>
+  <data name="WPF_Extension" xml:space="preserve">
+    <value>Extension type</value>
   </data>
 </root>

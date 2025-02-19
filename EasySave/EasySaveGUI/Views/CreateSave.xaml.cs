@@ -23,6 +23,7 @@ namespace EasySaveGUI
         {
             InitializeComponent();
             DataContext = new CreateSaveViewModel(App.saveRepository);
+            InitializePlaceholders();
         }
        
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -66,7 +67,24 @@ namespace EasySaveGUI
             }
         }
 
-       
+        private void InitializePlaceholders()
+        {
+            SetPlaceholder(InputCreateSaveSaveName, "WPF_EnterNameSave");
+            SetPlaceholder(InputCreateSaveOriginPath, "WPF_SelectSource");
+            SetPlaceholder(InputCreateSaveTargetPath, "WPF_SelectTarget");
+        }
+
+        private void SetPlaceholder(TextBox textBox, string translationKey)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = LanguageHelper.Translate(translationKey);
+                textBox.Foreground = Brushes.Gray;
+            }
+        }
+
+
+
 
     }
 }
