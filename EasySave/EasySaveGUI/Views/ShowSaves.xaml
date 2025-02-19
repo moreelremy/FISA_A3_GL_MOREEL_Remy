@@ -47,15 +47,20 @@
 
             <!-- Page Content -->
             <DataGrid ItemsSource="{Binding Saves}" Margin="42,79,42,87"
-                Style="{StaticResource CustomDataGridStyle}"
-                      AutoGenerateColumns="False">
+            Style="{StaticResource CustomDataGridStyle}"
+            AutoGenerateColumns="False"
+            SelectedItem="{Binding SelectedSave}">
                 <DataGrid.Columns>
+                    <!-- New Column for Auto-Incremented Number -->
+                    <DataGridTextColumn Header="#" Binding="{Binding RowNumber}" Width="0.3*" />
+
                     <DataGridTextColumn Header="Nom" Binding="{Binding name}" Width="0.8*" />
                     <DataGridTextColumn Header="Source" Binding="{Binding sourceDirectory}" Width="*" />
                     <DataGridTextColumn Header="Cible" Binding="{Binding targetDirectory}" Width="*" />
                     <DataGridTextColumn Header="Type de Sauvegarde" Binding="{Binding saveStrategy, Converter={StaticResource SaveStrategyConverter}}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
+
 
             <Grid HorizontalAlignment="Center" Margin="0,452,0,0" VerticalAlignment="Top" Width="404">
                 <Button x:Name="ButtonShowSavesDeleteSave"
@@ -68,6 +73,8 @@
                     FontSize="16"
                     FontWeight="Bold"
                     Style="{StaticResource CustomButtonStyle}"
+                    Command="{Binding DeleteSaveCommand}"
+                    CommandParameter="{Binding SelectedSave.name}"
                     />
 
                 <TextBox x:Name="InputShowSavesDeleteSave" 
@@ -75,7 +82,8 @@
                     Height="40" 
                     FontSize="16" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" />
+                    VerticalAlignment="Top" 
+                    Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Grid>
 
