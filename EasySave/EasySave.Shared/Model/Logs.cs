@@ -8,7 +8,7 @@ public static class Logs
     /// <param name="save">The save object.</param>
     /// <param name="fileSize">The size of the transferred file in bytes.</param>
     /// <param name="transferTime">The time taken for the file transfer in milliseconds.</param>
-    public static void GeneralLog(Save save, long fileSize, int transferTime)
+    public static void GeneralLog(Save save, long fileSize, int transferTime, int encryptionTime)
     {
         Logger.Log(
             new Dictionary<string, object>
@@ -18,7 +18,8 @@ public static class Logs
                 { "source", ConvertToUnc(save.sourceDirectory) },
                 { "target", ConvertToUnc(save.targetDirectory) },
                 { "size", fileSize },
-                { "transferTimeMs", transferTime }
+                { "transferTimeMs", transferTime },
+                { "encryptionTimeMs", encryptionTime }
             },
             $"Logs/{DateTime.Now:dd-MM-yyyy}.{save.logFileExtension}");
     }
