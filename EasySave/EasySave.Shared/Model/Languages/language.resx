@@ -339,6 +339,7 @@
   </data>
   <data name="WPF_CryptExtension" xml:space="preserve">
     <value>Extension à Crypter</value>
+	  </data>
   <data name="View_jsonFileExtension" xml:space="preserve">
     <value>Logs au format json</value>
   </data>
