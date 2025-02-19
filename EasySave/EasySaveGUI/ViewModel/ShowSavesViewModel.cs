@@ -34,12 +34,15 @@ namespace EasySaveGUI.ViewModel
                 var saveToRemove = _saveRepository.GetAllSaves().Find(s => s.name == saveName);
                 if (saveToRemove != null)
                 {
-                    _saveRepository.GetAllSaves().Remove(saveToRemove);
-                    
-
-                    Saves.Remove(saveToRemove);
+                    // Use the RemoveSaveByIndex method from SaveRepository
+                    int index = _saveRepository.GetAllSaves().IndexOf(saveToRemove);
+                    if (index != -1 && _saveRepository.RemoveSaveByIndex(index))
+                    {
+                        Saves.Remove(saveToRemove);
+                    }
                 }
             }
         }
+
     }
 }

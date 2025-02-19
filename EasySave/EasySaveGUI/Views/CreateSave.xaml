@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:EasySaveGUI.ViewModel"
         
-        xmlns:controls="clr-namespace:EasySaveGUI.Views" xmlns:controls1="clr-namespace:EasySaveGUI"
+        xmlns:controls="clr-namespace:EasySaveGUI.Views"
         Title="EasySave CreateSave" 
         Style="{StaticResource WindowStyleWithRoundedCorners}"
         WindowStartupLocation="CenterScreen">

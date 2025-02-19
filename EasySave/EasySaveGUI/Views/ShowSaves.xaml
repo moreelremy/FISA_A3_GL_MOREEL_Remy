@@ -47,7 +47,8 @@
 
             <!-- Page Content -->
             <DataGrid ItemsSource="{Binding Saves}" Margin="42,79,42,87"
-                Style="{StaticResource CustomDataGridStyle}">
+                Style="{StaticResource CustomDataGridStyle}"
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding name}" Width="0.8*" />
                     <DataGridTextColumn Header="Source" Binding="{Binding sourceDirectory}" Width="*" />
@@ -66,7 +67,8 @@
                     Width="132"
                     FontSize="16"
                     FontWeight="Bold"
-                    Style="{StaticResource CustomButtonStyle}"/>
+                    Style="{StaticResource CustomButtonStyle}"
+                    />
 
                 <TextBox x:Name="InputShowSavesDeleteSave" 
                     Width="246" 

@@ -13,7 +13,7 @@ namespace EasySaveGUI
         public LaunchSaves()
         {
             InitializeComponent();
-            DataContext = LanguageHelper.Instance;
+            DataContext = new ExecuteSavesViewModel(App.saveRepository);
 
         }
     }
