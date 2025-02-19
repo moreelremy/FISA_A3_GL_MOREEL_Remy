@@ -82,9 +82,7 @@
                     FontSize="16" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
-                    Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"
-                    GotFocus="TextBox_GotFocus"
-                    LostFocus="TextBox_LostFocus"/>
+                    Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Grid>
 

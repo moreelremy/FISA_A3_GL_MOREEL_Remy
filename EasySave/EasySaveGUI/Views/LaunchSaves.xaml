@@ -62,9 +62,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="577,226,0,0"
-                Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"
-                GotFocus="TextBox_GotFocus"
-                LostFocus="TextBox_LostFocus"/>
+                Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
                 
 
             <TextBox x:Name="InputChooseExtension"
@@ -74,9 +72,7 @@
                 FontSize="16"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="577,105,0,0"
-                GotFocus="TextBox_GotFocus"
-                LostFocus="TextBox_LostFocus"/>
+                Margin="577,105,0,0"/>
 
             <Button x:Name="ButtonLaunchSavesSavePartial"
                 Content="{Binding [WPF_SavePartial], Source={StaticResource LangHelper}}"
