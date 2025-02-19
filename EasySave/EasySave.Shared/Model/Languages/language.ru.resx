@@ -336,4 +336,13 @@
   <data name="WPF_Format" xml:space="preserve">
     <value>формат</value>
   </data>
+  <data name="View_jsonFileExtension" xml:space="preserve">
+    <value />
+  </data>
+  <data name="View_xmlFileExtension" xml:space="preserve">
+    <value />
+  </data>
+  <data name="View_logFileExtension" xml:space="preserve">
+    <value />
+  </data>
 </root>

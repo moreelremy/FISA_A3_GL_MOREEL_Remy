@@ -23,8 +23,9 @@ namespace EasySaveGUI
             ShowLogsViewModel objViewModel = new ShowLogsViewModel();
 
             DataContext = objViewModel;
-            
-            objViewModel.LoadLogs(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", $"{DateTime.Now:dd-MM-yyyy}.json"));
+
+
+            objViewModel.LogsSearch();
 
         }
     }

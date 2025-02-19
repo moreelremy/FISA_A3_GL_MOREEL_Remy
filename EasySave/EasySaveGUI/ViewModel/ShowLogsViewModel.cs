@@ -16,7 +16,7 @@ namespace EasySaveGUI.ViewModel
         /// <summary>
         /// Collection of log entries displayed in the DataGrid.
         /// </summary>
-        public ObservableCollection<LogEntry> Logs { get; set; }
+        public ObservableCollection<Dictionary<string,object>> Logs { get; set; }
 
         private string _inputWantedDate;
 
@@ -30,39 +30,45 @@ namespace EasySaveGUI.ViewModel
         }
         public ShowLogsViewModel()
         {
-            Logs = new ObservableCollection<LogEntry>();
+            Logs = new ObservableCollection<Dictionary<string, object>>();
             ShowLogsCommand = new RelayCommand(_ => LogsSearch());
         }
 
         /// <summary>
         /// Executes the log search based on the provided or default date.
         /// </summary>
-        private void LogsSearch()
+        public void LogsSearch()
         {
-            string wantedDate = InputWantedDate == "" ? $"{DateTime.Now:dd-MM-yyyy}" : InputWantedDate;
-            wantedDate = "16-02-2025";
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", $"{wantedDate}.json");
-
+            string wantedDate = (InputWantedDate == "" || InputWantedDate == null) ? $"{DateTime.Now:dd-MM-yyyy}" : InputWantedDate;
             if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$"))
             {
                 MessageBox.Show(LanguageHelper.Translate("WPF_FormatLog") + " : 15-02-2024, " + LanguageHelper.Translate("WPF_Format") + " : jj-MM-aaaa).");
                 return;
             }
+            IEnumerable<string> files;
+            try
+            {
+                files = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs"), wantedDate + ".*");
+            }
+            catch
+            {
+                files = Enumerable.Empty<string>();
 
-            if (!File.Exists(filePath))
+            }
+
+            if (!files.Any())
             {
                 MessageBox.Show(LanguageHelper.Translate("WPF_FileNotFound") + $"{wantedDate}");
                 return;
             }
-            LoadLogs(filePath);
-        
+            LoadLogs(files);
         }
 
         /// <summary>
         /// Loads log entries from a specified file and updates the observable collection.
         /// </summary>
         /// <param name="filePath">The path of the log file to be loaded.</param>
-        public void LoadLogs(string filePath)
+        private void LoadLogs(IEnumerable<string> filePath)
         {
             var logsFromFile = ReadGeneralLog(filePath);
 

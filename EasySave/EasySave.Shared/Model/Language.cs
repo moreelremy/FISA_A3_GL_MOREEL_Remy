@@ -1,9 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Resources;
-using System.Threading;
-using System.Xml.Linq;
-using System.Windows;
 
 
 /// <summary>
@@ -20,8 +16,8 @@ public class Language
     /// <param name="languageCode">Code that defines the interface language</param>
     public static void SetLanguage(string languageCode)
     {
-        languageCode = languageCode.ToUpper();  
-        switch(languageCode)
+        languageCode = languageCode.ToUpper();
+        switch (languageCode)
         {
             case "EN":
                 cultureInfo = new CultureInfo("en");

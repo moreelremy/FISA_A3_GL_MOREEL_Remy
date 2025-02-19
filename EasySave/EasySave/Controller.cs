@@ -1,41 +1,40 @@
-﻿using System;
-using System.Reflection;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.RegularExpressions;
-using static Logs;
 
 class Controller
 {
     static void Main(string[] args)
     {
         SaveRepository saveRepository = new SaveRepository();
+        SaveStrategyFactory saveStrategyFactory = new SaveStrategyFactory();
 
-        FullSave fullSave = new FullSave();
-        DifferentialSave differentialSave = new DifferentialSave();
-        
         string repositoryStatePath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
         if (File.Exists(repositoryStatePath))
         {
             using JsonDocument repositoryState = JsonDocument.Parse(File.ReadAllText(repositoryStatePath));
             foreach (JsonElement saveState in repositoryState.RootElement.EnumerateArray())
             {
-                saveRepository.AddSave(
-                   new Save
-                   {
-                       name = saveState.GetProperty("name").GetString(),
-                       sourceDirectory = saveState.GetProperty("sourceDirectory").GetString(),
-                       targetDirectory = saveState.GetProperty("targetDirectory").GetString(),
-                       saveStrategy = saveState.GetProperty("saveStrategy").GetString() == "FullSave" ? fullSave : differentialSave
-                   }
-               );
+                string name = saveState.TryGetProperty("name", out JsonElement nameElement) ? nameElement.GetString() : "DefaultName";
+                string sourceDirectory = saveState.TryGetProperty("sourceDirectory", out JsonElement sourceElement) ? sourceElement.GetString() : "DefaultSource";
+                string targetDirectory = saveState.TryGetProperty("targetDirectory", out JsonElement targetElement) ? targetElement.GetString() : "DefaultTarget";
+                string saveStrategy = saveState.TryGetProperty("saveStrategy", out JsonElement strategyElement) ? strategyElement.GetString() : "FullStrategy";
+                string logFileExtension = saveState.TryGetProperty("logFileExtension", out JsonElement logElement) ? logElement.GetString() : "json";
+                saveRepository.AddSave(new Save
+                {
+                    name = name,
+                    sourceDirectory = sourceDirectory,
+                    targetDirectory = targetDirectory,
+                    saveStrategy = saveStrategyFactory.CreateSaveStrategy(saveStrategy),
+                    logFileExtension = logFileExtension
+                });
             }
         }
         IView objView = new ViewBasic();
         while (true)
         {
             string response = objView.ShowMenu();
-            try {
+            try
+            {
                 switch (response)
                 {
                     case "1":
@@ -45,14 +44,14 @@ class Controller
                         }
                         else
                         {
-                            Dictionary<string,string> dictSave = objView.CreateBackupView();
-                            ISaveStrategy saveStrategy = dictSave["saveStrategy"] == "2" ? new DifferentialSave() : new FullSave();
+                            Dictionary<string, string> dictSave = objView.CreateBackupView();
                             Save newSave = new Save
                             {
                                 name = dictSave["name"],
                                 sourceDirectory = dictSave["sourceDirectory"],
                                 targetDirectory = dictSave["targetDirectory"],
-                                saveStrategy = saveStrategy
+                                saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"]),
+                                logFileExtension = dictSave["logFileExtension"]
                             };
                             saveRepository.AddSave(newSave);
                             // Check if the save was successfully added
@@ -136,25 +135,36 @@ class Controller
                         }
                         objView.PromptToContinue();
                         break;
-                    
+
                     case "4":
+
                         objView.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = objView.GetWantedDate();
-                        string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
-
-                        if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$")){
+                        if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$"))
+                        {
                             objView.Output(Language.GetString("View_FormatDontMatch"));
                             objView.PromptToContinue();
                             break;
                         }
-                        if (!File.Exists(filePath))
+                        IEnumerable<string> files;
+                        try
+                        {
+                            files = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs"), wantedDate + ".*");
+                        }
+                        catch
+                        {
+                            files = Enumerable.Empty<string>();
+
+                        }
+
+                        if (!files.Any())
                         {
                             objView.Output(Language.GetString("View_FileNotFound"));
                             objView.PromptToContinue();
                             break;
                         }
 
-                        List<LogEntry> logLines = Logs.ReadGeneralLog(filePath);
+                        List<Dictionary<string, object>> logLines = Logs.ReadGeneralLog(files);
                         if (logLines.Count >= 10)
                         {
 
@@ -181,12 +191,12 @@ class Controller
                         {
                             for (int j = 0; j < logLines.Count; j++)
                             {
-                                    objView.DisplayLog(logLines[j]);
+                                objView.DisplayLog(logLines[j]);
                             }
                             objView.PromptToContinue();
                         }
                         break;
-                    
+
                     case "5":
                         // Change the language with the model
                         Language.SetLanguage(objView.GetLanguageChoice());
@@ -200,7 +210,8 @@ class Controller
                         }
                         Directory.CreateDirectory(Path.GetDirectoryName(pathFile));
                         List<dynamic> savesSates = new List<dynamic>();
-                        foreach (Save save in saveRepository.GetAllSaves()) {  
+                        foreach (Save save in saveRepository.GetAllSaves())
+                        {
                             string saveStrategy = save.saveStrategy.GetType().Name;
                             string jsonEntry = JsonSerializer.Serialize(save);
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
@@ -224,7 +235,6 @@ class Controller
                 objView.Output(ex.Message);
                 objView.PromptToContinue();
             }
-            Console.Clear();
         }
     }
 }
