@@ -336,13 +336,27 @@
   <data name="WPF_Format" xml:space="preserve">
     <value>формат</value>
   </data>
+  <data name="WPF_CryptExtension" xml:space="preserve">
+    <value>Расширение для шифрования</value>
   <data name="View_jsonFileExtension" xml:space="preserve">
-    <value />
+    <value>Логи в формате json</value>
   </data>
   <data name="View_xmlFileExtension" xml:space="preserve">
-    <value />
+    <value>Журналы в формате XML</value>
   </data>
   <data name="View_logFileExtension" xml:space="preserve">
-    <value />
+    <value>Формат журнала</value>
+  </data>
+  <data name="WPF_TypeSave" xml:space="preserve">
+    <value>Тип резервной копии</value>
+  </data>
+  <data name="WPF_Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="WPF_Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="WPF_TransferTime" xml:space="preserve">
+    <value>Время копирования</value>
   </data>
 </root>
