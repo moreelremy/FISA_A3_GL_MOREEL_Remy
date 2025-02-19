@@ -111,7 +111,7 @@ namespace EasySaveGUI.ViewModel
 
         }
 
-    }
+    
 
         private void ExecutePartialSave()
         {

@@ -61,9 +61,9 @@
                 FontSize="16"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="577,173,0,0"
+                Margin="577,226,0,0"
                 Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
-                Margin="577,226,0,0"/>
+                
 
             <TextBox x:Name="InputChooseExtension"
                 Text="{Binding InputExtensions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
