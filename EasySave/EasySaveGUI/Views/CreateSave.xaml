@@ -1,8 +1,8 @@
 ﻿<Window x:Class="EasySaveGUI.CreateSave"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EasySaveGUI.Helpers"
-        xmlns:vm="clr-namespace:EasySaveGUI.ViewModel"
+        xmlns:local="clr-namespace:EasySaveGUI.ViewModel"
+        
         xmlns:controls="clr-namespace:EasySaveGUI.Views" xmlns:controls1="clr-namespace:EasySaveGUI"
         Title="EasySave CreateSave" 
         Style="{StaticResource WindowStyleWithRoundedCorners}"
@@ -13,7 +13,7 @@
     </Window.Resources>
 
     <Window.DataContext>
-        <vm:CreateSaveViewModel />
+        <local:CreateSaveViewModel />
 
     </Window.DataContext>
 
@@ -41,9 +41,6 @@
                 Height="60" Width="612"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"/>
-
-            <!-- Choice Language -->
-            <controls:BoxLanguage HorizontalAlignment="Left" VerticalAlignment="Top" Margin="863,0,0,0"/>
 
             <!-- Page Content -->
             <Grid HorizontalAlignment="Center" Height="413" VerticalAlignment="Top" Width="378" Margin="0,91,0,0">

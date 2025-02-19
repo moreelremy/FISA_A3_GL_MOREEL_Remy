@@ -1,21 +1,16 @@
-﻿using System.ComponentModel;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Resources;
 
 
-namespace EasySaveGUI.Helpers
+namespace EasySaveGUI.ViewModel
 {
-    public class LanguageHelper : INotifyPropertyChanged
+    public class LanguageHelper : BaseViewModel 
     {
         private static readonly ResourceManager rm = new ResourceManager("EasySave.Shared.Model.Languages.language", typeof(Language).Assembly);
         private static CultureInfo cultureInfo = new CultureInfo("fr");
 
         private static LanguageHelper _instance;
-
         public static LanguageHelper Instance => _instance ??= new LanguageHelper();
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
 
         public string this[string key] => rm.GetString(key, cultureInfo) ?? key;
 
@@ -23,21 +18,12 @@ namespace EasySaveGUI.Helpers
         {
             Language.SetLanguage(languageCode);
             cultureInfo = new CultureInfo(languageCode);
-            Instance.NotifyLanguageChanged();
-        }
-
-        private void NotifyLanguageChanged()
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
-
+            Instance.OnPropertyChanged(null); 
         }
 
         public static string Translate(string key)
         {
-            return Instance[key]; // Utilise l'indexeur existant
+            return Instance[key]; // Keeps existing functionality
         }
-
-
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using EasySaveGUI.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
