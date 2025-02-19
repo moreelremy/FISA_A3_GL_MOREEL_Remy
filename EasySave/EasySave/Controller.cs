@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using static Logs;
 
 class Controller
 {
@@ -124,18 +123,28 @@ class Controller
                         break;
 
                     case "4":
+
                         View.Output(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = View.GetWantedDate();
-                        string filePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs", wantedDate + ".json"));
+                        IEnumerable<string> files;
+                        try
+                        {
+                            files = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "../../../../Logs/Logs"), wantedDate + ".*");
+                        }
+                        catch
+                        {
+                            files = Enumerable.Empty<string>();
 
-                        if (!File.Exists(filePath))
+                        }
+
+                        if (!files.Any())
                         {
                             View.Output(Language.GetString("View_FileNotFound"));
                             View.PromptToContinue();
                             break;
                         }
 
-                        List<LogEntry> logLines = Logs.ReadGeneralLog(filePath);
+                        List<Dictionary<string, object>> logLines = Logs.ReadGeneralLog(files);
                         if (logLines.Count >= 10)
                         {
 
@@ -188,7 +197,8 @@ class Controller
                             string jsonEntry = JsonSerializer.Serialize(save);
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
                             savesSates.Add(JsonSerializer.Deserialize<dynamic>(jsonEntry));
-                        };
+                        }
+                        ;
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
                         View.PromptToContinue();

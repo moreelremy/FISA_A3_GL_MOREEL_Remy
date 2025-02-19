@@ -133,5 +133,38 @@ namespace EasySaveLogger
             // Serialize 'logs' to JSON and write it to a file with a new line at the end
             File.WriteAllText(pathFile, serializer(logs) + Environment.NewLine);
         }
+
+        public static List<Dictionary<string, object>> ReadLog(string filePath = "defaultLog.json")
+        {
+
+            string typeFile = filePath.Split('.').LastOrDefault();
+            DeserializeDelegate deserializer;
+            List<Dictionary<string, object>> logs;
+
+            switch (typeFile)
+            {
+                case "json":
+                    deserializer = jsonDeserializer;
+                    break;
+                case "xml":
+                    deserializer = xmlDeserializer;
+                    break;
+                default:
+                    deserializer = jsonDeserializer;
+                    break;
+            }
+
+            try
+            {
+                string existingFile = File.ReadAllText(filePath);
+                logs = deserialize(existingFile, deserializer);
+            }
+
+            catch (Exception ex)
+            {
+                logs = new List<Dictionary<string, object>> { new Dictionary<string, object> { { "timestamp", "Erreur" }, { "saveName", ex.Message } } };
+            }
+            return logs;
+        }
     }
 }

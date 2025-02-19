@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 /// <summary>
 /// Represents a backup save operation, containing details about the source, target, and strategy used.
 /// </summary>
@@ -45,7 +42,7 @@ public class FullSave : ISaveStrategy
             // Sum the size of all files in the source directory
             long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
             DateTime startSave = DateTime.UtcNow;
-            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory,target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize);
+            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize);
             // Log the end of the save in the real-time log
             Logs.RealTimeLog(
                 saveName: save.name,
@@ -66,9 +63,9 @@ public class FullSave : ISaveStrategy
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist.");
+            Console.WriteLine("The source directory path of the save is valid but does not exist." + directoryNotFound.Message);
         }
-        catch (Exception e)
+        catch
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }
@@ -100,7 +97,7 @@ public class FullSave : ISaveStrategy
                 totalFilesToCopy: totalFilesToCopy,
                 totalFileSize: totalFileSize,
                 nbFilesLeftToDo: nbFilesLeftToDo,
-                filesSizeLeftToDo : filesSizeLeftToDo,
+                filesSizeLeftToDo: filesSizeLeftToDo,
                 Progression: (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / (float)totalFileSize * 100)
             );
         }
@@ -162,9 +159,9 @@ public class DifferentialSave : ISaveStrategy
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist.");
+            Console.WriteLine("The source directory path of the save is valid but does not exist." + directoryNotFound.Message);
         }
-        catch (Exception e)
+        catch
         {
             Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
         }

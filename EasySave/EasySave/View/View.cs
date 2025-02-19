@@ -1,7 +1,4 @@
-﻿using System.Resources;
-using static Logs;
-
-/// <summary>
+﻿/// <summary>
 /// Manages View
 /// </summary>
 class View
@@ -52,7 +49,7 @@ class View
         Console.WriteLine("╔═══════════════════════════════════╗");
         Console.WriteLine(Language.GetString("View_ListOfBackups"));
         Console.WriteLine("╚═══════════════════════════════════╝");
-        for(int i = 0; i < saves.Count; i++)
+        for (int i = 0; i < saves.Count; i++)
         {
             Console.WriteLine($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
             Console.WriteLine($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
@@ -61,7 +58,7 @@ class View
             Console.WriteLine($"   " + Language.GetString("View_SaveType") + $" : {(saves[i].saveStrategy is FullSave ? Language.GetString("View_FullSave") : Language.GetString("View_DifferentialSave"))}");
             Console.WriteLine("═════════════════════════════════════");
         }
-        
+
     }
     public static void NoBackupView()
     {
@@ -315,7 +312,7 @@ class View
     /// Affiche les informations d'un log dans la console.
     /// </summary>
     /// <param name="log">L'entrée de log à afficher.</param>
-    public static void DisplayLog(LogEntry log)
+    public static void DisplayLog(Dictionary<string, object> log)
     {
         if (log == null)
         {
@@ -323,12 +320,12 @@ class View
             return;
         }
 
-        Console.WriteLine($"Timestamp: {log.timestamp}");
-        Console.WriteLine($"SaveName: {log.saveName}");
-        Console.WriteLine($"Source: {log.source}");
-        Console.WriteLine($"Target: {log.target}");
-        Console.WriteLine($"Size: {log.size}");
-        Console.WriteLine($"TransferTimeMs: {log.transferTimeMs}");
+        Console.WriteLine($"Timestamp: {log["timestamp"]}");
+        Console.WriteLine($"SaveName: {log["saveName"]}");
+        Console.WriteLine($"Source: {log["source"]}");
+        Console.WriteLine($"Target: {log["target"]}");
+        Console.WriteLine($"Size: {log["size"]}");
+        Console.WriteLine($"TransferTimeMs: {log["transferTimeMs"]}");
         Console.WriteLine("══════════════════════════════");
     }
 
