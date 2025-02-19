@@ -1,6 +1,4 @@
-﻿
-using EasySaveGUI.Helpers;
-using EasySaveGUI.ViewModel;
+﻿using EasySaveGUI.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

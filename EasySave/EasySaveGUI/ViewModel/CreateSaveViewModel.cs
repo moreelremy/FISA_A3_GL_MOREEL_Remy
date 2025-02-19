@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
-using EasySaveGUI.Helpers;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 
