@@ -5,10 +5,13 @@
 /.vs
 /EasySave/.vs/EasySave
 /EasySaveLogger/.vs/EasySaveLogger
-/EasySave/Logs
+/EasySave/EasySave/Logs
 
 # Build results
 [Dd]ebug/
 [Rr]elease/
 /EasySave/RepositoryState.json
-/EasySave/Logs
+
+
+/CryptoSoftDLL/.vs
+/CryptoSoftWPF/.vs

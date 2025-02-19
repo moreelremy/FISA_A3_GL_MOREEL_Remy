@@ -1,0 +1,322 @@
+[
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup1",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup2",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup3",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup4",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup5",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup6",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup7",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup8",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup9",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup10",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup11",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup12",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup13",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup14",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup15",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup16",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup17",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup18",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup19",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:07",
+    "saveName": "Backup20",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup1",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup2",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup3",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup4",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup5",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup6",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup7",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup8",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup9",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup10",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup11",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup12",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup13",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup14",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup15",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup16",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup17",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup18",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup19",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  },
+  {
+    "timestamp": "16-02-2025 12:02:28",
+    "saveName": "Backup20",
+    "source": "\\\\localhost\\C$\\Source\\File.txt",
+    "target": "\\\\localhost\\D$\\Backup\\File.txt",
+    "size": 10,
+    "transferTimeMs": 10
+  }
+]

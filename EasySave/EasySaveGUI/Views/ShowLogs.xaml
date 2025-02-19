@@ -1,0 +1,77 @@
+﻿<Window x:Class="EasySaveGUI.ShowLogs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:EasySaveGUI.ViewModel"
+        xmlns:controls="clr-namespace:EasySaveGUI.Views"
+        Title="EasySave ShowLogs" 
+        Style="{StaticResource WindowStyleWithRoundedCorners}"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid DataContext="{x:Static local:LanguageHelper.Instance}">
+        <Grid.RowDefinitions>
+            <!-- Header -->
+            <RowDefinition Height="115"/>
+            <!-- Content -->
+            <RowDefinition Height="*"/>
+            <!-- Footer -->
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <controls:Header Grid.Row="0"/>
+
+        <Grid Grid.Row ="1">
+            <!-- Title Page -->
+            <Label x:Name="LabelLogsTitlePage"
+                Content="{Binding [ControllerView_ViewLogs]}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="40"
+                FontFamily="Impact"
+                Foreground="Black"
+                Height="60"
+                Width="612"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"/>
+
+            <!-- Page Content -->
+            <TextBox x:Name="InputLogsSearch" 
+                 Width="246" 
+                 Height="40" 
+                 FontSize="16" 
+                 HorizontalAlignment="Left" 
+                 VerticalAlignment="Top" 
+                 Margin="297,82,0,0"/>
+
+            <Button x:Name="ButtonLogsSearch" 
+                Content="{Binding [WPF_Search]}" 
+                Click="ButtonLogsSearchClick"
+                HorizontalAlignment="Left" 
+                Height="40" 
+                Margin="559,82,0,0" 
+                VerticalAlignment="Top" 
+                Width="122" 
+                FontSize="16" 
+                FontWeight="Bold"
+                Style="{StaticResource CustomButtonStyle}"/>
+
+            <DataGrid 
+              x:Name="DataGridLogs"
+              Margin="18,140,18,10" 
+              Style="{StaticResource CustomDataGridStyle}"
+              AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="ColumnLogs1" Binding="{Binding timestamp}" Header="Date" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs2" Binding="{Binding saveName}" Header="Nom Save" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs3" Binding="{Binding source}" Header="Source" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs4" Binding="{Binding target}" Header="Cible" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs5" Binding="{Binding size}" Header="Size" Width="*" />
+                    <DataGridTextColumn x:Name="ColumnLogs6" Binding="{Binding transferTimeMs}" Header="Transfer Time" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- FOOTER -->
+        <controls:Footer Grid.Row="2"/>
+    </Grid>
+</Window>

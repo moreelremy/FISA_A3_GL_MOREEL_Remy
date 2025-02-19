@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Reference to the Shared Project -->
+
+		<Reference Include="CryptoSoft">
+		  <HintPath>..\..\CryptoSoftDLL\bin\Debug\net8.0\CryptoSoft.dll</HintPath>
+		</Reference>
+
+		<Reference Include="EasySaveLogger">
+			<HintPath>..\..\EasySaveLogger\bin\Debug\net8.0\EasySaveLogger.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\EasySave.Shared\EasySave.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
