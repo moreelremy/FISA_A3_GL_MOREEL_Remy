@@ -1,6 +1,6 @@
 # PROJET EASYSAVE
 
-EasySave est une application console en .NET Core permettant d'automatiser des sauvegardes de fichiers en mode complet ou différentiel. Elle offre une exécution via ligne de commande, un suivi en temps réel et la génération de logs au format JSON, le tout compatible avec des environnements francophones et anglophones.
+EasySave est une application console et GUI en .NET Core permettant d'automatiser des sauvegardes de fichiers en mode complet ou différentiel. Elle offre une exécution via ligne de commande ou une interface graphique, un suivi en temps réel et la génération de logs au format JSON et XML, le tout compatible avec des environnements francophones , anglophones et russophone.
 
 ## Menu
 
@@ -15,7 +15,7 @@ Permet de lancer une sauvegarde parmis les travaux de sauvegarde créer.
 Permet de voir la liste des différentes sauvegardes avec les différentes caractéristiques de chacune. Dans cette section il est également possible de supprimer les sauvegardes.
 
 #### [__Consulter les logs__](Documentation/ShowLogs.md)
-Permet de voir les logs de l'application, il y les logs fichiers journaliers et les logs états en temps réel.
+Permet de voir les logs journalier de l'application.
 
 #### [__Changer de langue__](Documentation/ChangeLanguage.md)
 Permet de changer la langue de l'application.
@@ -24,25 +24,25 @@ Permet de changer la langue de l'application.
 <br>
 
 
-# **EASYSAVE PROJECT**
+# EASY SAVE PROJECT  
 
-EasySave is a .NET Core console application designed to automate file backups in full or differential mode. It offers execution via command line, real-time tracking, and the generation of logs in JSON format, all compatible with both French and English environments.
+EasySave is a console and GUI application in .NET Core that automates file backups in full or differential mode. It offers execution via the command line or a graphical interface, real-time monitoring, and log generation in JSON and XML formats, all compatible with French, English, and Russian environments.  
 
-## **Menu**
+## Menu  
 
-The menu provides interactive options to easily manage backup tasks:
+The menu offers interactive options to easily manage backup tasks:  
 
-#### [__Create a Backup__](Documentation/CreateSave.md)
-Allows you to create a backup task.
+#### [__Create a Backup__](Documentation/CreateSave.md)  
+Allows you to create a backup task.  
 
-#### [__Run a Backup__](Documentation/LunchSave.md)
-Allows you to run a backup from the list of created backup tasks.
+#### [__Launch a Backup__](Documentation/LunchSave.md)  
+Allows you to launch a backup from the created backup tasks.  
 
-#### [__View Backups__](Documentation/ShowSave.md)
-Allows you to view the list of various backups with their respective characteristics. In this section, it is also possible to delete backups.
+#### [__View Backups__](Documentation/ShowSave.md)  
+Allows you to view the list of different backups with their respective characteristics. In this section, it is also possible to delete backups.  
 
-#### [__Consult Logs__](Documentation/ShowLogs.md)
-Allows you to view the application's logs, including daily logs and real-time status logs.
+#### [__View Logs__](Documentation/ShowLogs.md)  
+Allows you to view the application's daily logs. 
 
-#### [__Change Language__](Documentation/ChangeLanguage.md)
+#### [__Change Language__](Documentation/ChangeLanguage.md)  
 Allows you to change the application's language.
