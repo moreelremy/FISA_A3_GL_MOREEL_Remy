@@ -336,4 +336,7 @@
   <data name="WPF_Format" xml:space="preserve">
     <value>формат</value>
   </data>
+  <data name="WPF_CryptExtension" xml:space="preserve">
+    <value>Расширение для шифрования</value>
+  </data>
 </root>
