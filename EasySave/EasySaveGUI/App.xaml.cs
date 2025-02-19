@@ -18,21 +18,27 @@ namespace EasySaveGUI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            SaveStrategyFactory saveStrategyFactory = new SaveStrategyFactory();
+
             string repositoryStatePath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
             if (File.Exists(repositoryStatePath))
             {
                 using JsonDocument repositoryState = JsonDocument.Parse(File.ReadAllText(repositoryStatePath));
                 foreach (JsonElement saveState in repositoryState.RootElement.EnumerateArray())
                 {
-                    saveRepository.AddSave(
-                       new Save
-                       {
-                           name = saveState.GetProperty("name").GetString(),
-                           sourceDirectory = saveState.GetProperty("sourceDirectory").GetString(),
-                           targetDirectory = saveState.GetProperty("targetDirectory").GetString(),
-                           saveStrategy = saveState.GetProperty("saveStrategy").GetString() == "FullSave" ? new FullSave() : new DifferentialSave()
-                       }
-                   );
+                    string name = saveState.TryGetProperty("name", out JsonElement nameElement) ? nameElement.GetString() : "DefaultName";
+                    string sourceDirectory = saveState.TryGetProperty("sourceDirectory", out JsonElement sourceElement) ? sourceElement.GetString() : "DefaultSource";
+                    string targetDirectory = saveState.TryGetProperty("targetDirectory", out JsonElement targetElement) ? targetElement.GetString() : "DefaultTarget";
+                    string saveStrategy = saveState.TryGetProperty("saveStrategy", out JsonElement strategyElement) ? strategyElement.GetString() : "FullStrategy";
+                    string logFileExtension = saveState.TryGetProperty("logFileExtension", out JsonElement logElement) ? logElement.GetString() : "json";
+                    saveRepository.AddSave(new Save
+                    {
+                        name = name,
+                        sourceDirectory = sourceDirectory,
+                        targetDirectory = targetDirectory,
+                        saveStrategy = saveStrategyFactory.CreateSaveStrategy(saveStrategy),
+                        logFileExtension = logFileExtension
+                    });
                 }
             }
         }

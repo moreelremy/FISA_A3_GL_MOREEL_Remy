@@ -44,6 +44,10 @@
 
             <!-- Page Content -->
             <Grid HorizontalAlignment="Center" Height="413" VerticalAlignment="Top" Width="378" Margin="0,91,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="274*"/>
+                    <RowDefinition Height="139*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="23*"/>
                     <ColumnDefinition Width="4*"/>
@@ -94,7 +98,7 @@
                 <Button x:Name="ButtonCreateSaveOriginPath"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Folder]}"
                     Style="{StaticResource CustomButtonStyle}"
-                    Margin="296,118,0,254"
+                    Margin="296,118,0,115"
                     Command="{Binding SelectSourceCommand}" Grid.ColumnSpan="2"/>
 
                 <Label x:Name="LabelCreateSaveTargetPath"
@@ -120,7 +124,7 @@
 
                 <Button x:Name="ButtonCreateSaveTargetPath"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Folder]}"
-                    Margin="296,209,0,163"
+                    Margin="296,209,0,24"
                     Command="{Binding SelectTargetCommand}"
                     Style="{StaticResource CustomButtonStyle}"
                     Grid.ColumnSpan="2"/>
@@ -132,30 +136,49 @@
                     Margin="102,267,0,0" 
                     VerticalAlignment="Top" 
                     Width="208" 
-                    IsChecked="{Binding IsFullSave, Mode=TwoWay}"/>
+                    IsChecked="{Binding IsFullSave, Mode=TwoWay}" Grid.RowSpan="2"/>
 
                 <RadioButton x:Name="CheckboxCreateSaveDifferential"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[View_DifferentialSave]}" 
                     HorizontalAlignment="Left" 
                     Height="16" 
-                    Margin="102,287,0,0" 
+                    Margin="102,13,0,0" 
                     VerticalAlignment="Top" 
                     Width="208" 
-                    IsChecked="{Binding IsDifferentialSave, Mode=TwoWay}"/>
+                    IsChecked="{Binding IsDifferentialSave, Mode=TwoWay}" Grid.Row="1"/>
+
+
+                <RadioButton x:Name="CheckboxJson"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[View_jsonFileExtension]}" 
+                    HorizontalAlignment="Left" 
+                    Height="15" 
+                    Margin="-47,267,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="208" 
+                    IsChecked="True" Grid.RowSpan="2"/>
+
+                <RadioButton x:Name="CheckboxXml"
+                    Content="{Binding Source={StaticResource LangHelper}, Path=[View_xmlFileExtension]}" 
+                    HorizontalAlignment="Left" 
+                    Height="16" 
+                    Margin="-47,13,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="208" 
+                    IsChecked="True" Grid.Row="1"/>
 
                 <Button x:Name="ButtonCreateSaveCreate"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Create]}"
-                    Height="40" Margin="100,329,44,0"
+                    Height="40" Margin="100,55,44,0"
                     VerticalAlignment="Top"
                     Width="178" FontSize="16"
                     FontWeight="Bold"
                     Command="{Binding CreateSaveCommand}"
-                    Style="{StaticResource CustomButtonStyle}"/>
+                    Style="{StaticResource CustomButtonStyle}" Grid.Row="1"/>
             </Grid>
         </Grid>
-        
+
         <!-- FOOTER -->
         <controls:Footer Grid.Row="2"/>
-        
+
     </Grid>
 </Window>

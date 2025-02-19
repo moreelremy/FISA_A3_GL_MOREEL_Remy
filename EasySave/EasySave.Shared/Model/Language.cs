@@ -1,9 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Resources;
-using System.Threading;
-using System.Xml.Linq;
-using System.Windows;
 
 
 /// <summary>
@@ -20,8 +16,8 @@ public class Language
     /// <param name="languageCode">Code that defines the interface language</param>
     public static void SetLanguage(string languageCode)
     {
-        languageCode = languageCode.ToUpper();  
-        switch(languageCode)
+        languageCode = languageCode.ToUpper();
+        switch (languageCode)
         {
             case "EN":
                 cultureInfo = new CultureInfo("en");
@@ -52,6 +48,11 @@ public class Language
     {
         return rm.GetString(key, cultureInfo) ?? key;
     }
+
+    /// <summary>
+    /// Method which allows you to know whether to activate UTF 8 or not
+    /// </summary>
+    /// <returns> Returns true if this is the console application that is launched </returns>
     private static bool IsConsoleApplication()
     {
         return Environment.UserInteractive && !Console.IsOutputRedirected && !Console.IsErrorRedirected;

@@ -339,5 +339,25 @@
   </data>
   <data name="WPF_CryptExtension" xml:space="preserve">
     <value>Extension à Crypter</value>
+  <data name="View_jsonFileExtension" xml:space="preserve">
+    <value>Logs au format json</value>
+  </data>
+  <data name="View_xmlFileExtension" xml:space="preserve">
+    <value>Logs au format XML</value>
+  </data>
+  <data name="View_logFileExtension" xml:space="preserve">
+    <value>Format des logs </value>
+  </data>
+  <data name="WPF_TypeSave" xml:space="preserve">
+    <value>Type de sauvegarde</value>
+  </data>
+  <data name="WPF_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="WPF_Size" xml:space="preserve">
+    <value>Taille</value>
+  </data>
+  <data name="WPF_TransferTime" xml:space="preserve">
+    <value>Temps de copie</value>
   </data>
 </root>

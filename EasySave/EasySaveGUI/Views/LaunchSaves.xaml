@@ -51,7 +51,7 @@
             <DataGrid ItemsSource="{Binding Saves}" Margin="90,105,507,69"
           Style="{StaticResource CustomDataGridStyle}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding name}" Header="Name" Width="3*" />
+                    <DataGridTextColumn Binding="{Binding name}" Header="{Binding Source={StaticResource LangHelper}, Path=[View_SaveName]}" Width="3*" />
                 </DataGrid.Columns>
             </DataGrid>
 

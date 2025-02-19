@@ -126,14 +126,15 @@ namespace EasySaveGUI.ViewModel
                 return;
             }
 
-            ISaveStrategy selectedStrategy = IsFullSave ? new FullSave() : new DifferentialSave();
+            SaveStrategy selectedStrategy = IsFullSave ? new FullSave() : new DifferentialSave();
 
             Save save = new Save
             {
                 name = SaveName,
                 sourceDirectory = SourcePath,
                 targetDirectory = TargetPath,
-                saveStrategy = selectedStrategy
+                saveStrategy = selectedStrategy,
+                logFileExtension = "json"
             };
 
             _saveRepository.AddSave(save);
