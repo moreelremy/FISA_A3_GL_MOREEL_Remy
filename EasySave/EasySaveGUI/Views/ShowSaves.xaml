@@ -53,11 +53,10 @@
                 <DataGrid.Columns>
                     <!-- New Column for Auto-Incremented Number -->
                     <DataGridTextColumn Header="#" Binding="{Binding RowNumber}" Width="0.3*" />
-
-                    <DataGridTextColumn Header="Nom" Binding="{Binding name}" Width="0.8*" />
-                    <DataGridTextColumn Header="Source" Binding="{Binding sourceDirectory}" Width="*" />
-                    <DataGridTextColumn Header="Cible" Binding="{Binding targetDirectory}" Width="*" />
-                    <DataGridTextColumn Header="Type de Sauvegarde" Binding="{Binding saveStrategy, Converter={StaticResource SaveStrategyConverter}}" Width="*" />
+                    <DataGridTextColumn Header="{Binding Source={StaticResource LangHelper}, Path=[View_SaveName]}" Binding="{Binding name}" Width="0.8*" />
+                    <DataGridTextColumn Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveSource]}" Binding="{Binding sourceDirectory}" Width="*" />
+                    <DataGridTextColumn Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_SaveTarget]}" Binding="{Binding targetDirectory}" Width="*" />
+                    <DataGridTextColumn Header="{Binding Source={StaticResource LangHelper}, Path=[WPF_TypeSave]}" Binding="{Binding saveStrategy, Converter={StaticResource SaveStrategyConverter}}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
 

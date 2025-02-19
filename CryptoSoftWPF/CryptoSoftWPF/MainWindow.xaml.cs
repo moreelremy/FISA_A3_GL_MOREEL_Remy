@@ -21,9 +21,6 @@ namespace CryptoSoftWPF
         {
             InitializeComponent();
         }
-
-
-
         private void ButtonCryptClick(object sender, RoutedEventArgs e)
         {
             if (InputPathFile.Text != "" && InputEncryptionKey.Text != "")
@@ -38,8 +35,6 @@ namespace CryptoSoftWPF
                 MessageBox.Show("Error: Please select a file");
             }
         }
-
-
 
         /// <summary>
         /// Open Folder Explorer when button is clicked
