@@ -41,9 +41,9 @@ public abstract class SaveStrategy
     /// <summary>
     /// Saves a directory by copying files and subdirectories.
     /// </summary>
-    public abstract void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, DateTime? lastChangeDateTime = null);
+    public abstract int SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, int encryptionTime, DateTime? lastChangeDateTime = null);
 }
-
+ 
 /// <summary>
 /// Implements a full save strategy that copies all files and directories.
 /// </summary>
@@ -54,13 +54,13 @@ public class FullSave : SaveStrategy
     {
         try
         {
-            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff");
+            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
             // Count the number of files to copy and the total size of the files
             int totalFilesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Count();
             // Sum the size of all files in the source directory
             long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
             DateTime startSave = DateTime.UtcNow;
-            SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension);
+            int encryptionTime = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, 0);
             // Log the end of the save in the real-time log
             Logs.RealTimeLog(
                 saveName: save.name,
@@ -78,7 +78,7 @@ public class FullSave : SaveStrategy
             DateTime endSave = DateTime.UtcNow;
             // Calculate the time taken to save
             int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Logs.GeneralLog(save, totalFileSize, transferTime);
+            Logs.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -91,7 +91,7 @@ public class FullSave : SaveStrategy
     }
 
     /// <inheritdoc/>
-    public override void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, DateTime? lastChangeDateTime = null)
+    public override int SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, int encryptionTime, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -110,6 +110,13 @@ public class FullSave : SaveStrategy
             {
                 string target = Path.Combine(targetDirectory, Path.GetFileName(file));
                 File.Copy(file, target, true);
+                if (true)// to replace 
+                {
+                    DateTime startFilencryption = DateTime.UtcNow;
+                    //use cryptosoft lib
+                    DateTime stopFilencryption = DateTime.UtcNow;
+                    encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
+                }
                 long fileSize = new FileInfo(file).Length;
                 nbFilesLeftToDo -= 1;
                 filesSizeLeftToDo -= fileSize;
@@ -128,18 +135,17 @@ public class FullSave : SaveStrategy
                     logFileExtension: logFileExtension
                 );
             }
-
-
         }
 
         // Copy all subdirectories in the source directory to the target directory
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension);
+            encryptionTime = SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension, encryptionTime);
             nbFilesLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Count();
             filesSizeLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
         }
+        return encryptionTime;
     }
 }
 
@@ -162,13 +168,13 @@ public class DifferentialSave : SaveStrategy
                 lastChangeDateTime = Directory.GetCreationTime(targetRepo);
             }
 
-            string target = targetRepo + @"\" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss.ff");
+            string target = targetRepo + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
             // Count the number of files to copy and the total size of the files
             string[] filesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories);
             int totalFilesToCopy = filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Count();
             long totalFileSize = filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Sum(file => new FileInfo(file).Length);
             DateTime startSave = DateTime.UtcNow;
-            SaveDirectory(save.sourceDirectory, target, save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, lastChangeDateTime);
+            int encryptionTime = SaveDirectory(save.sourceDirectory, target, save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, 0, lastChangeDateTime);
             // Log the end of the save in the real-time log
             Logs.RealTimeLog(
                 saveName: save.name,
@@ -186,7 +192,7 @@ public class DifferentialSave : SaveStrategy
             DateTime endSave = DateTime.UtcNow;
             // Calculate the time taken to save
             int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Logs.GeneralLog(save, totalFileSize, transferTime);
+            Logs.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -199,7 +205,7 @@ public class DifferentialSave : SaveStrategy
     }
 
     /// <inheritdoc/>
-    public override void SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, DateTime? lastChangeDateTime = null)
+    public override int SaveDirectory(string sourceDirectory, string targetDirectory, string saveName, int totalFilesToCopy, long totalFileSize, int nbFilesLeftToDo, long filesSizeLeftToDo, string logFileExtension, int encryptionTime, DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -215,6 +221,13 @@ public class DifferentialSave : SaveStrategy
             if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
             {
                 File.Copy(file, target, true);
+                if (true)// to replace 
+                {
+                    DateTime startFilencryption = DateTime.UtcNow;
+                    //use cryptosoft lib
+                    DateTime stopFilencryption = DateTime.UtcNow;
+                    encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
+                }
                 long fileSize = new FileInfo(file).Length;
                 nbFilesLeftToDo -= 1;
                 filesSizeLeftToDo -= fileSize;
@@ -239,11 +252,12 @@ public class DifferentialSave : SaveStrategy
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
             string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension, lastChangeDateTime);
+            encryptionTime = SaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension, encryptionTime, lastChangeDateTime);
             // Count the number of files to copy and the total size of the files
             string[] filesToCopy = Directory.GetFiles(target, "*.*", SearchOption.AllDirectories);
             nbFilesLeftToDo -= filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Count();
             filesSizeLeftToDo -= filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Sum(file => new FileInfo(file).Length);
         }
+        return encryptionTime;
     }
 }
