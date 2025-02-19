@@ -14,5 +14,21 @@
     "target": "\\\\localhost\\C$\\Users\\leosc_1c7hxom\\Desktop\\Calcul Mental",
     "size": 630101,
     "transferTimeMs": 128
+  },
+  {
+    "timestamp": "19-02-2025 23:51:46",
+    "saveName": "testEXE",
+    "source": "\\\\localhost\\C$\\Users\\leosc_1c7hxom\\Desktop\\images",
+    "target": "\\\\localhost\\C$\\Users\\leosc_1c7hxom\\Desktop\\Calcul Mental",
+    "size": 630101,
+    "transferTimeMs": 214
+  },
+  {
+    "timestamp": "19-02-2025 23:51:58",
+    "saveName": "testEXE",
+    "source": "\\\\localhost\\C$\\Users\\leosc_1c7hxom\\Desktop\\images",
+    "target": "\\\\localhost\\C$\\Users\\leosc_1c7hxom\\Desktop\\Calcul Mental",
+    "size": 630101,
+    "transferTimeMs": 143
   }
 ]
