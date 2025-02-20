@@ -1,44 +1,64 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using EasySaveGUI.ViewModel;
 
 namespace EasySaveGUI
 {
     public partial class SettingsWindow : Window
     {
-        private readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
-
+      
         public SettingsWindow()
         {
             InitializeComponent();
+            DataContext = new SettingsWindowViewModel();
+
+            InitializePlaceholders();
         }
 
-        private void SaveSetting(object sender, RoutedEventArgs e)
+        private void InitializePlaceholders()
         {
-            string input = InputSetting.Text;
+            SetPlaceholder(InputExtension, "WPF_ExtensionsExample");
+            SetPlaceholder(InputSetting, "WPF_SoftwareExample");
+        }
 
-            if (string.IsNullOrWhiteSpace(input))
+        private void SetPlaceholder(TextBox textBox, string translationKey)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                MessageBox.Show("Please enter a valid setting.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            try
-            {
-                
-                var settings = new { UserInput = input };
-
-                string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(settingsFilePath, jsonString);
-
-                MessageBox.Show("Setting saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error saving setting: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                textBox.Text = LanguageHelper.Translate(translationKey);
+                textBox.Foreground = Brushes.Gray;
             }
         }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null &&
+                (textBox.Text == LanguageHelper.Translate("WPF_ExtensionsExample") ||
+                 textBox.Text == LanguageHelper.Translate("WPF_SoftwareExample")))
+            {
+                textBox.Text = "";
+                textBox.Foreground = Brushes.Black;
+            }
+        }
+
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                if (textBox.Name == "InputExtension")
+                    textBox.Text = LanguageHelper.Translate("WPF_ExtensionsExample");
+                else if (textBox.Name == "InputSetting")
+                    textBox.Text = LanguageHelper.Translate("WPF_SoftwareExample");
+
+                textBox.Foreground = Brushes.Gray;
+            }
+        }
+
     }
 }

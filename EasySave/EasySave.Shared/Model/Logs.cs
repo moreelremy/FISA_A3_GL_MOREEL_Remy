@@ -1,4 +1,5 @@
 using EasySaveLogger;
+using System.Globalization;
 
 public static class Logs
 {
@@ -39,7 +40,11 @@ public static class Logs
             logs.AddRange(Logger.ReadLog(file));
         }
 
-        return logs.OrderByDescending(log => log.ContainsKey("timestamp") ? DateTime.Parse(log["timestamp"].ToString()) : DateTime.MinValue).ToList();
+        return logs.OrderByDescending(log => 
+        log.ContainsKey("timestamp") ? 
+        DateTime.ParseExact(log["timestamp"].ToString(), "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture) : 
+        DateTime.MinValue
+        ).ToList();
     }
 
     public static string ConvertToUnc(string localPath)

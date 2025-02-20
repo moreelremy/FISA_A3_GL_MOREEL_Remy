@@ -366,4 +366,34 @@
   <data name="WPF_ExtensionProblem" xml:space="preserve">
     <value>Пожалуйста, выберите формат.</value>
   </data>
+  <data name="WPF_EnterDate" xml:space="preserve">
+    <value>Введите дату: ДД-ММ-ГГГГ</value>
+  </data>
+  <data name="WPF_SaveDelete" xml:space="preserve">
+    <value>Резервное имя или номер</value>
+  </data>
+  <data name="WPF_CodeSave" xml:space="preserve">
+    <value>Имя / Номер / 1;3 / 1-3</value>
+  </data>
+  <data name="WPF_Extension" xml:space="preserve">
+    <value>Расширение для шифрования</value>
+  </data>
+  <data name="WPF_SettingSoftware" xml:space="preserve">
+    <value>Программное обеспечение для бизнеса:</value>
+  </data>
+  <data name="WPF_SettingExtensionToCrypt" xml:space="preserve">
+    <value>Расширение для шифрования:</value>
+  </data>
+  <data name="WPF_SettingApply" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="WPF_SettingTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="WPF_ExtensionsExample" xml:space="preserve">
+    <value>exe ; txt</value>
+  </data>
+  <data name="WPF_SoftwareExample" xml:space="preserve">
+    <value>Калькулятор, Проводник, Планирование ресурсов</value>
+  </data>
 </root>
