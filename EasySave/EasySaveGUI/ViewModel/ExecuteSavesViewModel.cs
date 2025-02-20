@@ -16,7 +16,6 @@ namespace EasySaveGUI.ViewModel
 
         public ICommand ExecuteGlobalSaveCommand { get; }
         public ICommand ExecutePartialSaveCommand { get; }
-        public ICommand ChooseExtensionCommand { get; }
 
         private List<string> _extensions;
         private string _inputExtensions;
@@ -69,7 +68,6 @@ namespace EasySaveGUI.ViewModel
 
             ExecuteGlobalSaveCommand = new RelayCommand(_ => ExecuteGlobalSave());
             ExecutePartialSaveCommand = new RelayCommand(_ => ExecutePartialSave());
-            ChooseExtensionCommand = new RelayCommand(_ => ChooseExtension());
         }
 
         private void LoadSaves()
@@ -105,6 +103,7 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
+    
         private void ChooseExtension()
         {
             string extensionsEntry = InputExtensions;

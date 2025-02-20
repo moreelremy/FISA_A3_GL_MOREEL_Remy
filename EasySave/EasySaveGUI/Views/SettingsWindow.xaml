@@ -72,7 +72,7 @@
 
             <!-- Apply Button -->
             <Button Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SettingApply]}"
-                    Command="{Binding SaveSettingCommand}"
+                    Command="{Binding ApplySettingCommand}"
                     Style="{StaticResource CustomButtonStyle}"
                     HorizontalAlignment="Center"
                     Width="164" Height="45"

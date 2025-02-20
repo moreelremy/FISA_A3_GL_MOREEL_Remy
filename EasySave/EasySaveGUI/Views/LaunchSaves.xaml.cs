@@ -22,7 +22,6 @@ namespace EasySaveGUI
         private void InitializePlaceholders()
         {
             SetPlaceholder(InputLaunchSavesNumberSave, "WPF_CodeSave");
-            SetPlaceholder(InputChooseExtension, "WPF_Extension");
         }
 
         private void SetPlaceholder(TextBox textBox, string translationKey)

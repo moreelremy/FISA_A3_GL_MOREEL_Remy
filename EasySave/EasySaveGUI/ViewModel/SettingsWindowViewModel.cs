@@ -15,10 +15,28 @@ namespace EasySaveGUI.ViewModel
     public class SettingsWindowViewModel : BaseViewModel
     {
         private string _inputSettingsSoftware;
+        private string _inputSettingsExtension;
+        private List<string> _extensions;
         private readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
 
-        public ICommand SaveSettingCommand { get; }
+        public ICommand ApplySettingCommand { get; }
 
+
+
+
+        public List<string> Extensions
+        {
+            get => _extensions;
+            set
+            {
+                _extensions = value;
+            }
+        }
+        public string InputSettingsExtension
+        {
+            get => _inputSettingsExtension;
+            set { _inputSettingsExtension = value; OnPropertyChanged(); }
+        }
         public string InputSettingsSoftware
         {
             get => _inputSettingsSoftware;
@@ -27,7 +45,7 @@ namespace EasySaveGUI.ViewModel
 
         public SettingsWindowViewModel()
         {
-            SaveSettingCommand = new RelayCommand(_ => ApplySettings());
+            ApplySettingCommand = new RelayCommand(_ => ApplySettings());
         }
 
         private void ApplySettings()
@@ -41,8 +59,11 @@ namespace EasySaveGUI.ViewModel
 
             try
             {
-
-                var settings = new { UserInputSettingsSoftware = InputSettingsSoftware };
+                ChooseExtension();
+                var settings = new {
+                    UserInputSettingsSoftware = InputSettingsSoftware,
+                    ExtensionSelected = Extensions
+                };
 
                 string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(settingsFilePath, jsonString);
@@ -55,6 +76,21 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
+
+        private void ChooseExtension()
+        {
+            string extensionsEntry = InputSettingsExtension;
+
+            if (string.IsNullOrWhiteSpace(extensionsEntry))
+            {
+                MessageBox.Show("Veuillez entrer des extensions.");
+                return;
+            }
+
+
+            Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        }
 
     }
 
