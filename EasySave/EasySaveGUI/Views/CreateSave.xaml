@@ -84,6 +84,7 @@
                     Style="{StaticResource CustomLabelStyle}"/>
 
                 <TextBox x:Name="InputCreateSaveOriginPath"
+                    Text="{Binding SourcePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     HorizontalAlignment="Left"
                     Height="41"
                     Margin="1,118,0,0"
@@ -111,6 +112,7 @@
                     Style="{StaticResource CustomLabelStyle}"/>
 
                 <TextBox x:Name="InputCreateSaveTargetPath"
+                    Text="{Binding TargetPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     HorizontalAlignment="Left"
                     Height="41"
                     Margin="1,209,0,0"
