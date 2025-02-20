@@ -6,6 +6,7 @@ using CryptoSoft;
 /// </summary>
 public class Save
 {
+    public int DisplayIndex { get; set; }
     public required string name { get; set; }
     public required string sourceDirectory { get; set; }
     public required string targetDirectory { get; set; }

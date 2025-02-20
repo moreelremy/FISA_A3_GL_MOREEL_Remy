@@ -49,8 +49,9 @@
 
             <!-- Page Content -->
             <DataGrid ItemsSource="{Binding Saves}" Margin="90,105,507,69"
-          Style="{StaticResource CustomDataGridStyle}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSave}">
+                Style="{StaticResource CustomDataGridStyle}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSave}">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="#" Binding="{Binding DisplayIndex}" Width="0.5*"/>
                     <DataGridTextColumn Binding="{Binding name}" Header="{Binding Source={StaticResource LangHelper}, Path=[View_SaveName]}" Width="3*" />
                 </DataGrid.Columns>
             </DataGrid>
