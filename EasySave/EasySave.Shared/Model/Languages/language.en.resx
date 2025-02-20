@@ -396,4 +396,7 @@
   <data name="WPF_SoftwareExample" xml:space="preserve">
     <value>Calculator ; explorer ; ERP</value>
   </data>
+  <data name="Controller_SaveExecutionErrorProcessRunning" xml:space="preserve">
+    <value>The business process is running. Operation canceled.</value>
+  </data>
 </root>

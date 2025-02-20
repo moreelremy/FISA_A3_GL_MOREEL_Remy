@@ -396,4 +396,7 @@
   <data name="WPF_SoftwareExample" xml:space="preserve">
     <value>Калькулятор, Проводник, Планирование ресурсов</value>
   </data>
+  <data name="Controller_SaveExecutionErrorProcessRunning" xml:space="preserve">
+    <value>Бизнес-процесс запущен. Операция отменена.</value>
+  </data>
 </root>

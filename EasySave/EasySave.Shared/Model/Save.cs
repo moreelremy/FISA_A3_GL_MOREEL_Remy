@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using CryptoSoft;
 
 /// <summary>
@@ -72,14 +73,22 @@ public abstract class SaveStrategy
             Directory.CreateDirectory(targetDirectory);
         }
 
+        string settingsJson = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
+        var settings = JsonSerializer.Deserialize<Dictionary<string, object>>(settingsJson);
+
+
         // TO MODIFY : avoid creating a directory if the calculator is launched from the start
-        // ADD : reading the settings json file for the name of the business software
-        string calculatorProcessName = "CalculatorApp";
+        // ADD : reading the settings json file for the name of the business CalculatorApp
+        //string calculatorProcessName = settings["UserInputSettingsSoftware"];
+        string calculatorProcessName = settings["UserInputSettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
+
+
         // Copy all files in the source directory to the target directory
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
             bool isCalculatorRunning = processes.Any(p => p.ProcessName.ToLower() == calculatorProcessName.ToLower());
+
             if (!isCalculatorRunning)
             {
                 string target = Path.Combine(targetDirectory, Path.GetFileName(file));
@@ -87,6 +96,8 @@ public abstract class SaveStrategy
                 if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
                 {
                     File.Copy(file, target, true);
+
+
                     if (true)// to replace 
                     {
                         DateTime startFilencryption = DateTime.UtcNow;
@@ -112,6 +123,11 @@ public abstract class SaveStrategy
                         logFileExtension: logFileExtension
                     );
                 }
+            }
+            else
+            {
+                throw new InvalidOperationException("Le processus métier est en cours d'exécution. Opération annulée.");
+
             }
         }
 
@@ -151,6 +167,10 @@ public class FullSave : SaveStrategy
         catch (DirectoryNotFoundException directoryNotFound)
         {
             Console.WriteLine("The source directory path of the save is valid but does not exist." + directoryNotFound.Message);
+        }
+        catch (InvalidOperationException message)
+        {
+            throw new InvalidOperationException(message.Message);
         }
         catch
         {
