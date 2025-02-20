@@ -76,7 +76,7 @@
 
             <Button Grid.Row="4"
                     Content="APPLY"
-                    Command="{Binding SaveSettingCommand}"
+                    Command="{Binding ApplySettingCommand}"
                     Style="{StaticResource CustomButtonStyle}" 
                     HorizontalAlignment="Center" 
                     Margin="0,10,0,10" 
