@@ -339,7 +339,7 @@
   </data>
   <data name="WPF_CryptExtension" xml:space="preserve">
     <value>Extension à Crypter</value>
-	  </data>
+  </data>
   <data name="View_jsonFileExtension" xml:space="preserve">
     <value>Logs au format json</value>
   </data>
@@ -364,7 +364,19 @@
   <data name="WPF_TypeProblem" xml:space="preserve">
     <value> Veuillez sélectionner un type de sauvegarde.</value>
   </data>
-	<data name="WPF_ExtensionProblem" xml:space="preserve">
-		<value> Veuillez sélectionner un format.</value>
-	</data>
+  <data name="WPF_ExtensionProblem" xml:space="preserve">
+    <value> Veuillez sélectionner un format.</value>
+  </data>
+  <data name="WPF_EnterDate" xml:space="preserve">
+    <value>Entrez une date : JJ-MM-AAAA</value>
+  </data>
+  <data name="WPF_SaveDelete" xml:space="preserve">
+    <value>Nom ou numéro de sauvegarde</value>
+  </data>
+  <data name="WPF_CodeSave" xml:space="preserve">
+    <value>Nom / Numéro / 1;3 / 1-3</value>
+  </data>
+  <data name="WPF_Extension" xml:space="preserve">
+    <value>Extension à crypter</value>
+  </data>
 </root>

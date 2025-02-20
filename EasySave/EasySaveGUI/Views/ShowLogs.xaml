@@ -15,7 +15,7 @@
         <local:ShowLogsViewModel />
 
     </Window.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <!-- Header -->
@@ -46,19 +46,21 @@
             <!-- Page Content -->
             <TextBox x:Name="InputLogsSearch" 
                  Text="{Binding InputWantedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                 Width="246" 
+                 Width="291" 
                  Height="40" 
                  FontSize="16" 
                  HorizontalAlignment="Left" 
                  VerticalAlignment="Top" 
-                 Margin="297,82,0,0"/>
+                 Margin="282,74,0,0"
+                 GotFocus="TextBox_GotFocus"
+                 LostFocus="TextBox_LostFocus"/>
 
             <Button x:Name="ButtonLogsSearch" 
                 Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Search]}" 
               
                 HorizontalAlignment="Left" 
                 Height="40" 
-                Margin="559,82,0,0" 
+                Margin="589,74,0,0" 
                 VerticalAlignment="Top" 
                 Width="122" 
                 FontSize="16" 
