@@ -378,4 +378,16 @@
   <data name="WPF_Extension" xml:space="preserve">
     <value>Расширение для шифрования</value>
   </data>
+  <data name="WPF_SettingSoftware" xml:space="preserve">
+    <value>Программное обеспечение для бизнеса:</value>
+  </data>
+  <data name="WPF_SettingExtensionToCrypt" xml:space="preserve">
+    <value>Расширение для шифрования:</value>
+  </data>
+  <data name="WPF_SettingApply" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="WPF_SettingTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
 </root>
