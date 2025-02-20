@@ -380,6 +380,21 @@
     <value>Extension à crypter</value>
   </data>
   <data name="WPF_SettingSoftware" xml:space="preserve">
-    <value>Logiciel Métier</value>
+    <value>Logiciel Métier :</value>
+  </data>
+  <data name="WPF_SettingExtensionToCrypt" xml:space="preserve">
+    <value>Extension à crypter :</value>
+  </data>
+  <data name="WPF_SettingApply" xml:space="preserve">
+    <value>APPLIQUER</value>
+  </data>
+  <data name="WPF_SettingTitle" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="WPF_ExtensionsExample" xml:space="preserve">
+    <value>exe ; txt</value>
+  </data>
+  <data name="WPF_SoftwareExample" xml:space="preserve">
+    <value>Calculator ; explorer ; ERP</value>
   </data>
 </root>
