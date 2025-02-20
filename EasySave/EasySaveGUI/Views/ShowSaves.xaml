@@ -61,28 +61,34 @@
             </DataGrid>
 
 
-            <Grid HorizontalAlignment="Center" Margin="0,452,0,0" VerticalAlignment="Top" Width="404">
+            <Grid HorizontalAlignment="Center" Margin="0,446,0,0" VerticalAlignment="Top" Width="512">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="185*"/>
+                    <ColumnDefinition Width="71*"/>
+                </Grid.ColumnDefinitions>
                 <Button x:Name="ButtonShowSavesDeleteSave"
                     Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_Delete]}"
                     HorizontalAlignment="Left"
-                    Height="40"
-                    Margin="272,0,0,0"
-                    VerticalAlignment="Top"
+                    Height="46"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
                     Width="132"
                     FontSize="16"
                     FontWeight="Bold"
                     Style="{StaticResource CustomButtonStyle}"
                     Command="{Binding DeleteSaveCommand}"
-                    CommandParameter="{Binding SelectedSave.name}"
+                    CommandParameter="{Binding SelectedSave.name}" Grid.Column="1"
                     />
 
                 <TextBox x:Name="InputShowSavesDeleteSave" 
-                    Width="246" 
-                    Height="40" 
+                    Width="347" 
+                    Height="46" 
                     FontSize="16" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
+                    VerticalAlignment="Center" 
+                    Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"
+                    GotFocus="TextBox_GotFocus"
+                    LostFocus="TextBox_LostFocus"/>
             </Grid>
         </Grid>
 

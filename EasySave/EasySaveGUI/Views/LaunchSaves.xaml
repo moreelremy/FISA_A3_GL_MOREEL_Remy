@@ -55,16 +55,6 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBox x:Name="InputLaunchSavesNumberSave"
-                Width="240"
-                Height="44"
-                FontSize="16"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="577,226,0,0"
-                Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"/>
-                
-
             <TextBox x:Name="InputChooseExtension"
                 Text="{Binding InputExtensions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 Width="240"
@@ -72,7 +62,31 @@
                 FontSize="16"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="577,105,0,0"/>
+                Margin="577,105,0,0"
+                GotFocus="TextBox_GotFocus"
+                LostFocus="TextBox_LostFocus"/>
+
+            <Button x:Name="ButtonChooseExtension"
+                Content="{Binding [WPF_CryptExtension], Source={StaticResource LangHelper}}"
+                HorizontalAlignment="Left"
+                Height="40"
+                Margin="561,154,0,0"
+                VerticalAlignment="Top"
+                Width="272" FontSize="16"
+                FontWeight="Bold"
+                Style="{StaticResource CustomButtonStyle}"
+                Command="{Binding ChooseExtensionCommand}"/>
+
+            <TextBox x:Name="InputLaunchSavesNumberSave"
+                Width="240"
+                Height="44"
+                FontSize="16"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="577,226,0,0"
+                Text="{Binding SelectedSaveName, UpdateSourceTrigger=PropertyChanged}"
+                GotFocus="TextBox_GotFocus"
+                LostFocus="TextBox_LostFocus"/>
 
             <Button x:Name="ButtonLaunchSavesSavePartial"
                 Content="{Binding [WPF_SavePartial], Source={StaticResource LangHelper}}"
@@ -96,19 +110,6 @@
                 FontWeight="Bold"
                 Style="{StaticResource CustomButtonStyle}"
                 Command="{Binding ExecuteGlobalSaveCommand}"/>
-
-                
-            
-            <Button x:Name="ButtonChooseExtension"
-            Content="{Binding [WPF_CryptExtension], Source={StaticResource LangHelper}}"
-            HorizontalAlignment="Left"
-            Height="40"
-            Margin="561,154,0,0"
-            VerticalAlignment="Top"
-            Width="272" FontSize="16"
-            FontWeight="Bold"
-            Style="{StaticResource CustomButtonStyle}"
-            Command="{Binding ChooseExtensionCommand}"/>
         </Grid>
 
         <!-- FOOTER -->
