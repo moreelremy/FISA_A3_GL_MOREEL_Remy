@@ -390,4 +390,10 @@
   <data name="WPF_SettingTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="WPF_ExtensionsExample" xml:space="preserve">
+    <value>exe ; txt</value>
+  </data>
+  <data name="WPF_SoftwareExample" xml:space="preserve">
+    <value>Calculator ; explorer ; ERP</value>
+  </data>
 </root>
