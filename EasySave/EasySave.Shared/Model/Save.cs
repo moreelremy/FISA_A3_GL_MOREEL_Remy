@@ -80,16 +80,16 @@ public abstract class SaveStrategy
         // TO MODIFY : avoid creating a directory if the calculator is launched from the start
         // ADD : reading the settings json file for the name of the business CalculatorApp
         //string calculatorProcessName = settings["UserInputSettingsSoftware"];
-        string calculatorProcessName = settings["UserInputSettingsSoftware"].ToString();
+        string processName = settings["UserInputSettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
 
 
         // Copy all files in the source directory to the target directory
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
-            bool isCalculatorRunning = processes.Any(p => p.ProcessName.ToLower() == calculatorProcessName.ToLower());
+            bool isProcessRunning = processes.Any(p => p.ProcessName.ToLower() == processName.ToLower());
 
-            if (!isCalculatorRunning)
+            if (!isProcessRunning)
             {
                 string target = Path.Combine(targetDirectory, Path.GetFileName(file));
                 // Copy the file if it has been modified since the last save
@@ -98,7 +98,7 @@ public abstract class SaveStrategy
                     File.Copy(file, target, true);
 
 
-                    if (true)// to replace 
+                    if (true)// to replace check si extension
                     {
                         DateTime startFilencryption = DateTime.UtcNow;
                         Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
