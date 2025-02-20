@@ -38,7 +38,7 @@ namespace EasySaveGUI
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = LanguageHelper.Translate(translationKey);
+                textBox.Text = LanguageHelper.Instance[translationKey];
                 textBox.Foreground = Brushes.Gray;
             }
         }
@@ -47,9 +47,9 @@ namespace EasySaveGUI
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (textBox != null && (textBox.Text == LanguageHelper.Translate("WPF_EnterNameSave") ||
-                                    textBox.Text == LanguageHelper.Translate("WPF_SelectSource") ||
-                                    textBox.Text == LanguageHelper.Translate("WPF_SelectTarget")))
+            if (textBox != null && (textBox.Text == LanguageHelper.Instance["WPF_EnterNameSave"] ||
+                                    textBox.Text == LanguageHelper.Instance["WPF_SelectSource"] ||
+                                    textBox.Text == LanguageHelper.Instance["WPF_SelectTarget"]))
             {
                 textBox.Text = "";
                 textBox.Foreground = Brushes.Black; // Change text color to black when typing
@@ -62,11 +62,11 @@ namespace EasySaveGUI
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 if (textBox.Name == "InputCreateSaveSaveName")
-                    textBox.Text = LanguageHelper.Translate("WPF_EnterNameSave");
+                    textBox.Text = LanguageHelper.Instance["WPF_EnterNameSave"];
                 else if (textBox.Name == "InputCreateSaveOriginPath")
-                    textBox.Text = LanguageHelper.Translate("WPF_SelectSource");
+                    textBox.Text = LanguageHelper.Instance["WPF_SelectSource"];
                 else if (textBox.Name == "InputCreateSaveTargetPath")
-                    textBox.Text = LanguageHelper.Translate("WPF_SelectTarget");
+                    textBox.Text = LanguageHelper.Instance["WPF_SelectTarget"];
 
                 textBox.Foreground = Brushes.Gray; // Reset text color to gray when placeholder is active
             }

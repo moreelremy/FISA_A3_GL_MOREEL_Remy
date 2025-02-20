@@ -134,43 +134,43 @@ namespace EasySaveGUI.ViewModel
                 string.IsNullOrWhiteSpace(SourcePath) ||
                 string.IsNullOrWhiteSpace(TargetPath))
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_FieldProblem"),
-                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Instance["WPF_FieldProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (_saveRepository.GetAllSaves().Any(s => s.name == SaveName))
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_NameProblem"),
-                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Instance["WPF_NameProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (!Directory.Exists(SourcePath))
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_SourceProblem"),
-                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Instance["WPF_SourceProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (!Directory.Exists(TargetPath))
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_TargetProblem"),
-                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Instance["WPF_TargetProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (SelectedSaveType == null)
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_TypeProblem"),
-                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Instance["WPF_TypeProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if(SelectedLogFileExtension == null)
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_ExtensionProblem"),
-                    LanguageHelper.Translate("WPF_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(LanguageHelper.Instance["WPF_ExtensionProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -186,8 +186,8 @@ namespace EasySaveGUI.ViewModel
 
             _saveRepository.AddSave(save);
 
-            MessageBox.Show(LanguageHelper.Translate("WPF_CreateSuccess"),
-                LanguageHelper.Translate("WPF_Success"), MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(LanguageHelper.Instance["WPF_CreateSuccess"],
+                LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
 
             ExecuteGoBack();
         }
@@ -196,10 +196,10 @@ namespace EasySaveGUI.ViewModel
         {
             var dialog = new OpenFileDialog
             {
-                Title = LanguageHelper.Translate("WPF_SelectSource"),
+                Title = LanguageHelper.Instance["WPF_SelectSource"],
                 CheckFileExists = false,
                 CheckPathExists = true,
-                FileName = LanguageHelper.Translate("WPF_SelectedFile")
+                FileName = LanguageHelper.Instance["WPF_SelectedFile"]
             };
 
             if (dialog.ShowDialog() == true)
@@ -212,10 +212,10 @@ namespace EasySaveGUI.ViewModel
         {
             var dialog = new OpenFileDialog
             {
-                Title = LanguageHelper.Translate("WPF_SelectTarget"),
+                Title = LanguageHelper.Instance["WPF_SelectTarget"],
                 CheckFileExists = false,
                 CheckPathExists = true,
-                FileName = LanguageHelper.Translate("WPF_SelectedFile")
+                FileName = LanguageHelper.Instance["WPF_SelectedFile"]
             };
 
             if (dialog.ShowDialog() == true)

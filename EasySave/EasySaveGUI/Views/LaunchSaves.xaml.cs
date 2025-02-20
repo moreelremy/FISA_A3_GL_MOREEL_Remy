@@ -28,7 +28,7 @@ namespace EasySaveGUI
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = LanguageHelper.Translate(translationKey);
+                textBox.Text = LanguageHelper.Instance[translationKey];
                 textBox.Foreground = Brushes.Gray;
             }
         }
@@ -36,8 +36,8 @@ namespace EasySaveGUI
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (textBox != null && (textBox.Text == LanguageHelper.Translate("WPF_CodeSave") ||
-                                    textBox.Text == LanguageHelper.Translate("WPF_Extension")))
+            if (textBox != null && (textBox.Text == LanguageHelper.Instance["WPF_CodeSave"] ||
+                                    textBox.Text == LanguageHelper.Instance["WPF_Extension"]))
             {
                 textBox.Text = "";
                 textBox.Foreground = Brushes.Black;
@@ -50,9 +50,9 @@ namespace EasySaveGUI
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 if (textBox.Name == "InputLaunchSavesNumberSave")
-                    textBox.Text = LanguageHelper.Translate("WPF_CodeSave");
+                    textBox.Text = LanguageHelper.Instance["WPF_CodeSave"];
                 else if (textBox.Name == "InputChooseExtension")
-                    textBox.Text = LanguageHelper.Translate("WPF_Extension");
+                    textBox.Text = LanguageHelper.Instance["WPF_Extension"];
 
                 textBox.Foreground = Brushes.Gray;
             }
