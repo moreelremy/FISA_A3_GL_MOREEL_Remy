@@ -174,14 +174,13 @@ namespace EasySaveGUI.ViewModel
                 return;
             }
 
-            SaveStrategy selectedStrategy = IsFullSave ? new FullSave() : new DifferentialSave();
-
+            SaveStrategyFactory FactoryStrategy = new SaveStrategyFactory();
             Save save = new Save
             {
                 name = SaveName,
                 sourceDirectory = SourcePath,
                 targetDirectory = TargetPath,
-                saveStrategy = selectedStrategy,
+                saveStrategy = FactoryStrategy.CreateSaveStrategy(SelectedSaveType),
                 logFileExtension = SelectedLogFileExtension
             };
 
