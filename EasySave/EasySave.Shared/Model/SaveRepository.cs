@@ -76,6 +76,12 @@ public class SaveRepository
             errorMessage = null;
             return true;
         }
+        catch (InvalidOperationException message)
+        {
+            errorMessage = string.Format(Language.GetString("Controller_SaveExecutionErrorProcessRunning"), save.name, message.Message);
+            return false;
+
+        }
         catch (Exception ex)
         {
             errorMessage = string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
