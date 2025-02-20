@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="CryptoSoft">
+      <HintPath>..\..\CryptoSoftDLL\bin\Debug\net8.0\CryptoSoft.dll</HintPath>
+    </Reference>
     <Reference Include="EasySaveLogger">
       <HintPath>..\..\EasySaveLogger\obj\Debug\net8.0\EasySaveLogger.dll</HintPath>
     </Reference>

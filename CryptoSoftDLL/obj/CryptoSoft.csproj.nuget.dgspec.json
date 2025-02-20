@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj": {}
+    "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj": {
+    "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj",
+        "projectUniqueName": "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj",
         "projectName": "CryptoSoft",
-        "projectPath": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj",
-        "packagesPath": "C:\\Users\\leosc_1c7hxom\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leosc_1c7hxom\\Desktop\\Projects\\Ecole\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\obj\\",
+        "projectPath": "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\CryptoSoft.csproj",
+        "packagesPath": "C:\\Users\\moree\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\moree\\source\\repos\\FISA_A3_GL_MOREEL_Remy\\CryptoSoftDLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\leosc_1c7hxom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moree\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -66,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
