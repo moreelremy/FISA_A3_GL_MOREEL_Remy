@@ -33,6 +33,31 @@ public class SaveStrategyFactory
 
 public abstract class SaveStrategy
 {
+    public void commonSave(Save save, int totalFilesToCopy, long totalFileSize, DateTime? lastChangeDateTime = null){
+        string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
+        DateTime startSave = DateTime.UtcNow;
+        int encryptionTime;
+        encryptionTime = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, 0);
+        // Log the end of the save in the real-time log
+        Logs.RealTimeLog(
+            saveName: save.name,
+            sourcePath: "",
+            targetPath: "",
+            fileSize: 0,
+            state: "END",
+            totalFilesToCopy: 0,
+            totalFileSize: 0,
+            nbFilesLeftToDo: 0,
+            filesSizeLeftToDo: 0,
+            Progression: 0,
+            logFileExtension: save.logFileExtension
+        );
+        DateTime endSave = DateTime.UtcNow;
+        // Calculate the time taken to save
+        int transferTime = (int)(endSave - startSave).TotalMilliseconds;
+        Logs.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
+    }
+
     /// <summary>
     /// Executes the save process using the provided save configuration.
     /// </summary>
@@ -55,31 +80,11 @@ public class FullSave : SaveStrategy
     {
         try
         {
-            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
             // Count the number of files to copy and the total size of the files
             int totalFilesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Count();
             // Sum the size of all files in the source directory
             long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Sum(file => new FileInfo(file).Length);
-            DateTime startSave = DateTime.UtcNow;
-            int encryptionTime = SaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, 0);
-            // Log the end of the save in the real-time log
-            Logs.RealTimeLog(
-                saveName: save.name,
-                sourcePath: "",
-                targetPath: "",
-                fileSize: 0,
-                state: "END",
-                totalFilesToCopy: 0,
-                totalFileSize: 0,
-                nbFilesLeftToDo: 0,
-                filesSizeLeftToDo: 0,
-                Progression: 0,
-                logFileExtension: save.logFileExtension
-            );
-            DateTime endSave = DateTime.UtcNow;
-            // Calculate the time taken to save
-            int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Logs.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
+            commonSave(save, totalFilesToCopy, totalFileSize);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
@@ -114,7 +119,6 @@ public class FullSave : SaveStrategy
                 if (true)// to replace 
                 {
                     DateTime startFilencryption = DateTime.UtcNow;
-                    Console.WriteLine(Path.GetFullPath(target));
                     Crypt.Encrypt(target, "b6b1f3a002ee5ef1856b716e06bf3298b6e94fe15471098edc3a4278b9e35d3");
                     DateTime stopFilencryption = DateTime.UtcNow;
                     encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
@@ -163,38 +167,16 @@ public class DifferentialSave : SaveStrategy
         {
             DateTime? lastChangeDateTime = null;
             string targetRepo = string.Concat(save.targetDirectory, @"\" + save.name);
-
             // Get the last save date time if exists
             if (Directory.Exists(targetRepo))
             {
                 lastChangeDateTime = Directory.GetCreationTime(targetRepo);
             }
-
-            string target = targetRepo + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
             // Count the number of files to copy and the total size of the files
             string[] filesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories);
             int totalFilesToCopy = filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Count();
             long totalFileSize = filesToCopy.Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime).Sum(file => new FileInfo(file).Length);
-            DateTime startSave = DateTime.UtcNow;
-            int encryptionTime = SaveDirectory(save.sourceDirectory, target, save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, 0, lastChangeDateTime);
-            // Log the end of the save in the real-time log
-            Logs.RealTimeLog(
-                saveName: save.name,
-                sourcePath: "",
-                targetPath: "",
-                fileSize: 0,
-                state: "END",
-                totalFilesToCopy: 0,
-                totalFileSize: 0,
-                nbFilesLeftToDo: 0,
-                filesSizeLeftToDo: 0,
-                Progression: 0,
-                logFileExtension: save.logFileExtension
-            );
-            DateTime endSave = DateTime.UtcNow;
-            // Calculate the time taken to save
-            int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Logs.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
+            commonSave(save, totalFilesToCopy, totalFileSize, lastChangeDateTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
