@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using CryptoSoft;
 
@@ -81,6 +82,9 @@ public abstract class SaveStrategy
         var processes = Process.GetProcesses();
 
 
+        var extensionsJson = (JsonElement)settings["ExtensionSelected"];
+        List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
+
         // Copy all files in the source directory to the target directory
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
@@ -88,14 +92,34 @@ public abstract class SaveStrategy
 
             if (!isProcessRunning)
             {
-                string target = Path.Combine(targetDirectory, Path.GetFileName(file));
                 // Copy the file if it has been modified since the last save
+
+
+
+                string target = Path.Combine(targetDirectory, Path.GetFileName(file));
+
+                string fileExtension = Path.GetExtension(target).TrimStart('.') ;
+
+                bool isExtensionSelected = false;
+
+                foreach (var selectedExentions in extensions)
+                {
+                    if (fileExtension == selectedExentions)
+                    {
+                        isExtensionSelected = true;
+                    }
+                    Console.WriteLine(isExtensionSelected);
+                    Console.WriteLine(fileExtension);
+                    Console.WriteLine(selectedExentions);
+                }
+                Console.ReadLine();
+
                 if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
                 {
                     File.Copy(file, target, true);
 
 
-                    if (true)// to replace check si extension
+                    if (isExtensionSelected)// to replace check si extension
                     {
                         DateTime startFilencryption = DateTime.UtcNow;
                         Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
