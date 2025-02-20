@@ -42,7 +42,7 @@ namespace EasySaveGUI.ViewModel
             string wantedDate = (InputWantedDate == "" || InputWantedDate == null) ? $"{DateTime.Now:dd-MM-yyyy}" : InputWantedDate;
             if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$"))
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_FormatLog") + " : 15-02-2024, " + LanguageHelper.Translate("WPF_Format") + " : jj-MM-aaaa).");
+                MessageBox.Show(LanguageHelper.Instance["WPF_FormatLog"] + " : 15-02-2024, " + LanguageHelper.Instance["WPF_Format"] + " : jj-MM-aaaa).");
                 return;
             }
             IEnumerable<string> files;
@@ -58,7 +58,7 @@ namespace EasySaveGUI.ViewModel
 
             if (!files.Any())
             {
-                MessageBox.Show(LanguageHelper.Translate("WPF_FileNotFound") + $"{wantedDate}");
+                MessageBox.Show(LanguageHelper.Instance["WPF_FileNotFound"] + $"{wantedDate}");
                 return;
             }
             LoadLogs(files);

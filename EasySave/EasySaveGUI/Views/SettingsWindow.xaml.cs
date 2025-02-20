@@ -28,7 +28,7 @@ namespace EasySaveGUI
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = LanguageHelper.Translate(translationKey);
+                textBox.Text = LanguageHelper.Instance[translationKey];
                 textBox.Foreground = Brushes.Gray;
             }
         }
@@ -37,8 +37,8 @@ namespace EasySaveGUI
         {
             TextBox textBox = sender as TextBox;
             if (textBox != null &&
-                (textBox.Text == LanguageHelper.Translate("WPF_ExtensionsExample") ||
-                 textBox.Text == LanguageHelper.Translate("WPF_SoftwareExample")))
+                (textBox.Text == LanguageHelper.Instance["WPF_ExtensionsExample"] ||
+                 textBox.Text == LanguageHelper.Instance["WPF_SoftwareExample"]))
             {
                 textBox.Text = "";
                 textBox.Foreground = Brushes.Black;
@@ -52,9 +52,9 @@ namespace EasySaveGUI
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 if (textBox.Name == "InputExtension")
-                    textBox.Text = LanguageHelper.Translate("WPF_ExtensionsExample");
+                    textBox.Text = LanguageHelper.Instance["WPF_ExtensionsExample"];
                 else if (textBox.Name == "InputSetting")
-                    textBox.Text = LanguageHelper.Translate("WPF_SoftwareExample");
+                    textBox.Text = LanguageHelper.Instance["WPF_SoftwareExample"];
 
                 textBox.Foreground = Brushes.Gray;
             }

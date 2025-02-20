@@ -44,7 +44,7 @@ namespace EasySaveGUI
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = LanguageHelper.Translate(translationKey);
+                textBox.Text = LanguageHelper.Instance[translationKey];
                 textBox.Foreground = Brushes.Gray;
             }
         }
@@ -52,7 +52,7 @@ namespace EasySaveGUI
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (textBox != null && textBox.Text == LanguageHelper.Translate("WPF_SaveDelete"))
+            if (textBox != null && textBox.Text == LanguageHelper.Instance["WPF_SaveDelete"])
             {
                 textBox.Text = "";
                 textBox.Foreground = Brushes.Black;
@@ -64,7 +64,7 @@ namespace EasySaveGUI
             TextBox textBox = sender as TextBox;
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Text = LanguageHelper.Translate("WPF_SaveDelete");
+                textBox.Text = LanguageHelper.Instance["WPF_SaveDelete"];
                 textBox.Foreground = Brushes.Gray;
             }
         }
