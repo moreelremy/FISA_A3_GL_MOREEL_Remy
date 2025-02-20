@@ -50,9 +50,7 @@
                      Text="{Binding InputSettingsExtension, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Width="356" Height="49"
                      Canvas.Top="81"
-                     Canvas.Left="102" HorizontalAlignment="Center" VerticalAlignment="Top"
-                     GotFocus="TextBox_GotFocus"
-                     LostFocus="TextBox_LostFocus"/>
+                     Canvas.Left="102" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <!-- LabelSetting -->
             <Label x:Name="LabelSetting"
@@ -66,9 +64,7 @@
                      Text="{Binding InputSettingsSoftware, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Width="356" Height="49"
                      Canvas.Top="218"
-                     Canvas.Left="102" HorizontalAlignment="Center" VerticalAlignment="Top"
-                     GotFocus="TextBox_GotFocus"
-                     LostFocus="TextBox_LostFocus"/>
+                     Canvas.Left="102" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <!-- Apply Button -->
             <Button Content="{Binding Source={StaticResource LangHelper}, Path=[WPF_SettingApply]}"
