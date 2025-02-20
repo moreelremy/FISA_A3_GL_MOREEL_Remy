@@ -368,7 +368,7 @@
     <value> Veuillez sélectionner un format.</value>
   </data>
   <data name="WPF_EnterDate" xml:space="preserve">
-    <value>Entrez une date : JJ-MM-AAAA</value>
+    <value>Entrez une date : jj-MM-aaaa</value>
   </data>
   <data name="WPF_SaveDelete" xml:space="preserve">
     <value>Nom ou numéro de sauvegarde</value>
@@ -378,5 +378,8 @@
   </data>
   <data name="WPF_Extension" xml:space="preserve">
     <value>Extension à crypter</value>
+  </data>
+  <data name="WPF_SettingSoftware" xml:space="preserve">
+    <value>Logiciel Métier</value>
   </data>
 </root>

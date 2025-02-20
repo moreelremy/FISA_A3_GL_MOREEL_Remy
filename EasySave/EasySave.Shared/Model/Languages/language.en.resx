@@ -367,7 +367,7 @@
     <value>Please select a format.</value>
   </data>
   <data name="WPF_EnterDate" xml:space="preserve">
-    <value>Enter a date: DD-MM-YYYY</value>
+    <value>Enter a date: dd-MM-yyyy</value>
   </data>
   <data name="WPF_SaveDelete" xml:space="preserve">
     <value>Backup name or number</value>
