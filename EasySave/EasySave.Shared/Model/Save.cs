@@ -77,9 +77,6 @@ public abstract class SaveStrategy
         var settings = JsonSerializer.Deserialize<Dictionary<string, object>>(settingsJson);
 
 
-        // TO MODIFY : avoid creating a directory if the calculator is launched from the start
-        // ADD : reading the settings json file for the name of the business CalculatorApp
-        //string calculatorProcessName = settings["UserInputSettingsSoftware"];
         string processName = settings["UserInputSettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
 
@@ -127,7 +124,6 @@ public abstract class SaveStrategy
             else
             {
                 throw new InvalidOperationException("Le processus métier est en cours d'exécution. Opération annulée.");
-
             }
         }
 
@@ -213,6 +209,10 @@ public class DifferentialSave : SaveStrategy
         catch (DirectoryNotFoundException directoryNotFound)
         {
             Console.WriteLine("The source directory path of the save is valid but does not exist." + directoryNotFound.Message);
+        }
+        catch (InvalidOperationException message)
+        {
+            throw new InvalidOperationException(message.Message);
         }
         catch
         {
