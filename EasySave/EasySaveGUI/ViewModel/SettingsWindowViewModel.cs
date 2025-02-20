@@ -60,8 +60,9 @@ namespace EasySaveGUI.ViewModel
             try
             {
                 ChooseExtension();
-                var settings = new { 
-                    UserInputSettingsSoftware = InputSettingsSoftware
+                var settings = new {
+                    UserInputSettingsSoftware = InputSettingsSoftware,
+                    ExtensionSelected = Extensions
                 };
 
                 string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
@@ -89,10 +90,6 @@ namespace EasySaveGUI.ViewModel
 
             Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            foreach (var ext in Extensions)
-            {
-                MessageBox.Show(ext);
-            }
         }
 
     }
