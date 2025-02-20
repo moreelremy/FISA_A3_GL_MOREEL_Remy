@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using CryptoSoft;
 
 /// <summary>
 /// Represents a backup save operation, containing details about the source, target, and strategy used.
@@ -113,7 +114,8 @@ public class FullSave : SaveStrategy
                 if (true)// to replace 
                 {
                     DateTime startFilencryption = DateTime.UtcNow;
-                    //use cryptosoft lib
+                    Console.WriteLine(Path.GetFullPath(target));
+                    Crypt.Encrypt(target, "b6b1f3a002ee5ef1856b716e06bf3298b6e94fe15471098edc3a4278b9e35d3");
                     DateTime stopFilencryption = DateTime.UtcNow;
                     encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
                 }
@@ -224,7 +226,7 @@ public class DifferentialSave : SaveStrategy
                 if (true)// to replace 
                 {
                     DateTime startFilencryption = DateTime.UtcNow;
-                    //use cryptosoft lib
+                    Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
                     DateTime stopFilencryption = DateTime.UtcNow;
                     encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
                 }
