@@ -5,6 +5,18 @@ class Controller
 {
     static void Main(string[] args)
     {
+        IView objView;
+        switch (args[0])
+        {
+            case "Console":
+                objView = new ViewBasic();
+                break;
+
+            default:
+                objView = new ViewBasic();
+                break;
+        }
+
         SaveRepository saveRepository = new SaveRepository();
         SaveStrategyFactory saveStrategyFactory = new SaveStrategyFactory();
 
@@ -29,7 +41,7 @@ class Controller
                 });
             }
         }
-        IView objView = new ViewBasic();
+
         while (true)
         {
             string response = objView.ShowMenu();
