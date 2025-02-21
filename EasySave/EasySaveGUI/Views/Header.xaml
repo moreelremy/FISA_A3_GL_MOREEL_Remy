@@ -31,29 +31,34 @@
         Width="50" 
         Height="50" 
         Background="White" 
-        Foreground="{StaticResource MaCouleurPrincipale}" 
-        BorderThickness="2" 
-        FontSize="33" 
-        Content="X" 
         Click="ButtonLeaveClick" 
         FlowDirection="RightToLeft" 
         Margin="897,27,0,0" 
         HorizontalContentAlignment="Center" 
         VerticalContentAlignment="Center" 
-        FontWeight="Bold" 
         HorizontalAlignment="Left" 
-        VerticalAlignment="Top" FontFamily="Arial">
+        VerticalAlignment="Top" 
+        FontFamily="Arial">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
                     BorderBrush="{StaticResource MaCouleurPrincipale}"
                     BorderThickness="2"
                     CornerRadius="16">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Grid Margin="10,8,10,8">
+                            <!-- Demi-cercle ouvert vers le bas avec une barre verticale plus courte -->
+                            <Path Data="M 2 10 A 10 10 0 1 0 14 10 M 8 5 L 8 16" 
+                          Stroke="{StaticResource MaCouleurPrincipale}"
+                          StrokeThickness="4" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" 
+                          Stretch="Fill" Margin="-1,0,0,0"/>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
 
 
 
