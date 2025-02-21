@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using static Logs;
+using static Data;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 

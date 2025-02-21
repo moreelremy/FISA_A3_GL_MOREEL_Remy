@@ -1,7 +1,8 @@
 using EasySaveLogger;
 using System.Globalization;
+using System.Text.Json;
 
-public static class Logs
+public static class Data
 {
     /// <summary>
     /// use to enter daily logs
@@ -108,4 +109,28 @@ public static class Logs
             },
             $"RealTime/state.{logFileExtension}");
     }
+
+
+
+    /// <summary>
+    /// Load the settings from the settings.json file for example
+    /// </summary>
+    public static Dictionary<string, object> LoadFromJson(string settingsFilePath)
+    {
+
+        string settingsJson = File.ReadAllText(settingsFilePath);
+        return JsonSerializer.Deserialize<Dictionary<string, object>>(settingsJson);
+
+    }
+
+    /// <summary>
+    /// write the settings in the settings.json file
+    /// </summary>
+    public static void WriteInJson(object settings, string settingsFilePath)
+    {
+        string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(settingsFilePath, jsonString);
+
+    }
+
 }

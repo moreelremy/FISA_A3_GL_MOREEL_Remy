@@ -42,7 +42,7 @@ public abstract class SaveStrategy
         int encryptionTime;
         encryptionTime = commonSaveDirectory(save.sourceDirectory, string.Concat(save.targetDirectory, target), save.name, totalFilesToCopy, totalFileSize, totalFilesToCopy, totalFileSize, save.logFileExtension, 0);
         // Log the end of the save in the real-time log
-        Logs.RealTimeLog(
+        Data.RealTimeLog(
             saveName: save.name,
             sourcePath: "",
             targetPath: "",
@@ -58,7 +58,7 @@ public abstract class SaveStrategy
         DateTime endSave = DateTime.UtcNow;
         // Calculate the time taken to save
         int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-        Logs.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
+        Data.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
     }
 
     /// <summary>
@@ -74,8 +74,7 @@ public abstract class SaveStrategy
             Directory.CreateDirectory(targetDirectory);
         }
 
-        string settingsJson = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        var settings = JsonSerializer.Deserialize<Dictionary<string, object>>(settingsJson);
+        var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
 
         string processName = settings["UserInputSettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
@@ -110,7 +109,7 @@ public abstract class SaveStrategy
                     nbFilesLeftToDo -= 1;
                     filesSizeLeftToDo -= fileSize;
                     // Log the file copy in the real-time log
-                    Logs.RealTimeLog(
+                    Data.RealTimeLog(
                         saveName: saveName,
                         sourcePath: file,
                         targetPath: target,
@@ -127,7 +126,7 @@ public abstract class SaveStrategy
             }
             else
             {
-                throw new InvalidOperationException("Le processus métier est en cours d'exécution. Opération annulée.");
+                throw new InvalidOperationException("Le processus mï¿½tier est en cours d'exï¿½cution. Opï¿½ration annulï¿½e.");
             }
         }
 
