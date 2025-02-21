@@ -9,7 +9,6 @@ namespace EasySaveGUI
 {
     public partial class SettingsWindow : Window
     {
-      
         public SettingsWindow()
         {
             InitializeComponent();

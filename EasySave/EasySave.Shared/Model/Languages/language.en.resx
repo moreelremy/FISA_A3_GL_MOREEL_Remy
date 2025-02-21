@@ -399,4 +399,11 @@
   <data name="Controller_SaveExecutionErrorProcessRunning" xml:space="preserve">
     <value>The business process is running. Operation canceled.</value>
   </data>
+  <data name="WPF_SettingSaturationLimit" xml:space="preserve">
+    <value>Limit before saturation
+(ko)</value>
+  </data>
+  <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
+    <value>Extension to prioritize</value>
+  </data>
 </root>
