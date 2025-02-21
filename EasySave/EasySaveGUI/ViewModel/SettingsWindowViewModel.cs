@@ -77,8 +77,8 @@ namespace EasySaveGUI.ViewModel
             {
                 if (File.Exists(settingsFilePath))
                 {
-                    string settingsJson = File.ReadAllText(settingsFilePath);
-                    var settings = JsonSerializer.Deserialize<Dictionary<string, object>>(settingsJson);
+
+                    var settings = Data.LoadFromJson(settingsFilePath);
 
                     if (settings != null)
                     {
@@ -121,8 +121,7 @@ namespace EasySaveGUI.ViewModel
                     ExtensionSelected = Extensions
                 };
 
-                string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(settingsFilePath, jsonString);
+                Data.WriteInJson(settings, settingsFilePath);
 
                 MessageBox.Show("Setting saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -139,13 +138,10 @@ namespace EasySaveGUI.ViewModel
         {
             string extensionsEntry = InputSettingsExtension;
 
-            if (string.IsNullOrWhiteSpace(extensionsEntry))
+            if (!string.IsNullOrWhiteSpace(extensionsEntry))
             {
-                MessageBox.Show("Veuillez entrer des extensions.");
-                return;
+                Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
             }
-
-            Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
         }
     }
 }

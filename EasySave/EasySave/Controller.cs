@@ -164,7 +164,7 @@ class Controller
                             break;
                         }
 
-                        List<Dictionary<string, object>> logLines = Logs.ReadGeneralLog(files);
+                        List<Dictionary<string, object>> logLines = Data.ReadGeneralLog(files);
                         if (logLines.Count >= 10)
                         {
 
