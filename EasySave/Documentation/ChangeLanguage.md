@@ -1,43 +1,43 @@
-# PROJET EASYSAVE - CHANGER DE LANGUE
-[Retour](../UserDocumentation.md)
+# PROJET EASYSAVE - CHANGER DE LANGUE  
+[Retour](../UserDocumentation.md)  
 
-</br>
+</br>  
 
-CONSOLE :
+## CONSOLE :  
 
-Pour modifier la langue de l’application EasySave 1.1 :
+Pour modifier la langue de l’application EasySave 1.1 :  
 
-- Accédez au menu "Changer de langue".
-- Sélectionnez la langue souhaitée parmi les options disponibles :
-    - FR – Français
-    - EN – Anglais
-    - RU – Russe
+- Accédez au menu "Changer de langue".  
+- Sélectionnez la langue souhaitée parmi les options disponibles :  
+  - FR – Français  
+  - EN – Anglais  
+  - RU – Russe  
 
-Une fois la langue sélectionnée, l’application s’adapte immédiatement et vous êtes redirigé vers le menu principal.
+Une fois la langue sélectionnée, l’application s’adapte immédiatement et vous êtes redirigé vers le menu principal.  
 
----
+---  
 
-INTERFACE GRAPHIQUE :
+## INTERFACE GRAPHIQUE :  
 
-Pour modifier la langue de l’application EasySave 2.0 :
+Pour modifier la langue de l’application EasySave 2.0 :  
 
-- Accédez au menu.
-- Sélectionnez la langue souhaitée parmi les options disponibles dans la liste déroulante en haut a droite :
-    - FR – Français
-    - EN – Anglais
-    - RU – Russe
+- Accédez au menu.  
+- Sélectionnez la langue souhaitée parmi les options disponibles dans la liste déroulante en haut à droite :  
+  - FR – Français  
+  - EN – Anglais  
+  - RU – Russe  
 
-Une fois la langue sélectionnée, l’application s’adapte immédiatement.
+Une fois la langue sélectionnée, l’application s’adapte immédiatement.  
 
-</br>
-</br>
+</br>  
+</br>  
 
 # **EASYSAVE PROJECT - CHANGE LANGUAGE**  
-[Back](../UserDocumentation.md)
+[Back](../UserDocumentation.md)  
 
-</br>
+</br>  
 
-**CONSOLE:**  
+## **CONSOLE:**  
 
 To change the language of the EasySave 1.1 application:  
 
@@ -50,7 +50,8 @@ To change the language of the EasySave 1.1 application:
 Once the language is selected, the application adapts immediately, and you are redirected to the main menu.  
 
 ---  
-**GRAPHICAL INTERFACE:**  
+
+## **GRAPHICAL INTERFACE:**  
 
 To change the language of the EasySave 2.0 application:  
 
