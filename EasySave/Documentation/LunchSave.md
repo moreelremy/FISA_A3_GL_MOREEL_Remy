@@ -1,51 +1,53 @@
-# PROJET EASYSAVE - LANCER UNE SAUVEGARDE
-[Retour](../UserDocumentation.md)
+# PROJET EASYSAVE - LANCER UNE SAUVEGARDE  
+[Retour](../UserDocumentation.md)  
 
-</br>
+</br>  
 
-CONSOLE :
+## CONSOLE :  
 
-Pour exécuter une sauvegarde dans EasySave 1.1, suivez ces étapes :
+Pour exécuter une sauvegarde dans EasySave 1.1, suivez ces étapes :  
 
-#### - Choix des sauvegardes :
+#### - Choix des sauvegardes :  
 
-Saisissez le numéro des sauvegardes à exécuter.
-Vous pouvez entrer plusieurs numéros séparés par un __';'__ (ex : 1;3 pour exécuter les sauvegardes 1 et 3).
-Vous pouvez exécuter une plage de sauvegardes avec __'-'__ (ex : 1-3 pour exécuter les sauvegardes 1, 2 et 3).
-#### - Type d'exécution :
+Saisissez le numéro des sauvegardes à exécuter.  
+Vous pouvez entrer plusieurs numéros séparés par un **';'** (ex : `1;3` pour exécuter les sauvegardes 1 et 3).  
+Vous pouvez exécuter une plage de sauvegardes avec **'-'** (ex : `1-3` pour exécuter les sauvegardes 1, 2 et 3).  
 
-[1] Partielle : Exécute uniquement les sauvegardes sélectionnées.
-[2] Globale : Exécute toutes les sauvegardes enregistrées.
+#### - Type d'exécution :  
 
-Choisissez l'option qui vous convient.
+[1] **Partielle** : Exécute uniquement les sauvegardes sélectionnées.  
+[2] **Globale** : Exécute toutes les sauvegardes enregistrées.  
 
----
+Choisissez l'option qui vous convient.  
 
-INTERFACE GRAPHIQUE :
 
-Pour exécuter une sauvegarde dans EasySave 2.0, suivez ces étapes :
 
-#### - Choix des sauvegardes :
+## INTERFACE GRAPHIQUE :  
 
-Saisissez le numéro des sauvegardes à exécuter.
-Vous pouvez entrer plusieurs numéros séparés par un __';'__ (ex : 1;3 pour exécuter les sauvegardes 1 et 3).
-Vous pouvez exécuter une plage de sauvegardes avec __'-'__ (ex : 1-3 pour exécuter les sauvegardes 1, 2 et 3).
-#### - Type d'exécution :
+Pour exécuter une sauvegarde dans EasySave 2.0, suivez ces étapes :  
 
-Partielle : Exécute uniquement les sauvegardes sélectionnées.
-Globale : Exécute toutes les sauvegardes enregistrées.
+#### - Choix des sauvegardes :  
 
-Cliquez sur le bouton associé à votre choix.
+Saisissez le numéro des sauvegardes à exécuter.  
+Vous pouvez entrer plusieurs numéros séparés par un **';'** (ex : `1;3` pour exécuter les sauvegardes 1 et 3).  
+Vous pouvez exécuter une plage de sauvegardes avec **'-'** (ex : `1-3` pour exécuter les sauvegardes 1, 2 et 3).  
 
-</br>
-</br>
+#### - Type d'exécution :  
+
+**Partielle** : Exécute uniquement les sauvegardes sélectionnées.  
+**Globale** : Exécute toutes les sauvegardes enregistrées.  
+
+Cliquez sur le bouton associé à votre choix.  
+
+</br>  
+</br>  
 
 # **EASYSAVE PROJECT - RUN A BACKUP**  
-[Back](../UserDocumentation.md)
+[Back](../UserDocumentation.md)  
 
-</br>
+</br>  
 
-**CONSOLE:**  
+## **CONSOLE:**  
 
 To execute a backup in EasySave 1.1, follow these steps:  
 
@@ -62,9 +64,9 @@ You can execute a range of backups using **'-'** (e.g., `1-3` to execute backups
 
 Choose the option that suits you.  
 
----  
 
-**GRAPHICAL INTERFACE:**  
+
+## GRAPHICAL INTERFACE:  
 
 To execute a backup in EasySave 2.0, follow these steps:  
 
