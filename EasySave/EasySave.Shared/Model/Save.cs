@@ -77,10 +77,8 @@ public abstract class SaveStrategy
         string settingsJson = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
         var settings = JsonSerializer.Deserialize<Dictionary<string, object>>(settingsJson);
 
-
         string processName = settings["UserInputSettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
-
 
         var extensionsJson = (JsonElement)settings["ExtensionSelected"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
@@ -93,39 +91,21 @@ public abstract class SaveStrategy
             if (!isProcessRunning)
             {
                 // Copy the file if it has been modified since the last save
-
-
-
                 string target = Path.Combine(targetDirectory, Path.GetFileName(file));
-
-                string fileExtension = Path.GetExtension(target).TrimStart('.') ;
-
-                bool isExtensionSelected = false;
-
-                foreach (var selectedExentions in extensions)
-                {
-                    if (fileExtension == selectedExentions)
-                    {
-                        isExtensionSelected = true;
-                    }
-                    Console.WriteLine(isExtensionSelected);
-                    Console.WriteLine(fileExtension);
-                    Console.WriteLine(selectedExentions);
-                }
-                Console.ReadLine();
+                string fileExtension = Path.GetExtension(target).TrimStart('.');
 
                 if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
                 {
                     File.Copy(file, target, true);
 
-
-                    if (isExtensionSelected)// to replace check si extension
+                    if (extensions.Contains(fileExtension))
                     {
                         DateTime startFilencryption = DateTime.UtcNow;
                         Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
                         DateTime stopFilencryption = DateTime.UtcNow;
                         encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
                     }
+
                     long fileSize = new FileInfo(file).Length;
                     nbFilesLeftToDo -= 1;
                     filesSizeLeftToDo -= fileSize;
@@ -154,9 +134,12 @@ public abstract class SaveStrategy
         // Copy all subdirectories in the source directory to the target directory
         foreach (string directory in Directory.GetDirectories(sourceDirectory))
         {
-            string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-            encryptionTime = commonSaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension, encryptionTime, lastChangeDateTime);
-            (nbFilesLeftToDo, filesSizeLeftToDo) = SaveDirectory(target, nbFilesLeftToDo, filesSizeLeftToDo, lastChangeDateTime);
+            if (directory != Path.Combine(sourceDirectory,saveName))
+            {
+                string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
+                encryptionTime = commonSaveDirectory(directory, target, saveName, totalFilesToCopy, totalFileSize, nbFilesLeftToDo, filesSizeLeftToDo, logFileExtension, encryptionTime, lastChangeDateTime);
+                (nbFilesLeftToDo, filesSizeLeftToDo) = SaveDirectory(target, nbFilesLeftToDo, filesSizeLeftToDo, lastChangeDateTime);
+            }
         }
 
         return encryptionTime;
