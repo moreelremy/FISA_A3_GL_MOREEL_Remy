@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using static Logs;
+using static Data;
 
 namespace EasySaveGUI.ViewModel
 {
