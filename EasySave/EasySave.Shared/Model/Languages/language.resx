@@ -400,4 +400,10 @@
   <data name="Controller_SaveExecutionErrorProcessRunning" xml:space="preserve">
     <value>Le processus métier est en cours d'exécution. Opération annulée.</value>
   </data>
+  <data name="WPF_SettingSaturationLimit" xml:space="preserve">
+    <value>Limite avant saturation (ko)</value>
+  </data>
+  <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
+    <value>Extension à prioriser</value>
+  </data>
 </root>

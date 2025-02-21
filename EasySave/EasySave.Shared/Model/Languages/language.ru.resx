@@ -399,4 +399,10 @@
   <data name="Controller_SaveExecutionErrorProcessRunning" xml:space="preserve">
     <value>Бизнес-процесс запущен. Операция отменена.</value>
   </data>
+  <data name="WPF_SettingSaturationLimit" xml:space="preserve">
+    <value>предел до насыщения</value>
+  </data>
+  <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
+    <value>Расширение для определ</value>
+  </data>
 </root>

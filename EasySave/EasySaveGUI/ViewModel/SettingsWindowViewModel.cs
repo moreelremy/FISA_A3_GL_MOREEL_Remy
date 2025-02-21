@@ -84,7 +84,7 @@ namespace EasySaveGUI.ViewModel
                     {
                         if (settings.TryGetValue("UserInputSettingsSoftware", out var softwareValue))
                         {
-                            InputSettingsSoftware = softwareValue.ToString().Replace(" ", "");
+                            InputSettingsSoftware = softwareValue.ToString().Trim();
                         }
 
                         if (settings.TryGetValue("ExtensionSelected", out var extensionsValue) && extensionsValue is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Array)
