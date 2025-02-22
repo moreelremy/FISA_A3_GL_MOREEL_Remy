@@ -382,7 +382,7 @@
     <value>Программное обеспечение для бизнеса:</value>
   </data>
   <data name="WPF_SettingExtensionToCrypt" xml:space="preserve">
-    <value>Расширение для шифрования:</value>
+    <value>Расширение для</value>
   </data>
   <data name="WPF_SettingApply" xml:space="preserve">
     <value>Настройки</value>
@@ -404,5 +404,26 @@
   </data>
   <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
     <value>Расширение для определ</value>
+  </data>
+  <data name="Controller_AskSettings" xml:space="preserve">
+    <value>Введите номер параметра, который вы хотите изменить</value>
+  </data>
+  <data name="Controller_SettingIncorrect" xml:space="preserve">
+    <value>Неверный выбор. Пожалуйста, введите допустимое число от 1 до 4.</value>
+  </data>
+  <data name="Controller_EnterSoftware" xml:space="preserve">
+    <value>Введите новое программное обеспечение для бизнеса</value>
+  </data>
+  <data name="Controller_EnterExtensionCrypt" xml:space="preserve">
+    <value>Введите новые расширения для шифрования (разделенные ;)</value>
+  </data>
+  <data name="Controller_EnterExtensionPrio" xml:space="preserve">
+    <value>Введите новые расширения для определения приоритета</value>
+  </data>
+  <data name="Controller_EnterLimitKo" xml:space="preserve">
+    <value>Введите новый предел насыщения (в КБ)</value>
+  </data>
+  <data name="Controller_SettingsUpdated" xml:space="preserve">
+    <value>Настройки обновлены и сохранены.</value>
   </data>
 </root>
