@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.RegularExpressions;
+using EasySaveConsole;
 
 class Controller
 {
@@ -198,7 +199,55 @@ class Controller
                         break;
 
                     case "5":
-                            break;
+
+                        bool continueInSettings = true;
+
+                        while (continueInSettings)
+                        {
+                            Settings appSettings = Settings.LoadSettings();
+                            Console.Clear();
+                            // Afficher les paramètres actuels avec un menu de modification
+                            objView.DisplaySettingsMenu(appSettings);
+
+                            int parameterChoice = -1;
+
+                            // Demander à l'utilisateur de choisir un paramètre à modifier
+                            while (parameterChoice < 1 || parameterChoice > 4)
+                            {
+                                string input = InputHelper.ReadLineNotNull(Language.GetString("Controller_AskSettings") +" : ");
+                                if (int.TryParse(input, out parameterChoice) && parameterChoice >= 1 && parameterChoice <= 4)
+                                {
+                                    break;
+                                }
+                                objView.Output(Language.GetString("Controller_SettingIncorrect"));
+                            }
+
+                            // Modifier le paramètre choisi
+                            switch (parameterChoice)
+                            {
+                                case 1:
+                                    appSettings.UserInputSettingsSoftware = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterSoftware")+" : ");
+                                    break;
+                                case 2:
+                                    string newExtensions = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionCrypt")+" : ");
+                                    appSettings.ExtensionSelected = newExtensions.Split(',').ToList();
+                                    break;
+                                case 3:
+                                    appSettings.ExtensionToPrioritize = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionPrio")+" : ");
+                                    break;
+                                case 4:
+                                    appSettings.SettingSaturationLimit = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterLimitKo")+" : ");
+                                    break;
+                            }
+
+                            // Sauvegarder les paramètres modifiés (si une modification a eu lieu)
+                            appSettings.SaveSettings();
+                            objView.Output(Language.GetString("Controller_SettingsUpdated"));
+                            Thread.Sleep(1000);
+
+                        }
+
+                        break;
 
 
 
