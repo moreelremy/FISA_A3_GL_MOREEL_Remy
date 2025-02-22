@@ -198,11 +198,16 @@ class Controller
                         break;
 
                     case "5":
+                            break;
+
+
+
+                    case "6":
                         // Change the language with the model
                         Language.SetLanguage(objView.GetLanguageChoice());
                         break;
 
-                    case "6":
+                    case "7":
                         string pathFile = Path.Combine(Directory.GetCurrentDirectory(), "../../../../RepositoryState.json");
                         if (File.Exists(pathFile))
                         {

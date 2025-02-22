@@ -406,4 +406,7 @@
   <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
     <value>Extension à prioriser</value>
   </data>
+  <data name="View_AccessSettings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
 </root>

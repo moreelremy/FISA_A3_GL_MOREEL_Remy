@@ -38,8 +38,9 @@ class ViewBasic : IView
         Console.WriteLine($"    [2]: {Language.GetString("View_StartBackup")}");
         Console.WriteLine($"    [3]: {Language.GetString("View_ViewAllSaves")}");
         Console.WriteLine($"    [4]: {Language.GetString("ControllerView_ViewLogs")}");
-        Console.WriteLine($"    [5]: {Language.GetString("View_ChangeLanguage")}");
-        Console.WriteLine($"    [6]: {Language.GetString("View_ExitApp")}\n\n");
+        Console.WriteLine($"    [5]: {Language.GetString("View_AccessSettings")}");
+        Console.WriteLine($"    [6]: {Language.GetString("View_ChangeLanguage")}");
+        Console.WriteLine($"    [7]: {Language.GetString("View_ExitApp")}\n\n");
 
         return InputHelper.ReadLineNotNull(Language.GetString("View_EnterNumber"), allowReturnToMenu: false);
     }
@@ -364,4 +365,8 @@ class ViewBasic : IView
         Console.WriteLine($"TransferTimeMs: {log["transferTimeMs"]}");
         Console.WriteLine("══════════════════════════════");
     }
+
+
+
+
 }
