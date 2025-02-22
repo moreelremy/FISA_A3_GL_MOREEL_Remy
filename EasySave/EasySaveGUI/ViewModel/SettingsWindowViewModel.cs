@@ -14,18 +14,16 @@ namespace EasySaveGUI.ViewModel
     {
         private string _inputSettingsSoftware;
         private string _inputSettingsExtension;
+        private string _inputSettingsExtensionToPrioritize;
+        private string _inputSaturationLimit;
         private List<string> _extensions;
         private readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
 
         public ICommand ApplySettingCommand { get; }
 
-
-        /// <summary>
-        /// The extensions to save
-        /// </summary>
         public List<string> Extensions
         {
-            get => _extensions;
+            get => _extensions ?? new List<string>();
             set
             {
                 _extensions = value;
@@ -33,12 +31,9 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        /// <summary>
-        /// The extension to save
-        /// </summary>
         public string InputSettingsExtension
         {
-            get => _inputSettingsExtension;
+            get => _inputSettingsExtension ?? string.Empty;
             set
             {
                 _inputSettingsExtension = value;
@@ -46,12 +41,9 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        /// <summary>
-        /// The software to save
-        /// </summary>
         public string InputSettingsSoftware
         {
-            get => _inputSettingsSoftware;
+            get => _inputSettingsSoftware ?? string.Empty;
             set
             {
                 _inputSettingsSoftware = value;
@@ -59,38 +51,61 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
+        public string InputSettingsExtensionToPrioritize
+        {
+            get => _inputSettingsExtensionToPrioritize ?? string.Empty;
+            set
+            {
+                _inputSettingsExtensionToPrioritize = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string InputSaturationLimit
+        {
+            get => _inputSaturationLimit ?? string.Empty;
+            set
+            {
+                _inputSaturationLimit = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SettingsWindowViewModel()
         {
             ApplySettingCommand = new RelayCommand(_ => ApplySettings());
             LoadSettingsFromJson();
         }
 
-        /// <summary>
-        /// Load the settings from the settings.json file
-        /// </summary>
         private void LoadSettingsFromJson()
         {
             try
             {
                 if (File.Exists(settingsFilePath))
                 {
-
                     var settings = Data.LoadFromJson(settingsFilePath);
 
                     if (settings != null)
                     {
                         if (settings.TryGetValue("UserInputSettingsSoftware", out var softwareValue))
                         {
-                            InputSettingsSoftware = softwareValue.ToString().Trim();
+                            InputSettingsSoftware = softwareValue?.ToString().Trim() ?? string.Empty;
                         }
 
                         if (settings.TryGetValue("ExtensionSelected", out var extensionsValue) && extensionsValue is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Array)
                         {
-                            Extensions = jsonElement.EnumerateArray().Select(e => e.GetString().Replace(" ", "")).ToList();
+                            Extensions = jsonElement.EnumerateArray().Select(e => e.GetString()?.Replace(" ", "") ?? string.Empty).ToList();
                             InputSettingsExtension = string.Join(";", Extensions);
+                        }
+
+                        if (settings.TryGetValue("ExtensionToPrioritize", out var prioritizeValue))
+                        {
+                            InputSettingsExtensionToPrioritize = prioritizeValue?.ToString().Trim() ?? string.Empty;
+                        }
+
+                        if (settings.TryGetValue("SettingSaturationLimit", out var saturationValue))
+                        {
+                            InputSaturationLimit = saturationValue?.ToString().Trim() ?? string.Empty;
                         }
                     }
                 }
@@ -101,9 +116,6 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        /// <summary>
-        /// Save the settings in the settings.json file
-        /// </summary>
         private void ApplySettings()
         {
             if (string.IsNullOrWhiteSpace(InputSettingsSoftware))
@@ -118,11 +130,12 @@ namespace EasySaveGUI.ViewModel
                 var settings = new
                 {
                     UserInputSettingsSoftware = InputSettingsSoftware,
-                    ExtensionSelected = Extensions
+                    ExtensionSelected = Extensions,
+                    ExtensionToPrioritize = string.IsNullOrWhiteSpace(InputSettingsExtensionToPrioritize) ? null : InputSettingsExtensionToPrioritize,
+                    SettingSaturationLimit = string.IsNullOrWhiteSpace(InputSaturationLimit) ? null : InputSaturationLimit
                 };
 
                 Data.WriteInJson(settings, settingsFilePath);
-
                 MessageBox.Show("Setting saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -131,9 +144,6 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        /// <summary>
-        /// Choose the extension to save
-        /// </summary>
         private void ChooseExtension()
         {
             string extensionsEntry = InputSettingsExtension;
