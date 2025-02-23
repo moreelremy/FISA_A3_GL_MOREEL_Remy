@@ -120,35 +120,9 @@ namespace EasySaveGUI.ViewModel
                 MessageBox.Show("No saves available to execute.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            // Reset tokens for a new execution.
-            _cts = new CancellationTokenSource();
-            _pauseEvent.Set(); // ensure not paused
-
-            foreach (var save in Saves.ToList())
-            {
-                try
-                {
-                    await Task.Run(() =>
-                    {
-                        string errorMessage;
-                        if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, UpdateProgress, out errorMessage))
-                        {
-                            throw new Exception(errorMessage);
-                        }
-                    }, _cts.Token);
-                    MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (OperationCanceledException)
-                {
-                    MessageBox.Show($"Save '{save.name}' was cancelled.", "Stopped", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            SendToSave(Saves.ToList());
         }
+
 
         private async void ExecutePartialSave()
         {
@@ -240,35 +214,62 @@ namespace EasySaveGUI.ViewModel
                 return;
             }
 
-            // Reset tokens for new execution.
-            _cts = new CancellationTokenSource();
-            _pauseEvent.Set();
+            SendToSave(savesToExecute);
+        }
 
-            // Execute each selected save asynchronously.
-            foreach (var save in savesToExecute)
+
+        private async void SendToSave(List<Save> saveToExecute)
+        {
+
+            // Reset tokens for a new execution.
+            _cts = new CancellationTokenSource();
+            _pauseEvent.Set(); // ensure not paused
+            var semaphore = new SemaphoreSlim(3);
+            var tasks = new List<Task>();
+
+            foreach (var save in Saves.ToList())
             {
-                try
+                tasks.Add(Task.Run(async () =>
                 {
-                    await Task.Run(() =>
+                    await semaphore.WaitAsync(_cts.Token);
+                    try
                     {
                         string errorMessage;
+                        _pauseEvent.Wait(); // Attend la reprise si pause active
+
                         if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, UpdateProgress, out errorMessage))
                         {
                             throw new Exception(errorMessage);
                         }
-                    }, _cts.Token);
-                    MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (OperationCanceledException)
-                {
-                    MessageBox.Show($"Save '{save.name}' was cancelled.", "Stopped", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                        MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                }, _cts.Token));
+            }
+
+            try
+            {
+                await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
+                MessageBox.Show("All saves executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Backup process was cancelled.", "Stopped", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
+
+
+
+
 
         // Callback to update progress (bound to the Progress property).
         private void UpdateProgress(int progressPercentage)
