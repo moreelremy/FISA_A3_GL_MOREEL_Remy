@@ -90,36 +90,42 @@
                 Style="{StaticResource CustomButtonStyle}"
                 Command="{Binding ExecuteGlobalSaveCommand}"/>
 
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="577,343,0,0"
-                Background="#FFB5B5B5" BorderBrush="Black" Style="{StaticResource CustomButtonStyle}">
+            <!-- Play Button -->
+            <Button x:Name="ButtonPlay"
+        Command="{Binding ResumeCommand}"
+        HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="577,343,0,0"
+        Background="#FFB5B5B5" BorderBrush="Black" Style="{StaticResource CustomButtonStyle}">
                 <Button.Content>
-                    <!-- Icône Play -->
                     <Path Data="M 0 0 L 20 10 L 0 20 Z" Fill="Black" Width="25" Height="31" Stretch="Fill"/>
                 </Button.Content>
             </Button>
 
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="672,343,0,0"
-                Background="#FFB5B5B5" BorderBrush="Black" Style="{StaticResource CustomButtonStyle}">
+            <!-- Pause Button -->
+            <Button x:Name="ButtonPause"
+        Command="{Binding PauseCommand}"
+        HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="672,343,0,0"
+        Background="#FFB5B5B5" BorderBrush="Black" Style="{StaticResource CustomButtonStyle}">
                 <Button.Content>
-                    <!-- Icône Pause -->
                     <Path Data="M 0 0 H 8 V 20 H 0 Z M 12 0 H 20 V 20 H 12 Z" Fill="Black" Width="20" Height="25" Stretch="Fill"/>
                 </Button.Content>
             </Button>
 
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="767,343,0,0"
-                Background="#FFB5B5B5" BorderBrush="Black" Style="{StaticResource CustomButtonStyle}">
+            <!-- Stop Button -->
+            <Button x:Name="ButtonStop"
+        Command="{Binding StopCommand}"
+        HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="767,343,0,0"
+        Background="#FFB5B5B5" BorderBrush="Black" Style="{StaticResource CustomButtonStyle}">
                 <Button.Content>
-                    <!-- Icône Stop -->
                     <Path Data="M 0 0 H 20 V 20 H 0 Z" Fill="Black" Width="25" Height="25" Stretch="Fill"/>
                 </Button.Content>
             </Button>
 
-            <ProgressBar Minimum="0" Maximum="100" Value="75" Margin="561,412,140,69" 
+            <ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="561,412,140,69" 
              Foreground="#4F14AD" BorderBrush="Black" BorderThickness="2"/>
-            <TextBlock 
-                   Text="75%" 
-                   Foreground="White" FontSize="14" 
-                   Width="272" Height="33" Margin="561,419,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock Text="{Binding Progress, StringFormat={}{0}%}" 
+           Foreground="White" FontSize="14" Width="272" Height="33" Margin="561,419,0,0"
+           VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold" TextAlignment="Center"/>
+
 
 
 
