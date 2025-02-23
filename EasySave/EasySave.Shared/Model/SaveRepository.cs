@@ -61,7 +61,7 @@ public class SaveRepository
     /// <summary>
     /// Executes the selected save operation and updates the JSON file.
     /// </summary>
-    public bool ExecuteSave(Save save, out string errorMessage)
+    public bool ExecuteSave(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, out string errorMessage)
     {
         try
         {
@@ -70,17 +70,21 @@ public class SaveRepository
                 errorMessage = string.Format(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
                 return false;
             }
+            // Use a new Save method that supports cancellation/pause
+            save.saveStrategy.Save(save, token, pauseEvent, progressCallback);
 
-            save.saveStrategy.Save(save);
-            
             errorMessage = null;
             return true;
+        }
+        catch (OperationCanceledException)
+        {
+            errorMessage = "Operation cancelled.";
+            return false;
         }
         catch (InvalidOperationException message)
         {
             errorMessage = string.Format(Language.GetString("Controller_SaveExecutionErrorProcessRunning"), save.name, message.Message);
             return false;
-
         }
         catch (Exception ex)
         {
@@ -88,4 +92,5 @@ public class SaveRepository
             return false;
         }
     }
+
 }
