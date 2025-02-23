@@ -76,7 +76,8 @@ class Controller
                                 foreach (int index in saveIndexes)
                                 {
                                     string errorMessage;
-                                    bool success = saveRepository.ExecuteSave(savesToExecute[index], out errorMessage);
+                                    bool success = saveRepository.ExecuteSave(savesToExecute[index], new CancellationToken(), new ManualResetEventSlim(true),
+                                    progress => {/* no-op, or log progress if needed */ }, out errorMessage);
 
                                     if (success)
                                     {
