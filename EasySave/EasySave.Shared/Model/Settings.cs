@@ -21,14 +21,27 @@ namespace EasySaveConsole
                 var settingsData = Data.LoadFromJson(settingsFilePath);
                 return new Settings
                 {
-                    UserInputSettingsSoftware = settingsData.ContainsKey("UserInputSettingsSoftware") ? settingsData["UserInputSettingsSoftware"].ToString() : "",
-                    ExtensionSelected = settingsData.ContainsKey("ExtensionSelected") ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionSelected"].ToString()) : new List<string>(),
-                    ExtensionToPrioritize = settingsData.ContainsKey("ExtensionToPrioritize") ? settingsData["ExtensionToPrioritize"].ToString() : "",
-                    SettingSaturationLimit = settingsData.ContainsKey("SettingSaturationLimit") ? settingsData["SettingSaturationLimit"].ToString() : ""
+                    UserInputSettingsSoftware = settingsData.ContainsKey("UserInputSettingsSoftware")
+                        ? settingsData["UserInputSettingsSoftware"]?.ToString() ?? ""
+                        : "",
+
+                    ExtensionSelected = settingsData.ContainsKey("ExtensionSelected")
+                        ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionSelected"]?.ToString() ?? "[]") ?? new List<string>()
+                        : new List<string>(),
+
+                    ExtensionToPrioritize = settingsData.ContainsKey("ExtensionToPrioritize")
+                        ? settingsData["ExtensionToPrioritize"]?.ToString() ?? ""
+                        : "",
+
+                    SettingSaturationLimit = settingsData.ContainsKey("SettingSaturationLimit")
+                        ? settingsData["SettingSaturationLimit"]?.ToString() ?? ""
+                        : ""
                 };
             }
+
             return new Settings { ExtensionSelected = new List<string>() };
         }
+
 
         public void SaveSettings()
         {
