@@ -1,0 +1,155 @@
+[
+  {
+    "timestamp": "24-02-2025 09:29:49",
+    "saveName": "test2",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test2",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "size": 45,
+    "transferTimeMs": 886,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 09:29:53",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 124,
+    "transferTimeMs": 816,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 09:30:12",
+    "saveName": "test2",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test2",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "size": 79,
+    "transferTimeMs": 656,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 09:30:15",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 237,
+    "transferTimeMs": 997,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 09:30:29",
+    "saveName": "test0",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "size": 45,
+    "transferTimeMs": 413,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 09:30:33",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 271,
+    "transferTimeMs": 1127,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:06:06",
+    "saveName": "test1",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test2",
+    "size": 158,
+    "transferTimeMs": 1562,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:06:09",
+    "saveName": "test2",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test2",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "size": 339,
+    "transferTimeMs": 1434,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:07:09",
+    "saveName": "test0",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "size": 45,
+    "transferTimeMs": 407,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:07:14",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 644,
+    "transferTimeMs": 2373,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:07:25",
+    "saveName": "test1",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test2",
+    "size": 237,
+    "transferTimeMs": 1220,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:07:30",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 678,
+    "transferTimeMs": 2727,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:07:50",
+    "saveName": "test0",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "size": 45,
+    "transferTimeMs": 399,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:07:56",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 712,
+    "transferTimeMs": 2666,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:08:16",
+    "saveName": "test0",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "size": 45,
+    "transferTimeMs": 392,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 10:08:21",
+    "saveName": "test3",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test3",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test4",
+    "size": 746,
+    "transferTimeMs": 2766,
+    "encryptionTimeMs": 0
+  },
+  {
+    "timestamp": "24-02-2025 11:20:25",
+    "saveName": "test1",
+    "source": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test1",
+    "target": "\\\\localhost\\C$\\Users\\axel0\\Desktop\\GL\\projet\\test2",
+    "size": 361,
+    "transferTimeMs": 4723,
+    "encryptionTimeMs": 0
+  }
+]

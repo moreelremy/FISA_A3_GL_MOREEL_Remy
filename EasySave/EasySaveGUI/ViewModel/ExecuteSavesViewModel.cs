@@ -227,7 +227,7 @@ namespace EasySaveGUI.ViewModel
             var semaphore = new SemaphoreSlim(3);
             var tasks = new List<Task>();
 
-            foreach (var save in Saves.ToList())
+            foreach (var save in saveToExecute)
             {
                 tasks.Add(Task.Run(async () =>
                 {
