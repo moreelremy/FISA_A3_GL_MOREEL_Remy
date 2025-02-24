@@ -212,17 +212,26 @@ public abstract class SaveStrategy
 
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
-            // Vérifier si l'opération doit être annulée avant chaque fichier
+            // See if the process is running and pause execution if necessary
             token.ThrowIfCancellationRequested();
 
-            // Vérifier si le processus métier est actif et suspendre l'exécution si nécessaire
+            // Pause the save operation if the process is running
             while (Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
             {
-                pauseEvent.Reset();  // Mettre en pause l'événement manuel
-                pauseEvent.Wait(token); // Attendre que le processus se termine ou qu'une annulation soit demandée
+                pauseEvent.Reset();
+
+                // Look every 100ms if the process is still running
+                for (int i = 0; i < 20; i++) // 20 x 100ms = 2s
+                {
+                    token.ThrowIfCancellationRequested();
+                    Thread.Sleep(100);
+                    if (!Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
+                        break;
+                }
             }
 
-            pauseEvent.Set(); // Reprendre l'exécution
+            pauseEvent.Set(); // Reprendre la sauvegarde
+
 
             string target = Path.Combine(targetDirectory, Path.GetFileName(file));
             string fileExtension = Path.GetExtension(target).TrimStart('.');
