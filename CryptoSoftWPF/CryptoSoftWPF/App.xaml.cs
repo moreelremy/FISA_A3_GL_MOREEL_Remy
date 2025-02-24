@@ -6,27 +6,21 @@ namespace CryptoSoftWPF
 {
     public partial class App : Application
     {
-        // Mutex to prevent multiple instances of the application 
+        private static Mutex mutex; // Stocker la mutex globalement
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            // Mutex to prevent multiple instances of the application
             bool createdNew;
-            using (Mutex mutex = new Mutex(true, "CryptoSoftWPF_Mutex", out createdNew))
+            mutex = new Mutex(true, "CryptoSoft_Global_Mutex", out createdNew);
+
+            if (!createdNew)
             {
-                // If the mutex is already created, it means that the application is already running
-                if (!createdNew)
-                {
-                    MessageBox.Show("CryptoSoft is already running!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    Application.Current.Shutdown();
-                    return;
-                }
-
-                // Start the application if it is not already running
-                base.OnStartup(e);
-
-                // Prevent the mutex from being garbage collected
-                GC.KeepAlive(mutex);
+                MessageBox.Show("CryptoSoft (GUI ou Console) est déjà en cours d'exécution.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Application.Current.Shutdown();
+                return;
             }
+
+            base.OnStartup(e);
         }
     }
 }
