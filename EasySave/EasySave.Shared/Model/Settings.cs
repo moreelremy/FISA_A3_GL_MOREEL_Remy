@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace EasySaveConsole
 {
@@ -27,7 +24,8 @@ namespace EasySaveConsole
                     SettingSaturationLimit = settingsData.ContainsKey("SettingSaturationLimit") ? settingsData["SettingSaturationLimit"].ToString() : ""
                 };
             }
-            return new Settings { 
+            return new Settings
+            {
                 ExtensionToCrypt = new List<string>(),
                 ExtensionToPrioritize = new List<string>()
             };

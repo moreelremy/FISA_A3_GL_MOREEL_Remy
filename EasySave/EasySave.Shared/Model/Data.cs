@@ -1,6 +1,6 @@
-using EasySaveLogger;
 using System.Globalization;
 using System.Text.Json;
+using EasySaveLogger;
 
 public static class Data
 {
@@ -41,9 +41,9 @@ public static class Data
             logs.AddRange(Logger.ReadLog(file));
         }
 
-        return logs.OrderByDescending(log => 
-        log.ContainsKey("timestamp") ? 
-        DateTime.ParseExact(log["timestamp"].ToString(), "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture) : 
+        return logs.OrderByDescending(log =>
+        log.ContainsKey("timestamp") ?
+        DateTime.ParseExact(log["timestamp"].ToString(), "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture) :
         DateTime.MinValue
         ).ToList();
     }
