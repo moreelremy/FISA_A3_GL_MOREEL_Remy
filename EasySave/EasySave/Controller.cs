@@ -230,11 +230,12 @@ class Controller
                                     appSettings.UserInputSettingsSoftware = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterSoftware")+" : ");
                                     break;
                                 case 2:
-                                    string newExtensions = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionCrypt")+" : ");
-                                    appSettings.ExtensionSelected = newExtensions.Split(',').ToList();
+                                    string newExtensionsToCrypt = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
+                                    appSettings.ExtensionToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
                                     break;
                                 case 3:
-                                    appSettings.ExtensionToPrioritize = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionPrio")+" : ");
+                                    string newExtensionToPrioritize = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionPrio") + " : ");
+                                    appSettings.ExtensionToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
                                     break;
                                 case 4:
                                     appSettings.SettingSaturationLimit = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterLimitKo")+" : ");

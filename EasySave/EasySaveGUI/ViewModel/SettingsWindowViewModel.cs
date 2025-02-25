@@ -7,36 +7,48 @@ using System.Windows;
 using System.Windows.Input;
 using System.Linq;
 using System.Collections.Generic;
+using EasySaveConsole;
 
 namespace EasySaveGUI.ViewModel
 {
     public class SettingsWindowViewModel : BaseViewModel
     {
         private string _inputSettingsSoftware;
-        private string _inputSettingsExtension;
+        private string _inputSettingsExtensionToCrypt;
         private string _inputSettingsExtensionToPrioritize;
         private string _inputSaturationLimit;
-        private List<string> _extensions;
+        private List<string> _extensionsToCrypt;
+        private List<string> _extensionsToPrioritize;
         private readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
 
         public ICommand ApplySettingCommand { get; }
 
-        public List<string> Extensions
+        public List<string> ExtensionsToCrypt
         {
-            get => _extensions ?? new List<string>();
+            get => _extensionsToCrypt ?? new List<string>();
             set
             {
-                _extensions = value;
+                _extensionsToCrypt = value;
                 OnPropertyChanged();
             }
         }
 
-        public string InputSettingsExtension
+        public List<string> ExtensionsToPrioritize
         {
-            get => _inputSettingsExtension ?? string.Empty;
+            get => _extensionsToPrioritize ?? new List<string>();
             set
             {
-                _inputSettingsExtension = value;
+                _extensionsToPrioritize = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string InputSettingsExtensionToCrypt
+        {
+            get => _inputSettingsExtensionToCrypt ?? string.Empty;
+            set
+            {
+                _inputSettingsExtensionToCrypt = value;
                 OnPropertyChanged();
             }
         }
@@ -92,15 +104,16 @@ namespace EasySaveGUI.ViewModel
                             InputSettingsSoftware = softwareValue?.ToString().Trim() ?? string.Empty;
                         }
 
-                        if (settings.TryGetValue("ExtensionSelected", out var extensionsValue) && extensionsValue is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Array)
+                        if (settings.TryGetValue("ExtensionToCrypt", out var extensionsValue) && extensionsValue is JsonElement jsonElementCrypt && jsonElementCrypt.ValueKind == JsonValueKind.Array)
                         {
-                            Extensions = jsonElement.EnumerateArray().Select(e => e.GetString()?.Replace(" ", "") ?? string.Empty).ToList();
-                            InputSettingsExtension = string.Join(";", Extensions);
+                            ExtensionsToCrypt = jsonElementCrypt.EnumerateArray().Select(e => e.GetString()?.Replace(" ", "") ?? string.Empty).ToList();
+                            InputSettingsExtensionToCrypt = string.Join(";", ExtensionsToCrypt);
                         }
 
-                        if (settings.TryGetValue("ExtensionToPrioritize", out var prioritizeValue))
+                        if (settings.TryGetValue("ExtensionToPrioritize", out var prioritizeValue) && prioritizeValue is JsonElement jsonElementPrioritize && jsonElementPrioritize.ValueKind == JsonValueKind.Array)
                         {
-                            InputSettingsExtensionToPrioritize = prioritizeValue?.ToString().Trim() ?? string.Empty;
+                            ExtensionsToPrioritize = jsonElementPrioritize.EnumerateArray().Select(e => e.GetString()?.Replace(" ", "") ?? string.Empty).ToList();
+                            InputSettingsExtensionToPrioritize = string.Join(";", ExtensionsToPrioritize);
                         }
 
                         if (settings.TryGetValue("SettingSaturationLimit", out var saturationValue))
@@ -126,12 +139,20 @@ namespace EasySaveGUI.ViewModel
 
             try
             {
-                ChooseExtension();
+                Settings obj = new Settings();
+                string extensionsToCrypt = InputSettingsExtensionToCrypt;
+                ExtensionsToCrypt = obj.ParseExtensions(extensionsToCrypt);
+                string extensionsToPrioritize = InputSettingsExtensionToPrioritize;
+                ExtensionsToPrioritize = obj.ParseExtensions(extensionsToPrioritize);
+                foreach (var elt in ExtensionsToPrioritize)
+                {
+                    MessageBox.Show(elt);
+                }
                 var settings = new
                 {
                     UserInputSettingsSoftware = InputSettingsSoftware,
-                    ExtensionSelected = Extensions,
-                    ExtensionToPrioritize = string.IsNullOrWhiteSpace(InputSettingsExtensionToPrioritize) ? null : InputSettingsExtensionToPrioritize,
+                    ExtensionToCrypt = ExtensionsToCrypt,
+                    ExtensionToPrioritize = ExtensionsToPrioritize,
                     SettingSaturationLimit = string.IsNullOrWhiteSpace(InputSaturationLimit) ? null : InputSaturationLimit
                 };
 
@@ -141,16 +162,6 @@ namespace EasySaveGUI.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show($"Error saving setting: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void ChooseExtension()
-        {
-            string extensionsEntry = InputSettingsExtension;
-
-            if (!string.IsNullOrWhiteSpace(extensionsEntry))
-            {
-                Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
             }
         }
     }
