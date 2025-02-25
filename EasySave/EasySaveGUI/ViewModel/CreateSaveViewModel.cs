@@ -118,8 +118,8 @@ namespace EasySaveGUI.ViewModel
         public CreateSaveViewModel(SaveRepository saveRepository)
         {
             _saveRepository = saveRepository;
-
-            
+            SelectedSaveType = "FullSave";
+            SelectedLogFileExtension = "json";
 
             CreateSaveCommand = new RelayCommand(_ => ExecuteCreateSave());
             SelectSourceCommand = new RelayCommand(_ => ExecuteSelectSource());
@@ -185,11 +185,16 @@ namespace EasySaveGUI.ViewModel
             };
 
             _saveRepository.AddSave(save);
+            // Reset Inputs
+            SaveName = string.Empty;
+            SourcePath = string.Empty;
+            TargetPath = string.Empty;
+            SelectedSaveType = "FullSave";
+            SelectedLogFileExtension = "json";
 
             MessageBox.Show(LanguageHelper.Instance["WPF_CreateSuccess"],
                 LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
 
-            ExecuteGoBack();
         }
         
         private void ExecuteSelectSource()

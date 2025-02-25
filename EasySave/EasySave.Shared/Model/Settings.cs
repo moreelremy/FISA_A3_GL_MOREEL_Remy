@@ -51,8 +51,17 @@ namespace SettingsTest
             { "ExtensionsToPrioritize", this.ExtensionsToPrioritize },
             { "SettingSaturationLimit", this.SettingSaturationLimit }
         };
-
             Data.WriteInJson(settingsData, settingsFilePath);
+        }
+
+
+        public List<string> ParseExtensions(string extensionsEntry)
+        {
+            if (!string.IsNullOrWhiteSpace(extensionsEntry))
+            {
+                return extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
+            }
+            return new List<string>();
         }
     }
 
