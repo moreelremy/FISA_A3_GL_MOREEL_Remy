@@ -1,4 +1,10 @@
-﻿public interface IView
+﻿using System.Net.Sockets;
+using System.Net;
+using System.Text;
+using System.Text.Json;
+using System;
+
+public interface IView
 {
     string ShowMenu();
     string GetLanguageChoice();
@@ -16,12 +22,13 @@
     Dictionary<string, string> CreateBackupView();
     string GetWantedDate();
     void PromptToContinue();
-    void Output(string output);
     void DisplayLog(Dictionary<string, object> log);
+    void Output(string? output);
+    string? Input(bool allowReturnToMenu = true, bool LineNotNull = true);
 }
 
 /// <summary>
-/// Manages View
+/// Manage default View (Console App for user) 
 /// </summary>
 class ViewBasic : IView
 {
@@ -31,17 +38,18 @@ class ViewBasic : IView
     /// <returns>The number entered by the user</returns>
     public string ShowMenu()
     {
-        Console.WriteLine("╔═════════════════════════════════════╗");
-        Console.WriteLine("║              Easy Save              ║");
-        Console.WriteLine("╚═════════════════════════════════════╝");
-        Console.WriteLine($"    [1]: {Language.GetString("View_CreateBackup")}");
-        Console.WriteLine($"    [2]: {Language.GetString("View_StartBackup")}");
-        Console.WriteLine($"    [3]: {Language.GetString("View_ViewAllSaves")}");
-        Console.WriteLine($"    [4]: {Language.GetString("ControllerView_ViewLogs")}");
-        Console.WriteLine($"    [5]: {Language.GetString("View_ChangeLanguage")}");
-        Console.WriteLine($"    [6]: {Language.GetString("View_ExitApp")}\n\n");
+        Output("╔═════════════════════════════════════╗");
+        Output("║              Easy Save              ║");
+        Output("╚═════════════════════════════════════╝");
+        Output($"    [1]: {Language.GetString("View_CreateBackup")}");
+        Output($"    [2]: {Language.GetString("View_StartBackup")}");
+        Output($"    [3]: {Language.GetString("View_ViewAllSaves")}");
+        Output($"    [4]: {Language.GetString("ControllerView_ViewLogs")}");
+        Output($"    [5]: {Language.GetString("View_ChangeLanguage")}");
+        Output($"    [6]: {Language.GetString("View_ExitApp")}\n\n");
+        Output(Language.GetString("View_EnterNumber"));
 
-        return InputHelper.ReadLineNotNull(Language.GetString("View_EnterNumber"), allowReturnToMenu: false);
+        return Input(allowReturnToMenu: false);
     }
 
     /// <summary>
@@ -50,7 +58,8 @@ class ViewBasic : IView
     /// <returns>The selected language code (EN / FR / ..)</returns>
     public string GetLanguageChoice()
     {
-        return InputHelper.ReadLineNotNull(Language.GetString("View_LanguageChoice"));
+        Output(Language.GetString("View_LanguageChoice"));
+        return Input();
     }
 
     /// <summary>
@@ -59,7 +68,7 @@ class ViewBasic : IView
     /// <param name="save">Set up a backup list</param>
     public void SaveAddedMessageView(Save save)
     {
-        Console.WriteLine(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
+        Output(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
     }
 
     /// <summary>
@@ -68,28 +77,28 @@ class ViewBasic : IView
     /// <param name="saves">Set up a backup list</param>
     public void ShowSavesView(List<Save> saves)
     {
-        Console.WriteLine("╔═══════════════════════════════════╗");
-        Console.WriteLine(Language.GetString("View_ListOfBackups"));
-        Console.WriteLine("╚═══════════════════════════════════╝");
+        Output("╔═══════════════════════════════════╗");
+        Output(Language.GetString("View_ListOfBackups"));
+        Output("╚═══════════════════════════════════╝");
         for (int i = 0; i < saves.Count; i++)
         {
-            Console.WriteLine($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
-            Console.WriteLine($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
-            Console.WriteLine($"   " + Language.GetString("View_SaveSource") + $" : {saves[i].sourceDirectory}");
-            Console.WriteLine($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
-            Console.WriteLine($"   " + Language.GetString("View_SaveType") + $" : {Language.GetString($"View_{saves[i].saveStrategy.GetType().Name}")}");
-            Console.WriteLine($"   " + Language.GetString("View_logFileExtension") + $" : {saves[i].logFileExtension}");
-            Console.WriteLine("═════════════════════════════════════");
+            Output($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
+            Output($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
+            Output($"   " + Language.GetString("View_SaveSource") + $" : {saves[i].sourceDirectory}");
+            Output($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
+            Output($"   " + Language.GetString("View_SaveType") + $" : {Language.GetString($"View_{saves[i].saveStrategy.GetType().Name}")}");
+            Output($"   " + Language.GetString("View_logFileExtension") + $" : {saves[i].logFileExtension}");
+            Output("═════════════════════════════════════");
         }
 
     }
 
     public void DisplaySavesForExecution(List<Save> saves)
     {
-        Console.WriteLine(Language.GetString("View_ChooseSaveToExecute"));
+        Output(Language.GetString("View_ChooseSaveToExecute"));
         for (int i = 0; i < saves.Count; i++)
         {
-            Console.WriteLine($"[{i + 1}] {saves[i].name}");
+            Output($"[{i + 1}] {saves[i].name}");
         }
     }
 
@@ -135,7 +144,7 @@ class ViewBasic : IView
         }
         catch
         {
-            Console.WriteLine(Language.GetString("View_InvalidSelection"));
+            Output(Language.GetString("View_InvalidSelection"));
         }
 
         return selectedIndexes;
@@ -148,7 +157,8 @@ class ViewBasic : IView
     /// <returns>A list of integers representing the selected zero-based indices.</returns>
     public List<int> GetSaveSelection(int maxCount)
     {
-        string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveIdsToExecute"));
+        Output(Language.GetString("View_EnterSaveIdsToExecute"));
+        string input = Input();
         return ParseSaveSelection(input, maxCount);
     }
 
@@ -158,7 +168,7 @@ class ViewBasic : IView
     /// <param name="success">A boolean indicating whether the execution was successful.</param>
     public void DisplayExecutionResult(bool success)
     {
-        Console.WriteLine(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
+        Output(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
     }
 
     /// <summary>
@@ -167,10 +177,10 @@ class ViewBasic : IView
     /// <returns>returns the user's choice to use it in the switch case</returns>
     public string ShowChoiceMenuOrDelete()
     {
-        string choice = InputHelper.ReadLineNotNull(
-                        Language.GetString("Controller_ChoiceDeleteOrMenu") + "\n\n" +
-                        "[1] : " + Language.GetString("Controller_ChoiceMenu") + "\n" +
-                        "[2] : " + Language.GetString("Controller_ChoiceDelete"));
+        Output(Language.GetString("Controller_ChoiceDeleteOrMenu") + "\n\n" +
+               "[1] : " + Language.GetString("Controller_ChoiceMenu") + "\n" +
+               "[2] : " + Language.GetString("Controller_ChoiceDelete"));
+        string choice = Input();
         return choice;
     }
 
@@ -180,14 +190,14 @@ class ViewBasic : IView
     /// <param name="saves">List of saves to display.</param>
     public void DisplaySavesForDeletion(List<Save> saves)
     {
-        Console.WriteLine(Language.GetString("View_ChooseSaveToDelete"));
+        Output(Language.GetString("View_ChooseSaveToDelete"));
 
         for (int i = 0; i < saves.Count; i++)
         {
-            Console.WriteLine($"[{i + 1}] {saves[i].name}");
+            Output($"[{i + 1}] {saves[i].name}");
         }
 
-        Console.WriteLine();
+        Output("");
     }
 
     /// <summary>
@@ -196,13 +206,14 @@ class ViewBasic : IView
     /// <returns>The chosen save index (0-based).</returns>
     public int GetSaveIndexForDeletion(int maxIndex)
     {
-        string input = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSaveNumber"));
+        Output(Language.GetString("View_EnterSaveNumber"));
+        string input = Input();
         if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
         {
             return index - 1;  // Convert to 0-based index
         }
 
-        Console.WriteLine(Language.GetString("Controller_InvalidChoice"));
+        Output(Language.GetString("Controller_InvalidChoice"));
         return -1;  // Invalid choice
     }
 
@@ -217,11 +228,11 @@ class ViewBasic : IView
     {
         if (isDeleted)
         {
-            Console.WriteLine(Language.GetString("View_SaveDeleted"));
+            Output(Language.GetString("View_SaveDeleted"));
         }
         else
         {
-            Console.WriteLine(Language.GetString("View_SaveNotFound"));
+            Output(Language.GetString("View_SaveNotFound"));
         }
     }
 
@@ -232,7 +243,7 @@ class ViewBasic : IView
     public void DisplaySuccess(string message)
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(message);
+        Output(message);
         Console.ResetColor();
     }
 
@@ -243,7 +254,7 @@ class ViewBasic : IView
     public void DisplayError(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(message);
+        Output(message);
         Console.ResetColor();
     }
 
@@ -253,39 +264,44 @@ class ViewBasic : IView
     /// <returns>The newly created Save object</returns>
     public Dictionary<string, string> CreateBackupView()
     {
-        string name = InputHelper.ReadLineNotNull(Language.GetString("View_EnterBackupName"));
-        string source = InputHelper.ReadLineNotNull(Language.GetString("View_EnterSourcePath"));
-        string target = InputHelper.ReadLineNotNull(Language.GetString("View_EnterTargetPath"));
+        Output(Language.GetString("View_EnterBackupName"));
+        string name = Input();
+        Output(Language.GetString("View_EnterSourcePath"));
+        string source = Input();
+        Output(Language.GetString("View_EnterTargetPath"));
+        string target = Input();
 
-        Console.WriteLine("[1] " + Language.GetString("View_FullSave"));
-        Console.WriteLine("[2] " + Language.GetString("View_DifferentialSave"));
+        Output("[1] " + Language.GetString("View_FullSave"));
+        Output("[2] " + Language.GetString("View_DifferentialSave"));
         string saveStrategy;
         while (true)
         {
-            saveStrategy = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+            Output(Language.GetString("View_SelectBackupType"));
+            saveStrategy = Input();
             if (saveStrategy == "1" || saveStrategy == "2")
             {
                 break;
             }
             else
             {
-                Console.WriteLine(Language.GetString("View_InvalidSelection")); // Display error message
+                Output(Language.GetString("View_InvalidSelection")); // Display error message
             }
         }
 
-        Console.WriteLine("[1] " + Language.GetString("View_jsonFileExtension"));
-        Console.WriteLine("[2] " + Language.GetString("View_xmlFileExtension"));
+        Output("[1] " + Language.GetString("View_jsonFileExtension"));
+        Output("[2] " + Language.GetString("View_xmlFileExtension"));
         string logFileExtension;
         while (true)
         {
-            logFileExtension = InputHelper.ReadLineNotNull(Language.GetString("View_SelectBackupType"));
+            Output(Language.GetString("View_SelectBackupType"));
+            logFileExtension = Input();
             if (logFileExtension == "1" || logFileExtension == "2")
             {
                 break;
             }
             else
             {
-                Console.WriteLine(Language.GetString("View_InvalidSelection")); // Display error message
+                Output(Language.GetString("View_InvalidSelection")); // Display error message
             }
         }
 
@@ -319,8 +335,8 @@ class ViewBasic : IView
     /// <returns>The date dd-mm-yyyy</returns>
     public string GetWantedDate()
     {
-        Console.WriteLine(Language.GetString("View_DateChoice"));
-        string? result = Console.ReadLine();
+        Output(Language.GetString("View_DateChoice"));
+        string? result = Input(lineNotNull: false);
 
         return result == "" ? $"{DateTime.Now:dd-MM-yyyy}" : result;
     }
@@ -330,18 +346,9 @@ class ViewBasic : IView
     /// </summary>
     public void PromptToContinue()
     {
-        Console.WriteLine(Language.GetString("Controller_PressAnyKey"));
-        Console.ReadLine();
+        Output(Language.GetString("Controller_PressAnyKey"));
+        Input(allowReturnToMenu: false, lineNotNull: false);
         Console.Clear();
-    }
-
-    /// <summary>
-    /// Just print a message in the console
-    /// </summary>
-    /// <param name="output">Take the sentence to display as a parameter</param>
-    public void Output(string output)
-    {
-        Console.WriteLine(output);
     }
 
     /// <summary>
@@ -352,16 +359,77 @@ class ViewBasic : IView
     {
         if (log == null)
         {
-            Console.WriteLine("LogEntry is null.");
+            Output("LogEntry is null.");
             return;
         }
 
-        Console.WriteLine($"Timestamp: {log["timestamp"]}");
-        Console.WriteLine($"SaveName: {log["saveName"]}");
-        Console.WriteLine($"Source: {log["source"]}");
-        Console.WriteLine($"Target: {log["target"]}");
-        Console.WriteLine($"Size: {log["size"]}");
-        Console.WriteLine($"TransferTimeMs: {log["transferTimeMs"]}");
-        Console.WriteLine("══════════════════════════════");
+        Output($"Timestamp: {log["timestamp"]}");
+        Output($"SaveName: {log["saveName"]}");
+        Output($"Source: {log["source"]}");
+        Output($"Target: {log["target"]}");
+        Output($"Size: {log["size"]}");
+        Output($"TransferTimeMs: {log["transferTimeMs"]}");
+        Output("══════════════════════════════");
+    }
+
+    /// <summary>
+    /// Just print a message in the console
+    /// </summary>
+    /// <param name="output">Take the sentence to display as a parameter</param>
+    public virtual void Output(string? output)
+    {
+        Console.WriteLine(output);
+    }
+
+    public virtual string? Input(bool allowReturnToMenu = true, bool lineNotNull = true)
+    {
+        return InputHelper.ReadLine(allowReturnToMenu, lineNotNull);
+    }
+}
+
+/// <summary>
+/// Inherit the Basic View to manage a server/client app
+/// </summary>
+class ViewServer : ViewBasic
+{
+    private Socket _serverSocket;
+    private Socket _clientSocket;
+    ViewServer()
+    {
+        try
+        {
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 5000);
+            _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _serverSocket.Bind(endPoint);
+            _serverSocket.Listen(1);
+            _clientSocket = _serverSocket.Accept();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            Environment.Exit(0);
+        }
+    }
+
+    override public void Output(string? output)
+    {
+        _clientSocket.Send(Encoding.UTF8.GetBytes(output));
+    }
+
+    public override string? Input(bool allowReturnToMenu = true, bool lineNotNull = true)
+    {
+        Output(JsonSerializer.Serialize(
+        new
+        {
+            Input = (allowReturnToMenu, lineNotNull)
+        }));
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        string message = "";
+        while ((bytesRead = _clientSocket.Receive(buffer)) > 0)
+        {
+            message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+        }
+        return message;
     }
 }
