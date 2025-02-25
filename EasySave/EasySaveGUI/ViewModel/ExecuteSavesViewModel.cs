@@ -244,7 +244,6 @@ namespace EasySaveGUI.ViewModel
                         {
                             throw new Exception(errorMessage);
                         }
-                        MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     finally
                     {
