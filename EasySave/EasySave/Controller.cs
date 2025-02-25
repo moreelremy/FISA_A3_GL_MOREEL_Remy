@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.RegularExpressions;
-using EasySaveConsole;
+using SettingsModel;
 
 class Controller
 {
@@ -218,8 +218,10 @@ class Controller
 
                         while (continueInSettings)
                         {
-                            Settings appSettings = Settings.LoadSettings();
+                            SettingsConsole appSettings = new SettingsConsole();
+                            appSettings.LoadSettings();
                             Console.Clear();
+
                             // Afficher les paramètres actuels avec un menu de modification
                             objView.DisplaySettingsMenu(appSettings);
 

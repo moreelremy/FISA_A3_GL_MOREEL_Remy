@@ -1,8 +1,9 @@
+
+﻿using SettingsModel;
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using EasySaveConsole;
 
 public interface IView
 {
@@ -23,7 +24,7 @@ public interface IView
     string GetWantedDate();
     void PromptToContinue();
     void DisplayLog(Dictionary<string, object> log);
-    void DisplaySettingsMenu(Settings appSettings);
+    void DisplaySettingsMenu(SettingsConsole appSettings);
     void Output(string? output);
     string? Input(bool allowReturnToMenu = true, bool LineNotNull = true);
 }
@@ -376,7 +377,7 @@ class ViewBasic : IView
         Output("══════════════════════════════");
     }
 
-    public void DisplaySettingsMenu(Settings appSettings)
+    public void DisplaySettingsMenu(SettingsConsole appSettings)
     {
         Output(Language.GetString("WPF_SettingTitle") + "\n");
         Output("[1] " + Language.GetString("WPF_SettingSoftware") + " : " + appSettings.UserInputSettingsSoftware);
