@@ -33,6 +33,7 @@ namespace EasySaveConsole
             };
         }
 
+
         public void SaveSettings()
         {
             var settingsData = new Dictionary<string, object>

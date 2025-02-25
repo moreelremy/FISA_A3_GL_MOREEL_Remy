@@ -186,19 +186,19 @@ public abstract class SaveStrategy
     /// Helper method to copy files supporting cancellation, pause/resume, and progress reporting.
     /// </summary>
     public int commonSaveDirectory(
-        string sourceDirectory,
-        string targetDirectory,
-        string saveName,
-        int totalFilesToCopy,
-        long totalFileSize,
-        int nbFilesLeftToDo,
-        long filesSizeLeftToDo,
-        string logFileExtension,
-        int encryptionTime,
-        CancellationToken token,
-        ManualResetEventSlim pauseEvent,
-        Action<int> progressCallback,
-        DateTime? lastChangeDateTime = null)
+     string sourceDirectory,
+     string targetDirectory,
+     string saveName,
+     int totalFilesToCopy,
+     long totalFileSize,
+     int nbFilesLeftToDo,
+     long filesSizeLeftToDo,
+     string logFileExtension,
+     int encryptionTime,
+     CancellationToken token,
+     ManualResetEventSlim pauseEvent,
+     Action<int> progressCallback,
+     DateTime? lastChangeDateTime = null)
     {
         if (!Directory.Exists(targetDirectory))
         {
@@ -207,57 +207,67 @@ public abstract class SaveStrategy
 
         var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
         string processName = settings["UserInputSettingsSoftware"].ToString();
-        var processes = Process.GetProcesses();
         var extensionsJson = (JsonElement)settings["ExtensionSelected"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
 
         foreach (string file in Directory.GetFiles(sourceDirectory))
         {
-            // Check for cancellation and wait on pause before processing each file.
+            // See if the process is running and pause execution if necessary
             token.ThrowIfCancellationRequested();
-            pauseEvent.Wait(token);
 
-            bool isProcessRunning = processes.Any(p => p.ProcessName.ToLower() == processName.ToLower());
-            if (!isProcessRunning)
+            // Pause the save operation if the process is running
+            while (Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
             {
-                string target = Path.Combine(targetDirectory, Path.GetFileName(file));
-                string fileExtension = Path.GetExtension(target).TrimStart('.');
+                pauseEvent.Reset();
 
-                if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
+                // Look every 100ms if the process is still running
+                for (int i = 0; i < 20; i++) // 20 x 100ms = 2s
                 {
-                    File.Copy(file, target, true);
-                    if (extensions.Contains(fileExtension))
-                    {
-                        DateTime startFilencryption = DateTime.UtcNow;
-                        Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
-                        DateTime stopFilencryption = DateTime.UtcNow;
-                        encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
-                    }
-
-                    long fileSize = new FileInfo(file).Length;
-                    nbFilesLeftToDo -= 1;
-                    filesSizeLeftToDo -= fileSize;
-                    int currentProgress = (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / totalFileSize * 100);
-                    // Report progress back to the caller.
-                    progressCallback?.Invoke(currentProgress);
-                    Data.RealTimeLog(
-                        saveName: saveName,
-                        sourcePath: file,
-                        targetPath: target,
-                        fileSize: fileSize,
-                        state: "ACTIVE",
-                        totalFilesToCopy: totalFilesToCopy,
-                        totalFileSize: totalFileSize,
-                        nbFilesLeftToDo: nbFilesLeftToDo,
-                        filesSizeLeftToDo: filesSizeLeftToDo,
-                        Progression: currentProgress,
-                        logFileExtension: logFileExtension
-                    );
+                    token.ThrowIfCancellationRequested();
+                    Thread.Sleep(100);
+                    if (!Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
+                        break;
                 }
             }
-            else
+
+            pauseEvent.Set(); // Reprendre la sauvegarde
+
+
+            string target = Path.Combine(targetDirectory, Path.GetFileName(file));
+            string fileExtension = Path.GetExtension(target).TrimStart('.');
+
+            if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
             {
-                throw new InvalidOperationException("Le processus métier est en cours d'exécution. Opération annulée.");
+                File.Copy(file, target, true);
+                if (extensions.Contains(fileExtension))
+                {
+                    DateTime startFilencryption = DateTime.UtcNow;
+                    Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
+                    DateTime stopFilencryption = DateTime.UtcNow;
+                    encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
+                }
+
+                long fileSize = new FileInfo(file).Length;
+                nbFilesLeftToDo -= 1;
+                filesSizeLeftToDo -= fileSize;
+                int currentProgress = (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / totalFileSize * 100);
+
+                // Reporter la progression
+                progressCallback?.Invoke(currentProgress);
+
+                Data.RealTimeLog(
+                    saveName: saveName,
+                    sourcePath: file,
+                    targetPath: target,
+                    fileSize: fileSize,
+                    state: "ACTIVE",
+                    totalFilesToCopy: totalFilesToCopy,
+                    totalFileSize: totalFileSize,
+                    nbFilesLeftToDo: nbFilesLeftToDo,
+                    filesSizeLeftToDo: filesSizeLeftToDo,
+                    Progression: currentProgress,
+                    logFileExtension: logFileExtension
+                );
             }
         }
 
@@ -287,6 +297,7 @@ public abstract class SaveStrategy
 
         return encryptionTime;
     }
+
 
     /// <summary>
     /// Saves a directory by copying files and subdirectories.
