@@ -190,6 +190,12 @@ namespace EasySaveGUI.ViewModel
             };
             
             _saveRepository.AddSave(save);
+            // Reset Inputs
+            SaveName = string.Empty;
+            SourcePath = string.Empty;
+            TargetPath = string.Empty;
+            SelectedSaveType = "FullSave";         
+            SelectedLogFileExtension = "json";      
 
             MessageBox.Show(LanguageHelper.Instance["WPF_CreateSuccess"],
                 LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
