@@ -41,14 +41,14 @@
         <Canvas Grid.Row="1" Margin="20">
             <!-- LabelExtension -->
             <Label x:Name="LabelExtension"
-                   Content="{Binding [WPF_SettingExtensionToCrypt], Source={StaticResource LangHelper}}"
+                   Content="{Binding [WPF_SettingExtensionsToCrypt], Source={StaticResource LangHelper}}"
                    Style="{StaticResource CustomLabelStyle}"
                    Canvas.Top="40" 
                    Canvas.Left="21" HorizontalAlignment="Left" Height="36" VerticalAlignment="Center" Width="230"/>
 
             <!-- InputExtension -->
-            <TextBox x:Name="InputExtensionToCrypt"
-                     Text="{Binding InputSettingsExtensionToCrypt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox x:Name="InputExtensionsToCrypt"
+                     Text="{Binding InputSettingsExtensionsToCrypt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Width="230" Height="49"
                      Canvas.Top="81"
                      Canvas.Left="21" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -76,15 +76,15 @@
                     Canvas.Top="305"
                     Canvas.Left="198" VerticalAlignment="Top"
                     FontSize="20"/>
-            <Label x:Name="LabelExtensionToPrioritize"
-                    Content="{Binding [WPF_SettingExtensionToPrioritize], Source={StaticResource LangHelper}}"
+            <Label x:Name="LabelExtensionsToPrioritize"
+                    Content="{Binding [WPF_SettingExtensionsToPrioritize], Source={StaticResource LangHelper}}"
                     Style="{StaticResource CustomLabelStyle}"
                     Canvas.Top="40" 
                     Canvas.Left="309" Height="36" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
-            <TextBox x:Name="InputExtensionToPrioritize"
-                Text="{Binding InputSettingsExtensionToPrioritize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox x:Name="InputExtensionsToPrioritize"
+                Text="{Binding InputSettingsExtensionsToPrioritize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Width="230" Height="49"
                 Canvas.Top="81"
                 Canvas.Left="309" HorizontalAlignment="Left" VerticalAlignment="Center"/>
