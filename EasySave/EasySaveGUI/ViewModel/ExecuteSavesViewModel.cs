@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,22 +13,32 @@ namespace EasySaveGUI.ViewModel
         private SaveRepository _saveRepository;
         private Save _selectedSave;
         private string _selectedSaveName;
+        private CancellationTokenSource _cts;
+        private ManualResetEventSlim _pauseEvent;
 
         public ObservableCollection<Save> Saves { get; set; }
 
         public ICommand ExecuteGlobalSaveCommand { get; }
         public ICommand ExecutePartialSaveCommand { get; }
+        public ICommand PauseCommand { get; }
+        public ICommand ResumeCommand { get; }
+        public ICommand StopCommand { get; }
 
-        private List<string> _extensions;
+        // Property for binding the progress bar (0–100)
+        private int _progress;
+        public int Progress
+        {
+            get => _progress;
+            set { _progress = value; OnPropertyChanged(); }
+        }
+
+        private System.Collections.Generic.List<string> _extensions;
         private string _inputExtensions;
 
-        public List<string> Extensions
+        public System.Collections.Generic.List<string> Extensions
         {
             get => _extensions;
-            set
-            {
-                _extensions = value;
-            }
+            set { _extensions = value; OnPropertyChanged(); }
         }
 
         public string InputExtensions
@@ -49,17 +61,10 @@ namespace EasySaveGUI.ViewModel
         public string SelectedSaveName
         {
             get => _selectedSaveName;
-            set
-            {
-                _selectedSaveName = value;
-                OnPropertyChanged();
-            }
+            set { _selectedSaveName = value; OnPropertyChanged(); }
         }
 
-        public ExecuteSavesViewModel()
-        {
-            // Default constructor
-        }
+        public ExecuteSavesViewModel() { }
 
         public ExecuteSavesViewModel(SaveRepository saveRepository)
         {
@@ -68,6 +73,32 @@ namespace EasySaveGUI.ViewModel
 
             ExecuteGlobalSaveCommand = new RelayCommand(_ => ExecuteGlobalSave());
             ExecutePartialSaveCommand = new RelayCommand(_ => ExecutePartialSave());
+
+            // Initialize control tokens.
+            _cts = new CancellationTokenSource();
+            _pauseEvent = new ManualResetEventSlim(true);
+
+            PauseCommand = new RelayCommand(_ => PauseBackup());
+            ResumeCommand = new RelayCommand(_ => ResumeBackup());
+            StopCommand = new RelayCommand(_ => StopBackup());
+        }
+
+        private void PauseBackup()
+        {
+            // Pauses the backup process (effective after the current file finishes).
+            _pauseEvent.Reset();
+        }
+
+        private void ResumeBackup()
+        {
+            // Resumes the backup process.
+            _pauseEvent.Set();
+        }
+
+        private void StopBackup()
+        {
+            // Requests immediate cancellation.
+            _cts.Cancel();
         }
 
         private void LoadSaves()
@@ -82,52 +113,24 @@ namespace EasySaveGUI.ViewModel
             OnPropertyChanged(nameof(Saves));
         }
 
-        private void ExecuteGlobalSave()
+        private async void ExecuteGlobalSave()
         {
             if (Saves.Count == 0)
             {
                 MessageBox.Show("No saves available to execute.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            foreach (var save in Saves.ToList())
-            {
-                if (_saveRepository.ExecuteSave(save, out string errorMessage))
-                {
-                    MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            SendToSave(Saves.ToList());
         }
 
-    
-        private void ChooseExtension()
+
+        private async void ExecutePartialSave()
         {
-            string extensionsEntry = InputExtensions;
-            if (string.IsNullOrWhiteSpace(extensionsEntry))
-            {
-                MessageBox.Show("Veuillez entrer des extensions.");
-                return;
-            }
-
-            Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList();
-
-            foreach (var ext in Extensions)
-            {
-                MessageBox.Show(ext);
-            }
-        }
-
-        private void ExecutePartialSave()
-        {
-            List<Save> savesToExecute = new List<Save>();
+            var savesToExecute = new System.Collections.Generic.List<Save>();
 
             if (!string.IsNullOrEmpty(SelectedSaveName))
             {
-                // If input is a number and skip number (e.g., "1;3;5")
+                // If input is a semicolon-separated list (e.g., "1;3;5")
                 if (SelectedSaveName.Contains(";"))
                 {
                     var indexes = SelectedSaveName.Split(';');
@@ -158,7 +161,6 @@ namespace EasySaveGUI.ViewModel
                 else if (SelectedSaveName.Contains("-"))
                 {
                     var rangeParts = SelectedSaveName.Split('-');
-
                     if (rangeParts.Length == 2 &&
                         int.TryParse(rangeParts[0], out int start) &&
                         int.TryParse(rangeParts[1], out int end))
@@ -174,7 +176,7 @@ namespace EasySaveGUI.ViewModel
                         }
                     }
                 }
-                // If input is a single number
+                // If input is a single number.
                 else if (int.TryParse(SelectedSaveName, out int index))
                 {
                     if (index >= 1 && index <= Saves.Count)
@@ -189,14 +191,12 @@ namespace EasySaveGUI.ViewModel
                         return;
                     }
                 }
-                // If input is a save name
+                // If input is a save name.
                 else
                 {
-                    Save saveToExecute = Saves.FirstOrDefault(s => s.name.Equals(SelectedSaveName, StringComparison.OrdinalIgnoreCase));
+                    var saveToExecute = Saves.FirstOrDefault(s => s.name.Equals(SelectedSaveName, StringComparison.OrdinalIgnoreCase));
                     if (saveToExecute != null)
-                    {
                         savesToExecute.Add(saveToExecute);
-                    }
                     else
                     {
                         MessageBox.Show($"Save '{SelectedSaveName}' not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -204,7 +204,6 @@ namespace EasySaveGUI.ViewModel
                     }
                 }
             }
-            // If selection is made via DataGrid
             else if (SelectedSave != null)
             {
                 savesToExecute.Add(SelectedSave);
@@ -215,18 +214,67 @@ namespace EasySaveGUI.ViewModel
                 return;
             }
 
-            // Execute selected saves
-            foreach (var save in savesToExecute)
+            SendToSave(savesToExecute);
+        }
+
+
+        private async void SendToSave(List<Save> saveToExecute)
+        {
+
+            // Reset tokens for a new execution.
+            _cts = new CancellationTokenSource();
+            _pauseEvent.Set(); // ensure not paused
+            var semaphore = new SemaphoreSlim(3);
+            var tasks = new List<Task>();
+
+            foreach (var save in saveToExecute)
             {
-                if (_saveRepository.ExecuteSave(save, out string errorMessage))
+                tasks.Add(Task.Run(async () =>
                 {
-                    MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    await semaphore.WaitAsync(_cts.Token);
+                    try
+                    {
+                        string errorMessage;
+                        _pauseEvent.Wait(); // Attend la reprise si pause active
+
+                        if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, UpdateProgress, out errorMessage))
+                        {
+                            throw new Exception(errorMessage);
+                        }
+                        MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                }, _cts.Token));
             }
+
+            try
+            {
+                await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
+                MessageBox.Show("All saves executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Backup process was cancelled.", "Stopped", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
+
+
+
+
+        // Callback to update progress (bound to the Progress property).
+        private void UpdateProgress(int progressPercentage)
+        {
+            Progress = progressPercentage;
         }
     }
 }

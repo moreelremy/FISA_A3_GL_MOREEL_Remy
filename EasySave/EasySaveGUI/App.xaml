@@ -19,18 +19,44 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Background="{TemplateBinding Background}"
-                        CornerRadius="10">
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10">
+                            <!-- Définit l'animation au survol avec VisualStateManager -->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <!-- Animation pour revenir à l'état normal -->
+                                            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                                                            To="Black" Duration="0:0:0.2"/>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                            To="#FFB5B5B5" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <!-- Animation de l'état Hover : changement de couleur de fond et de bordure -->
+                                            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                                                            To="#280068" Duration="0:0:0.2"/>
+                                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                            To="#4F14AD" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <!-- Contenu du bouton -->
                             <ContentPresenter HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Content="{TemplateBinding Content}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
         
         <!-- Style Input : auto apply -->
         <Style TargetType="TextBox">

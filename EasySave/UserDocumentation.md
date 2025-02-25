@@ -1,28 +1,30 @@
 # PROJET EASYSAVE
 
-EasySave est une application console et GUI en .NET Core permettant d'automatiser des sauvegardes de fichiers en mode complet ou différentiel. Elle offre une exécution via ligne de commande ou une interface graphique, un suivi en temps réel et la génération de logs au format JSON et XML, le tout compatible avec des environnements francophones , anglophones et russophone.
+EasySave est une application console et GUI en .NET Core permettant d'automatiser des sauvegardes de fichiers en mode complet ou différentiel. Elle offre une exécution via ligne de commande ou une interface graphique, un suivi en temps réel et la génération de logs au format JSON et XML, le tout compatible avec des environnements francophones, anglophones et russophones.
 
 ## Menu
 
-Le menu propose des options interactives pour gérer facilements les travaux de sauvegarde :
+Le menu propose des options interactives pour gérer facilement les travaux de sauvegarde :
 #### [__Créer une sauvegarde__](Documentation/CreateSave.md)
 Permet de créer un travail de sauvegarde.
 
 #### [__Lancer une sauvegarde__](Documentation/LunchSave.md)
-Permet de lancer une sauvegarde parmis les travaux de sauvegarde créer.
+Permet de lancer une sauvegarde parmi les travaux de sauvegarde créés.
 
-#### [__Voir sauvegardes__](Documentation/ShowSave.md)
-Permet de voir la liste des différentes sauvegardes avec les différentes caractéristiques de chacune. Dans cette section il est également possible de supprimer les sauvegardes.
+#### [__Voir les sauvegardes__](Documentation/ShowSave.md)
+Permet de voir la liste des différentes sauvegardes avec les différentes caractéristiques de chacune. Dans cette section, il est également possible de supprimer les sauvegardes.
 
 #### [__Consulter les logs__](Documentation/ShowLogs.md)
-Permet de voir les logs journalier de l'application.
+Permet de voir les logs journaliers de l'application.
 
 #### [__Changer de langue__](Documentation/ChangeLanguage.md)
 Permet de changer la langue de l'application.
 
-<br>
-<br>
+#### [__Paramètres__](Documentation/Settings.md)
+Permet de changer les paramètres de l'application.
 
+<br>
+<br>
 
 # EASY SAVE PROJECT  
 
@@ -45,4 +47,7 @@ Allows you to view the list of different backups with their respective character
 Allows you to view the application's daily logs. 
 
 #### [__Change Language__](Documentation/ChangeLanguage.md)  
-Allows you to change the application's language.
+Allows you to change the application's language.  
+
+#### [__Settings__](Documentation/Settings.md)
+Allows you to change the application's settings.

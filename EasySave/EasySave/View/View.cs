@@ -1,8 +1,9 @@
-﻿using System.Net.Sockets;
+using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Text.Json;
 using System;
+using EasySaveConsole;
 
 public interface IView
 {
@@ -25,6 +26,7 @@ public interface IView
     void DisplayLog(Dictionary<string, object> log);
     void Output(string? output);
     string? Input(bool allowReturnToMenu = true, bool LineNotNull = true);
+    void DisplaySettingsMenu(Settings appSettings);
 }
 
 /// <summary>
@@ -45,8 +47,9 @@ class ViewBasic : IView
         Output($"    [2]: {Language.GetString("View_StartBackup")}");
         Output($"    [3]: {Language.GetString("View_ViewAllSaves")}");
         Output($"    [4]: {Language.GetString("ControllerView_ViewLogs")}");
-        Output($"    [5]: {Language.GetString("View_ChangeLanguage")}");
-        Output($"    [6]: {Language.GetString("View_ExitApp")}\n\n");
+        Output($"    [5]: {Language.GetString("WPF_SettingTitle")}");
+        Output($"    [6]: {Language.GetString("View_ChangeLanguage")}");
+        Output($"    [7]: {Language.GetString("View_ExitApp")}\n\n");
         Output(Language.GetString("View_EnterNumber"));
 
         return Input(allowReturnToMenu: false);
@@ -432,4 +435,15 @@ class ViewServer : ViewBasic
         }
         return message;
     }
+
+    public void DisplaySettingsMenu(Settings appSettings)
+    {
+        Console.WriteLine(Language.GetString("WPF_SettingTitle") + "\n");
+        Console.WriteLine("[1] " + Language.GetString("WPF_SettingSoftware") + " : " + appSettings.UserInputSettingsSoftware);
+        Console.WriteLine("[2] " + Language.GetString("WPF_SettingExtensionToCrypt") + " : " + string.Join(", ", appSettings.ExtensionSelected));
+        Console.WriteLine("[3] " + Language.GetString("WPF_SettingExtensionToPrioritize") + " : " + appSettings.ExtensionToPrioritize);
+        Console.WriteLine("[4] " + Language.GetString("WPF_SettingSaturationLimit") + " : " + appSettings.SettingSaturationLimit);
+    }
+
+
 }
