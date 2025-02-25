@@ -99,6 +99,9 @@ namespace EasySaveGUI.ViewModel
         {
             // Requests immediate cancellation.
             _cts.Cancel();
+            Progress = 0;
+            
+            OnPropertyChanged(nameof(Progress));
         }
 
         private void LoadSaves()
