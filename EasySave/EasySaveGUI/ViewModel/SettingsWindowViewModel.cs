@@ -7,36 +7,48 @@ using System.Windows;
 using System.Windows.Input;
 using System.Linq;
 using System.Collections.Generic;
+using SettingsTest;
 
 namespace EasySaveGUI.ViewModel
 {
     public class SettingsWindowViewModel : BaseViewModel
     {
         private string _inputSettingsSoftware;
-        private string _inputSettingsExtension;
-        private string _inputSettingsExtensionToPrioritize;
+        private string _inputSettingsExtensionsToCrypt;
+        private string _inputSettingsExtensionsToPrioritize;
         private string _inputSaturationLimit;
-        private List<string> _extensions;
+        private List<string> _extensionsToCrypt;
+        private List<string> _extensionsToPrioritize;
         private readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
 
         public ICommand ApplySettingCommand { get; }
 
-        public List<string> Extensions
+        public List<string> ExtensionsToCrypt
         {
-            get => _extensions ?? new List<string>();
+            get => _extensionsToCrypt ?? new List<string>();
             set
             {
-                _extensions = value;
+                _extensionsToCrypt = value;
                 OnPropertyChanged();
             }
         }
 
-        public string InputSettingsExtension
+        public List<string> ExtensionsToPrioritize
         {
-            get => _inputSettingsExtension ?? string.Empty;
+            get => _extensionsToPrioritize ?? new List<string>();
             set
             {
-                _inputSettingsExtension = value;
+                _extensionsToPrioritize = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string InputSettingsExtensionsToCrypt
+        {
+            get => _inputSettingsExtensionsToCrypt ?? string.Empty;
+            set
+            {
+                _inputSettingsExtensionsToCrypt = value;
                 OnPropertyChanged();
             }
         }
@@ -51,12 +63,12 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        public string InputSettingsExtensionToPrioritize
+        public string InputSettingsExtensionsToPrioritize
         {
-            get => _inputSettingsExtensionToPrioritize ?? string.Empty;
+            get => _inputSettingsExtensionsToPrioritize ?? string.Empty;
             set
             {
-                _inputSettingsExtensionToPrioritize = value;
+                _inputSettingsExtensionsToPrioritize = value;
                 OnPropertyChanged();
             }
         }
@@ -81,36 +93,14 @@ namespace EasySaveGUI.ViewModel
         {
             try
             {
-                if (File.Exists(settingsFilePath))
-                {
-                    var settings = Data.LoadFromJson(settingsFilePath);
-
-                    if (settings != null)
-                    {
-                        if (settings.TryGetValue("UserInputSettingsSoftware", out var softwareValue))
-                        {
-                            InputSettingsSoftware = softwareValue?.ToString().Trim() ?? string.Empty;
-                        }
-
-                        if (settings.TryGetValue("ExtensionSelected", out var extensionsValue) && extensionsValue is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Array)
-                        {
-                            Extensions = jsonElement.EnumerateArray().Select(e => e.GetString()?.Replace(" ", "") ?? string.Empty).ToList();
-                            InputSettingsExtension = string.Join(";", Extensions);
-                        }
-
-                        if (settings.TryGetValue("ExtensionToPrioritize", out var prioritizeValue))
-                        {
-                            InputSettingsExtensionToPrioritize = prioritizeValue?.ToString().Trim() ?? string.Empty;
-                        }
-
-                        if (settings.TryGetValue("SettingSaturationLimit", out var saturationValue))
-                        {
-                            InputSaturationLimit = saturationValue?.ToString().Trim() ?? string.Empty;
-                        }
-                    }
-                }
+                SettingsGUI obj = new SettingsGUI();
+                obj.LoadSettings();
+                InputSettingsSoftware = obj.UserInputSettingsSoftware;
+                InputSettingsExtensionsToCrypt = string.Join(";", obj.ExtensionsToCrypt);
+                InputSettingsExtensionsToPrioritize = string.Join(";", obj.ExtensionsToPrioritize);
+                InputSaturationLimit = obj.SettingSaturationLimit;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -118,39 +108,21 @@ namespace EasySaveGUI.ViewModel
 
         private void ApplySettings()
         {
-            if (string.IsNullOrWhiteSpace(InputSettingsSoftware))
-            {
-                MessageBox.Show("Please enter a valid setting.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
+            SettingsGUI obj = new SettingsGUI(
+                InputSettingsSoftware,
+                InputSettingsExtensionsToCrypt, 
+                InputSettingsExtensionsToPrioritize, 
+                InputSaturationLimit
+                );
             try
             {
-                ChooseExtension();
-                var settings = new
-                {
-                    UserInputSettingsSoftware = InputSettingsSoftware,
-                    ExtensionSelected = Extensions,
-                    ExtensionToPrioritize = string.IsNullOrWhiteSpace(InputSettingsExtensionToPrioritize) ? null : InputSettingsExtensionToPrioritize,
-                    SettingSaturationLimit = string.IsNullOrWhiteSpace(InputSaturationLimit) ? null : InputSaturationLimit
-                };
-
-                Data.WriteInJson(settings, settingsFilePath);
-                MessageBox.Show("Setting saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                obj.SaveSettings();
+                MessageBox.Show("Successfuly saving setting:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show($"Error saving setting: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void ChooseExtension()
-        {
-            string extensionsEntry = InputSettingsExtension;
-
-            if (!string.IsNullOrWhiteSpace(extensionsEntry))
-            {
-                Extensions = extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
             }
         }
     }

@@ -216,7 +216,7 @@
   <data name="View_DateChoice" xml:space="preserve">
     <value>For what date do you want to view the logs (dd-MM-yyyy) ? [Today]</value>
   </data>
-  <data name="View_FileNotFound" xml:space="preserve">
+  <data name="View_DateNotFound" xml:space="preserve">
     <value>File not found. Please enter a correct date.</value>
   </data>
   <data name="View_NumberSave" xml:space="preserve">
@@ -381,8 +381,8 @@
   <data name="WPF_SettingSoftware" xml:space="preserve">
     <value>Business software:</value>
   </data>
-  <data name="WPF_SettingExtensionToCrypt" xml:space="preserve">
-    <value>Extension to encrypt</value>
+  <data name="WPF_SettingExtensionsToCrypt" xml:space="preserve">
+    <value>Extension to encrypt:</value>
   </data>
   <data name="WPF_SettingApply" xml:space="preserve">
     <value>APPLY</value>
@@ -403,28 +403,7 @@
     <value>Limit before saturation
 (ko)</value>
   </data>
-  <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
+  <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Extension to prioritize</value>
-  </data>
-  <data name="Controller_AskSettings" xml:space="preserve">
-    <value>Enter the number of the parameter you want to modify</value>
-  </data>
-  <data name="Controller_SettingIncorrect" xml:space="preserve">
-    <value>Invalid choice. Please enter a valid number between 1 and 4.</value>
-  </data>
-  <data name="Controller_EnterSoftware" xml:space="preserve">
-    <value>Enter the new business software</value>
-  </data>
-  <data name="Controller_EnterExtensionCrypt" xml:space="preserve">
-    <value>Enter the new extensions to encrypt (separated by ;)</value>
-  </data>
-  <data name="Controller_EnterExtensionPrio" xml:space="preserve">
-    <value>Enter the new extensions to prioritize</value>
-  </data>
-  <data name="Controller_EnterLimitKo" xml:space="preserve">
-    <value>Enter the new saturation limit (in KB)</value>
-  </data>
-  <data name="Controller_SettingsUpdated" xml:space="preserve">
-    <value>Settings updated and saved.</value>
   </data>
 </root>

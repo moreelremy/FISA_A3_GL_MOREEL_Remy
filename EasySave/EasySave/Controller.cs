@@ -1,11 +1,24 @@
 ﻿using System.Text.Json;
 using System.Text.RegularExpressions;
-using EasySaveConsole;
+using SettingsModel;
 
 class Controller
 {
     static void Main(string[] args)
     {
+        IView objView;
+        switch (args[0])
+        {
+            case "Console":
+            default:
+                objView = new ViewBasic();
+                break;
+
+            case "Server":
+                objView = new ViewServer();
+                break;
+        }
+
         SaveRepository saveRepository = new SaveRepository();
         SaveStrategyFactory saveStrategyFactory = new SaveStrategyFactory();
 
@@ -30,7 +43,7 @@ class Controller
                 });
             }
         }
-        IView objView = new ViewBasic();
+
         while (true)
         {
             string response = objView.ShowMenu();
@@ -205,8 +218,10 @@ class Controller
 
                         while (continueInSettings)
                         {
-                            Settings appSettings = Settings.LoadSettings();
+                            SettingsConsole appSettings = new SettingsConsole();
+                            appSettings.LoadSettings();
                             Console.Clear();
+
                             // Afficher les paramètres actuels avec un menu de modification
                             objView.DisplaySettingsMenu(appSettings);
 
@@ -215,7 +230,8 @@ class Controller
                             // Demander à l'utilisateur de choisir un paramètre à modifier
                             while (parameterChoice < 1 || parameterChoice > 4)
                             {
-                                string input = InputHelper.ReadLineNotNull(Language.GetString("Controller_AskSettings") +" : ");
+                                objView.Output(Language.GetString("Controller_AskSettings") + " : ");
+                                string input = InputHelper.ReadLine();
                                 if (int.TryParse(input, out parameterChoice) && parameterChoice >= 1 && parameterChoice <= 4)
                                 {
                                     break;
@@ -227,17 +243,22 @@ class Controller
                             switch (parameterChoice)
                             {
                                 case 1:
-                                    appSettings.UserInputSettingsSoftware = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterSoftware")+" : ");
+                                    objView.Output(Language.GetString("Controller_EnterSoftware") + " : ");
+                                    appSettings.UserInputSettingsSoftware = InputHelper.ReadLine();
                                     break;
                                 case 2:
-                                    string newExtensions = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionCrypt")+" : ");
-                                    appSettings.ExtensionSelected = newExtensions.Split(',').ToList();
+                                    objView.Output(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
+                                    string newExtensionsToCrypt = InputHelper.ReadLine();
+                                    appSettings.ExtensionToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
                                     break;
                                 case 3:
-                                    appSettings.ExtensionToPrioritize = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionPrio")+" : ");
+                                    objView.Output(Language.GetString("Controller_EnterExtensionPrio") + " : ");
+                                    string newExtensionToPrioritize = InputHelper.ReadLine();
+                                    appSettings.ExtensionToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
                                     break;
                                 case 4:
-                                    appSettings.SettingSaturationLimit = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterLimitKo")+" : ");
+                                    objView.Output(Language.GetString("Controller_EnterLimitKo") + " : ");
+                                    appSettings.SettingSaturationLimit = InputHelper.ReadLine();
                                     break;
                             }
 
@@ -249,8 +270,6 @@ class Controller
                         }
 
                         break;
-
-
 
                     case "6":
                         // Change the language with the model
@@ -271,7 +290,8 @@ class Controller
                             string jsonEntry = JsonSerializer.Serialize(save);
                             jsonEntry = jsonEntry.Replace("{}", $"\"{saveStrategy}\"");
                             savesSates.Add(JsonSerializer.Deserialize<dynamic>(jsonEntry));
-                        };
+                        }
+                        ;
                         string repositoryState = JsonSerializer.Serialize(savesSates, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(pathFile, repositoryState);
                         objView.PromptToContinue();
