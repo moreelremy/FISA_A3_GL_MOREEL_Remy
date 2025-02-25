@@ -217,7 +217,7 @@
   <data name="View_DateChoice" xml:space="preserve">
     <value>Pour quelle date souhaitez-vous consulter les logs (jj-MM-aaaa)? [Aujourd'hui]</value>
   </data>
-  <data name="View_FileNotFound" xml:space="preserve">
+  <data name="View_DateNotFound" xml:space="preserve">
     <value>Fichier introuvable. Veuillez entrer une date correcte.</value>
   </data>
   <data name="View_NumberSave" xml:space="preserve">
@@ -382,8 +382,8 @@
   <data name="WPF_SettingSoftware" xml:space="preserve">
     <value>Logiciel Métier :</value>
   </data>
-  <data name="WPF_SettingExtensionToCrypt" xml:space="preserve">
-    <value>Extension à crypter</value>
+  <data name="WPF_SettingExtensionsToCrypt" xml:space="preserve">
+    <value>Extension à crypter :</value>
   </data>
   <data name="WPF_SettingApply" xml:space="preserve">
     <value>APPLIQUER</value>
@@ -403,28 +403,10 @@
   <data name="WPF_SettingSaturationLimit" xml:space="preserve">
     <value>Limite avant saturation (ko)</value>
   </data>
-  <data name="WPF_SettingExtensionToPrioritize" xml:space="preserve">
+  <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Extension à prioriser</value>
   </data>
-  <data name="Controller_AskSettings" xml:space="preserve">
-    <value>Saisissez le numéro du paramètre que vous souhaitez modifier</value>
-  </data>
-  <data name="Controller_SettingIncorrect" xml:space="preserve">
-    <value>Choix invalide. Veuillez saisir un nombre valide entre 1 et 4.</value>
-  </data>
-  <data name="Controller_EnterSoftware" xml:space="preserve">
-    <value>Entrez le nouveau logiciel métier</value>
-  </data>
-  <data name="Controller_EnterExtensionCrypt" xml:space="preserve">
-    <value>Entrez les nouvelles extensions à crypter (séparés par des ;)</value>
-  </data>
-  <data name="Controller_EnterExtensionPrio" xml:space="preserve">
-    <value>Entrez les nouvelles extensions à prioriser</value>
-  </data>
-  <data name="Controller_EnterLimitKo" xml:space="preserve">
-    <value>Entrez la nouvelle limite de saturation (en ko)</value>
-  </data>
-  <data name="Controller_SettingsUpdated" xml:space="preserve">
-    <value>Paramètres mis à jour et sauvegardés.</value>
+  <data name="View_FileNotFound" xml:space="preserve">
+    <value>test</value>
   </data>
 </root>

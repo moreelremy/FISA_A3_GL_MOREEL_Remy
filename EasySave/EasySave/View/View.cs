@@ -1,4 +1,4 @@
-﻿using EasySaveConsole;
+﻿using SettingsTest;
 
 public interface IView
 {
@@ -21,7 +21,7 @@ public interface IView
     void Output(string output);
     void DisplayLog(Dictionary<string, object> log);
 
-    void DisplaySettingsMenu(Settings appSettings);
+    void DisplaySettingsMenu(SettingsConsole appSettings);
 }
 
 /// <summary>
@@ -370,12 +370,12 @@ class ViewBasic : IView
         Console.WriteLine("══════════════════════════════");
     }
 
-    public void DisplaySettingsMenu(Settings appSettings)
+    public void DisplaySettingsMenu(SettingsConsole appSettings)
     {
         Console.WriteLine(Language.GetString("WPF_SettingTitle") + "\n");
         Console.WriteLine("[1] " + Language.GetString("WPF_SettingSoftware") + " : " + appSettings.UserInputSettingsSoftware);
-        Console.WriteLine("[2] " + Language.GetString("WPF_SettingExtensionToCrypt") + " : " + string.Join(", ", appSettings.ExtensionToCrypt));
-        Console.WriteLine("[3] " + Language.GetString("WPF_SettingExtensionToPrioritize") + " : " + string.Join(", ", appSettings.ExtensionToPrioritize));
+        Console.WriteLine("[2] " + Language.GetString("WPF_SettingExtensionsToCrypt") + " : " + string.Join(", ", appSettings.ExtensionsToCrypt));
+        Console.WriteLine("[3] " + Language.GetString("WPF_SettingExtensionsToPrioritize") + " : " + string.Join(", ", appSettings.ExtensionsToPrioritize));
         Console.WriteLine("[4] " + Language.GetString("WPF_SettingSaturationLimit") + " : " + appSettings.SettingSaturationLimit);
     }
 

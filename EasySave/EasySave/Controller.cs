@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.RegularExpressions;
-using EasySaveConsole;
+using SettingsTest;
 
 class Controller
 {
@@ -205,8 +205,10 @@ class Controller
 
                         while (continueInSettings)
                         {
-                            Settings appSettings = Settings.LoadSettings();
+                            SettingsConsole appSettings = new SettingsConsole();
+                            appSettings.LoadSettings();
                             Console.Clear();
+
                             // Afficher les paramètres actuels avec un menu de modification
                             objView.DisplaySettingsMenu(appSettings);
 
@@ -231,11 +233,11 @@ class Controller
                                     break;
                                 case 2:
                                     string newExtensionsToCrypt = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionCrypt")+" : ");
-                                    appSettings.ExtensionToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
+                                    appSettings.ExtensionsToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
                                     break;
                                 case 3:
-                                    string newExtensionToPrioritize = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionPrio") + " : ");
-                                    appSettings.ExtensionToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
+                                    string newExtensionsToPrioritize = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterExtensionPrio") + " : ");
+                                    appSettings.ExtensionsToPrioritize = appSettings.ParseExtensions(newExtensionsToPrioritize);
                                     break;
                                 case 4:
                                     appSettings.SettingSaturationLimit = InputHelper.ReadLineNotNull(Language.GetString("Controller_EnterLimitKo")+" : ");
