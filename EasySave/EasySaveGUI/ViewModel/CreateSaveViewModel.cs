@@ -39,6 +39,7 @@ namespace EasySaveGUI.ViewModel
             set { _targetPath = value; OnPropertyChanged(); }
         }
 
+
         public string SelectedSaveType
         {
             get => _selectedSaveType;
@@ -61,6 +62,7 @@ namespace EasySaveGUI.ViewModel
         }
 
         // Boolean properties for binding
+        
         public bool IsFullSave
         {
             get => SelectedSaveType == "FullSave";
@@ -83,6 +85,7 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
+      
         public bool IsJson
         {
             get => SelectedLogFileExtension == "json";
@@ -118,8 +121,10 @@ namespace EasySaveGUI.ViewModel
         public CreateSaveViewModel(SaveRepository saveRepository)
         {
             _saveRepository = saveRepository;
+            SelectedSaveType = "FullSave";
+            SelectedLogFileExtension = "json";
 
-            
+
 
             CreateSaveCommand = new RelayCommand(_ => ExecuteCreateSave());
             SelectSourceCommand = new RelayCommand(_ => ExecuteSelectSource());
@@ -183,13 +188,13 @@ namespace EasySaveGUI.ViewModel
                 saveStrategy = FactoryStrategy.CreateSaveStrategy(SelectedSaveType),
                 logFileExtension = SelectedLogFileExtension
             };
-
+            
             _saveRepository.AddSave(save);
 
             MessageBox.Show(LanguageHelper.Instance["WPF_CreateSuccess"],
                 LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
 
-            ExecuteGoBack();
+            
         }
         
         private void ExecuteSelectSource()
