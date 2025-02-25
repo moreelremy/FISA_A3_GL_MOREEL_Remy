@@ -8,8 +8,8 @@ namespace EasySaveConsole
     public class Settings
     {
         public string UserInputSettingsSoftware { get; set; }
-        public List<string> ExtensionSelected { get; set; }
-        public string ExtensionToPrioritize { get; set; }
+        public List<string> ExtensionToCrypt { get; set; }
+        public List<string> ExtensionToPrioritize { get; set; }
         public string SettingSaturationLimit { get; set; }
 
         private static readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
@@ -22,12 +22,15 @@ namespace EasySaveConsole
                 return new Settings
                 {
                     UserInputSettingsSoftware = settingsData.ContainsKey("UserInputSettingsSoftware") ? settingsData["UserInputSettingsSoftware"].ToString() : "",
-                    ExtensionSelected = settingsData.ContainsKey("ExtensionSelected") ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionSelected"].ToString()) : new List<string>(),
-                    ExtensionToPrioritize = settingsData.ContainsKey("ExtensionToPrioritize") ? settingsData["ExtensionToPrioritize"].ToString() : "",
+                    ExtensionToCrypt = settingsData.ContainsKey("ExtensionToCrypt") ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionToCrypt"].ToString()) : new List<string>(),
+                    ExtensionToPrioritize = settingsData.ContainsKey("ExtensionToPrioritize") ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionToPrioritize"].ToString()) : new List<string>(),
                     SettingSaturationLimit = settingsData.ContainsKey("SettingSaturationLimit") ? settingsData["SettingSaturationLimit"].ToString() : ""
                 };
             }
-            return new Settings { ExtensionSelected = new List<string>() };
+            return new Settings { 
+                ExtensionToCrypt = new List<string>(),
+                ExtensionToPrioritize = new List<string>()
+            };
         }
 
         public void SaveSettings()
@@ -35,12 +38,22 @@ namespace EasySaveConsole
             var settingsData = new Dictionary<string, object>
             {
                 { "UserInputSettingsSoftware", UserInputSettingsSoftware },
-                { "ExtensionSelected", ExtensionSelected },
+                { "ExtensionToCrypt", ExtensionToCrypt },
                 { "ExtensionToPrioritize", ExtensionToPrioritize },
                 { "SettingSaturationLimit", SettingSaturationLimit }
             };
 
             Data.WriteInJson(settingsData, settingsFilePath);
+        }
+
+
+        public List<string> ParseExtensions(string extensionsEntry)
+        {
+            if (!string.IsNullOrWhiteSpace(extensionsEntry))
+            {
+                return extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
+            }
+            return new List<string>();
         }
     }
 }

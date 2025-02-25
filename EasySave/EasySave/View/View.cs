@@ -374,8 +374,8 @@ class ViewBasic : IView
     {
         Console.WriteLine(Language.GetString("WPF_SettingTitle") + "\n");
         Console.WriteLine("[1] " + Language.GetString("WPF_SettingSoftware") + " : " + appSettings.UserInputSettingsSoftware);
-        Console.WriteLine("[2] " + Language.GetString("WPF_SettingExtensionToCrypt") + " : " + string.Join(", ", appSettings.ExtensionSelected));
-        Console.WriteLine("[3] " + Language.GetString("WPF_SettingExtensionToPrioritize") + " : " + appSettings.ExtensionToPrioritize);
+        Console.WriteLine("[2] " + Language.GetString("WPF_SettingExtensionToCrypt") + " : " + string.Join(", ", appSettings.ExtensionToCrypt));
+        Console.WriteLine("[3] " + Language.GetString("WPF_SettingExtensionToPrioritize") + " : " + string.Join(", ", appSettings.ExtensionToPrioritize));
         Console.WriteLine("[4] " + Language.GetString("WPF_SettingSaturationLimit") + " : " + appSettings.SettingSaturationLimit);
     }
 
