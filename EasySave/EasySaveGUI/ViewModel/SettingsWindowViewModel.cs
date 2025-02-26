@@ -95,10 +95,10 @@ namespace EasySaveGUI.ViewModel
             {
                 SettingsGUI obj = new SettingsGUI();
                 obj.LoadSettings();
-                InputSettingsSoftware = obj.UserInputSettingsSoftware;
+                InputSettingsSoftware = obj.SettingsSoftware;
                 InputSettingsExtensionsToCrypt = string.Join(";", obj.ExtensionsToCrypt);
                 InputSettingsExtensionsToPrioritize = string.Join(";", obj.ExtensionsToPrioritize);
-                InputSaturationLimit = obj.SettingSaturationLimit;
+                InputSaturationLimit = obj.SettingSaturationLimit.ToString();
             }
             catch(Exception ex)
             {
@@ -108,16 +108,26 @@ namespace EasySaveGUI.ViewModel
 
         private void ApplySettings()
         {
+
+
+            if (!int.TryParse(InputSaturationLimit, out int saturationLimit))
+            {
+                MessageBox.Show("La limite de saturation doit être un entier valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             SettingsGUI obj = new SettingsGUI(
                 InputSettingsSoftware,
                 InputSettingsExtensionsToCrypt, 
                 InputSettingsExtensionsToPrioritize, 
-                InputSaturationLimit
+                saturationLimit
                 );
+
+
             try
             {
                 obj.SaveSettings();
-                MessageBox.Show("Successfuly saving setting:", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfuly saving setting", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             catch (Exception ex)
