@@ -127,7 +127,7 @@ public abstract class SaveStrategy
         }
 
         var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        string processName = settings["UserInputSettingsSoftware"].ToString();
+        string processName = settings["SettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
         var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
@@ -228,10 +228,10 @@ public abstract class SaveStrategy
                 Directory.CreateDirectory(targetDirectory);
             }
 
-            var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-            string processName = settings["UserInputSettingsSoftware"].ToString();
-            var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
-            List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
+        var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
+        string processName = settings["SettingsSoftware"].ToString();
+        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
+        List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
 
             // Get all files from the source directory
             var files = Directory.GetFiles(sourceDirectory);

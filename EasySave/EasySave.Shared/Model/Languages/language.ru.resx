@@ -405,6 +405,29 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Расширение для определ</value>
   </data>
+  <data name="Controller_EnterSoftware" xml:space="preserve">
+    <value>Введите новое программное обеспечение для бизнеса</value>
+  </data>
+  <data name="Controller_EnterExtensionCrypt" xml:space="preserve">
+    <value>Введите новые расширения для шифрования (через ;)</value>
+  </data>
+  <data name="Controller_EnterExtensionPrio" xml:space="preserve">
+    <value>Введите новые расширения для расстановки приоритетов</value>
+  </data>
+  <data name="Controller_EnterLimitKo" xml:space="preserve">
+    <value>Введите новый предел насыщенности (в КБ)</value>
+  </data>
+  <data name="Controller_SaturationString" xml:space="preserve">
+    <value>Введите число, а не строку.</value>
+  </data>
+  <data name="Controller_SettingsUpdated" xml:space="preserve">
+    <value>Настройки обновлены и сохранены.</value>
+  </data>
+  <data name="Controller_SettingIncorrect" xml:space="preserve">
+    <value>Неверный выбор. Введите допустимое число от 1 до 4.</value>
+  </data>
+  <data name="Controller_AskSettings" xml:space="preserve">
+    <value>Введите номер параметра, который вы хотите изменить.</value>
   <data name="View_SelectFormatType" xml:space="preserve">
     <value>Выберите тип формата</value>
   </data>
