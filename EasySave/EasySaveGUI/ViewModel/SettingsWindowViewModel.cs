@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Linq;
 using System.Collections.Generic;
-using SettingsTest;
+using SettingsModel;
 
 namespace EasySaveGUI.ViewModel
 {

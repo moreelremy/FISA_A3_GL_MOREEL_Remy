@@ -249,12 +249,12 @@ class Controller
                                 case 2:
                                     objView.Output(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
                                     string newExtensionsToCrypt = InputHelper.ReadLine();
-                                    appSettings.ExtensionToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
+                                    appSettings.ExtensionsToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
                                     break;
                                 case 3:
                                     objView.Output(Language.GetString("Controller_EnterExtensionPrio") + " : ");
                                     string newExtensionToPrioritize = InputHelper.ReadLine();
-                                    appSettings.ExtensionToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
+                                    appSettings.ExtensionsToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
                                     break;
                                 case 4:
                                     objView.Output(Language.GetString("Controller_EnterLimitKo") + " : ");
