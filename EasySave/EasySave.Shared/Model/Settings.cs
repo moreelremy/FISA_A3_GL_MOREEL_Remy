@@ -64,7 +64,7 @@ namespace SettingsModel
             string inputSoftware,
             string inputExtensionToCrypt, 
             string inputExtensionToPrioritize, 
-            int inputSaturationLimit)
+            int? inputSaturationLimit)
         {
             SettingsSoftware = inputSoftware;
             ExtensionsToCrypt = ParseExtensions(inputExtensionToCrypt);

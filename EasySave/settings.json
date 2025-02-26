@@ -1,13 +1,6 @@
 {
-  "UserInputSettingsSoftware": "test",
-  "ExtensionsToCrypt": [
-    "tes",
-    "omg????"
-  ],
-  "ExtensionsToPrioritize": [
-    "svppp",
-    "mdrrr",
-    "bah"
-  ],
-  "SettingSaturationLimit": "test"
+  "SettingsSoftware": "",
+  "ExtensionsToCrypt": [],
+  "ExtensionsToPrioritize": [],
+  "SettingSaturationLimit": null
 }

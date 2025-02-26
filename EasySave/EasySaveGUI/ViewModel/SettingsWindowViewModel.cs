@@ -17,31 +17,9 @@ namespace EasySaveGUI.ViewModel
         private string _inputSettingsExtensionsToCrypt;
         private string _inputSettingsExtensionsToPrioritize;
         private string _inputSaturationLimit;
-        private List<string> _extensionsToCrypt;
-        private List<string> _extensionsToPrioritize;
-        private readonly string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
 
         public ICommand ApplySettingCommand { get; }
 
-        public List<string> ExtensionsToCrypt
-        {
-            get => _extensionsToCrypt ?? new List<string>();
-            set
-            {
-                _extensionsToCrypt = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public List<string> ExtensionsToPrioritize
-        {
-            get => _extensionsToPrioritize ?? new List<string>();
-            set
-            {
-                _extensionsToPrioritize = value;
-                OnPropertyChanged();
-            }
-        }
 
         public string InputSettingsExtensionsToCrypt
         {
@@ -108,25 +86,20 @@ namespace EasySaveGUI.ViewModel
 
         private void ApplySettings()
         {
+            int? saturationLimit = int.TryParse(InputSaturationLimit, out int result) ? result : (int?)null;
 
-
-            if (!int.TryParse(InputSaturationLimit, out int saturationLimit))
-            {
-                MessageBox.Show("La limite de saturation doit être un entier valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             SettingsGUI obj = new SettingsGUI(
                 InputSettingsSoftware,
                 InputSettingsExtensionsToCrypt, 
-                InputSettingsExtensionsToPrioritize, 
+                InputSettingsExtensionsToPrioritize,
                 saturationLimit
                 );
 
 
             try
             {
-                obj.SaveSettings();
+                obj.SaveSettings(); 
                 MessageBox.Show("Successfuly saving setting", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
