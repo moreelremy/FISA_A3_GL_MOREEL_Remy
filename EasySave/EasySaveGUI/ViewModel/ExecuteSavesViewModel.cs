@@ -25,12 +25,13 @@ namespace EasySaveGUI.ViewModel
         public ICommand StopCommand { get; }
 
         // Property for binding the progress bar (0–100)
-        private int _progress;
-        public int Progress
+        private int _globalProgress;
+        public int GlobalProgress
         {
-            get => _progress;
-            set { _progress = value; OnPropertyChanged(); }
+            get => _globalProgress;
+            set { _globalProgress = value; OnPropertyChanged(); }
         }
+
 
         private System.Collections.Generic.List<string> _extensions;
         private string _inputExtensions;
@@ -99,9 +100,9 @@ namespace EasySaveGUI.ViewModel
         {
             // Requests immediate cancellation.
             _cts.Cancel();
-            UpdateProgress(0);
+            GlobalProgress = 0;
 
-            OnPropertyChanged(nameof(Progress));
+            OnPropertyChanged(nameof(GlobalProgress));
         }
 
         private void LoadSaves()
@@ -232,31 +233,16 @@ namespace EasySaveGUI.ViewModel
 
             foreach (var save in saveToExecute)
             {
-                tasks.Add(Task.Run(async () =>
-                {
-                    await semaphore.WaitAsync(_cts.Token);
-                    try
-                    {
-                        string errorMessage;
-                        _pauseEvent.Wait(); // Attend la reprise si pause active
-
-                        if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, UpdateProgress, out errorMessage))
-                        {
-                            throw new Exception(errorMessage);
-                        }
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                    }
-                }, _cts.Token));
+                var task = ExecuterSaveParallele( semaphore,  save);
+                tasks.Add(task);
             }
 
             try
             {
                 await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
                 MessageBox.Show("All saves executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                UpdateProgress(0);
+                GlobalProgress = 0;
+
             }
             catch (OperationCanceledException)
             {
@@ -268,16 +254,47 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
+        async Task ExecuterSaveParallele(SemaphoreSlim semaphore, Save save)
+        {
+            
+                await semaphore.WaitAsync(_cts.Token);
+                try
+                {
+                    string errorMessage;
+                    _pauseEvent.Wait(); // Attend la reprise si pause active
 
+                    if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, (progress) =>
+                    {
+                        save.Progress = progress; // Update individual save progress
+                        UpdateGlobalProgress();   // Update overall progress
+                    }, out errorMessage))
+                    {
+                        throw new Exception(errorMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error during save '{save.name}': {ex.Message}");
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
+            
+        }
 
 
 
 
 
         // Callback to update progress (bound to the Progress property).
-        private void UpdateProgress(int progressPercentage)
+        private void UpdateGlobalProgress()
         {
-            Progress = progressPercentage;
+            if (Saves.Any())
+            {
+                GlobalProgress = (int)Saves.Average(s => s.Progress);
+            }
         }
+
     }
 }
