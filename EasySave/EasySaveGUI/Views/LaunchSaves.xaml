@@ -120,9 +120,9 @@
                 </Button.Content>
             </Button>
 
-            <ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="561,412,140,69" 
+            <ProgressBar Minimum="0" Maximum="100" Value="{Binding GlobalProgress}" Margin="561,412,140,69" 
              Foreground="#4F14AD" BorderBrush="Black" BorderThickness="2"/>
-            <TextBlock Text="{Binding Progress, StringFormat={}{0}%}" 
+            <TextBlock Text="{Binding GlobalProgress, StringFormat={}{0}%}" 
            Foreground="White" FontSize="14" Width="272" Height="33" Margin="561,419,0,0"
            VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold" TextAlignment="Center"/>
 
