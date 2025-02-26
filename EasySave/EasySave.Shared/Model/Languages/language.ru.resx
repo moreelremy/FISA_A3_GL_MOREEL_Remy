@@ -405,4 +405,7 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Расширение для определ</value>
   </data>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Выберите тип формата</value>
+  </data>
 </root>

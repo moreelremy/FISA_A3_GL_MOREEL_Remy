@@ -406,4 +406,7 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Extension to prioritize</value>
   </data>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Select format type</value>
+  </data>
 </root>
