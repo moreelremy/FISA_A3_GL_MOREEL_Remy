@@ -406,7 +406,31 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Extension à prioriser</value>
   </data>
-  <data name="View_FileNotFound" xml:space="preserve">
-    <value>test</value>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Sélectionnez le type de format</value>
+  </data>
+  <data name="Controller_EnterSoftware" xml:space="preserve">
+    <value>Entrez le nouveau logiciel métier</value>
+  </data>
+  <data name="Controller_EnterExtensionCrypt" xml:space="preserve">
+    <value>Entrez les nouvelles extensions à crypter (séparés par des ;)</value>
+  </data>
+  <data name="Controller_EnterExtensionPrio" xml:space="preserve">
+    <value>Entrez les nouvelles extensions à prioriser</value>
+  </data>
+  <data name="Controller_EnterLimitKo" xml:space="preserve">
+    <value>Entrez la nouvelle limite de saturation (en ko)</value>
+  </data>
+  <data name="Controller_SaturationString" xml:space="preserve">
+    <value>Veuillez entrer un numéro plutôt qu'une chaine de caractère </value>
+  </data>
+  <data name="Controller_SettingsUpdated" xml:space="preserve">
+    <value>Paramètres mis à jour et sauvegardés.</value>
+  </data>
+  <data name="Controller_SettingIncorrect" xml:space="preserve">
+    <value>Choix invalide. Veuillez saisir un nombre valide entre 1 et 4.</value>
+  </data>
+  <data name="Controller_AskSettings" xml:space="preserve">
+    <value>Saisissez le numéro du paramètre que vous souhaitez modifier</value>
   </data>
 </root>
