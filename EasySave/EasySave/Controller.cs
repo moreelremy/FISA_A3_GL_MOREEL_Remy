@@ -252,7 +252,7 @@ class Controller
                             {
                                 case 1:
                                     objView.Output(Language.GetString("Controller_EnterSoftware") + " : ");
-                                    appSettings.UserInputSettingsSoftware = InputHelper.ReadLine();
+                                    appSettings.SettingsSoftware = InputHelper.ReadLine();
                                     break;
                                 case 2:
                                     objView.Output(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
@@ -266,7 +266,15 @@ class Controller
                                     break;
                                 case 4:
                                     objView.Output(Language.GetString("Controller_EnterLimitKo") + " : ");
-                                    appSettings.SettingSaturationLimit = InputHelper.ReadLine();
+                                    string inputSaturation = InputHelper.ReadLine();
+                                    if (int.TryParse(inputSaturation, out int value))
+                                    {
+                                        appSettings.SettingSaturationLimit = value;
+                                    }
+                                    else
+                                    {
+                                        objView.Output(Language.GetString("Controller_SaturationString"));
+                                    }
                                     break;
                             }
 

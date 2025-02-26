@@ -110,7 +110,7 @@ public abstract class SaveStrategy
         }
 
         var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        string processName = settings["UserInputSettingsSoftware"].ToString();
+        string processName = settings["SettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
         var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
@@ -207,7 +207,7 @@ public abstract class SaveStrategy
         }
 
         var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        string processName = settings["UserInputSettingsSoftware"].ToString();
+        string processName = settings["SettingsSoftware"].ToString();
         var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
 

@@ -8,10 +8,10 @@ namespace SettingsModel
     public abstract class Settings
     {
         protected static string settingsFilePath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../settings.json");
-        public string? UserInputSettingsSoftware { get; set; }
+        public string? SettingsSoftware { get; set; }
         public List<string>? ExtensionsToCrypt { get; set; }
         public List<string>? ExtensionsToPrioritize { get; set; }
-        public string? SettingSaturationLimit { get; set; }
+        public int? SettingSaturationLimit { get; set; }
         public abstract void LoadSettings();
         public abstract void SaveSettings();
 
@@ -33,10 +33,11 @@ namespace SettingsModel
             if (File.Exists(settingsFilePath))
             {
                 var settingsData = Data.LoadFromJson(settingsFilePath);
-                this.UserInputSettingsSoftware = settingsData.ContainsKey("UserInputSettingsSoftware") ? settingsData["UserInputSettingsSoftware"].ToString() : "";
+                this.SettingsSoftware = settingsData.ContainsKey("SettingsSoftware") ? settingsData["SettingsSoftware"].ToString() : "";
                 this.ExtensionsToCrypt = settingsData.ContainsKey("ExtensionsToCrypt") ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionsToCrypt"].ToString()) : new List<string>();
                 this.ExtensionsToPrioritize = settingsData.ContainsKey("ExtensionsToPrioritize") ? JsonSerializer.Deserialize<List<string>>(settingsData["ExtensionsToPrioritize"].ToString()) : new List<string>();
-                this.SettingSaturationLimit = settingsData.ContainsKey("SettingSaturationLimit") ? settingsData["SettingSaturationLimit"].ToString() : "";
+                this.SettingSaturationLimit = settingsData.TryGetValue("SettingSaturationLimit", out var saturationValue) && saturationValue is JsonElement jsonElement
+                    ? jsonElement.GetInt32() : null;
             }
         }
 
@@ -46,22 +47,12 @@ namespace SettingsModel
 
             var settingsData = new Dictionary<string, object>
         {
-            { "UserInputSettingsSoftware", this.UserInputSettingsSoftware },
+            { "SettingsSoftware", this.SettingsSoftware },
             { "ExtensionsToCrypt", this.ExtensionsToCrypt },
             { "ExtensionsToPrioritize", this.ExtensionsToPrioritize },
             { "SettingSaturationLimit", this.SettingSaturationLimit }
         };
             Data.WriteInJson(settingsData, settingsFilePath);
-        }
-
-
-        public List<string> ParseExtensions(string extensionsEntry)
-        {
-            if (!string.IsNullOrWhiteSpace(extensionsEntry))
-            {
-                return extensionsEntry.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(e => e.Replace(" ", "")).ToList();
-            }
-            return new List<string>();
         }
     }
 
@@ -73,9 +64,9 @@ namespace SettingsModel
             string inputSoftware,
             string inputExtensionToCrypt, 
             string inputExtensionToPrioritize, 
-            string inputSaturationLimit)
+            int inputSaturationLimit)
         {
-            UserInputSettingsSoftware = inputSoftware;
+            SettingsSoftware = inputSoftware;
             ExtensionsToCrypt = ParseExtensions(inputExtensionToCrypt);
             ExtensionsToPrioritize = ParseExtensions(inputExtensionToPrioritize);
             SettingSaturationLimit = inputSaturationLimit;
@@ -89,9 +80,9 @@ namespace SettingsModel
 
                 if (settings != null)
                 {
-                    if (settings.TryGetValue("UserInputSettingsSoftware", out var softwareValue))
+                    if (settings.TryGetValue("SettingsSoftware", out var softwareValue))
                     {
-                        this.UserInputSettingsSoftware = softwareValue?.ToString().Trim() ?? string.Empty;
+                        this.SettingsSoftware = softwareValue?.ToString().Trim() ?? string.Empty;
                     }
 
                     if (settings.TryGetValue("ExtensionsToCrypt", out var extensionsValue) && extensionsValue is JsonElement jsonElementCrypt && jsonElementCrypt.ValueKind == JsonValueKind.Array)
@@ -104,9 +95,9 @@ namespace SettingsModel
                         this.ExtensionsToPrioritize = jsonElementPrioritize.EnumerateArray().Select(e => e.GetString()?.Replace(" ", "") ?? string.Empty).ToList();
                     }
 
-                    if (settings.TryGetValue("SettingSaturationLimit", out var saturationValue))
+                    if (settings.TryGetValue("SettingSaturationLimit", out var saturationValue) && saturationValue is JsonElement jsonElement)
                     {
-                        this.SettingSaturationLimit = saturationValue?.ToString().Trim() ?? string.Empty;
+                        this.SettingSaturationLimit = jsonElement.GetInt32();
                     }
                 }
             }
@@ -124,7 +115,7 @@ namespace SettingsModel
             {
                 var settings = new
                 {
-                    UserInputSettingsSoftware = this.UserInputSettingsSoftware,
+                    SettingsSoftware = this.SettingsSoftware,
                     ExtensionsToCrypt = this.ExtensionsToCrypt,
                     ExtensionsToPrioritize = this.ExtensionsToPrioritize,
                     SettingSaturationLimit = this.SettingSaturationLimit

@@ -406,6 +406,29 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Extension to prioritize</value>
   </data>
+  <data name="Controller_EnterSoftware" xml:space="preserve">
+    <value>Enter the new business software</value>
+  </data>
+  <data name="Controller_EnterExtensionCrypt" xml:space="preserve">
+    <value>Enter the new extensions to encrypt (separated by ;)</value>
+  </data>
+  <data name="Controller_EnterExtensionPrio" xml:space="preserve">
+    <value>Enter new extensions to prioritize</value>
+  </data>
+  <data name="Controller_EnterLimitKo" xml:space="preserve">
+    <value>Enter the new saturation limit (in KB)</value>
+  </data>
+  <data name="Controller_SaturationString" xml:space="preserve">
+    <value>Please enter a number rather than a string.</value>
+  </data>
+  <data name="Controller_SettingsUpdated" xml:space="preserve">
+    <value>Settings updated and saved.</value>
+  </data>
+  <data name="Controller_SettingIncorrect" xml:space="preserve">
+    <value>Invalid choice. Please enter a valid number between 1 and 4.</value>
+  </data>
+  <data name="Controller_AskSettings" xml:space="preserve">
+    <value>Enter the number of the parameter you want to change</value>
   <data name="View_SelectFormatType" xml:space="preserve">
     <value>Select format type</value>
   </data>
