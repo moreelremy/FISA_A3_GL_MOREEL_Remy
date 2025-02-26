@@ -99,7 +99,7 @@ namespace EasySaveGUI.ViewModel
         {
             // Requests immediate cancellation.
             _cts.Cancel();
-            Progress = 0;
+            UpdateProgress(0);
 
             OnPropertyChanged(nameof(Progress));
         }
@@ -256,6 +256,7 @@ namespace EasySaveGUI.ViewModel
             {
                 await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
                 MessageBox.Show("All saves executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                UpdateProgress(0);
             }
             catch (OperationCanceledException)
             {

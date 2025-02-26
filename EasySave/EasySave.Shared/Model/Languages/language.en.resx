@@ -429,5 +429,7 @@
   </data>
   <data name="Controller_AskSettings" xml:space="preserve">
     <value>Enter the number of the parameter you want to change</value>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Select format type</value>
   </data>
 </root>

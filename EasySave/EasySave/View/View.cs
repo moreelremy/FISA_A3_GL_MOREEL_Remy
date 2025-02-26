@@ -298,7 +298,7 @@ class ViewBasic : IView
         string logFileExtension;
         while (true)
         {
-            Output(Language.GetString("View_SelectBackupType"));
+            Output(Language.GetString("View_SelectFormatType"));
             logFileExtension = InputHelper.ReadLine();
             if (logFileExtension == "1" || logFileExtension == "2")
             {

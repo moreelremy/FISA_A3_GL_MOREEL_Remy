@@ -58,19 +58,27 @@ class Controller
                         }
                         else
                         {
-                            Dictionary<string, string> dictSave = objView.CreateBackupView();
-                            Save newSave = new Save
+                            try
                             {
-                                name = dictSave["name"],
-                                sourceDirectory = dictSave["sourceDirectory"],
-                                targetDirectory = dictSave["targetDirectory"],
-                                saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"]),
-                                logFileExtension = dictSave["logFileExtension"]
-                            };
-                            saveRepository.AddSave(newSave);
-                            // Check if the save was successfully added
-                            objView.SaveAddedMessageView(newSave);
-                        }
+                                Dictionary<string, string> dictSave = objView.CreateBackupView();
+                                Save newSave = new Save
+                                {
+                                    name = dictSave["name"],
+                                    sourceDirectory = dictSave["sourceDirectory"],
+                                    targetDirectory = dictSave["targetDirectory"],
+                                    saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"]),
+                                    logFileExtension = dictSave["logFileExtension"]
+                                };
+                                saveRepository.AddSave(newSave);
+                                // Check if the save was successfully added
+                                objView.SaveAddedMessageView(newSave);
+                            }
+                            catch (Exception ex)
+                            {
+                                objView.Output(ex.Message);
+
+                            }
+                        } 
                         objView.PromptToContinue();
                         break;
 

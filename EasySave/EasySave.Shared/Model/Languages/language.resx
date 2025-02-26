@@ -406,8 +406,8 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Extension à prioriser</value>
   </data>
-  <data name="View_FileNotFound" xml:space="preserve">
-    <value>test</value>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Sélectionnez le type de format</value>
   </data>
   <data name="Controller_EnterSoftware" xml:space="preserve">
     <value>Entrez le nouveau logiciel métier</value>
