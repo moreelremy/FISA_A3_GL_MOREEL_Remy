@@ -20,7 +20,7 @@ public class SaveRepository
     {
         if (Saves.Any(s => s.name == save.name))
         {
-            throw new Exception("A save with this name already exists.");
+            throw new Exception(string.Format(Language.GetString("WPF_FieldProblem")));
         }
 
         Saves.Add(save);
