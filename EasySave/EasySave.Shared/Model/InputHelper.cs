@@ -2,7 +2,7 @@
 /// Allows you to manage user input in the console.
 /// Avoid doing a Console.WriteLine("......") + Console.ReadLine() + Avoid empty messages
 /// </summary>
-class InputHelper
+public class InputHelper
 {
     /// <summary>
     /// Reads non-empty user input from the console.

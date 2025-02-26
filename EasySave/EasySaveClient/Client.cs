@@ -10,21 +10,41 @@ class Client
         {
             Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             clientSocket.Connect(new IPEndPoint(IPAddress.Loopback, 5000));
-            if (clientSocket != null)
+
+            while (true)
             {
                 byte[] buffer = new byte[1024];
-                while (true)
+                int bytesRead = clientSocket.Receive(buffer, SocketFlags.None);
+                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                string instruction = response.Length > 4 ? response.Substring(0, 5) : "";
+                switch (instruction)
                 {
-                    int bytesRead = clientSocket.Receive(buffer);
-                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    if (response == "INPUT")
-                    {
+                    case "INPUT":
+                        string[] splitResponse = response.Split();
+                        string message;
+                        try
+                        {
+                            message = InputHelper.ReadLine(Convert.ToBoolean(splitResponse[1]), Convert.ToBoolean(splitResponse[2]));
+                        }
+                        catch (ReturnToMenuException ex)
+                        {
+                            message = "ReturnToMenuException";
+                        }
+                        if (message == "")
+                        {
+                            message = "\0";
+                        }
+                        byte[] data = Encoding.UTF8.GetBytes(message);
+                        clientSocket.Send(data);
+                        break;
+
+                    case "CLEAR":
+                        Console.Clear();
+                        break;
+
+                    default:
                         Console.WriteLine(response);
-                    }
-                    else
-                    {
-                        Console.WriteLine(response);
-                    }
+                        break;
                 }
             }
         }
@@ -33,40 +53,5 @@ class Client
             Console.WriteLine(e.Message);
         }
 
-    }
-
-    private static void ListenToServer(Socket client)
-    {
-        try
-        {
-            byte[] buffer = new byte[1024];
-            while (true)
-            {
-                Console.Write("Message : ");
-                string message = Console.ReadLine();
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                client.Send(data);
-
-                int bytesRead = client.Receive(buffer);
-                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Console.WriteLine("Serveur: " + response);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Connexion perdue : " + e.Message);
-        }
-    }
-    private static void Disconnect(Socket socket)
-    {
-        try
-        {
-            socket.Close();
-            Console.WriteLine("Déconnecté du serveur.");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Impossible de fermer la connexion : " + e.Message);
-        }
     }
 }

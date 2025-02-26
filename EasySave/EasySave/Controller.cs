@@ -103,11 +103,11 @@ class Controller
 
                                     if (success)
                                     {
-                                        objView.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
+                                        objView.Output(Language.GetString("View_ExecutionCompleted"));
                                     }
                                     else
                                     {
-                                        objView.DisplayError(errorMessage);
+                                        objView.Output(errorMessage);
                                     }
                                 }
                             }
@@ -143,8 +143,6 @@ class Controller
                                 case "1":
                                     break;
                                 case "2":
-                                    //string ChoiceDelete = InputHelper.ReadLineNotNull(Language.GetString("Controller_AskChoiceDelete");
-                                    // Display saves and get user input
                                     objView.DisplaySavesForDeletion(saves);
                                     int saveIndex = objView.GetSaveIndexForDeletion(saves.Count);
 
@@ -198,17 +196,10 @@ class Controller
 
                             for (int i = 10; i < logLines.Count; i++)
                             {
-
-                                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                                if (keyInfo.Key != ConsoleKey.Enter)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    objView.DisplayLog(logLines[i]);
-                                }
+                                objView.DisplayLog(logLines[i]);
+                                objView.Input(LineNotNull: false);
                             }
+                            objView.PromptToContinue();
                         }
                         else
                         {
@@ -239,7 +230,7 @@ class Controller
                             while (parameterChoice < 1 || parameterChoice > 4)
                             {
                                 objView.Output(Language.GetString("Controller_AskSettings") + " : ");
-                                string input = InputHelper.ReadLine();
+                                string input = objView.Input();
                                 if (int.TryParse(input, out parameterChoice) && parameterChoice >= 1 && parameterChoice <= 4)
                                 {
                                     break;
@@ -252,21 +243,21 @@ class Controller
                             {
                                 case 1:
                                     objView.Output(Language.GetString("Controller_EnterSoftware") + " : ");
-                                    appSettings.SettingsSoftware = InputHelper.ReadLine();
+                                    appSettings.SettingsSoftware = objView.Input();
                                     break;
                                 case 2:
                                     objView.Output(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
-                                    string newExtensionsToCrypt = InputHelper.ReadLine();
+                                    string newExtensionsToCrypt = objView.Input();
                                     appSettings.ExtensionsToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
                                     break;
                                 case 3:
                                     objView.Output(Language.GetString("Controller_EnterExtensionPrio") + " : ");
-                                    string newExtensionToPrioritize = InputHelper.ReadLine();
+                                    string newExtensionToPrioritize = objView.Input();
                                     appSettings.ExtensionsToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
                                     break;
                                 case 4:
                                     objView.Output(Language.GetString("Controller_EnterLimitKo") + " : ");
-                                    string inputSaturation = InputHelper.ReadLine();
+                                    string inputSaturation = objView.Input();
                                     if (int.TryParse(inputSaturation, out int value))
                                     {
                                         appSettings.SettingSaturationLimit = value;
