@@ -99,6 +99,9 @@ namespace EasySaveGUI.ViewModel
         {
             // Requests immediate cancellation.
             _cts.Cancel();
+            Progress = 0;
+
+            OnPropertyChanged(nameof(Progress));
         }
 
         private void LoadSaves()
@@ -241,7 +244,6 @@ namespace EasySaveGUI.ViewModel
                         {
                             throw new Exception(errorMessage);
                         }
-                        MessageBox.Show($"Save '{save.name}' executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     finally
                     {

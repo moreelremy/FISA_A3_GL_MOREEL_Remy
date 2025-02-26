@@ -55,6 +55,7 @@ public abstract class SaveStrategy
     /// </summary>
     public void commonSave(Save save, int totalFilesToCopy, long totalFileSize, DateTime? lastChangeDateTime = null)
     {
+
         string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
         DateTime startSave = DateTime.UtcNow;
         int encryptionTime = commonSaveDirectory(
@@ -111,7 +112,7 @@ public abstract class SaveStrategy
         var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
         string processName = settings["UserInputSettingsSoftware"].ToString();
         var processes = Process.GetProcesses();
-        var extensionsJson = (JsonElement)settings["ExtensionSelected"];
+        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
 
         foreach (string file in Directory.GetFiles(sourceDirectory))
@@ -207,7 +208,7 @@ public abstract class SaveStrategy
 
         var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
         string processName = settings["UserInputSettingsSoftware"].ToString();
-        var extensionsJson = (JsonElement)settings["ExtensionSelected"];
+        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
         List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
 
         foreach (string file in Directory.GetFiles(sourceDirectory))
