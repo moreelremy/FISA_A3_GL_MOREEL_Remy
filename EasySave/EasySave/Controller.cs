@@ -95,11 +95,11 @@ class Controller
 
                                     if (success)
                                     {
-                                        objView.DisplaySuccess(Language.GetString("View_ExecutionCompleted"));
+                                        objView.Output(Language.GetString("View_ExecutionCompleted"));
                                     }
                                     else
                                     {
-                                        objView.DisplayError(errorMessage);
+                                        objView.Output(errorMessage);
                                     }
                                 }
                             }
@@ -190,17 +190,10 @@ class Controller
 
                             for (int i = 10; i < logLines.Count; i++)
                             {
-
-                                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                                if (keyInfo.Key != ConsoleKey.Enter)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    objView.DisplayLog(logLines[i]);
-                                }
+                                objView.DisplayLog(logLines[i]);
+                                objView.Input(LineNotNull: false);
                             }
+                            objView.PromptToContinue();
                         }
                         else
                         {

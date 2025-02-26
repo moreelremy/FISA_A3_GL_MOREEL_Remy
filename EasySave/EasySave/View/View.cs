@@ -1,9 +1,7 @@
-
-﻿using SettingsModel;
-﻿using System.Net;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Text.Json;
+using SettingsModel;
 
 public interface IView
 {
@@ -18,8 +16,6 @@ public interface IView
     void DisplaySavesForDeletion(List<Save> saves);
     int GetSaveIndexForDeletion(int maxIndex);
     void DisplayDeleteResult(bool isDeleted);
-    void DisplaySuccess(string message);
-    void DisplayError(string message);
     Dictionary<string, string> CreateBackupView();
     string GetWantedDate();
     void PromptToContinue();
@@ -27,6 +23,7 @@ public interface IView
     void DisplaySettingsMenu(SettingsConsole appSettings);
     void Output(string? output);
     string? Input(bool allowReturnToMenu = true, bool LineNotNull = true);
+    void Clear();
 }
 
 /// <summary>
@@ -52,7 +49,7 @@ class ViewBasic : IView
         Output($"    [7]: {Language.GetString("View_ExitApp")}\n\n");
 
         Output(Language.GetString("View_EnterNumber"));
-        return InputHelper.ReadLine(allowReturnToMenu: false);
+        return Input(allowReturnToMenu: false);
     }
 
     /// <summary>
@@ -62,7 +59,7 @@ class ViewBasic : IView
     public string GetLanguageChoice()
     {
         Output(Language.GetString("View_LanguageChoice"));
-        return InputHelper.ReadLine();
+        return Input();
     }
 
     /// <summary>
@@ -161,7 +158,7 @@ class ViewBasic : IView
     public List<int> GetSaveSelection(int maxCount)
     {
         Output(Language.GetString("View_EnterSaveIdsToExecute"));
-        string input = InputHelper.ReadLine();
+        string input = Input();
         return ParseSaveSelection(input, maxCount);
     }
 
@@ -185,7 +182,7 @@ class ViewBasic : IView
             "[1] : " + Language.GetString("Controller_ChoiceMenu") + "\n" +
             "[2] : " + Language.GetString("Controller_ChoiceDelete"));
 
-        string choice = InputHelper.ReadLine();
+        string choice = Input();
         return choice;
     }
 
@@ -212,7 +209,7 @@ class ViewBasic : IView
     public int GetSaveIndexForDeletion(int maxIndex)
     {
         Output(Language.GetString("View_EnterSaveNumber"));
-        string input = InputHelper.ReadLine();
+        string input = Input();
         if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
         {
             return index - 1;  // Convert to 0-based index
@@ -242,39 +239,17 @@ class ViewBasic : IView
     }
 
     /// <summary>
-    /// Displays a success message in green.
-    /// </summary>
-    /// <param name="message">The message to display.</param>
-    public void DisplaySuccess(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Output(message);
-        Console.ResetColor();
-    }
-
-    /// <summary>
-    /// Displays an error message in red.
-    /// </summary>
-    /// <param name="message">The message to display.</param>
-    public void DisplayError(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Output(message);
-        Console.ResetColor();
-    }
-
-    /// <summary>
     /// Collects information from the user to create a new backup, With a return to menu option
     /// </summary>
     /// <returns>The newly created Save object</returns>
     public Dictionary<string, string> CreateBackupView()
     {
         Output(Language.GetString("View_EnterBackupName"));
-        string name = InputHelper.ReadLine();
+        string name = Input();
         Output(Language.GetString("View_EnterSourcePath"));
-        string source = InputHelper.ReadLine();
+        string source = Input();
         Output(Language.GetString("View_EnterTargetPath"));
-        string target = InputHelper.ReadLine();
+        string target = Input();
 
         Output("[1] " + Language.GetString("View_FullSave"));
         Output("[2] " + Language.GetString("View_DifferentialSave"));
@@ -282,7 +257,7 @@ class ViewBasic : IView
         while (true)
         {
             Output(Language.GetString("View_SelectBackupType"));
-            saveStrategy = InputHelper.ReadLine();
+            saveStrategy = Input();
             if (saveStrategy == "1" || saveStrategy == "2")
             {
                 break;
@@ -299,7 +274,7 @@ class ViewBasic : IView
         while (true)
         {
             Output(Language.GetString("View_SelectBackupType"));
-            logFileExtension = InputHelper.ReadLine();
+            logFileExtension = Input();
             if (logFileExtension == "1" || logFileExtension == "2")
             {
                 break;
@@ -353,7 +328,7 @@ class ViewBasic : IView
     {
         Output(Language.GetString("Controller_PressAnyKey"));
         Input(allowReturnToMenu: false, lineNotNull: false);
-        Console.Clear();
+        Clear();
     }
 
     /// <summary>
@@ -400,6 +375,11 @@ class ViewBasic : IView
         return InputHelper.ReadLine(allowReturnToMenu, lineNotNull);
     }
 
+    public virtual void Clear()
+    {
+        Console.Clear();
+    }
+
 }
 
 /// <summary>
@@ -431,23 +411,30 @@ class ViewServer : ViewBasic
     override public void Output(string? output)
     {
         _clientSocket.Send(Encoding.UTF8.GetBytes(output));
-        Thread.Sleep(1);
+        Thread.Sleep(25);
     }
 
     public override string? Input(bool allowReturnToMenu = true, bool lineNotNull = true)
     {
-        Output(JsonSerializer.Serialize(
-        new
-        {
-            Input = (allowReturnToMenu, lineNotNull)
-        }));
+        Output($"INPUT {allowReturnToMenu} {lineNotNull}");
         byte[] buffer = new byte[1024];
-        int bytesRead;
         string message = "";
-        while ((bytesRead = _clientSocket.Receive(buffer)) > 0)
+        int bytesRead = _clientSocket.Receive(buffer, SocketFlags.None);
+        message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+        switch (message)
         {
-            message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            case "\0":
+                message = "";
+                break;
+
+            case "ReturnToMenuException":
+                throw new ReturnToMenuException();
         }
-        return message;
+        return message == "\0" ? "" : message;
+    }
+
+    public override void Clear()
+    {
+        Output("CLEAR");
     }
 }
