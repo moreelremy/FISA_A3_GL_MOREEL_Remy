@@ -408,9 +408,6 @@
   <data name="View_SelectFormatType" xml:space="preserve">
     <value>Выберите тип формата</value>
   </data>
-  <data name="View_SelectFormatType" xml:space="preserve">
-    <value>Выберите тип формата</value>
-  </data>
   <data name="Controller_EnterSoftware" xml:space="preserve">
     <value>Введите новое программное обеспечение для бизнеса</value>
   </data>
@@ -437,5 +434,8 @@
   </data>
   <data name="Controller_SaveExecutionErrorProcessCancelled" xml:space="preserve">
     <value>Операция отменена</value>
+  </data>
+  <data name="WPF_SourceTargetProblem" xml:space="preserve">
+    <value>Исходная папка не может совпадать с папкой назначения.</value>
   </data>
 </root>

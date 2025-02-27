@@ -433,4 +433,10 @@
   <data name="Controller_AskSettings" xml:space="preserve">
     <value>Enter the number of the parameter you want to change</value>
   </data>
+  <data name="Controller_SaveExecutionErrorProcessCancelled" xml:space="preserve">
+    <value>Operation Cancelled</value>
+  </data>
+  <data name="WPF_SourceTargetProblem" xml:space="preserve">
+    <value>The source directory cannot be the same as the target directory.</value>
+  </data>
 </root>
