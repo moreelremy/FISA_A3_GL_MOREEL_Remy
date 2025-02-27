@@ -273,7 +273,6 @@ class Controller
                             appSettings.SaveSettings();
                             objView.Output(Language.GetString("Controller_SettingsUpdated"));
                             Thread.Sleep(1000);
-
                         }
 
                         break;
