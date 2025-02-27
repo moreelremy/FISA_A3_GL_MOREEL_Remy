@@ -88,9 +88,8 @@ public class SaveRepository
         }
         catch (Exception ex)
         {
-            errorMessage = string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
+            errorMessage = ex.Message;
             return false;
         }
     }
-
 }
