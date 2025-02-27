@@ -37,7 +37,7 @@ Vous pouvez exécuter une plage de sauvegardes avec **'-'** (ex : `1-3` pour ex�
 **Partielle** : Exécute uniquement les sauvegardes sélectionnées.  
 **Globale** : Exécute toutes les sauvegardes enregistrées.  
 
-Cliquez sur le bouton associé à votre choix.  
+Choisissez l'option qui vous convient. Dans les deux cas les sauvegardes s'effectueront en parralèle dans les limites de votre ordinateur.
 
 </br>  
 </br>  
@@ -81,4 +81,4 @@ You can execute a range of backups using **'-'** (e.g., `1-3` to execute backups
 **Partial**: Executes only the selected backups.  
 **Global**: Executes all saved backups.  
 
-Click the button corresponding to your choice.
+Choose the option that suits you. In both cases, backups will be performed in parallel within the limits of your computer.
