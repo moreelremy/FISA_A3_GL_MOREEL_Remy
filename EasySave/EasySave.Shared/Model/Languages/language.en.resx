@@ -124,16 +124,16 @@
     <value>Create a backup</value>
   </data>
   <data name="View_EnterBackupName" xml:space="preserve">
-    <value>Enter the backup name: </value>
+    <value>Enter the backup name :</value>
   </data>
   <data name="View_EnterNumber" xml:space="preserve">
     <value>Please enter a number :</value>
   </data>
   <data name="View_EnterSourcePath" xml:space="preserve">
-    <value>Enter the source path: </value>
+    <value>Enter the source path :</value>
   </data>
   <data name="View_EnterTargetPath" xml:space="preserve">
-    <value>Enter the target path: </value>
+    <value>Enter the target path :</value>
   </data>
   <data name="View_ExitApp" xml:space="preserve">
     <value>Exit the application</value>
@@ -145,10 +145,10 @@
     <value>Invalid choice!</value>
   </data>
   <data name="View_LanguageChoice" xml:space="preserve">
-    <value>Choose a language (EN/FR/RU)</value>
+    <value>Choose a language (EN/FR/RU) :</value>
   </data>
   <data name="View_ListOfBackups" xml:space="preserve">
-    <value>║           List of saves           ║</value>
+    <value>List of saves</value>
   </data>
   <data name="View_NoBackups" xml:space="preserve">
     <value>No backups found.</value>
@@ -379,10 +379,10 @@
     <value>Extension to encrypt</value>
   </data>
   <data name="WPF_SettingSoftware" xml:space="preserve">
-    <value>Business software:</value>
+    <value>Business software : </value>
   </data>
   <data name="WPF_SettingExtensionsToCrypt" xml:space="preserve">
-    <value>Extension to encrypt:</value>
+    <value>Extension to encrypt : </value>
   </data>
   <data name="WPF_SettingApply" xml:space="preserve">
     <value>APPLY</value>
@@ -401,10 +401,13 @@
   </data>
   <data name="WPF_SettingSaturationLimit" xml:space="preserve">
     <value>Limit before saturation
-(ko)</value>
+(ko) : </value>
   </data>
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
-    <value>Extension to prioritize</value>
+    <value>Extension to prioritize : </value>
+  </data>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Select format type</value>
   </data>
   <data name="Controller_EnterSoftware" xml:space="preserve">
     <value>Enter the new business software</value>
@@ -429,8 +432,5 @@
   </data>
   <data name="Controller_AskSettings" xml:space="preserve">
     <value>Enter the number of the parameter you want to change</value>
-	  </data>
-  <data name="View_SelectFormatType" xml:space="preserve">
-    <value>Select format type</value>
   </data>
 </root>

@@ -23,6 +23,7 @@ public interface IView
     void Output(string? output);
     string? Input(bool allowReturnToMenu = true, bool LineNotNull = true);
     void Clear();
+    void DisplayTitleForExecution(string titleToOutput);
 }
 
 /// <summary>
@@ -213,9 +214,6 @@ class ViewBasic : IView
     /// <param name="saves">Set up a backup list</param>
     public void ShowSavesView(List<Save> saves)
     {
-        Output("╔═══════════════════════════════════╗");
-        Output(Language.GetString("View_ListOfBackups"));
-        Output("╚═══════════════════════════════════╝");
         for (int i = 0; i < saves.Count; i++)
         {
             Output($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
@@ -224,7 +222,7 @@ class ViewBasic : IView
             Output($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
             Output($"   " + Language.GetString("View_SaveType") + $" : {Language.GetString($"View_{saves[i].saveStrategy.GetType().Name}")}");
             Output($"   " + Language.GetString("View_logFileExtension") + $" : {saves[i].logFileExtension}");
-            Output("═════════════════════════════════════");
+            Output("═════════════════════════════════");
         }
     }
 
@@ -334,11 +332,10 @@ class ViewBasic : IView
     /// </summary>
     public void DisplaySettingsMenu(SettingsConsole appSettings)
     {
-        Output(Language.GetString("WPF_SettingTitle") + "\n");
-        Output("[1] " + Language.GetString("WPF_SettingSoftware") + " : " + appSettings.SettingsSoftware);
-        Output("[2] " + Language.GetString("WPF_SettingExtensionToCrypt") + " : " + string.Join(", ", appSettings.ExtensionsToCrypt));
-        Output("[3] " + Language.GetString("WPF_SettingExtensionToPrioritize") + " : " + string.Join(", ", appSettings.ExtensionsToPrioritize));
-        Output("[4] " + Language.GetString("WPF_SettingSaturationLimit") + " : " + appSettings.SettingSaturationLimit);
+        Output("[1] " + Language.GetString("WPF_SettingSoftware") + appSettings.SettingsSoftware);
+        Output("[2] " + Language.GetString("WPF_SettingExtensionsToCrypt") + string.Join(", ", appSettings.ExtensionsToCrypt));
+        Output("[3] " + Language.GetString("WPF_SettingExtensionsToPrioritize") + string.Join(", ", appSettings.ExtensionsToPrioritize));
+        Output("[4] " + Language.GetString("WPF_SettingSaturationLimit") + appSettings.SettingSaturationLimit);
     }
 
 
@@ -379,11 +376,23 @@ class ViewBasic : IView
         Clear();
     }
 
+    /// <summary>
+    /// Clear the console
+    /// </summary>
     public virtual void Clear()
     {
         Console.Clear();
     }
 
+    /// <summary>
+    /// Display a title for the execution of each task
+    /// </summary>
+    /// <param name="titleToOutput"> The title to display</param>
+    public void DisplayTitleForExecution(string titleToOutput)
+    {
+        Output("\n\n" + titleToOutput);
+        Output("═══════════════════════════════════════");
+    }
 }
 
 /// <summary>

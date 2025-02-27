@@ -52,37 +52,33 @@ class Controller
                 switch (response)
                 {
                     case "1":
-                        if (saveRepository.GetAllSaves().Count >= 5)
-                        {
-                            objView.Output(Language.GetString("Controller_MaxSaveLimitReached"));  // Indicate that the save was not added Display a message if the save limit is reached
+                        try
+                        { 
+                            objView.DisplayTitleForExecution(Language.GetString("View_CreateBackup"));
+                            Dictionary<string, string> dictSave = objView.CreateBackupView();
+                            Save newSave = new Save
+                            {
+                                name = dictSave["name"],
+                                sourceDirectory = dictSave["sourceDirectory"],
+                                targetDirectory = dictSave["targetDirectory"],
+                                saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"]),
+                                logFileExtension = dictSave["logFileExtension"]
+                            };
+                            saveRepository.AddSave(newSave);
+                            // Check if the save was successfully added
+                            objView.SaveAddedMessageView(newSave);
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            try
-                            {
-                                Dictionary<string, string> dictSave = objView.CreateBackupView();
-                                Save newSave = new Save
-                                {
-                                    name = dictSave["name"],
-                                    sourceDirectory = dictSave["sourceDirectory"],
-                                    targetDirectory = dictSave["targetDirectory"],
-                                    saveStrategy = saveStrategyFactory.CreateSaveStrategy(dictSave["saveStrategy"]),
-                                    logFileExtension = dictSave["logFileExtension"]
-                                };
-                                saveRepository.AddSave(newSave);
-                                // Check if the save was successfully added
-                                objView.SaveAddedMessageView(newSave);
-                            }
-                            catch (Exception ex)
-                            {
-                                objView.Output(ex.Message);
+                            objView.Output(ex.Message);
 
-                            }
-                        } 
+                        }
+
                         objView.PromptToContinue();
                         break;
 
                     case "2":
+                        objView.DisplayTitleForExecution(Language.GetString("View_StartBackup"));
                         if (saveRepository.IsEmpty())
                         {
                             objView.Output(Language.GetString("View_NoBackups"));
@@ -116,6 +112,7 @@ class Controller
                         break;
 
                     case "3":
+                        objView.DisplayTitleForExecution(Language.GetString("View_ListOfBackups"));
                         if (saveRepository.IsEmpty())
                         {
                             objView.Output(Language.GetString("View_NoBackups"));
@@ -158,8 +155,7 @@ class Controller
                         break;
 
                     case "4":
-
-                        objView.Output(Language.GetString("ControllerView_ViewLogs"));
+                        objView.DisplayTitleForExecution(Language.GetString("ControllerView_ViewLogs"));
                         string wantedDate = objView.GetWantedDate();
                         if (!Regex.IsMatch(wantedDate, "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\\d{4}$"))
                         {
@@ -212,74 +208,72 @@ class Controller
                         break;
 
                     case "5":
-
+                        objView.DisplayTitleForExecution(Language.GetString("WPF_SettingTitle"));
                         bool continueInSettings = true;
 
-                        while (continueInSettings)
+                        SettingsConsole appSettings = new SettingsConsole();
+                        appSettings.LoadSettings();
+
+                        // Afficher les paramètres actuels avec un menu de modification
+                        objView.DisplaySettingsMenu(appSettings);
+
+                        int parameterChoice = -1;
+                            
+                        // Demander à l'utilisateur de choisir un paramètre à modifier
+                        while (parameterChoice < 1 || parameterChoice > 4)
                         {
-                            SettingsConsole appSettings = new SettingsConsole();
-                            appSettings.LoadSettings();
-                            Console.Clear();
-
-                            // Afficher les paramètres actuels avec un menu de modification
-                            objView.DisplaySettingsMenu(appSettings);
-
-                            int parameterChoice = -1;
-
-                            // Demander à l'utilisateur de choisir un paramètre à modifier
-                            while (parameterChoice < 1 || parameterChoice > 4)
+                            objView.Output("\n" + Language.GetString("Controller_AskSettings") + " : ");
+                            string input = objView.Input();
+                            if (int.TryParse(input, out parameterChoice) && parameterChoice >= 1 && parameterChoice <= 4)
                             {
-                                objView.Output(Language.GetString("Controller_AskSettings") + " : ");
-                                string input = objView.Input();
-                                if (int.TryParse(input, out parameterChoice) && parameterChoice >= 1 && parameterChoice <= 4)
-                                {
-                                    break;
-                                }
-                                objView.Output(Language.GetString("Controller_SettingIncorrect"));
+                                break;
                             }
-
-                            // Modifier le paramètre choisi
-                            switch (parameterChoice)
-                            {
-                                case 1:
-                                    objView.Output(Language.GetString("Controller_EnterSoftware") + " : ");
-                                    appSettings.SettingsSoftware = objView.Input();
-                                    break;
-                                case 2:
-                                    objView.Output(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
-                                    string newExtensionsToCrypt = objView.Input();
-                                    appSettings.ExtensionsToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
-                                    break;
-                                case 3:
-                                    objView.Output(Language.GetString("Controller_EnterExtensionPrio") + " : ");
-                                    string newExtensionToPrioritize = objView.Input();
-                                    appSettings.ExtensionsToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
-                                    break;
-                                case 4:
-                                    objView.Output(Language.GetString("Controller_EnterLimitKo") + " : ");
-                                    string inputSaturation = objView.Input();
-                                    if (int.TryParse(inputSaturation, out int value))
-                                    {
-                                        appSettings.SettingSaturationLimit = value;
-                                    }
-                                    else
-                                    {
-                                        objView.Output(Language.GetString("Controller_SaturationString"));
-                                    }
-                                    break;
-                            }
-
-                            // Sauvegarder les paramètres modifiés (si une modification a eu lieu)
-                            appSettings.SaveSettings();
-                            objView.Output(Language.GetString("Controller_SettingsUpdated"));
-                            Thread.Sleep(1000);
+                            objView.Output(Language.GetString("Controller_SettingIncorrect"));
                         }
+
+                        // Modifier le paramètre choisi
+                        switch (parameterChoice)
+                        {
+                            case 1:
+                                objView.Output(Language.GetString("Controller_EnterSoftware") + " : ");
+                                appSettings.SettingsSoftware = objView.Input();
+                                break;
+                            case 2:
+                                objView.Output(Language.GetString("Controller_EnterExtensionCrypt") + " : ");
+                                string newExtensionsToCrypt = objView.Input();
+                                appSettings.ExtensionsToCrypt = appSettings.ParseExtensions(newExtensionsToCrypt);
+                                break;
+                            case 3:
+                                objView.Output(Language.GetString("Controller_EnterExtensionPrio") + " : ");
+                                string newExtensionToPrioritize = objView.Input();
+                                appSettings.ExtensionsToPrioritize = appSettings.ParseExtensions(newExtensionToPrioritize);
+                                break;
+                            case 4:
+                                objView.Output(Language.GetString("Controller_EnterLimitKo") + " : ");
+                                string inputSaturation = objView.Input();
+                                if (int.TryParse(inputSaturation, out int value))
+                                {
+                                    appSettings.SettingSaturationLimit = value;
+                                }
+                                else
+                                {
+                                    objView.Output(Language.GetString("Controller_SaturationString"));
+                                }
+                                break;
+                        }
+
+                        // Sauvegarder les paramètres modifiés (si une modification a eu lieu)
+                        appSettings.SaveSettings();
+                        objView.Output(Language.GetString("Controller_SettingsUpdated"));
+                        Thread.Sleep(1000);
+                        Console.Clear();
 
                         break;
 
                     case "6":
-                        // Change the language with the model
+                        objView.DisplayTitleForExecution(Language.GetString("View_ChangeLanguage"));
                         Language.SetLanguage(objView.GetLanguageChoice());
+                        Console.Clear();
                         break;
 
                     case "7":
