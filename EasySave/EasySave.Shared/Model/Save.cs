@@ -10,6 +10,7 @@ public class Save
     public required string targetDirectory { get; set; }
     public required SaveStrategy saveStrategy { get; set; }
     public required string logFileExtension { get; set; }
+    public int Progress { get; set; }
 }
 
 public class SaveStrategyFactory
@@ -101,8 +102,9 @@ public abstract class SaveStrategy
             filesSizeLeftToDo -= fileSize;
 
             // Compute progress
-            int currentProgress = totalFileSize > 0 ? (int)(((float)(totalFileSize - filesSizeLeftToDo) / totalFileSize) * 100) : 100;
-            progressCallback?.Invoke(currentProgress); // Update UI progress
+            int currentProgress = totalFilesToCopy > 0 ? (int)(((float)(totalFilesToCopy - nbFilesLeftToDo) / totalFilesToCopy) * 100) : 100;
+            progressCallback?.Invoke(currentProgress);
+
 
             Data.RealTimeLog(
                 saveName: save.name,

@@ -434,6 +434,9 @@
     <value>Saisissez le numéro du paramètre que vous souhaitez modifier</value>
   </data>
   <data name="Controller_SaveExecutionErrorProcessCancelled" xml:space="preserve">
-    <value>"Opération annulée"</value>
+    <value>Opération annulée</value>
+  </data>
+  <data name="WPF_SourceTargetProblem" xml:space="preserve">
+    <value>Le répertoire source ne peut pas être le même que le répertoire cible.</value>
   </data>
 </root>

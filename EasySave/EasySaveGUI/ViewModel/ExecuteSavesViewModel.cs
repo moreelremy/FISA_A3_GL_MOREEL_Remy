@@ -275,7 +275,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
 
                     if (!await _saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, (progress) =>
                     {
-                        //save.Progress = progress; // Update individual save progress
+                        save.Progress = progress; // Store progress per save
                         UpdateGlobalProgress();   // Update overall progress
                     }))
                     {
@@ -302,8 +302,11 @@ public ICommand ExecuteGlobalSaveCommand { get; }
         {
             if (Saves.Any())
             {
-                GlobalProgress = 0;//(int)Saves.Average(s => s.Progress);
+                int totalProgress = Saves.Sum(s => s.Progress);
+                GlobalProgress = totalProgress / Saves.Count;
+                OnPropertyChanged(nameof(GlobalProgress));
             }
+
         }
 
     }
