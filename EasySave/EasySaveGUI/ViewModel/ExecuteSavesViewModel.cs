@@ -265,7 +265,7 @@ namespace EasySaveGUI.ViewModel
 
                     if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, (progress) =>
                     {
-                        save.Progress = progress; // Update individual save progress
+                        //save.Progress = progress; // Update individual save progress
                         UpdateGlobalProgress();   // Update overall progress
                     }, out errorMessage))
                     {
@@ -292,7 +292,7 @@ namespace EasySaveGUI.ViewModel
         {
             if (Saves.Any())
             {
-                GlobalProgress = (int)Saves.Average(s => s.Progress);
+                GlobalProgress = 0;//(int)Saves.Average(s => s.Progress);
             }
         }
 

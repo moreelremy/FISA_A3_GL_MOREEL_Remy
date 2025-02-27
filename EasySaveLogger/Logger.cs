@@ -72,18 +72,6 @@ namespace EasySaveLogger
             return deserializedListofDict;
         }
 
-        // Function to use the delegate and serialize
-        internal static string serialize(List<Dictionary<string, object>> obj, SerializeDelegate serializeMethod)
-        {
-            return serializeMethod(obj);
-        }
-
-        // Function to use the delegate and deserialize
-        internal static List<Dictionary<string, object>> deserialize(string obj, DeserializeDelegate deserializeMethod)
-        {
-            return deserializeMethod(obj);
-        }
-
         public static void Log(Dictionary<string, object> entryObject, string filePath = "defaultLog.json")
         {
             string typeFile = filePath.Split('.').LastOrDefault();
@@ -118,7 +106,7 @@ namespace EasySaveLogger
                 //read the entire file 
                 string existingFile = File.ReadAllText(pathFile);
                 // Deserialize JSON into a list of dictionaries or initialize an empty list if null
-                logs = deserialize(existingFile, deserializer);
+                logs = deserializer(existingFile);
 
             }
             catch
@@ -158,7 +146,7 @@ namespace EasySaveLogger
             try
             {
                 string existingFile = File.ReadAllText(filePath);
-                logs = deserialize(existingFile, deserializer);
+                logs = deserializer(existingFile);
             }
 
             catch (Exception ex)
