@@ -31,6 +31,7 @@ public interface IView
 /// </summary>
 class ViewBasic : IView
 {
+    /////////////////////////////////////////////////////////////////////////// MENU
     /// <summary>
     /// Displays the menu (choice for the user)
     /// </summary>
@@ -52,6 +53,7 @@ class ViewBasic : IView
         return Input(allowReturnToMenu: false);
     }
 
+    /////////////////////////////////////////////////////////////////////////// LANGUAGE
     /// <summary>
     /// Ask the user to choose a language
     /// </summary>
@@ -71,6 +73,7 @@ class ViewBasic : IView
         Output(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
     }
 
+    /////////////////////////////////////////////////////////////////////////// SHOW SAVES
     /// <summary>
     /// Displays the list of backups with their number in the list
     /// </summary>
@@ -93,6 +96,7 @@ class ViewBasic : IView
 
     }
 
+    ////////////////////////////////////////////////////////////////////////// EXECUTE SAVES
     public void DisplaySavesForExecution(List<Save> saves)
     {
         Output(Language.GetString("View_ChooseSaveToExecute"));
@@ -332,9 +336,9 @@ class ViewBasic : IView
     }
 
     /// <summary>
-    /// Affiche les informations d'un log dans la console.
+    /// Show the log entry in the console
     /// </summary>
-    /// <param name="log">L'entrée de log à afficher.</param>
+    /// <param name="log"> LogEntry to display</param>
     public void DisplayLog(Dictionary<string, object> log)
     {
         if (log == null)
@@ -352,6 +356,10 @@ class ViewBasic : IView
         Output("══════════════════════════════");
     }
 
+    /////////////////////////////////////////////////////////////////////////// SETTINGS
+    /// <summary>
+    /// Display the settings menu
+    /// </summary>
     public void DisplaySettingsMenu(SettingsConsole appSettings)
     {
         Output(Language.GetString("WPF_SettingTitle") + "\n");
@@ -361,6 +369,7 @@ class ViewBasic : IView
         Output("[4] " + Language.GetString("WPF_SettingSaturationLimit") + " : " + appSettings.SettingSaturationLimit);
     }
 
+    /////////////////////////////////////////////////////////////////////////// OUTPUT GENERAL
     /// <summary>
     /// Just print a message in the console
     /// </summary>
