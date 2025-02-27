@@ -200,12 +200,11 @@ public abstract class SaveStrategy
         }
         catch (OperationCanceledException)
         {
-            Console.WriteLine($"Save '{saveName}' was cancelled.");
-            throw;
+            throw new Exception($"Save '{saveName}' was cancelled.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error during save '{saveName}': {ex.Message}");
+            throw new Exception(ex.Message);
         }
 
         return encryptionTime;
@@ -231,15 +230,15 @@ public class FullSave : SaveStrategy
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
+            throw new DirectoryNotFoundException("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
         }
         catch (InvalidOperationException message)
         {
             throw new InvalidOperationException(message.Message);
         }
-        catch
+        catch (Exception ex)
         {
-            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
+            throw new Exception(ex.Message);
         }
     }
 
@@ -277,15 +276,15 @@ public class DifferentialSave : SaveStrategy
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
+            throw new DirectoryNotFoundException("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
         }
         catch (InvalidOperationException message)
         {
             throw new InvalidOperationException(message.Message);
         }
-        catch
+        catch (Exception ex)
         {
-            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
+            throw new Exception(ex.Message);
         }
     }
 
