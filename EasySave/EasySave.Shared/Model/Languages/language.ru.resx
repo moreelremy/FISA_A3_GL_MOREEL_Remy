@@ -405,6 +405,9 @@
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
     <value>Расширение для определ</value>
   </data>
+  <data name="View_SelectFormatType" xml:space="preserve">
+    <value>Выберите тип формата</value>
+  </data>
   <data name="Controller_EnterSoftware" xml:space="preserve">
     <value>Введите новое программное обеспечение для бизнеса</value>
   </data>
@@ -428,8 +431,8 @@
   </data>
   <data name="Controller_AskSettings" xml:space="preserve">
     <value>Введите номер параметра, который вы хотите изменить.</value>
-	  </data>
-  <data name="View_SelectFormatType" xml:space="preserve">
-    <value>Выберите тип формата</value>
+  </data>
+  <data name="Controller_SaveExecutionErrorProcessCancelled" xml:space="preserve">
+    <value>Операция отменена</value>
   </data>
 </root>

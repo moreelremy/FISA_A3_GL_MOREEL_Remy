@@ -433,4 +433,7 @@
   <data name="Controller_AskSettings" xml:space="preserve">
     <value>Saisissez le numéro du paramètre que vous souhaitez modifier</value>
   </data>
+  <data name="Controller_SaveExecutionErrorProcessCancelled" xml:space="preserve">
+    <value>"Opération annulée"</value>
+  </data>
 </root>

@@ -37,13 +37,13 @@ public abstract class SaveStrategy
     /// <summary>
     /// Save execution with cancellation, pause/resume and progress reporting.
     /// </summary>
-    public abstract void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback);
+    public abstract  Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback);
 
     /// <summary>
     /// Helper method for synchronous save. Creates a unique target folder,
     /// performs the file copy/encryption, logs the real-time progress and then the summary log.
     /// </summary>
-    public void commonSave(Save save, int totalFilesToCopy, long totalFileSize, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, DateTime? lastChangeDateTime = null)
+    public async Task commonSave(Save save, int totalFilesToCopy, long totalFileSize, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, DateTime? lastChangeDateTime = null)
     {
         string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
         DateTime startSave = DateTime.UtcNow;
@@ -220,7 +220,7 @@ public abstract class SaveStrategy
 public class FullSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public override void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
+    public override async Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
     {
         try
         {
@@ -256,7 +256,7 @@ public class FullSave : SaveStrategy
 public class DifferentialSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public override void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
+    public override async Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
     {
         try
         {
@@ -273,7 +273,7 @@ public class DifferentialSave : SaveStrategy
             long totalFileSize = filesToCopy
                 .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
                 .Sum(file => new FileInfo(file).Length);
-            commonSave(save, totalFilesToCopy, totalFileSize, token, pauseEvent, progressCallback, lastChangeDateTime);
+            await commonSave(save, totalFilesToCopy, totalFileSize, token, pauseEvent, progressCallback, lastChangeDateTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {

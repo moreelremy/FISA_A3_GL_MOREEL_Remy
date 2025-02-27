@@ -97,18 +97,20 @@ class Controller
                             {
                                 foreach (int index in saveIndexes)
                                 {
-                                    string errorMessage;
-                                    bool success = saveRepository.ExecuteSave(savesToExecute[index], new CancellationToken(), new ManualResetEventSlim(true),
-                                    progress => {/* no-op, or log progress if needed */ }, out errorMessage);
-
-                                    if (success)
+                                    
+                                    try
                                     {
+                                        Task <bool> success = saveRepository.ExecuteSave(savesToExecute[index], new CancellationToken(), new ManualResetEventSlim(true),
+                                        progress => {/* no-op, or log progress if needed */ });
+
                                         objView.Output(Language.GetString("View_ExecutionCompleted"));
                                     }
-                                    else
+                                    catch (Exception ex)
                                     {
-                                        objView.Output(errorMessage);
+                                        objView.Output(ex.Message);
                                     }
+
+                                    
                                 }
                             }
                         }
