@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading;
 using CryptoSoft;
 
 public class Save
@@ -16,22 +10,6 @@ public class Save
     public required string targetDirectory { get; set; }
     public required SaveStrategy saveStrategy { get; set; }
     public required string logFileExtension { get; set; }
-
-    private int _progress;
-    public int Progress
-    {
-        get => _progress;
-        set
-        {
-            _progress = value;
-            OnPropertyChanged(nameof(Progress));
-        }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected void OnPropertyChanged(string propertyName) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
 }
 
 public class SaveStrategyFactory
@@ -72,7 +50,6 @@ public abstract class SaveStrategy
     /// </summary>
     public void commonSave(Save save, int totalFilesToCopy, long totalFileSize, DateTime? lastChangeDateTime = null)
     {
-
         string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
         DateTime startSave = DateTime.UtcNow;
         int encryptionTime = commonSaveDirectory(
@@ -228,10 +205,10 @@ public abstract class SaveStrategy
                 Directory.CreateDirectory(targetDirectory);
             }
 
-        var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        string processName = settings["SettingsSoftware"].ToString();
-        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
-        List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
+            var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
+            string processName = settings["SettingsSoftware"].ToString();
+            var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
+            List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
 
             // Get all files from the source directory
             var files = Directory.GetFiles(sourceDirectory);
@@ -333,8 +310,6 @@ public abstract class SaveStrategy
 
         return encryptionTime;
     }
-
-
 
     /// <summary>
     /// Saves a directory by copying files and subdirectories.

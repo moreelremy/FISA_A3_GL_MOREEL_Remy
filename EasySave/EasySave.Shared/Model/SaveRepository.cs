@@ -6,12 +6,12 @@ public class SaveRepository
     [JsonInclude]
     public ObservableCollection<Save> Saves { get; private set; } = new ObservableCollection<Save>();
 
- 
 
-    
-   
-   
-   
+
+
+
+
+
 
     /// <summary>
     /// Adds a new save and persists it to the JSON file.
@@ -24,7 +24,7 @@ public class SaveRepository
         }
 
         Saves.Add(save);
-        
+
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class SaveRepository
         if (index >= 0 && index < Saves.Count)
         {
             Saves.RemoveAt(index);
-            
+
             return true;
         }
 
