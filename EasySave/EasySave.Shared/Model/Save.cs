@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading;
 using CryptoSoft;
 
 public class Save
@@ -16,22 +10,7 @@ public class Save
     public required string targetDirectory { get; set; }
     public required SaveStrategy saveStrategy { get; set; }
     public required string logFileExtension { get; set; }
-
-    private int _progress;
-    public int Progress
-    {
-        get => _progress;
-        set
-        {
-            _progress = value;
-            OnPropertyChanged(nameof(Progress));
-        }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected void OnPropertyChanged(string propertyName) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
+    public int Progress { get; set; }
 }
 
 public class SaveStrategyFactory
@@ -57,36 +36,90 @@ public class SaveStrategyFactory
 public abstract class SaveStrategy
 {
     /// <summary>
-    /// Synchronous save execution.
-    /// </summary>
-    public abstract void Save(Save save);
-
-    /// <summary>
     /// Save execution with cancellation, pause/resume and progress reporting.
     /// </summary>
-    public abstract void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback);
+    public abstract  Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback);
 
     /// <summary>
     /// Helper method for synchronous save. Creates a unique target folder,
     /// performs the file copy/encryption, logs the real-time progress and then the summary log.
     /// </summary>
-    public void commonSave(Save save, int totalFilesToCopy, long totalFileSize, DateTime? lastChangeDateTime = null)
+    public async Task commonSave(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, DateTime? lastChangeDateTime = null)
     {
-
         string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
+        List<(string, string)> filesToCopy = fetchFilesFromDirectory(save.name, save.sourceDirectory, string.Concat(save.targetDirectory, target), lastChangeDateTime);
+
+        var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
+        string processName = settings["SettingsSoftware"].ToString();
+        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
+        List<string> extensionsToCrypt = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
+        extensionsJson = (JsonElement)settings["ExtensionsToPrioritize"];
+        List<string> extensionsToPrioritize = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
+
+        List<(string, string)> sortedFilesToCopy = filesToCopy
+            .OrderBy(f => extensionsToPrioritize.Contains(Path.GetExtension(f.Item1).TrimStart('.')) ? extensionsToPrioritize.IndexOf(Path.GetExtension(f.Item1).TrimStart('.')) : int.MaxValue)
+            .ToList();
+
+        // Log information init
         DateTime startSave = DateTime.UtcNow;
-        int encryptionTime = commonSaveDirectory(
-            save.sourceDirectory,
-            string.Concat(save.targetDirectory, target),
-            save.name,
-            totalFilesToCopy,
-            totalFileSize,
-            totalFilesToCopy,
-            totalFileSize,
-            save.logFileExtension,
-            0,
-            lastChangeDateTime
-        );
+        int totalFilesToCopy = sortedFilesToCopy.Count();
+        long totalFileSize = sortedFilesToCopy.Sum(file => new FileInfo(file.Item1).Length);
+        int nbFilesLeftToDo = sortedFilesToCopy.Count();
+        long filesSizeLeftToDo = sortedFilesToCopy.Sum(file => new FileInfo(file.Item1).Length);
+        int encryptionTime = 0;
+
+        foreach (var file in sortedFilesToCopy)
+        {
+            token.ThrowIfCancellationRequested(); // Check if the process is cancelled
+            pauseEvent.Wait(token); // Pause execution if required
+
+            if (Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
+            {
+                pauseEvent.Reset();
+                while (Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    //Do nothing
+                }
+            }
+
+            pauseEvent.Set(); // Resume save process
+
+            File.Copy(file.Item1, file.Item2, true);
+
+            string fileExtension = Path.GetExtension(file.Item2).TrimStart('.');
+
+            // Encrypt if required
+            if (extensionsToCrypt.Contains(fileExtension))
+            {
+                DateTime startFilencryption = DateTime.UtcNow;
+                Crypt.Encrypt(file.Item2, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
+                DateTime stopFilencryption = DateTime.UtcNow;
+                encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
+            }
+
+            long fileSize = new FileInfo(file.Item1).Length;
+            nbFilesLeftToDo -= 1;
+            filesSizeLeftToDo -= fileSize;
+
+            // Compute progress
+            int currentProgress = totalFilesToCopy > 0 ? (int)(((float)(totalFilesToCopy - nbFilesLeftToDo) / totalFilesToCopy) * 100) : 100;
+            progressCallback?.Invoke(currentProgress);
+
+
+            Data.RealTimeLog(
+                saveName: save.name,
+                sourcePath: file.Item1,
+                targetPath: file.Item2,
+                fileSize: fileSize,
+                state: "ACTIVE",
+                totalFilesToCopy: totalFilesToCopy,
+                totalFileSize: totalFileSize,
+                nbFilesLeftToDo: nbFilesLeftToDo,
+                filesSizeLeftToDo: filesSizeLeftToDo,
+                Progression: currentProgress,
+                logFileExtension: save.logFileExtension
+            );
+        }
         // Log the end of the save operation.
         Data.RealTimeLog(
             saveName: save.name,
@@ -107,316 +140,69 @@ public abstract class SaveStrategy
     }
 
     /// <summary>
-    /// Synchronous helper method to copy files from source to target directory.
-    /// </summary>
-    public int commonSaveDirectory(
-        string sourceDirectory,
-        string targetDirectory,
-        string saveName,
-        int totalFilesToCopy,
-        long totalFileSize,
-        int nbFilesLeftToDo,
-        long filesSizeLeftToDo,
-        string logFileExtension,
-        int encryptionTime,
-        DateTime? lastChangeDateTime = null)
-    {
-        if (!Directory.Exists(targetDirectory))
-        {
-            Directory.CreateDirectory(targetDirectory);
-        }
-
-        var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        string processName = settings["SettingsSoftware"].ToString();
-        var processes = Process.GetProcesses();
-        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
-        List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
-
-        foreach (string file in Directory.GetFiles(sourceDirectory))
-        {
-            bool isProcessRunning = processes.Any(p => p.ProcessName.ToLower() == processName.ToLower());
-            if (!isProcessRunning)
-            {
-                string target = Path.Combine(targetDirectory, Path.GetFileName(file));
-                string fileExtension = Path.GetExtension(target).TrimStart('.');
-
-                if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-                {
-                    File.Copy(file, target, true);
-                    if (extensions.Contains(fileExtension))
-                    {
-                        DateTime startFilencryption = DateTime.UtcNow;
-                        Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
-                        DateTime stopFilencryption = DateTime.UtcNow;
-                        encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
-                    }
-
-                    long fileSize = new FileInfo(file).Length;
-                    nbFilesLeftToDo -= 1;
-                    filesSizeLeftToDo -= fileSize;
-                    int currentProgress = (int)(((float)totalFileSize - (float)filesSizeLeftToDo) / totalFileSize * 100);
-                    Data.RealTimeLog(
-                        saveName: saveName,
-                        sourcePath: file,
-                        targetPath: target,
-                        fileSize: fileSize,
-                        state: "ACTIVE",
-                        totalFilesToCopy: totalFilesToCopy,
-                        totalFileSize: totalFileSize,
-                        nbFilesLeftToDo: nbFilesLeftToDo,
-                        filesSizeLeftToDo: filesSizeLeftToDo,
-                        Progression: currentProgress,
-                        logFileExtension: logFileExtension
-                    );
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("Le processus métier est en cours d'exécution. Opération annulée.");
-            }
-        }
-
-        foreach (string directory in Directory.GetDirectories(sourceDirectory))
-        {
-            if (directory != Path.Combine(sourceDirectory, saveName))
-            {
-                string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-                encryptionTime = commonSaveDirectory(
-                    directory,
-                    target,
-                    saveName,
-                    totalFilesToCopy,
-                    totalFileSize,
-                    nbFilesLeftToDo,
-                    filesSizeLeftToDo,
-                    logFileExtension,
-                    encryptionTime,
-                    lastChangeDateTime
-                );
-                (nbFilesLeftToDo, filesSizeLeftToDo) = SaveDirectory(target, nbFilesLeftToDo, filesSizeLeftToDo, lastChangeDateTime);
-            }
-        }
-
-        return encryptionTime;
-    }
-
-    /// <summary>
     /// Helper method to copy files supporting cancellation, pause/resume, and progress reporting.
     /// </summary>
-    /// <summary>
-    /// Helper method to copy files supporting cancellation, pause/resume, and progress reporting.
-    /// </summary>
-    public int commonSaveDirectory(
-        string sourceDirectory,
-        string targetDirectory,
-        string saveName,
-        int totalFilesToCopy,
-        long totalFileSize,
-        int nbFilesLeftToDo,
-        long filesSizeLeftToDo,
-        string logFileExtension,
-        int encryptionTime,
-        CancellationToken token,
-        ManualResetEventSlim pauseEvent,
-        Action<int> progressCallback,
-        DateTime? lastChangeDateTime = null)
+    public List<(string, string)> fetchFilesFromDirectory(string saveName, string sourceDirectory, string targetDirectory, DateTime? lastChangeDateTime = null)
     {
+        List<(string, string)> filesToCopy = new List<(string, string)>();
         try
         {
             if (!Directory.Exists(targetDirectory))
             {
                 Directory.CreateDirectory(targetDirectory);
             }
-
-        var settings = Data.LoadFromJson(Path.Combine(Directory.GetCurrentDirectory(), "../../../../settings.json"));
-        string processName = settings["SettingsSoftware"].ToString();
-        var extensionsJson = (JsonElement)settings["ExtensionsToCrypt"];
-        List<string> extensions = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
-
             // Get all files from the source directory
             var files = Directory.GetFiles(sourceDirectory);
             foreach (string file in files)
             {
-                token.ThrowIfCancellationRequested(); // Check if the process is cancelled
-                pauseEvent.Wait(token); // Pause execution if required
-
-                // Wait if business process is running
-                while (Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
-                {
-                    pauseEvent.Reset();
-                    for (int i = 0; i < 20; i++) // Check every 100ms for 2 seconds
-                    {
-                        token.ThrowIfCancellationRequested();
-                        Thread.Sleep(100);
-                        if (!Process.GetProcesses().Any(p => p.ProcessName.Equals(processName, StringComparison.OrdinalIgnoreCase)))
-                            break;
-                    }
-                }
-
-                pauseEvent.Set(); // Resume save process
-
-                string target = Path.Combine(targetDirectory, Path.GetFileName(file));
-                string fileExtension = Path.GetExtension(target).TrimStart('.');
-
                 if (lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
                 {
-                    File.Copy(file, target, true);
-
-                    // Encrypt if required
-                    if (extensions.Contains(fileExtension))
-                    {
-                        DateTime startFilencryption = DateTime.UtcNow;
-                        Crypt.Encrypt(target, "02e5d449168bb31da11145d04d6da992ffc7f8f20c04dcf5a046f7620ee6236");
-                        DateTime stopFilencryption = DateTime.UtcNow;
-                        encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
-                    }
-
-                    long fileSize = new FileInfo(file).Length;
-                    nbFilesLeftToDo -= 1;
-                    filesSizeLeftToDo -= fileSize;
-
-                    // Compute progress
-                    int currentProgress = totalFileSize > 0 ? (int)(((float)(totalFileSize - filesSizeLeftToDo) / totalFileSize) * 100) : 100;
-                    progressCallback?.Invoke(currentProgress); // Update UI progress
-
-                    Data.RealTimeLog(
-                        saveName: saveName,
-                        sourcePath: file,
-                        targetPath: target,
-                        fileSize: fileSize,
-                        state: "ACTIVE",
-                        totalFilesToCopy: totalFilesToCopy,
-                        totalFileSize: totalFileSize,
-                        nbFilesLeftToDo: nbFilesLeftToDo,
-                        filesSizeLeftToDo: filesSizeLeftToDo,
-                        Progression: currentProgress,
-                        logFileExtension: logFileExtension
-                    );
+                    string targetFile;
+                    targetFile = Path.Combine(targetDirectory, Path.GetFileName(file));
+                    filesToCopy.Add((file, targetFile));
                 }
             }
 
             // Process subdirectories recursively
             foreach (string directory in Directory.GetDirectories(sourceDirectory))
             {
+                string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
                 if (directory != Path.Combine(sourceDirectory, saveName)) // Prevent recursive loop
                 {
-                    string target = Path.Combine(targetDirectory, Path.GetFileName(directory));
-                    encryptionTime = commonSaveDirectory(
+                    filesToCopy = filesToCopy.Concat(fetchFilesFromDirectory(
+                        saveName,
                         directory,
                         target,
-                        saveName,
-                        totalFilesToCopy,
-                        totalFileSize,
-                        nbFilesLeftToDo,
-                        filesSizeLeftToDo,
-                        logFileExtension,
-                        encryptionTime,
-                        token,
-                        pauseEvent,
-                        progressCallback,
                         lastChangeDateTime
-                    );
-
-                    (nbFilesLeftToDo, filesSizeLeftToDo) = SaveDirectory(target, nbFilesLeftToDo, filesSizeLeftToDo, lastChangeDateTime);
+                    )).ToList();
                 }
             }
         }
         catch (OperationCanceledException)
         {
-            Console.WriteLine($"Save '{saveName}' was cancelled.");
-            throw;
+            throw new Exception($"Save '{saveName}' was cancelled.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error during save '{saveName}': {ex.Message}");
+            throw new Exception(ex.Message);
         }
 
-        return encryptionTime;
+        return filesToCopy;
     }
-
-
-
-    /// <summary>
-    /// Saves a directory by copying files and subdirectories.
-    /// </summary>
-    public abstract (int, long) SaveDirectory(string target, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null);
 }
 
 public class FullSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public override void Save(Save save)
+    public override async Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
     {
         try
         {
-            int totalFilesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Count();
-            long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories)
-                .Sum(file => new FileInfo(file).Length);
-            commonSave(save, totalFilesToCopy, totalFileSize);
+            commonSave(save, token, pauseEvent, progressCallback, null);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
-        }
-        catch (InvalidOperationException message)
-        {
-            throw new InvalidOperationException(message.Message);
-        }
-        catch
-        {
-            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
-        }
-    }
-
-    /// <inheritdoc/>
-    public override void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
-    {
-        try
-        {
-            int totalFilesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories).Count();
-            long totalFileSize = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories)
-                .Sum(file => new FileInfo(file).Length);
-            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
-            DateTime startSave = DateTime.UtcNow;
-            int encryptionTime = commonSaveDirectory(
-                save.sourceDirectory,
-                string.Concat(save.targetDirectory, target),
-                save.name,
-                totalFilesToCopy,
-                totalFileSize,
-                totalFilesToCopy,
-                totalFileSize,
-                save.logFileExtension,
-                0,
-                token,
-                pauseEvent,
-                progressCallback
-            );
-            Data.RealTimeLog(
-                saveName: save.name,
-                sourcePath: "",
-                targetPath: "",
-                fileSize: 0,
-                state: "END",
-                totalFilesToCopy: 0,
-                totalFileSize: 0,
-                nbFilesLeftToDo: 0,
-                filesSizeLeftToDo: 0,
-                Progression: 0,
-                logFileExtension: save.logFileExtension
-            );
-            DateTime endSave = DateTime.UtcNow;
-            int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Data.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
-        }
-        catch (OperationCanceledException)
-        {
-            Console.WriteLine("Save operation was cancelled.");
-            throw;
-        }
-        catch (DirectoryNotFoundException directoryNotFound)
-        {
-            Console.WriteLine("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
+            throw new DirectoryNotFoundException("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
         }
         catch (InvalidOperationException message)
         {
@@ -424,24 +210,15 @@ public class FullSave : SaveStrategy
         }
         catch (Exception ex)
         {
-            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access. " + ex.Message);
+            throw new Exception(ex.Message);
         }
-    }
-
-    /// <inheritdoc/>
-    public override (int, long) SaveDirectory(string target, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null)
-    {
-        nbFilesLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories).Count();
-        filesSizeLeftToDo -= Directory.GetFiles(target, "*.*", SearchOption.AllDirectories)
-            .Sum(file => new FileInfo(file).Length);
-        return (nbFilesLeftToDo, filesSizeLeftToDo);
     }
 }
 
 public class DifferentialSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public override void Save(Save save)
+    public override async Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
     {
         try
         {
@@ -451,89 +228,11 @@ public class DifferentialSave : SaveStrategy
             {
                 lastChangeDateTime = Directory.GetCreationTime(targetRepo);
             }
-            string[] filesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories);
-            int totalFilesToCopy = filesToCopy
-                .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-                .Count();
-            long totalFileSize = filesToCopy
-                .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-                .Sum(file => new FileInfo(file).Length);
-            commonSave(save, totalFilesToCopy, totalFileSize, lastChangeDateTime);
+            await commonSave(save, token, pauseEvent, progressCallback, lastChangeDateTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
-            Console.WriteLine("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
-        }
-        catch (InvalidOperationException message)
-        {
-            throw new InvalidOperationException(message.Message);
-        }
-        catch
-        {
-            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access.");
-        }
-    }
-
-    /// <inheritdoc/>
-    public override void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
-    {
-        try
-        {
-            DateTime? lastChangeDateTime = null;
-            string targetRepo = string.Concat(save.targetDirectory, @"\" + save.name);
-            if (Directory.Exists(targetRepo))
-            {
-                lastChangeDateTime = Directory.GetCreationTime(targetRepo);
-            }
-            string[] filesToCopy = Directory.GetFiles(save.sourceDirectory, "*.*", SearchOption.AllDirectories);
-            int totalFilesToCopy = filesToCopy
-                .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-                .Count();
-            long totalFileSize = filesToCopy
-                .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-                .Sum(file => new FileInfo(file).Length);
-            string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
-            DateTime startSave = DateTime.UtcNow;
-            int encryptionTime = commonSaveDirectory(
-                save.sourceDirectory,
-                string.Concat(save.targetDirectory, target),
-                save.name,
-                totalFilesToCopy,
-                totalFileSize,
-                totalFilesToCopy,
-                totalFileSize,
-                save.logFileExtension,
-                0,
-                token,
-                pauseEvent,
-                progressCallback,
-                lastChangeDateTime
-            );
-            Data.RealTimeLog(
-                saveName: save.name,
-                sourcePath: "",
-                targetPath: "",
-                fileSize: 0,
-                state: "END",
-                totalFilesToCopy: 0,
-                totalFileSize: 0,
-                nbFilesLeftToDo: 0,
-                filesSizeLeftToDo: 0,
-                Progression: 0,
-                logFileExtension: save.logFileExtension
-            );
-            DateTime endSave = DateTime.UtcNow;
-            int transferTime = (int)(endSave - startSave).TotalMilliseconds;
-            Data.GeneralLog(save, totalFileSize, transferTime, encryptionTime);
-        }
-        catch (OperationCanceledException)
-        {
-            Console.WriteLine("Save operation was cancelled.");
-            throw;
-        }
-        catch (DirectoryNotFoundException directoryNotFound)
-        {
-            Console.WriteLine("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
+            throw new DirectoryNotFoundException("The source directory path of the save is valid but does not exist. " + directoryNotFound.Message);
         }
         catch (InvalidOperationException message)
         {
@@ -541,20 +240,7 @@ public class DifferentialSave : SaveStrategy
         }
         catch (Exception ex)
         {
-            Console.WriteLine("The source directory path of the save is invalid or you don't have the required access. " + ex.Message);
+            throw new Exception(ex.Message);
         }
-    }
-
-    /// <inheritdoc/>
-    public override (int, long) SaveDirectory(string target, int nbFilesLeftToDo, long filesSizeLeftToDo, DateTime? lastChangeDateTime = null)
-    {
-        string[] filesToCopy = Directory.GetFiles(target, "*.*", SearchOption.AllDirectories);
-        nbFilesLeftToDo -= filesToCopy
-            .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-            .Count();
-        filesSizeLeftToDo -= filesToCopy
-            .Where(file => lastChangeDateTime == null || File.GetLastWriteTime(file) > lastChangeDateTime)
-            .Sum(file => new FileInfo(file).Length);
-        return (nbFilesLeftToDo, filesSizeLeftToDo);
     }
 }

@@ -153,6 +153,13 @@ namespace EasySaveGUI.ViewModel
                 return;
             }
 
+            if (SourcePath == TargetPath)
+            {
+                MessageBox.Show(LanguageHelper.Instance["WPF_SourceTargetProblem"],
+                    LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (!Directory.Exists(TargetPath))
             {
                 MessageBox.Show(LanguageHelper.Instance["WPF_TargetProblem"],
@@ -186,9 +193,9 @@ namespace EasySaveGUI.ViewModel
 
             _saveRepository.AddSave(save);
             // Reset Inputs
-            SaveName = string.Empty;
-            SourcePath = string.Empty;
-            TargetPath = string.Empty;
+            SaveName = LanguageHelper.Instance["WPF_EnterNameSave"];
+            SourcePath = LanguageHelper.Instance["WPF_SelectSource"];
+            TargetPath = LanguageHelper.Instance["WPF_SelectTarget"];
             SelectedSaveType = "FullSave";
             SelectedLogFileExtension = "json";
 

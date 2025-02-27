@@ -6,12 +6,12 @@ public class SaveRepository
     [JsonInclude]
     public ObservableCollection<Save> Saves { get; private set; } = new ObservableCollection<Save>();
 
- 
 
-    
-   
-   
-   
+
+
+
+
+
 
     /// <summary>
     /// Adds a new save and persists it to the JSON file.
@@ -24,7 +24,7 @@ public class SaveRepository
         }
 
         Saves.Add(save);
-        
+
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class SaveRepository
         if (index >= 0 && index < Saves.Count)
         {
             Saves.RemoveAt(index);
-            
+
             return true;
         }
 
@@ -61,36 +61,41 @@ public class SaveRepository
     /// <summary>
     /// Executes the selected save operation and updates the JSON file.
     /// </summary>
-    public bool ExecuteSave(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, out string errorMessage)
+    public async Task<bool> ExecuteSave(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback )
     {
+      
         try
         {
+
             if (!Directory.Exists(save.sourceDirectory))
             {
-                errorMessage = string.Format(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory);
-                return false;
+               
+               throw new Exception(string.Format(Language.GetString("Controller_DirectoryNotFoundError"), save.name, save.sourceDirectory));
+                
             }
             // Use a new Save method that supports cancellation/pause
-            save.saveStrategy.Save(save, token, pauseEvent, progressCallback);
+            await save.saveStrategy.Save(save, token, pauseEvent, progressCallback);
 
-            errorMessage = null;
+          
             return true;
         }
         catch (OperationCanceledException)
         {
-            errorMessage = "Operation cancelled.";
-            return false;
+           
+           throw new Exception(string.Format(Language.GetString("Controller_SaveExecutionErrorProcessCancelled"), save.name));
+            
         }
         catch (InvalidOperationException message)
         {
-            errorMessage = string.Format(Language.GetString("Controller_SaveExecutionErrorProcessRunning"), save.name, message.Message);
-            return false;
+           
+           throw new Exception(string.Format(Language.GetString("Controller_SaveExecutionErrorProcessRunning"), save.name, message.Message));
+            
         }
         catch (Exception ex)
         {
-            errorMessage = string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message);
-            return false;
+            
+            throw new Exception(string.Format(Language.GetString("Controller_SaveExecutionError"), save.name, ex.Message));
+           
         }
     }
-
 }

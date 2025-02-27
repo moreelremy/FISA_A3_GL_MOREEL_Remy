@@ -124,16 +124,16 @@
     <value>Créer une sauvegarde</value>
   </data>
   <data name="View_EnterBackupName" xml:space="preserve">
-    <value>Entrez le nom de la sauvegarde</value>
+    <value>Entrez le nom de la sauvegarde :</value>
   </data>
   <data name="View_EnterNumber" xml:space="preserve">
     <value>Veuillez entrer un numéro :</value>
   </data>
   <data name="View_EnterSourcePath" xml:space="preserve">
-    <value>Entrez le chemin source</value>
+    <value>Entrez le chemin source :</value>
   </data>
   <data name="View_EnterTargetPath" xml:space="preserve">
-    <value>Entrez le chemin ciblé</value>
+    <value>Entrez le chemin ciblé :</value>
   </data>
   <data name="View_ExitApp" xml:space="preserve">
     <value>Quitter l'application</value>
@@ -145,10 +145,10 @@
     <value>Choix invalide !</value>
   </data>
   <data name="View_LanguageChoice" xml:space="preserve">
-    <value>Choisissez une langue (EN/FR/RU)</value>
+    <value>Choisissez une langue (EN/FR/RU) :</value>
   </data>
   <data name="View_ListOfBackups" xml:space="preserve">
-    <value>║       Liste des sauvegardes       ║</value>
+    <value>Liste des sauvegardes</value>
   </data>
   <data name="View_NoBackups" xml:space="preserve">
     <value>Aucune sauvegarde trouvée. </value>
@@ -380,10 +380,10 @@
     <value>Extension à crypter</value>
   </data>
   <data name="WPF_SettingSoftware" xml:space="preserve">
-    <value>Logiciel Métier :</value>
+    <value>Logiciel Métier : </value>
   </data>
   <data name="WPF_SettingExtensionsToCrypt" xml:space="preserve">
-    <value>Extension à crypter :</value>
+    <value>Extension à crypter : </value>
   </data>
   <data name="WPF_SettingApply" xml:space="preserve">
     <value>APPLIQUER</value>
@@ -401,10 +401,10 @@
     <value>Le processus métier est en cours d'exécution. Opération annulée.</value>
   </data>
   <data name="WPF_SettingSaturationLimit" xml:space="preserve">
-    <value>Limite avant saturation (ko)</value>
+    <value>Limite avant saturation (ko) : </value>
   </data>
   <data name="WPF_SettingExtensionsToPrioritize" xml:space="preserve">
-    <value>Extension à prioriser</value>
+    <value>Extension à prioriser : </value>
   </data>
   <data name="View_SelectFormatType" xml:space="preserve">
     <value>Sélectionnez le type de format</value>
@@ -432,5 +432,11 @@
   </data>
   <data name="Controller_AskSettings" xml:space="preserve">
     <value>Saisissez le numéro du paramètre que vous souhaitez modifier</value>
+  </data>
+  <data name="Controller_SaveExecutionErrorProcessCancelled" xml:space="preserve">
+    <value>Opération annulée</value>
+  </data>
+  <data name="WPF_SourceTargetProblem" xml:space="preserve">
+    <value>Le répertoire source ne peut pas être le même que le répertoire cible.</value>
   </data>
 </root>

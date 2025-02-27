@@ -17,8 +17,9 @@ namespace EasySaveGUI.ViewModel
         private ManualResetEventSlim _pauseEvent;
 
         public ObservableCollection<Save> Saves { get; set; }
-
-        public ICommand ExecuteGlobalSaveCommand { get; }
+        
+public ICommand ExecuteGlobalSaveCommand { get; }
+      
         public ICommand ExecutePartialSaveCommand { get; }
         public ICommand PauseCommand { get; }
         public ICommand ResumeCommand { get; }
@@ -72,8 +73,10 @@ namespace EasySaveGUI.ViewModel
             _saveRepository = saveRepository;
             LoadSaves();
 
-            ExecuteGlobalSaveCommand = new RelayCommand(_ => ExecuteGlobalSave());
-            ExecutePartialSaveCommand = new RelayCommand(_ => ExecutePartialSave());
+            ExecuteGlobalSaveCommand = new RelayCommand(_ =>
+    Task.Run(() => ExecuteGlobalSave())
+);
+            ExecutePartialSaveCommand = new RelayCommand(_ => Task.Run(() => ExecutePartialSave()));
 
             // Initialize control tokens.
             _cts = new CancellationTokenSource();
@@ -117,14 +120,18 @@ namespace EasySaveGUI.ViewModel
             OnPropertyChanged(nameof(Saves));
         }
 
-        private async void ExecuteGlobalSave()
+        private  void ExecuteGlobalSave()
         {
-            if (Saves.Count == 0)
-            {
-                MessageBox.Show("No saves available to execute.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            SendToSave(Saves.ToList());
+            // Task.Run(() =>
+            //{
+                if (Saves.Count == 0)
+                {
+                    MessageBox.Show("No saves available to execute.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                SendToSave(Saves.ToList());
+            //});
+           
         }
 
 
@@ -236,7 +243,8 @@ namespace EasySaveGUI.ViewModel
                 var task = ExecuterSaveParallele( semaphore,  save);
                 tasks.Add(task);
             }
-
+            int n = 1;
+    
             try
             {
                 await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
@@ -254,27 +262,29 @@ namespace EasySaveGUI.ViewModel
             }
         }
 
-        async Task ExecuterSaveParallele(SemaphoreSlim semaphore, Save save)
+        public async Task ExecuterSaveParallele(SemaphoreSlim semaphore, Save save)
         {
-            
+            Save sa = save;
+            int n = 1;
+
                 await semaphore.WaitAsync(_cts.Token);
                 try
                 {
-                    string errorMessage;
+                    
                     _pauseEvent.Wait(); // Attend la reprise si pause active
 
-                    if (!_saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, (progress) =>
+                    if (!await _saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, (progress) =>
                     {
-                        save.Progress = progress; // Update individual save progress
+                        save.Progress = progress; // Store progress per save
                         UpdateGlobalProgress();   // Update overall progress
-                    }, out errorMessage))
+                    }))
                     {
-                        throw new Exception(errorMessage);
+                        throw new Exception();
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error during save '{save.name}': {ex.Message}");
+                    MessageBox.Show($"Error during save '{save.name}': {ex.Message}");
                 }
                 finally
                 {
@@ -292,8 +302,11 @@ namespace EasySaveGUI.ViewModel
         {
             if (Saves.Any())
             {
-                GlobalProgress = (int)Saves.Average(s => s.Progress);
+                int totalProgress = Saves.Sum(s => s.Progress);
+                GlobalProgress = totalProgress / Saves.Count;
+                OnPropertyChanged(nameof(GlobalProgress));
             }
+
         }
 
     }
