@@ -284,7 +284,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error during save '{save.name}': {ex.Message}");
+                    MessageBox.Show($"Error during save '{save.name}': {ex.Message}");
                 }
                 finally
                 {

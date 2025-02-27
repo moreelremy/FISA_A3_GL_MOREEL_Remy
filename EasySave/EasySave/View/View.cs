@@ -11,7 +11,6 @@ public interface IView
     void ShowSavesView(List<Save> saves);
     void DisplaySavesForExecution(List<Save> saves);
     List<int> GetSaveSelection(int maxCount);
-    void DisplayExecutionResult(bool success);
     string ShowChoiceMenuOrDelete();
     void DisplaySavesForDeletion(List<Save> saves);
     int GetSaveIndexForDeletion(int maxIndex);
@@ -24,6 +23,7 @@ public interface IView
     void Output(string? output);
     string? Input(bool allowReturnToMenu = true, bool LineNotNull = true);
     void Clear();
+    void DisplayTitleForExecution(string titleToOutput);
 }
 
 /// <summary>
@@ -31,6 +31,7 @@ public interface IView
 /// </summary>
 class ViewBasic : IView
 {
+    /////////////////////////////////////////////////////////////////////////// MENU
     /// <summary>
     /// Displays the menu (choice for the user)
     /// </summary>
@@ -52,192 +53,8 @@ class ViewBasic : IView
         return Input(allowReturnToMenu: false);
     }
 
-    /// <summary>
-    /// Ask the user to choose a language
-    /// </summary>
-    /// <returns>The selected language code (EN / FR / ..)</returns>
-    public string GetLanguageChoice()
-    {
-        Output(Language.GetString("View_LanguageChoice"));
-        return Input();
-    }
 
-    /// <summary>
-    /// Displays that the backup has been created and takes the list as a parameter
-    /// </summary>
-    /// <param name="save">Set up a backup list</param>
-    public void SaveAddedMessageView(Save save)
-    {
-        Output(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
-    }
-
-    /// <summary>
-    /// Displays the list of backups with their number in the list
-    /// </summary>
-    /// <param name="saves">Set up a backup list</param>
-    public void ShowSavesView(List<Save> saves)
-    {
-        Output("╔═══════════════════════════════════╗");
-        Output(Language.GetString("View_ListOfBackups"));
-        Output("╚═══════════════════════════════════╝");
-        for (int i = 0; i < saves.Count; i++)
-        {
-            Output($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
-            Output($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
-            Output($"   " + Language.GetString("View_SaveSource") + $" : {saves[i].sourceDirectory}");
-            Output($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
-            Output($"   " + Language.GetString("View_SaveType") + $" : {Language.GetString($"View_{saves[i].saveStrategy.GetType().Name}")}");
-            Output($"   " + Language.GetString("View_logFileExtension") + $" : {saves[i].logFileExtension}");
-            Output("═════════════════════════════════════");
-        }
-
-    }
-
-    public void DisplaySavesForExecution(List<Save> saves)
-    {
-        Output(Language.GetString("View_ChooseSaveToExecute"));
-        for (int i = 0; i < saves.Count; i++)
-        {
-            Output($"[{i + 1}] {saves[i].name}");
-        }
-    }
-
-    /// <summary>
-    /// Parses a user input string representing selected indices or index ranges and converts them into a list of zero-based indices.
-    /// </summary>
-    /// <param name="input">A string containing individual indices or ranges separated by semicolons (e.g., "1;3-5;7").</param>
-    /// <param name="maxCount">The maximum allowed index (1-based), ensuring selections stay within valid bounds.</param>
-    /// <returns>
-    /// A list of integers representing the zero-based indices of the selected items.
-    /// If the input is invalid, an empty list is returned.
-    /// </returns>
-    private List<int> ParseSaveSelection(string input, int maxCount)
-    {
-        List<int> selectedIndexes = new List<int>();
-
-        try
-        {
-            string[] ranges = input.Split(';');
-            foreach (string range in ranges)
-            {
-                if (range.Contains('-'))
-                {
-                    string[] bounds = range.Split('-');
-                    int start = int.Parse(bounds[0]) - 1;
-                    int end = int.Parse(bounds[1]) - 1;
-
-                    for (int i = start; i <= end && i < maxCount; i++)
-                    {
-                        if (!selectedIndexes.Contains(i))
-                            selectedIndexes.Add(i);
-                    }
-                }
-                else
-                {
-                    int index = int.Parse(range) - 1;
-                    if (index >= 0 && index < maxCount)
-                    {
-                        selectedIndexes.Add(index);
-                    }
-                }
-            }
-        }
-        catch
-        {
-            Output(Language.GetString("View_InvalidSelection"));
-        }
-
-        return selectedIndexes;
-    }
-
-    /// <summary>
-    /// Prompts the user to enter save IDs to execute and parses them into a list of zero-based indices.
-    /// </summary>
-    /// <param name="maxCount">The maximum number of selectable save entries.</param>
-    /// <returns>A list of integers representing the selected zero-based indices.</returns>
-    public List<int> GetSaveSelection(int maxCount)
-    {
-        Output(Language.GetString("View_EnterSaveIdsToExecute"));
-        string input = Input();
-        return ParseSaveSelection(input, maxCount);
-    }
-
-    /// <summary>
-    /// Displays the execution result message based on success or failure.
-    /// </summary>
-    /// <param name="success">A boolean indicating whether the execution was successful.</param>
-    public void DisplayExecutionResult(bool success)
-    {
-        Output(success ? Language.GetString("View_ExecutionCompleted") : Language.GetString("View_ExecutionFailed"));
-    }
-
-    /// <summary>
-    /// Shows the choice between returning to the menu or deleting a save
-    /// </summary>
-    /// <returns>returns the user's choice to use it in the switch case</returns>
-    public string ShowChoiceMenuOrDelete()
-    {
-        Output(
-            Language.GetString("Controller_ChoiceDeleteOrMenu") + "\n\n" +
-            "[1] : " + Language.GetString("Controller_ChoiceMenu") + "\n" +
-            "[2] : " + Language.GetString("Controller_ChoiceDelete"));
-
-        string choice = Input();
-        return choice;
-    }
-
-    /// <summary>
-    /// Displays a list of saves with corresponding numbers.
-    /// </summary>
-    /// <param name="saves">List of saves to display.</param>
-    public void DisplaySavesForDeletion(List<Save> saves)
-    {
-        Output(Language.GetString("View_ChooseSaveToDelete"));
-
-        for (int i = 0; i < saves.Count; i++)
-        {
-            Output($"[{i + 1}] {saves[i].name}");
-        }
-
-        Output("");
-    }
-
-    /// <summary>
-    /// Reads the user's choice of save to delete.
-    /// </summary>
-    /// <returns>The chosen save index (0-based).</returns>
-    public int GetSaveIndexForDeletion(int maxIndex)
-    {
-        Output(Language.GetString("View_EnterSaveNumber"));
-        string input = Input();
-        if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
-        {
-            return index - 1;  // Convert to 0-based index
-        }
-
-        Output(Language.GetString("Controller_InvalidChoice"));
-        return -1;  // Invalid choice
-    }
-
-
-
-
-    /// <summary>
-    /// Displays the result of the deletion.
-    /// </summary>
-    /// <param name="isDeleted">True if the save was deleted, otherwise false.</param>
-    public void DisplayDeleteResult(bool isDeleted)
-    {
-        if (isDeleted)
-        {
-            Output(Language.GetString("View_SaveDeleted"));
-        }
-        else
-        {
-            Output(Language.GetString("View_SaveNotFound"));
-        }
-    }
-
+    /////////////////////////////////////////////////////////////////////////// CREATE SAVE
     /// <summary>
     /// Collects information from the user to create a new backup, With a return to menu option
     /// </summary>
@@ -310,6 +127,172 @@ class ViewBasic : IView
     }
 
     /// <summary>
+    /// Displays that the backup has been created and takes the list as a parameter
+    /// </summary>
+    /// <param name="save">Set up a backup list</param>
+    public void SaveAddedMessageView(Save save)
+    {
+        Output(string.Format(Language.GetString("View_SaveAddedMessage"), save.name));
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////// EXECUTE SAVES
+    public void DisplaySavesForExecution(List<Save> saves)
+    {
+        Output(Language.GetString("View_ChooseSaveToExecute"));
+        for (int i = 0; i < saves.Count; i++)
+        {
+            Output($"[{i + 1}] {saves[i].name}");
+        }
+    }
+
+    /// <summary>
+    /// Prompts the user to enter save IDs to execute and parses them into a list of zero-based indices.
+    /// </summary>
+    /// <param name="maxCount">The maximum number of selectable save entries.</param>
+    /// <returns>A list of integers representing the selected zero-based indices.</returns>
+    public List<int> GetSaveSelection(int maxCount)
+    {
+        Output(Language.GetString("View_EnterSaveIdsToExecute"));
+        string input = Input();
+        return ParseSaveSelection(input, maxCount);
+    }
+
+    /// <summary>
+    /// Parses a user input string representing selected indices or index ranges and converts them into a list of zero-based indices.
+    /// </summary>
+    /// <param name="input">A string containing individual indices or ranges separated by semicolons (e.g., "1;3-5;7").</param>
+    /// <param name="maxCount">The maximum allowed index (1-based), ensuring selections stay within valid bounds.</param>
+    /// <returns>
+    /// A list of integers representing the zero-based indices of the selected items.
+    /// If the input is invalid, an empty list is returned.
+    /// </returns>
+    private List<int> ParseSaveSelection(string input, int maxCount)
+    {
+        List<int> selectedIndexes = new List<int>();
+
+        try
+        {
+            string[] ranges = input.Split(';');
+            foreach (string range in ranges)
+            {
+                if (range.Contains('-'))
+                {
+                    string[] bounds = range.Split('-');
+                    int start = int.Parse(bounds[0]) - 1;
+                    int end = int.Parse(bounds[1]) - 1;
+
+                    for (int i = start; i <= end && i < maxCount; i++)
+                    {
+                        if (!selectedIndexes.Contains(i))
+                            selectedIndexes.Add(i);
+                    }
+                }
+                else
+                {
+                    int index = int.Parse(range) - 1;
+                    if (index >= 0 && index < maxCount)
+                    {
+                        selectedIndexes.Add(index);
+                    }
+                }
+            }
+        }
+        catch
+        {
+            Output(Language.GetString("View_InvalidSelection"));
+        }
+
+        return selectedIndexes;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////// SHOW SAVES
+    /// <summary>
+    /// Displays the list of backups with their number in the list
+    /// </summary>
+    /// <param name="saves">Set up a backup list</param>
+    public void ShowSavesView(List<Save> saves)
+    {
+        for (int i = 0; i < saves.Count; i++)
+        {
+            Output($"   {Language.GetString("View_NumberSave")} : [{i + 1}]");
+            Output($"   " + Language.GetString("View_SaveName") + $" : {saves[i].name}");
+            Output($"   " + Language.GetString("View_SaveSource") + $" : {saves[i].sourceDirectory}");
+            Output($"   " + Language.GetString("View_SaveTarget") + $" : {saves[i].targetDirectory}");
+            Output($"   " + Language.GetString("View_SaveType") + $" : {Language.GetString($"View_{saves[i].saveStrategy.GetType().Name}")}");
+            Output($"   " + Language.GetString("View_logFileExtension") + $" : {saves[i].logFileExtension}");
+            Output("═════════════════════════════════");
+        }
+    }
+
+    /// <summary>
+    /// Shows the choice between returning to the menu or deleting a save
+    /// </summary>
+    /// <returns>returns the user's choice to use it in the switch case</returns>
+    public string ShowChoiceMenuOrDelete()
+    {
+        Output(
+            Language.GetString("Controller_ChoiceDeleteOrMenu") + "\n\n" +
+            "[1] : " + Language.GetString("Controller_ChoiceMenu") + "\n" +
+            "[2] : " + Language.GetString("Controller_ChoiceDelete"));
+
+        string choice = Input();
+        return choice;
+    }
+
+    /// <summary>
+    /// Displays a list of saves with corresponding numbers.
+    /// </summary>
+    /// <param name="saves">List of saves to display.</param>
+    public void DisplaySavesForDeletion(List<Save> saves)
+    {
+        Output(Language.GetString("View_ChooseSaveToDelete"));
+
+        for (int i = 0; i < saves.Count; i++)
+        {
+            Output($"[{i + 1}] {saves[i].name}");
+        }
+
+        Output("");
+    }
+
+    /// <summary>
+    /// Reads the user's choice of save to delete.
+    /// </summary>
+    /// <returns>The chosen save index (0-based).</returns>
+    public int GetSaveIndexForDeletion(int maxIndex)
+    {
+        Output(Language.GetString("View_EnterSaveNumber"));
+        string input = Input();
+        if (int.TryParse(input, out int index) && index > 0 && index <= maxIndex)
+        {
+            return index - 1;  // Convert to 0-based index
+        }
+
+        Output(Language.GetString("Controller_InvalidChoice"));
+        return -1;  // Invalid choice
+    }
+
+    /// <summary>
+    /// Displays the result of the deletion.
+    /// </summary>
+    /// <param name="isDeleted">True if the save was deleted, otherwise false.</param>
+    public void DisplayDeleteResult(bool isDeleted)
+    {
+        if (isDeleted)
+        {
+            Output(Language.GetString("View_SaveDeleted"));
+        }
+        else
+        {
+            Output(Language.GetString("View_SaveNotFound"));
+        }
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////// LOGS
+    /// <summary>
     /// Ask the user to choose a date for listing logs
     /// </summary>
     /// <returns>The date dd-mm-yyyy</returns>
@@ -322,19 +305,9 @@ class ViewBasic : IView
     }
 
     /// <summary>
-    /// Prompts the user to press any key to continue.
+    /// Show the log entry in the console
     /// </summary>
-    public void PromptToContinue()
-    {
-        Output(Language.GetString("Controller_PressAnyKey"));
-        Input(allowReturnToMenu: false, lineNotNull: false);
-        Clear();
-    }
-
-    /// <summary>
-    /// Affiche les informations d'un log dans la console.
-    /// </summary>
-    /// <param name="log">L'entrée de log à afficher.</param>
+    /// <param name="log"> LogEntry to display</param>
     public void DisplayLog(Dictionary<string, object> log)
     {
         if (log == null)
@@ -352,15 +325,33 @@ class ViewBasic : IView
         Output("══════════════════════════════");
     }
 
+
+    /////////////////////////////////////////////////////////////////////////// SETTINGS
+    /// <summary>
+    /// Display the settings menu
+    /// </summary>
     public void DisplaySettingsMenu(SettingsConsole appSettings)
     {
-        Output(Language.GetString("WPF_SettingTitle") + "\n");
-        Output("[1] " + Language.GetString("WPF_SettingSoftware") + " : " + appSettings.SettingsSoftware);
-        Output("[2] " + Language.GetString("WPF_SettingExtensionToCrypt") + " : " + string.Join(", ", appSettings.ExtensionsToCrypt));
-        Output("[3] " + Language.GetString("WPF_SettingExtensionToPrioritize") + " : " + string.Join(", ", appSettings.ExtensionsToPrioritize));
-        Output("[4] " + Language.GetString("WPF_SettingSaturationLimit") + " : " + appSettings.SettingSaturationLimit);
+        Output("[1] " + Language.GetString("WPF_SettingSoftware") + appSettings.SettingsSoftware);
+        Output("[2] " + Language.GetString("WPF_SettingExtensionsToCrypt") + string.Join(", ", appSettings.ExtensionsToCrypt));
+        Output("[3] " + Language.GetString("WPF_SettingExtensionsToPrioritize") + string.Join(", ", appSettings.ExtensionsToPrioritize));
+        Output("[4] " + Language.GetString("WPF_SettingSaturationLimit") + appSettings.SettingSaturationLimit);
     }
 
+
+    /////////////////////////////////////////////////////////////////////////// LANGUAGE
+    /// <summary>
+    /// Ask the user to choose a language
+    /// </summary>
+    /// <returns>The selected language code (EN / FR / ..)</returns>
+    public string GetLanguageChoice()
+    {
+        Output(Language.GetString("View_LanguageChoice"));
+        return Input();
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////// COMMAND GENERAL
     /// <summary>
     /// Just print a message in the console
     /// </summary>
@@ -375,11 +366,33 @@ class ViewBasic : IView
         return InputHelper.ReadLine(allowReturnToMenu, lineNotNull);
     }
 
+    /// <summary>
+    /// Prompts the user to press any key to continue.
+    /// </summary>
+    public void PromptToContinue()
+    {
+        Output(Language.GetString("Controller_PressAnyKey"));
+        Input(allowReturnToMenu: false, lineNotNull: false);
+        Clear();
+    }
+
+    /// <summary>
+    /// Clear the console
+    /// </summary>
     public virtual void Clear()
     {
         Console.Clear();
     }
 
+    /// <summary>
+    /// Display a title for the execution of each task
+    /// </summary>
+    /// <param name="titleToOutput"> The title to display</param>
+    public void DisplayTitleForExecution(string titleToOutput)
+    {
+        Output("\n\n" + titleToOutput);
+        Output("═══════════════════════════════════════");
+    }
 }
 
 /// <summary>
