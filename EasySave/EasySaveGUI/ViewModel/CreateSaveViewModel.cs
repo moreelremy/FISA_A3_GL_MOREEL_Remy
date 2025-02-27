@@ -186,9 +186,9 @@ namespace EasySaveGUI.ViewModel
 
             _saveRepository.AddSave(save);
             // Reset Inputs
-            SaveName = string.Empty;
-            SourcePath = string.Empty;
-            TargetPath = string.Empty;
+            SaveName = LanguageHelper.Instance["WPF_EnterNameSave"];
+            SourcePath = LanguageHelper.Instance["WPF_SelectSource"];
+            TargetPath = LanguageHelper.Instance["WPF_SelectTarget"];
             SelectedSaveType = "FullSave";
             SelectedLogFileExtension = "json";
 

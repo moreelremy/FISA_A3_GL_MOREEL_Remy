@@ -37,13 +37,13 @@ public abstract class SaveStrategy
     /// <summary>
     /// Save execution with cancellation, pause/resume and progress reporting.
     /// </summary>
-    public abstract void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback);
+    public abstract  Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback);
 
     /// <summary>
     /// Helper method for synchronous save. Creates a unique target folder,
     /// performs the file copy/encryption, logs the real-time progress and then the summary log.
     /// </summary>
-    public void commonSave(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, DateTime? lastChangeDateTime)
+    public async Task commonSave(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback, DateTime? lastChangeDateTime = null)
     {
         string target = @"\" + save.name + @"\" + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss.ff");
         List<(string, string)> filesToCopy = fetchFilesFromDirectory(save.name, save.sourceDirectory, string.Concat(save.targetDirectory, target), lastChangeDateTime);
@@ -192,7 +192,7 @@ public abstract class SaveStrategy
 public class FullSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public override void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
+    public override async Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
     {
         try
         {
@@ -216,7 +216,7 @@ public class FullSave : SaveStrategy
 public class DifferentialSave : SaveStrategy
 {
     /// <inheritdoc/>
-    public override void Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
+    public override async Task Save(Save save, CancellationToken token, ManualResetEventSlim pauseEvent, Action<int> progressCallback)
     {
         try
         {
@@ -226,7 +226,7 @@ public class DifferentialSave : SaveStrategy
             {
                 lastChangeDateTime = Directory.GetCreationTime(targetRepo);
             }
-            commonSave(save, token, pauseEvent, progressCallback, lastChangeDateTime);
+            await commonSave(save, token, pauseEvent, progressCallback, lastChangeDateTime);
         }
         catch (DirectoryNotFoundException directoryNotFound)
         {
