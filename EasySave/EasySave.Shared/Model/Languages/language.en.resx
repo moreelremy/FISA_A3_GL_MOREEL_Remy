@@ -249,7 +249,7 @@
   <data name="View_InvalidSelection" xml:space="preserve">
     <value>Invalid selection. Please try again.</value>
   </data>
-  <data name="Controller_SaveExecutionError " xml:space="preserve">
+  <data name="Controller_SaveExecutionError" xml:space="preserve">
     <value>Error running backup '{0}'. Reason: {1}.</value>
   </data>
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
@@ -438,5 +438,11 @@
   </data>
   <data name="WPF_SourceTargetProblem" xml:space="preserve">
     <value>The source directory cannot be the same as the target directory.</value>
+  </data>
+  <data name="WPF_BackupCancelled" xml:space="preserve">
+    <value>Backup process was cancelled.</value>
+  </data>
+  <data name="WPF_Stopped" xml:space="preserve">
+    <value>Stopped</value>
   </data>
 </root>

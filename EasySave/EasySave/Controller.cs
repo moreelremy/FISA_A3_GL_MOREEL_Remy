@@ -108,6 +108,10 @@ class Controller
 
                                     
                                 }
+                            foreach (int index in saveIndexes)
+                                {
+                                    savesToExecute[index].Progress = 0;
+                                }
                             }
                         }
                         objView.PromptToContinue();
