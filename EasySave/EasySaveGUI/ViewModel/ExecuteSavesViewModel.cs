@@ -243,9 +243,11 @@ public ICommand ExecuteGlobalSaveCommand { get; }
             {
                 var task = ExecuterSaveParallele( semaphore,  save);
                 tasks.Add(task);
+                UpdateGlobalProgress(saveToExecute);   // Update overall progress
+
             }
-            
-    
+
+
             try
             {
                 await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
@@ -280,7 +282,6 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                     if (!await _saveRepository.ExecuteSave(save, _cts.Token, _pauseEvent, (progress) =>
                     {
                         save.Progress = progress; // Store progress per save
-                        UpdateGlobalProgress();   // Update overall progress
                     }))
                     {
                         throw new Exception();
@@ -303,12 +304,12 @@ public ICommand ExecuteGlobalSaveCommand { get; }
 
 
         // Callback to update progress (bound to the Progress property).
-        private void UpdateGlobalProgress()
+        private void UpdateGlobalProgress(List<Save> saveToExecute)
         {
-            if (Saves.Any())
+            if (saveToExecute.Any())
             {
-                int totalProgress = Saves.Sum(s => s.Progress);
-                GlobalProgress = totalProgress / Saves.Count;
+                int totalProgress = saveToExecute.Sum(s => s.Progress);
+                GlobalProgress = totalProgress / saveToExecute.Count;
                 OnPropertyChanged(nameof(GlobalProgress));
             }
 
