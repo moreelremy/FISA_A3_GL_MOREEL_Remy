@@ -444,4 +444,28 @@
   <data name="WPF_Stopped" xml:space="preserve">
     <value>Остановлено</value>
   </data>
+  <data name="WPF_NoSaves" xml:space="preserve">
+    <value>Нет сохранений, доступных для выполнения.</value>
+  </data>
+  <data name="WPF_InvalideRange" xml:space="preserve">
+    <value>Неверный диапазон. Введите допустимый диапазон, например «1–5».</value>
+  </data>
+  <data name="WPF_ErrorIndex" xml:space="preserve">
+    <value>Неверный индекс {0}. Пожалуйста, введите действительный номер.</value>
+  </data>
+  <data name="WPF_SaveNotFound" xml:space="preserve">
+    <value>Резервная копия {0} не найдена.</value>
+  </data>
+  <data name="WPF_PlsSelect" xml:space="preserve">
+    <value>Пожалуйста, выберите или введите имя/индекс сохранения для выполнения.</value>
+  </data>
+  <data name="WPF_ErrorDuringSave" xml:space="preserve">
+    <value>Ошибка сохранения {0}: {1} .</value>
+  </data>
+  <data name="WPF_SettingsSaved" xml:space="preserve">
+    <value>Настройка успешно сохранена.</value>
+  </data>
+  <data name="WPF_ErrorSettings" xml:space="preserve">
+    <value>Ошибка сохранения параметра: {0}.</value>
+  </data>
 </root>

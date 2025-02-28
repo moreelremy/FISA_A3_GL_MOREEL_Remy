@@ -445,4 +445,28 @@
   <data name="WPF_Stopped" xml:space="preserve">
     <value>Arrêt</value>
   </data>
+  <data name="WPF_NoSaves" xml:space="preserve">
+    <value>Aucune sauvegarde disponible à exécuter.</value>
+  </data>
+  <data name="WPF_InvalideRange" xml:space="preserve">
+    <value>Plage invalide. Veuillez saisir une plage valide telle que « 1-5 ».</value>
+  </data>
+  <data name="WPF_ErrorIndex" xml:space="preserve">
+    <value>Index {0}  non valide. Veuillez entrer un numéro valide.</value>
+  </data>
+  <data name="WPF_SaveNotFound" xml:space="preserve">
+    <value>Sauvegarde {0} non trouvé.</value>
+  </data>
+  <data name="WPF_PlsSelect" xml:space="preserve">
+    <value>Veuillez sélectionner ou saisir un nom/index de sauvegarde à exécuter.</value>
+  </data>
+  <data name="WPF_ErrorDuringSave" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement {0} : {1} .</value>
+  </data>
+  <data name="WPF_SettingsSaved" xml:space="preserve">
+    <value>Enregistrement du paramètre réussi.</value>
+  </data>
+  <data name="WPF_ErrorSettings" xml:space="preserve">
+    <value>Erreur lors de l'enregistrement du paramètre : {0} .</value>
+  </data>
 </root>
