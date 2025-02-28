@@ -55,6 +55,14 @@ public abstract class SaveStrategy
         List<string> extensionsToCrypt = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
         extensionsJson = (JsonElement)settings["ExtensionsToPrioritize"];
         List<string> extensionsToPrioritize = extensionsJson.EnumerateArray().Select(e => e.GetString()).ToList();
+        long limitSize;
+        if (settings["SettingSaturationLimit"]==null)
+        {
+            limitSize = long.MaxValue;
+        } else
+        {
+            limitSize = (long)settings["SettingSaturationLimit"];
+        }
 
         List<(string, string)> sortedFilesToCopy = filesToCopy
             .OrderBy(f => extensionsToPrioritize.Contains(Path.GetExtension(f.Item1).TrimStart('.')) ? extensionsToPrioritize.IndexOf(Path.GetExtension(f.Item1).TrimStart('.')) : int.MaxValue)
@@ -84,7 +92,18 @@ public abstract class SaveStrategy
 
             pauseEvent.Set(); // Resume save process
 
-            File.Copy(file.Item1, file.Item2, true);
+            long fileSize = new FileInfo(file.Item1).Length;
+
+            if (fileSize > limitSize)
+            {
+                lock(SaveRepository._lockObj)
+                {
+                    File.Copy(file.Item1, file.Item2, true);
+                }
+            } else
+            {
+                File.Copy(file.Item1, file.Item2, true);
+            }
 
             string fileExtension = Path.GetExtension(file.Item2).TrimStart('.');
 
@@ -97,7 +116,6 @@ public abstract class SaveStrategy
                 encryptionTime += (int)(stopFilencryption - startFilencryption).TotalMilliseconds;
             }
 
-            long fileSize = new FileInfo(file.Item1).Length;
             nbFilesLeftToDo -= 1;
             filesSizeLeftToDo -= fileSize;
 

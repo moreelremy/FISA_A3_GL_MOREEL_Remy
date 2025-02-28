@@ -1,17 +1,12 @@
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
-
+public sealed class Lock;
 public class SaveRepository
 {
     [JsonInclude]
     public ObservableCollection<Save> Saves { get; private set; } = new ObservableCollection<Save>();
 
-
-
-
-
-
-
+    public static readonly Lock _lockObj = new();
 
     /// <summary>
     /// Adds a new save and persists it to the JSON file.
