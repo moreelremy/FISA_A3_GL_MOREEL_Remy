@@ -66,7 +66,7 @@ namespace EasySaveGUI.ViewModel
                         Saves.Remove(saveToRemove);
 
                     }
-                    MessageBox.Show("Save deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(LanguageHelper.Instance["View_SaveDeleted"], LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

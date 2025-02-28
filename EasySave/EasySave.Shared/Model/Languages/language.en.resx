@@ -445,4 +445,34 @@
   <data name="WPF_Stopped" xml:space="preserve">
     <value>Stopped</value>
   </data>
+  <data name="WPF_NoSaves" xml:space="preserve">
+    <value>No saves available to execute.</value>
+  </data>
+  <data name="WPF_InvalideRange" xml:space="preserve">
+    <value>Invalid range. Please enter a valid range like '1-5'.</value>
+  </data>
+  <data name="WPF_ErrorIndex" xml:space="preserve">
+    <value>Invalid index {0}. Please enter a valid number.</value>
+  </data>
+  <data name="WPF_SaveNotFound" xml:space="preserve">
+    <value>Backup {0} not found.</value>
+  </data>
+  <data name="WPF_PlsSelect" xml:space="preserve">
+    <value>Please select or enter a save name/index to execute.</value>
+  </data>
+  <data name="WPF_ErrorDuringSave" xml:space="preserve">
+    <value>Error saving {0}: {1} .</value>
+  </data>
+  <data name="WPF_SettingsSaved" xml:space="preserve">
+    <value>Setting saved successfully.</value>
+  </data>
+  <data name="WPF_ErrorSettings" xml:space="preserve">
+    <value>Error saving parameter: {0} .</value>
+  </data>
+  <data name="WPF_ErrorLoadSettings" xml:space="preserve">
+    <value>Error loading parameters: {0} .</value>
+  </data>
+  <data name="WPF_InvalidInput" xml:space="preserve">
+    <value>Invalid entry {0}. Please enter valid numbers.</value>
+  </data>
 </root>

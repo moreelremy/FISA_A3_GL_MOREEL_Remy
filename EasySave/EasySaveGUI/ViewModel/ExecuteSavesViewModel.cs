@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -126,7 +127,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
             //{
                 if (Saves.Count == 0)
                 {
-                    MessageBox.Show("No saves available to execute.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(LanguageHelper.Instance["WPF_NoSaves"], LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 SendToSave(Saves.ToList());
@@ -157,13 +158,13 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                             }
                             else
                             {
-                                MessageBox.Show($"Invalid index '{i}'. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                MessageBox.Show(string.Format(Language.GetString("WPF_ErrorIndex"), i), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                                 return;
                             }
                         }
                         else
                         {
-                            MessageBox.Show($"Invalid input '{indexStr}'. Please enter valid numbers.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show(string.Format(Language.GetString("WPF_InvalidInput"), indexStr), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
                     }
@@ -182,7 +183,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                         }
                         else
                         {
-                            MessageBox.Show("Invalid range. Please enter a valid range like '1-5'.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show(LanguageHelper.Instance["WPF_InvalideRange"], LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
                     }
@@ -198,7 +199,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                     }
                     else
                     {
-                        MessageBox.Show($"Invalid index '{index}'. Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(string.Format(Language.GetString("WPF_ErrorIndex"), index), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
                 }
@@ -210,7 +211,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                         savesToExecute.Add(saveToExecute);
                     else
                     {
-                        MessageBox.Show($"Save '{SelectedSaveName}' not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(string.Format(Language.GetString("WPF_ErrorIndex"), SelectedSaveName), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
                 }
@@ -221,7 +222,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
             }
             else
             {
-                MessageBox.Show("Please select or enter a save name/index to execute.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(LanguageHelper.Instance["WPF_PlsSelect"], LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -248,7 +249,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
             try
             {
                 await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
-                MessageBox.Show(Language.GetString("View_ExecutionCompleted"), Language.GetString("WPF_Success"), MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(LanguageHelper.Instance["View_ExecutionCompleted"], LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
                 GlobalProgress = 0;
                 foreach (var save in saveToExecute)
                 {
@@ -258,11 +259,11 @@ public ICommand ExecuteGlobalSaveCommand { get; }
             }
             catch (OperationCanceledException)
             {
-                MessageBox.Show(Language.GetString("WPF_BackupCancelled"), Language.GetString("WPF_Stopped"), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(LanguageHelper.Instance["WPF_BackupCancelled"], LanguageHelper.Instance["WPF_Stopped"], MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // do nothing
             }
         }
 
@@ -287,8 +288,9 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
-                }
+                    MessageBox.Show(string.Format(Language.GetString("WPF_ErrorDuringSave"), save.name, ex.Message), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw new Exception("");
+            }
                 finally
                 {
                     semaphore.Release();
