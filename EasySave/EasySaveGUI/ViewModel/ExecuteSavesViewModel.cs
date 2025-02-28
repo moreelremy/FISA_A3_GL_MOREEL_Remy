@@ -243,18 +243,22 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                 var task = ExecuterSaveParallele( semaphore,  save);
                 tasks.Add(task);
             }
-            int n = 1;
+            
     
             try
             {
                 await Task.WhenAll(tasks); // Attend la fin de toutes les sauvegardes
-                MessageBox.Show("All saves executed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Language.GetString("View_ExecutionCompleted"), Language.GetString("WPF_Success"), MessageBoxButton.OK, MessageBoxImage.Information);
                 GlobalProgress = 0;
+                foreach (var save in saveToExecute)
+                {
+                    save.Progress = 0;
+                }
 
             }
             catch (OperationCanceledException)
             {
-                MessageBox.Show("Backup process was cancelled.", "Stopped", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Language.GetString("WPF_BackupCancelled"), Language.GetString("WPF_Stopped"), MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
@@ -264,8 +268,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
 
         public async Task ExecuterSaveParallele(SemaphoreSlim semaphore, Save save)
         {
-            Save sa = save;
-            int n = 1;
+          
 
                 await semaphore.WaitAsync(_cts.Token);
                 try
@@ -284,7 +287,7 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error during save '{save.name}': {ex.Message}");
+                    MessageBox.Show(ex.Message);
                 }
                 finally
                 {
