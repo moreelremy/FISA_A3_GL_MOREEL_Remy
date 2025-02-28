@@ -469,4 +469,10 @@
   <data name="WPF_ErrorSettings" xml:space="preserve">
     <value>Erreur lors de l'enregistrement du paramètre : {0} .</value>
   </data>
+  <data name="WPF_ErrorLoadSettings" xml:space="preserve">
+    <value>Erreur de chargement des paramètres : {0} .</value>
+  </data>
+  <data name="WPF_InvalidInput" xml:space="preserve">
+    <value>Entrée {0} non valide. Veuillez saisir des numéros valides.</value>
+  </data>
 </root>
