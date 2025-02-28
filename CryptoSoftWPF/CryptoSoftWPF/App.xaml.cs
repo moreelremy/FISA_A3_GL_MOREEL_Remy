@@ -21,6 +21,7 @@ namespace CryptoSoftWPF
             }
 
             base.OnStartup(e);
+            GC.KeepAlive(mutex);
         }
     }
 }
