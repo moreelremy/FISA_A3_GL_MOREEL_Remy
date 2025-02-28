@@ -100,12 +100,13 @@ namespace EasySaveGUI.ViewModel
             try
             {
                 obj.SaveSettings(); 
-                MessageBox.Show("Successfuly saving setting", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(LanguageHelper.Instance["WPF_SettingsSaved"], LanguageHelper.Instance["WPF_Success"], MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving setting: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(Language.GetString("WPF_ErrorSettings"), ex.Message), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
