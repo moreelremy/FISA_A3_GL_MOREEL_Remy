@@ -468,4 +468,10 @@
   <data name="WPF_ErrorSettings" xml:space="preserve">
     <value>Ошибка сохранения параметра: {0}.</value>
   </data>
+  <data name="WPF_ErrorLoadSettings" xml:space="preserve">
+    <value>Ошибка загрузки параметров: {0} .</value>
+  </data>
+  <data name="WPF_InvalidInput" xml:space="preserve">
+    <value>Неверная запись {0}. Пожалуйста, введите действительные цифры.</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -157,13 +158,13 @@ public ICommand ExecuteGlobalSaveCommand { get; }
                             }
                             else
                             {
-                                MessageBox.Show($"Invalid index '{i}'. Please enter a valid number.", LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
+                                MessageBox.Show(string.Format(Language.GetString("WPF_ErrorIndex"), i), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                                 return;
                             }
                         }
                         else
                         {
-                            MessageBox.Show($"Invalid input '{indexStr}'. Please enter valid numbers.", LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show(string.Format(Language.GetString("WPF_InvalidInput"), indexStr), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
                     }

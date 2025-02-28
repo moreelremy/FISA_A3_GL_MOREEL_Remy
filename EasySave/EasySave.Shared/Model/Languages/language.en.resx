@@ -469,4 +469,10 @@
   <data name="WPF_ErrorSettings" xml:space="preserve">
     <value>Error saving parameter: {0} .</value>
   </data>
+  <data name="WPF_ErrorLoadSettings" xml:space="preserve">
+    <value>Error loading parameters: {0} .</value>
+  </data>
+  <data name="WPF_InvalidInput" xml:space="preserve">
+    <value>Invalid entry {0}. Please enter valid numbers.</value>
+  </data>
 </root>

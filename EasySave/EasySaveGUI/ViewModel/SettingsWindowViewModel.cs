@@ -80,7 +80,7 @@ namespace EasySaveGUI.ViewModel
             }
             catch(Exception ex)
             {
-                MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(Language.GetString("WPF_ErrorLoadSettings"), ex.Message), LanguageHelper.Instance["WPF_Error"], MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
