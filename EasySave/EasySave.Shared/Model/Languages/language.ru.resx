@@ -249,7 +249,7 @@
   <data name="View_InvalidSelection" xml:space="preserve">
     <value>Неверный выбор. Пожалуйста, попробуйте еще раз.</value>
   </data>
-  <data name="Controller_SaveExecutionError " xml:space="preserve">
+  <data name="Controller_SaveExecutionError" xml:space="preserve">
     <value>Исходный каталог «{1}» резервной копии «{0}» не существует.</value>
   </data>
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
@@ -437,5 +437,11 @@
   </data>
   <data name="WPF_SourceTargetProblem" xml:space="preserve">
     <value>Исходная папка не может совпадать с папкой назначения.</value>
+  </data>
+  <data name="WPF_BackupCancelled" xml:space="preserve">
+    <value>Процесс резервного копирования был отменен.</value>
+  </data>
+  <data name="WPF_Stopped" xml:space="preserve">
+    <value>Остановлено</value>
   </data>
 </root>

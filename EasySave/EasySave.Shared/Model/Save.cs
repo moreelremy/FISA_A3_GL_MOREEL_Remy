@@ -102,7 +102,7 @@ public abstract class SaveStrategy
             filesSizeLeftToDo -= fileSize;
 
             // Compute progress
-            int currentProgress = totalFilesToCopy > 0 ? (int)(((float)(totalFilesToCopy - nbFilesLeftToDo) / totalFilesToCopy) * 100) : 100;
+            int currentProgress = totalFileSize > 0 ? (int)(((float)(totalFileSize - filesSizeLeftToDo) / totalFileSize) * 100) : 100;
             progressCallback?.Invoke(currentProgress);
 
 

@@ -250,7 +250,7 @@
   <data name="View_InvalidSelection" xml:space="preserve">
     <value>Sélection invalide. Veuillez réessayer.</value>
   </data>
-  <data name="Controller_SaveExecutionError " xml:space="preserve">
+  <data name="Controller_SaveExecutionError" xml:space="preserve">
     <value>Erreur lors de l'exécution de la sauvegarde '{0}'. Raison : {1}. </value>
   </data>
   <data name="Controller_DirectoryNotFoundError" xml:space="preserve">
@@ -438,5 +438,11 @@
   </data>
   <data name="WPF_SourceTargetProblem" xml:space="preserve">
     <value>Le répertoire source ne peut pas être le même que le répertoire cible.</value>
+  </data>
+  <data name="WPF_BackupCancelled" xml:space="preserve">
+    <value>Sauvegarde à été annulée</value>
+  </data>
+  <data name="WPF_Stopped" xml:space="preserve">
+    <value>Arrêt</value>
   </data>
 </root>
